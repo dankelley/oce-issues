@@ -22,8 +22,9 @@ file.  Please see the ``413`` directory for example.
 
 * The R file(s) should be named as e.g.  ``oce123.R`` for issue number 123.  If
   there is more than one R file, the names should be e.g.  ``oce123A.R``,
-  ``oce123B.R``, etc.  Please use multiple R files instead of testing many things
-  at once.  
+  ``oce123B.R``, etc.  Please use multiple R files instead of testing many
+  things at once.  Any graphics files created should be named in a way that
+  corresponds with the name of the ``*.R`` file, for ease of interpretation.
 
 * The ``README.md`` file should state briefly what the files are supposed to
   test (and especially that states what's wrong in the results).
