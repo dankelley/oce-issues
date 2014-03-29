@@ -1,18 +1,38 @@
 oce-issues
 ==========
 
-Test code for working with issues (bugs and new features) for Oce R package.
+This repository holds test code for working with issues (bugs and new features)
+for Oce R package.
 
-Directory setup and work flow
------------------------------
+Directory setup
+---------------
 
-Subdirectories here are named for issue number.  Inside each is a Makefile with
-a default target that does some test, a ``clean`` target that removes unwanted
-files, and a ``view`` target that shows any relevant image files (typically
-using ``open``, an OSX command, since the main collaborators are OSX users).
+The subdirectories are named for issue number.   Each is to test just one
+issue, with the number being as given in the [Oce issues
+webpage](https://github.com/dankelley/oce/issues?state=open).
 
-The top level has a Makefile that recursively calls Makefiles in the
+A strict naming convention is followed in these subdirectories.  Each is to
+have a ``Makefile``, one or more ``*.R`` file, and optionally a ``README.md``
+file.  Please see the ``413`` directory for example.
+
+* The Makefile should have a default target that does some test, a ``clean``
+  target that removes unwanted files, and a ``view`` target that shows any
+  relevant image files (typically using ``open``, an OSX command, since the
+  main collaborators are OSX users).
+
+* The R file(s) should be named as e.g.  ``oce123.R`` for issue number 123.  If
+  there is more than one R file, the names should be e.g.  ``oce123A.R``,
+  ``oce123B.R``, etc.  Please use multiple R files instead of testing many things
+  at once.  
+
+* The ``README.md`` file should state briefly what the files are supposed to
+  test (and especially that states what's wrong in the results).
+
+The top level has a ``Makefile`` that recursively calls Makefiles in the
 subdirectories.  
+
+Work flow
+---------
 
 Thus, the work flow for a new issue involves: (1) create a new subdirectory,
 and populate it with a Makefile (typically by copying the Makefile in another
