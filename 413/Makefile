@@ -1,4 +1,4 @@
-all: oce413A.out oce413B.out
+all: 413A.out 413B.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
