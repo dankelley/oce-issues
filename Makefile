@@ -1,4 +1,4 @@
-dirs=408 413 414 415
+dirs=406 408 412 413 414 415
 all:
 	for dir in $(dirs); do cd $$dir ; make ; cd .. ; done
 clean:
