@@ -1,0 +1,5 @@
+library(oce)
+data(section)
+if (!interactive()) png("409.png", width=5, height=5, unit="in", res=150, pointsize=10)
+plot(section, ztype="image")
+if (!interactive()) dev.off()
