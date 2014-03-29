@@ -1,4 +1,4 @@
-all: oce408.out
+all: 408.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
