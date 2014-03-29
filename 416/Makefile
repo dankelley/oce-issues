@@ -1,4 +1,4 @@
-all: 416A.out
+all: 416A.out 416B.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
