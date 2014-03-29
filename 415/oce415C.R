@@ -1,0 +1,6 @@
+if (!interactive()) pdf("oce415C.pdf")
+library(oce)
+data(adp)
+drawPalette(c(0,1), zlab='oce415C', pos=3)
+plot(1,1)
+if (!interactive()) dev.off()

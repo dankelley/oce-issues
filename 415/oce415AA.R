@@ -1,0 +1,8 @@
+library(oce)
+par(mfrow=c(1,2))
+if (!interactive()) pdf("oce415AA.pdf")
+drawPalette(c(0,1), zlab='oce415AA-1')
+plot(1,1)
+drawPalette(c(0,1), zlab='oce415AA-2')
+plot(1,1)
+if (!interactive()) dev.off()
