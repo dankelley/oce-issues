@@ -1,10 +1,10 @@
 rm(list=ls())
 library(oce)
-source('~/src/oce/R/imagep.R')
+#source('~/src/oce/R/imagep.R')
 
 load('data.rda')
 
-if (!interactive()) png('issue414.png')
+if (!interactive()) png('414.png')
 par(mfrow=c(2,1))
 
 imagep(Tg$zg, filledContour = FALSE)
