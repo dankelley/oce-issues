@@ -1,6 +1,6 @@
-if (!interactive()) png("oce413A.png", width=5, height=5, unit="in", res=150, pointsize=9)
+if (!interactive()) png("413A.png", width=5, height=5, unit="in", res=150, pointsize=9)
 library(oce)
-source('~/src/oce/R/imagep.R')
+#source('~/src/oce/R/imagep.R')
 d <- 0.14
 par(c('mai','pin','fin')) # before layout
 layout(matrix(1:4,nrow=2,byrow=TRUE), widths=c(1-d,d))
