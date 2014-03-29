@@ -1,5 +1,5 @@
 ## https://github.com/dankelley/oce/issues/412
-all: oce412.out
+all: 412.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
