@@ -20,11 +20,15 @@ file.  Please see the ``413`` directory for example.
   relevant image files (typically using ``open``, an OSX command, since the
   main collaborators are OSX users).
 
-* The R file(s) should be named as e.g.  ``oce123.R`` for issue number 123.  If
-  there is more than one R file, the names should be e.g.  ``oce123A.R``,
-  ``oce123B.R``, etc.  Please use multiple R files instead of testing many
-  things at once.  Any graphics files created should be named in a way that
-  corresponds with the name of the ``*.R`` file, for ease of interpretation.
+* The R file(s) should be named as e.g.  ``123.R`` for issue number 123.  If
+  there is more than one R file, the names should be e.g.  ``123A.R``,
+  ``123B.R``, etc.  Please use multiple R files instead of testing many things
+  at once.  Any graphics files created should be named in a way that
+  corresponds with the name of the ``*.R`` file.  If an R file produces more
+  than one file of graphical output, use dash-separated sequence numbers, e.g.
+  ``123.R`` might produce ``123-1.png``, ``123-2,png``, etc.  (Those who are
+  accustomed to programming will see that these rules simplify the task of
+  the Oce author in determining what output is created by which R file.)
 
 * The ``README.md`` file should state briefly what the files are supposed to
   test (and especially that states what's wrong in the results).
