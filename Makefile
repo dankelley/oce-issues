@@ -5,6 +5,5 @@ clean:
 	-rm *~
 	for dir in $(dirs); do cd $$dir ; make clean ; cd .. ; done
 view:
-	-open */*png
-	-open */*pdf
+	for dir in $(dirs); do cd $$dir ; make view; cd .. ; done
 

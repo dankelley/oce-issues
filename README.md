@@ -7,9 +7,12 @@ Directory setup and work flow
 -----------------------------
 
 Subdirectories here are named for issue number.  Inside each is a Makefile with
-a default target that does some test, plus a ``clean`` target that removes
-unwanted files.  The top level has a Makefile that recursively calls Makefiles
-in the subdirectories.  
+a default target that does some test, a ``clean`` target that removes unwanted
+files, and a ``view`` target that shows any relevant image files (typically
+using ``open``, an OSX command, since the main collaborators are OSX users).
+
+The top level has a Makefile that recursively calls Makefiles in the
+subdirectories.  
 
 Thus, the work flow for a new issue involves: (1) create a new subdirectory,
 and populate it with a Makefile (typically by copying the Makefile in another
