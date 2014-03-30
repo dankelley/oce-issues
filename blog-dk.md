@@ -1,5 +1,7 @@
 # 2014-03-30 How does ``layout()`` work internally?
 
+(This relates to 416.)
+
 It is time to get serious about these "figure margins too large" bugs!  This is
 a diary of what I learned exploring the code.
 
@@ -7,11 +9,11 @@ a diary of what I learned exploring the code.
 
 (In the following sections, the full path names are not used.)
 
-``R-3.0.3/src/library/graphics/src/graphics.c``
+``~/src/R-3.0.3/src/library/graphics/src/graphics.c``
 
-``src/library/graphics/src/par.R``
+``~/src/R-3.0.3/src/library/graphics/src/par.R``
 
-``src/library/graphics/R/layout.R``
+``~/src/R-3.0.3/src/library/graphics/R/layout.R``
 
 
 ## Error msg trace/cause
