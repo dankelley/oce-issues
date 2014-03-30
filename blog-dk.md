@@ -49,3 +49,16 @@ just using equal widths and heights?
 ``layout.R`` uses a call to ``.External.graphics`` to hand the low-level
 processing to ``C_layout``, defined starting at in ``par.c:1150``.  As noted in
 the comments above that line, this came from the Paul Murrell thesis.
+
+## Some trial and error
+
+A couple of hours of reading have convinced me that the C code is tricky.  (The
+comments there quote Apocalypse Now, "The Horror".)
+
+* ``416/416layout.R`` is an attempt to learn how layout() controls par("fin")
+etc.  The problem is that par("fin") before the first plot gives the width of
+the *second* plot.
+
+* ``416/416layout2.R`` uses a trick using frame() and then par(new=TRUE), which
+yields par("fin") values that make sense.
+
