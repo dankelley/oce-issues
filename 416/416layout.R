@@ -11,7 +11,7 @@ for (d in c(0.3, 0.5)) {
     plot(1:3)
     cat("  pin=", par("pin"), "before plot 2\n")
     cat("  fin=", par("fin"), "before plot 2\n")
-    plot(1:3)
+    plot(3:6)
     cat("  pin=", par("pin"), "after plot 2\n")
     cat("  fin=", par("fin"), "after plot 2\n")
     cat("\n")
