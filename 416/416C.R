@@ -2,7 +2,7 @@ rm(list=ls())
 library(oce)
 source("~/src/oce/R/imagep.R")
 
-d <- 0.3
+d <- 0.5
 
 if (!interactive()) png('416A.png')
 layout(matrix(c(1, 2), nrow=1), widths=c(1-d, d))
