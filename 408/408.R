@@ -1,6 +1,11 @@
-if (!interactive()) png("408.png", width=5, height=4, unit="in", res=150, type='cairo', pointsize=8)
+if (!interactive()) png("408-%d.png", width=5, height=4, unit="in", res=150, type='cairo', pointsize=8)
 library(oce)
 data(section)
 plot(section, xtype="longitude", ztype="image")
+plot(section, xtype="longitude", ztype="image", zcol=oceColorsPalette)
+plot(section, xtype="longitude", ztype="image", zcol=oceColorsPalette(8))
+plot(section, which=1, xtype="longitude", ztype="image", zbreaks=seq(2,25,2))
+plot(section, which=1, xtype="longitude", ztype="image", zcol=c("blue", "red"))
+plot(section, xtype="longitude")
 if (!interactive()) dev.off()
 
