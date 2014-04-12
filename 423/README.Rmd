@@ -1,0 +1,45 @@
+# Introduction
+
+I'm unable to predict the eclipse that's coming up on the 15th, nor can I get
+the one from 1970 that was in Carly Simon's song, although the latter used to
+work (in OAR).
+
+
+# Methods/results
+
+Since I don't have my textbooks with me, I'll try using an online calculator to
+get sun and moon angles and check that way.  (Probably ok.)
+
+Look for Halifax (44.8544N, 63.1992W).  At time of test (April), add 3 hours to
+local time to get UTC.
+
+## Sunrise/sunset nominally 2014 April 1 in Halifax NS
+
+A
+[calculator](http://www.timeanddate.com/worldclock/astronomy.html?n=286&month=4&year=2014&obj=sun&afl=-1&day=1)
+yields sunrise/set at times tested with vertical lines in ``423A.R``.
+
+## Sun test
+
+```{r}
+source("423A.R")
+```
+
+## Moon test
+
+A [calculator](http://www.timeanddate.com/worldclock/astronomy.html?n=286&month=4&year=2014&obj=moon&afl=-1&day=1)
+yields moonrise/set at times tested with vertical lines in ``423B.R``.
+
+```{r}
+source("423B.R")
+```
+
+# Observations
+
+Clearly something is wrong with the moon calculations.
+
+# Conclusions
+
+None yet.  May need to look at the book from which I got the formulae, for some
+test cases that will let me narrow down on the error.
+
