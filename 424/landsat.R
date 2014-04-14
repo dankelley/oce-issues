@@ -1,4 +1,4 @@
-init <- FALSE
+init <- TRUE
 library(oce)
 if (init) {
     setwd("~/Dropbox")
