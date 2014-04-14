@@ -6,7 +6,9 @@ README.html: README.md
 README.md: README.Rmd
 	R -e 'library(knitr); knit("README.Rmd")'
 
+view:
+	-open *.png
+	-open *.pdf
 clean:
-	-rm README.html
-	-rm README.md
+	-rm *~ *.pdf *.png *.out README.html README.md
 
