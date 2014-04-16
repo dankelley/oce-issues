@@ -1,0 +1,11 @@
+# Issue 427:
+
+* `rescale()` has odd behavior at end points, or
+
+* `drawPalette()` should do the work of `rescale()` to return a vector of colors according to the input parameters, e.g.
+
+```{r eval=FALSE}
+col <- drawPalette(1:10, col=oceColorsJet, breaks=seq(1, 10, 2))
+plot(1:10, col=col)
+```
+
