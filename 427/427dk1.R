@@ -7,8 +7,7 @@ calculatePalette <- function(z, breaks=pretty(z, n=20), colors=oceColorsJet)
 {
     if (missing(z))
         stop("must supply z")
-    nbreaks <- length(breaks)
-    col <- oceColorsJet(nbreaks - 1)
+    col <- oceColorsJet(length(breaks) - 1)
     list(zlim=range(z, na.rm=TRUE),
          breaks=breaks, col=col, zcol=col[findInterval(z, breaks)])
 }
