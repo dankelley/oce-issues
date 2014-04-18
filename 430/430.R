@@ -27,6 +27,6 @@ ws[is.na(ws)] <- mean(ws,na.rm=TRUE)
 wh <- waveHeight
 wh[is.na(wh)] <- mean(wh,na.rm=TRUE)
 ccf <- ccf(ws,wh)
-rug(2.5,side=3,col='red',lwd=3,ticksize=-0.03)
-
+l <- runlm(ccf$lag, ccf$acf, L=3)
+str(l)
 
