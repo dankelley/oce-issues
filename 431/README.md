@@ -1,8 +1,6 @@
 ## 431A.R
 
-Demonstrate what ``breaks`` and ``col`` mean to ``image()``.  Notice what I've
-done to create breaks.
+Test a trial method for calculating R-style breaks/col given a one-to-one
+mapping between value and colour.  The results look promising.
 
-QUESTION: is this the expected (or reasonable) behaviour for colours given the
-breeaks?
 
