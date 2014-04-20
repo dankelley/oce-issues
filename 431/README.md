@@ -21,3 +21,6 @@ Based on the above (mainly 431B.R) write colormapGMT(), which calculates breaks
 and col from the data returned from readGMT().  I suppose colormapGMT() should
 read be able to the GMT files directly, but for now I am focussing on the
 break/col calculation.
+
+... next: make colormapGMT() read files, and also have args for e.g. fill
+colour and missing color. 
