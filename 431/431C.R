@@ -22,7 +22,7 @@ colormapGMT <- function(x0, x1, col0, col1, breaksPerLevel=1)
     rval <- list(breaks=breaks, col=col)
     rval
 }
-cm <- oce:::colormap(file='http://www.beamreach.org/maps/gmt/share/cpt/GMT_globe.cpt')
+cm <- oce:::readGMT(file='http://www.beamreach.org/maps/gmt/share/cpt/GMT_globe.cpt')
 bc <- colormapGMT(cm$l, cm$u, rgb(cm$lr, cm$lg, cm$lb, max=255), rgb(cm$ur, cm$ug, cm$ub, max=255))
 
 if (!interactive()) png("431C.png")

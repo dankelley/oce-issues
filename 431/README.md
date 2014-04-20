@@ -15,4 +15,9 @@ function.) Here, set equal lower and upper colours, one per center.
 Test a trial method for calculating R-style breaks/col given a one-to-one
 mapping between value and colour.  The results look promising.
 
+## 431C.R
 
+Based on the above (mainly 431B.R) write colormapGMT(), which calculates breaks
+and col from the data returned from readGMT().  I suppose colormapGMT() should
+read be able to the GMT files directly, but for now I am focussing on the
+break/col calculation.
