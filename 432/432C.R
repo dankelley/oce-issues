@@ -1,0 +1,11 @@
+if (!interactive()) png("432C%d.png", width=7, height=7, unit="in", res=150, pointsize=12)
+## test several object types
+library(oce)
+library(maptools)
+data(ctd)
+plot(ctd)
+data(adp)
+plot(adp)
+data(adv)
+plot(adv)
+if (!interactive()) dev.off()
