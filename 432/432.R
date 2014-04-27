@@ -3,4 +3,5 @@ library(maptools)
 library(oce)
 data(ctd)
 ctd[["temperature"]]
+plot(ctd)
 if (!interactive()) dev.off()
