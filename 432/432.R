@@ -1,6 +1,6 @@
 if (!interactive()) png("432.png", width=7, height=7, unit="in", res=150, pointsize=12)
-library(oce)
 library(maptools)
+library(oce)
 data(ctd)
-plot(ctd)
+ctd[["temperature"]]
 if (!interactive()) dev.off()
