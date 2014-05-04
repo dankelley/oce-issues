@@ -6,7 +6,7 @@ l <- 1.5
 x0 <- seq(-l, l, length.out=length(col0))
 x1 <- x0 + diff(x0[1:2])
 col1 <- col0
-## source('~/src/oce/R/colors.R')
+if ("kelley"==system('whoami',intern=TRUE)) source('~/src/oce/R/colors.R')
 data(adp)
 par(mfrow=c(2,2))
 for (n in 1:4) {
