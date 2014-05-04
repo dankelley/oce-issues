@@ -1,4 +1,4 @@
-if (!interactive()) png("435B.R", width=7, height=7, unit="in", res=150, pointsize=12)
+if (!interactive()) png("435B.png", width=7, height=7, unit="in", res=150, pointsize=12)
 library(RColorBrewer)
 col0 <- brewer.pal(7, 'RdBu')
 library(oce)
