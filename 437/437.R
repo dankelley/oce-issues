@@ -1,0 +1,11 @@
+library(oce)
+source('~/src/oce/R/colors.R')
+cm1 <- Colormap(name='test1.cpt')
+cm2 <- Colormap(name='test2.cpt')
+cm3 <- Colormap(name='test3.cpt')
+cm4 <- Colormap(name='test4.cpt')
+print(cm1$missingColor)
+print(cm2$missingColor)
+print(cm3$missingColor)
+print(cm4$missingColor)
+
