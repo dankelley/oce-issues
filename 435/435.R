@@ -1,24 +1,34 @@
+rm(list=ls())
 if (!interactive()) png("435.png", width=7, height=7, unit="in", res=150, pointsize=12)
-library(RColorBrewer)
-pal <- brewer.pal(7, 'RdBu')
+
 library(oce)
-l <- 1.5
-x0 <- seq(-l, l, length.out=-1+length(pal))
-x1 <- x0 + diff(x0[1:2])
+library(RColorBrewer)
+N <- 7
+pal <- brewer.pal(N, 'RdBu')
+xlim <- 1.5
+dx <- 2 * xlim / (N - 1)
+x <- seq(from=-xlim, by=dx, length.out=length(pal))
+x0 <- head(x, -1)
+x1 <- tail(x, -1)
 col0 <- head(pal, -1)
 col1 <- tail(pal, -1)
-## source("~/src/oce/R/colors.R')
+if ("kelley"==system('whoami',intern=TRUE)) source('~/src/oce/R/colors.R')
 data(adp)
 par(mfrow=c(2,2))
-for (n in 1:4) {
-    cm <- Colormap(x0=x0, x1=x0, col0=col0, col1=col1, n=n, debug=3)
-    plot(adp, zlim=c(-l, l), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
-    for (i in seq_along(col0)) {
-        points(adp[["time"]][20], 4+5*i, pch=21, cex=2.5, bg=col0[i])
-        points(adp[["time"]][30], 4+5*i, pch=21, cex=2.5, bg=col1[i])
+par(mfrow=c(1,1))
+for (n in 1) {#:4) {
+    cm <- Colormap(x0=x0, x1=x0, col0=col0, col1=col1, debug=1, blend=1)
+    plot(adp, zlim=c(-xlim, xlim), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
+    for (i in seq_along(cm$col)) {
+        points(adp[["time"]][10], 4+3*i, pch=21, cex=2.5, bg=cm$col[i])
     }
-    points(adp[["time"]][10], 4+5*1, pch=21, cex=2.5, bg=cm$col[1])
-    points(adp[["time"]][40], 4+5*length(col0), pch=21, cex=2.5, bg=tail(cm$col,1))
+    for (i in seq_along(cm$col0)) {
+        points(adp[["time"]][20], 4+3*i, pch=21, cex=2.5, bg=cm$col0[i])
+        points(adp[["time"]][30], 4+3*i, pch=21, cex=2.5, bg=cm$col1[i])
+    }
+    text(adp[["time"]][10], 5, "col")
+    text(adp[["time"]][20], 5, "col0")
+    text(adp[["time"]][30], 5, "col1")
 }
 if (!interactive()) dev.off()
 
