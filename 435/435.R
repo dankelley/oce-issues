@@ -26,9 +26,10 @@ for (n in 1) {#:4) {
         points(adp[["time"]][20], 4+3*i, pch=21, cex=2.5, bg=cm$col0[i])
         points(adp[["time"]][30], 4+3*i, pch=21, cex=2.5, bg=cm$col1[i])
     }
-    text(adp[["time"]][10], 5, "col")
-    text(adp[["time"]][20], 5, "col0")
-    text(adp[["time"]][30], 5, "col1")
+    text(adp[["time"]][10], 5, "col", font=2)
+    text(adp[["time"]][20], 5, "col0", font=2)
+    text(adp[["time"]][30], 5, "col1", font=2)
 }
 if (!interactive()) dev.off()
+message("issue 435: col misses *both* endpoints")
 
