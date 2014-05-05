@@ -17,7 +17,7 @@ data(adp)
 par(mfrow=c(2,2))
 par(mfrow=c(1,1))
 for (n in 1) {#:4) {
-    cm <- Colormap(x0=x0, x1=x0, col0=col0, col1=col1, debug=1, blend=1)
+    cm <- Colormap(x0=x0, x1=x0, col0=col0, col1=col1, debug=1, blend=1/2)
     plot(adp, zlim=c(-xlim, xlim), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
     for (i in seq_along(cm$col)) {
         points(adp[["time"]][10], 4+3*i, pch=21, cex=2.5, bg=cm$col[i])
@@ -31,5 +31,5 @@ for (n in 1) {#:4) {
     text(adp[["time"]][30], 5, "col1", font=2)
 }
 if (!interactive()) dev.off()
-message("issue 435: col misses *both* endpoints")
+message("issue 435: seems fine now on blend=0, blend=1, blend=1/2 NOT CODED for blend>1")
 
