@@ -1,4 +1,4 @@
-all: 435.out
+all: 435.out 435B.out 435C.out
 %.out:%.R
 	R --no-save < $< > $@
 clean:
