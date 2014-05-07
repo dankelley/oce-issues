@@ -12,10 +12,9 @@ x0 <- head(x, -1) ## -1.5 -1.0 -0.5  0.0  0.5  1.0
 x1 <- tail(x, -1) ## -1.0 -0.5  0.0  0.5  1.0  1.5
 col0 <- head(pal, -1)
 col1 <- tail(pal, -1)
-try(source('~/src/oce/R/colors.R'), silent=TRUE)
 data(adp)
 for (blend in 40) {
-    cm <- Colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
+    cm <- colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
     plot(adp, zlim=c(-xlim, xlim), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
 }
 if (!interactive()) dev.off()

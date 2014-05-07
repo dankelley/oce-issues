@@ -12,12 +12,11 @@ x0 <- head(x, -1)
 x1 <- tail(x, -1)
 col0 <- head(pal, -1)
 col1 <- tail(pal, -1)
-try(source('~/src/oce/R/colors.R'), silent=TRUE)
 data(adp)
 par(mfrow=c(3,1))
 for (blend in c(0, 0.5, 1)) {
     for (n in 1) {
-        cm <- Colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
+        cm <- colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
         cat("x0", x0, "\n")
         cat("x1", x1, "\n")
         cat("cm$x0", cm$x0, "\n")

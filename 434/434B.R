@@ -1,8 +1,7 @@
 if (!interactive()) png("434B.png", width=7, height=7, unit="in", res=150, pointsize=12)
 
 library(oce)
-if ("kelley"==system('whoami',intern=TRUE)) source('~/src/oce/R/colors.R')
-cm <- Colormap(name="gmt_globe")
+cm <- colormap(name="gmt_globe")
 
 par(mfrow=c(2,1))
 par(mar=c(3,3,1,1))

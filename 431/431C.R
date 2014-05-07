@@ -18,8 +18,8 @@ if (OLD) { # code before the "Colormap" renaming to "colormap".
     imagep(topoWorld, breaks=c1$breaks, col=c1$col)
     imagep(topoWorld, breaks=c2$breaks, col=c2$col)
 } else {
-    cm1 <- Colormap(name='gmt_relief')
-    cm2 <- Colormap(name='http://www.beamreach.org/maps/gmt/share/cpt/GMT_globe.cpt')
+    cm1 <- colormap(name='gmt_relief')
+    cm2 <- colormap(name='http://www.beamreach.org/maps/gmt/share/cpt/GMT_globe.cpt')
     par(mfrow=c(2,1))
     imagep(topoWorld, breaks=cm1$breaks, col=cm1$col)
     imagep(topoWorld, breaks=cm2$breaks, col=cm2$col)

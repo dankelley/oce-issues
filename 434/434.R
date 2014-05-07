@@ -2,8 +2,7 @@ if (!interactive()) png("434.png", width=5, height=3, unit="in", res=150, points
 
 library(oce)
 data(topoWorld)
-try(source('~/src/oce/R/colors.R'), silent=TRUE)
-cm <- Colormap(name="gmt_globe", debug=3)
+cm <- colormap(name="gmt_globe", debug=3)
 imagep(topoWorld, breaks=cm$breaks, col=cm$col)
 
 if (!interactive()) dev.off()
