@@ -1,5 +1,5 @@
 library(oce)
-##source('~/src/oce/R/colors.R')
+source('~/src/oce/R/colors.R')
 set.seed(441)
 z <- rnorm(20)
 
@@ -18,6 +18,11 @@ cm3 <- colormap(z=z, zlim=c(-5, 5), breaks=seq(0, 3, 0.1))
 stopifnot(all.equal(cm3$zlim, c(-5, 5)))
 cm4 <- colormap(z=z, name="gmt_globe")
 stopifnot(all.equal(cm4$zlim, c(-10000, 10000)))
+
+x <- seq(0, 1, length.out=40)
+y <- sin(2 * pi * x)
+cm5 <- colormap(y, breaks=100)
+stopifnot(all.equal(cm5$zlim, range(y)))
 
 ## Below should rais an error, and it does, so no need to interrupt the flow
 ## here with an error!
