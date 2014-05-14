@@ -82,11 +82,11 @@ stopifnot(!any(is.na(cm$zcol)))
 cm <- colormap(z=z, x0=c(0,1), col0=c('red', 'blue'), x1=c(0.5, 1.5), col1=c("pink", "green"))
 stopifnot(length(cm$breaks) == 1 + length(cm$col))
 stopifnot(all.equal(cm$zlim, ZLIM))
-stopifnot(!any(is.na(cm$zcol)))        # FIXME
+stopifnot(!any(is.na(cm$zcol)))
 cm <- colormap(z, zlim=c(-10,10), x0=c(0,1), col0=c('red', 'blue'), x1=c(0.5, 1.5), col1=c("pink", "green"))
 stopifnot(length(cm$breaks) == 1 + length(cm$col))
 stopifnot(all.equal(cm$zlim, c(-10, 10)))
-stopifnot(!any(is.na(cm$zcol)))        # FIXME
+stopifnot(!any(is.na(cm$zcol)))
 
 ## Below should raise an error, and it does, so no need to interrupt the flow
 ## here with an error!
