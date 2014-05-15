@@ -1,5 +1,5 @@
 library(oce)
-source('~/src/oce/R/colors.R')
+## source('~/src/oce/R/colors.R')
 set.seed(441)
 z <- rnorm(20)
 
