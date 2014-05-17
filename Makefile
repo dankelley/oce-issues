@@ -13,6 +13,6 @@ clean:
 	for dir in $(dirs); do cd $$dir ; make clean ; cd .. ; done
 view:
 	for dir in $(dirs); do cd $$dir ; make view ; cd .. ; done
-viewcolormap:
+colormapview:
 	for dir in $(colormapdirs); do cd $$dir ; make view ; cd .. ; done
 
