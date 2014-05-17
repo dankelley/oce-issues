@@ -20,7 +20,7 @@ abline(h=zline)
 mtext("1: colormap(p, breaks=seq(38.5, 40.5, 0.5))", side=3, cex=3/4)
 #mtext(sprintf("looks BAD to DK (range of palette should be %.2f to %.2f)", zlim[1], zlim[2]),
 #      side=3, line=-1, font=2, cex=3/4)
-mtext("looks ???  to DK", side=3, line=-1, font=2, cex=3/4)
+mtext("looks  OK  to DK", side=3, line=-1, font=2, cex=3/4)
 mtext("looks OK to CR", side=3, line=-2, font=2, cex=3/4)
 
 par(mar=omar)
@@ -30,7 +30,7 @@ drawPalette(colormap=cm2, debug=0)
 plot(t, p, type='p', pch=21, cex=1.5, bg=cm2$zcol) 
 abline(h=zline)
 mtext(paste("2: colormap(p, zlim=c(", zlim[1], ",", zlim[2], "), breaks=5)"), side=3, cex=3/4)
-mtext("looks ??? to DK", side=3, line=-1, font=2, cex=3/4)
+mtext("looks  OK to DK", side=3, line=-1, font=2, cex=3/4)
 mtext("looks OK to CR", side=3, line=-2, font=2, cex=3/4)
 
 par(mar=omar)
