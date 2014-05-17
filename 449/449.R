@@ -42,12 +42,12 @@ mtext("TEST 4 (zclip=TRUE)", side=3)
 
 if (!interactive()) dev.off()
 
-message("CR: problem in colors (and colorbars) in tests 2 and 4 though -- it
-        spans the whole range of the data rather than the specified zlim.")
-
-message("CR: tests 1 and 2 should look identical, as should tests 3 and 4
-        (except for the pink).")
-
-message("CR: error in grey dots near p=40 (at the beginning of the series) in
-        test 1")
+## message("CR: problem in colors (and colorbars) in tests 2 and 4 though -- it
+##         spans the whole range of the data rather than the specified zlim.")
+## 
+## message("CR: tests 1 and 2 should look identical, as should tests 3 and 4
+##         (except for the pink).")
+## 
+## message("CR: error in grey dots near p=40 (at the beginning of the series) in
+##         test 1")
 

@@ -15,7 +15,7 @@ col1 <- tail(pal, -1)
 data(adp)
 for (blend in 40) {
     cm <- colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
-    plot(adp, zlim=c(-xlim, xlim), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
+    plot(adp, which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
 }
 if (!interactive()) dev.off()
 ## check for uniformity

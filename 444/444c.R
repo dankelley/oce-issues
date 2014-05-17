@@ -4,8 +4,8 @@ library(oce)
 data(adp)
 t <- adp[['time']]
 p <- adp[['pressure']]
-#source('~/src/oce/R/oce.R')
-#source('~/src/oce/R/imagep.R')
+try(source('~/src/oce/R/oce.R'), silent=TRUE)
+try(source('~/src/oce/R/imagep.R'), silent=TRUE)
 omar <- par('mar')
 par(mfrow=c(2,1))
 drawPalette(p, col=oceColorsJet)

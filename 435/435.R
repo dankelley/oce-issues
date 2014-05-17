@@ -1,6 +1,9 @@
 rm(list=ls())
 if (!interactive()) png("435.png", width=7, height=7, unit="in", res=150, pointsize=12)
 
+# source("~/src/oce/R/imagep.R")
+# source("~/src/oce/R/adp.R")
+
 library(oce)
 library(RColorBrewer)
 N <- 7
@@ -21,8 +24,7 @@ for (blend in c(0, 0.5, 1)) {
         cat("x1", x1, "\n")
         cat("cm$x0", cm$x0, "\n")
         cat("cm$x1", cm$x1, "\n")
-        str(cm)
-        plot(adp, zlim=c(-xlim, xlim), which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
+        plot(adp, which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
         for (i in seq_along(cm$col)) {
             points(adp[["time"]][10], 4+6*i, pch=21, cex=2.5, bg=cm$col[i])
         }
