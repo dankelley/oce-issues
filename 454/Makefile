@@ -1,4 +1,4 @@
-all: 454.out
+all: 454.out 454b.out
 %.out:%.R
 	R --no-save < $< > $@
 clean:
