@@ -1,0 +1,20 @@
+//<SDN_REFERENCES>doi:10.5285/41479c42-4dfb-4da9-be97-4c532ce13922																
+//SDN_parameter_mapping																
+//<subject>SDN:LOCAL:Depth</subject><object>SDN:P01::ADEPZZ01</object><units>SDN:P06::ULAA</units>																
+//<subject>SDN:LOCAL:Temperature</subject><object>SDN:P01::TEMPS901</object><units>SDN:P06::UPAA</units>																
+//<subject>SDN:LOCAL:Salinity</subject><object>SDN:P01::PSALST01</object><units>SDN:P06::UUUU</units>																
+//<subject>SDN:LOCAL:Oxygen</subject><object>SDN:P01::DOXYCZ01</object><units>SDN:P06::KGUM</units>																
+//																
+Cruise	Station	Type	yyyy-mm-ddThh:mm:ss.sss	Longitude [degrees_east]	Latitude [degrees_north]	LOCAL_CDI_ID	EDMO_code	Bot. Depth [m]	Depth [m]	QV:SEADATANET	Temperature [ｰC]	QV:SEADATANET	Salinity [psu]	QV:SEADATANET	Oxygen [~$m~#mol/kg]	QV:SEADATANET
+SAVE_LG3	135	B	1988-02-14T00:00:00.000	-6.803	-29.642	NODB_1041	43	4235	8.9354	1	24.27	1	35.846	1	215	1
+									59.562	1	18.893	1	35.748	1	246.5	1
+									98.269	1	17.443	1	35.686	1	239.8	1
+									123.08	1	16.818	1	35.624	1	231.6	1
+									168.72	1	15.421	1	35.456	1	222.8	1
+SAVE_LG3	136	B	1988-02-15T00:00:00.000	-5.034	-30.017	NODB_1042	43	4646	5.9568	1	24.243	1	35.838	1	216.3	1
+									23.826	1	23.766	1	35.782	1	219.3	1
+									38.716	1	21.516	1	35.739	1	238.8	1
+									65.516	1	18.702	1	35.662	1	247.3	1
+									99.259	1	17.427	1	35.63	1		9
+									147.88	1	16.367	1	35.525	1	230.7	1
+									195.5	1	15.223	1	35.367	1	223.2	1
