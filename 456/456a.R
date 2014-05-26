@@ -1,3 +1,4 @@
+if (!interactive()) pdf("456a_%d.pdf")
 library(oce)
 # http://www.seadatanet.org/content/download/9752/65735/file/Examples%20of%20SeaDataNet%20variant%20ODV%20spreadsheet-based%20import%20format.xls
 file <- "profile.odv"
@@ -40,3 +41,4 @@ section <- makeSection(ctd)
 plot(section[["station", 1]])
 plot(section[["station", 2]])
 
+if (!interactive()) dev.off()
