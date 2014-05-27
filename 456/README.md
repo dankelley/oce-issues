@@ -6,6 +6,8 @@
 open in excel, and copy/paste the relevant CTD sheet to a local file named
 ``profile.odv``.
 
+* data/ acquired from (??)
+
 # 456a.R
 
 Simple file to test ideas.
