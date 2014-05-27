@@ -16,5 +16,10 @@ Start making the code be more like ``read.ctd.sbe()`` for example.  (That is, ge
 
 # 456c.R
 
-As 456b.R but with a real dataset, not just the sample.
+Extends 456b.R with more general code.  Note that the ODF format is not as
+fixed as some documentation led me to believe, e.g. the BIO data in data/ have
+different names for temperature than the profile.odv file.
 
+# 456d.R
+
+As 456c.R but with BIO data.

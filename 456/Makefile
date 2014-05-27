@@ -1,4 +1,4 @@
-all: 456a.out 456b.out 456c.out
+all: 456a.out 456b.out 456c.out 456d.out
 %.out: %.R
 	-R --no-save < $< > $@ 2>&1
 clean:

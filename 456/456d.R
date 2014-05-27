@@ -1,4 +1,4 @@
-if (!interactive()) pdf("456c.pdf", pointsize=11)
+if (!interactive()) pdf("456d.pdf", pointsize=11)
 library(oce)
 
 rename <- function(names, patterns, replacement, debug=getOption("oceDebug"))
@@ -64,7 +64,7 @@ read.ctd.odv <- function(file, columns=NULL, station=NULL, missing.value,
     ctd                                # a list containing CTD profiles
 }
 
-ctdList <- read.ctd.odv("profile.odv", debug=0)
+ctdList <- read.ctd.odv("data/1081226_20140521_002009.txt", debug=0)
 for (ctd in ctdList)
     plot(ctd)
 
