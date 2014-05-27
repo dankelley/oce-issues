@@ -1,4 +1,4 @@
-if (!interactive()) pdf("456b_%d.pdf")
+if (!interactive()) pdf("456b.pdf")
 library(oce)
 ## http://www.seadatanet.org/content/download/9752/65735/file/Examples%20of%20SeaDataNet%20variant%20ODV%20spreadsheet-based%20import%20format.xls
 read.ctd.odv <- function(file, columns=NULL, station=NULL, missing.value,

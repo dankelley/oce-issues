@@ -1,5 +1,18 @@
-if (!interactive()) pdf("456c_%d.pdf", pointsize=9)
+if (!interactive()) pdf("456c.pdf", pointsize=9)
 library(oce)
+
+rename <- function(names, patterns, replacement)
+{
+    for (pattern in patterns) {
+        matches <- grep(pattern, names)
+        if (1 == length(matches)) {
+            names[matches[1]] <- replacement
+            break
+        }
+    }
+    names
+}
+
 read.ctd.odv <- function(file, columns=NULL, station=NULL, missing.value,
                          monitor=FALSE, debug=getOption("oceDebug"), processingLog, ...)
 {
@@ -14,29 +27,21 @@ read.ctd.odv <- function(file, columns=NULL, station=NULL, missing.value,
         stop("Cannot find a line starting with 'Cruise' in data file")
     dataLines <- lines[seq.int(dataStart+1, nlines)]
     names <- strsplit(lines[dataStart], '\t')[[1]]
-    rename <- function(names, name, alt) {
-        for (a in alt) {
-            if (a %in% names) {
-                names[which(a == names)] <- name
-                break
-            }
-        }
-        names
-    }
-    names <- rename(names, "Temperature", "Cal_CTD_Temp [degC]")
-    names <- rename(names, "Pressure", "Pres_Z [dbar]")
-    names <- rename(names, "Salinity", "P_sal_CTD_calib [Dmnless]")
-    names <- rename(names, "Oxygen", "WC_dissO2_uncalib [umol/l]")
-    if (1==length(grep("^Depth", names))) names[grep("^Depth", names)] <- "Depth"
-    if (1==length(grep("^Latitude", names))) names[grep("^Latitude", names)] <- "Latitude"
-    if (1==length(grep("^Longitude", names))) names[grep("^Longitude", names)] <- "Longitude"
+    names <- rename(names, ".*CTD_Temp.*", "temperature")# "Cal_CTD_Temp [degC]")
+    names <- rename(names, ".*Pres.*", "pressure") # "Pres_Z [dbar]")
+    names <- rename(names, ".*sal.*", "salinity") #"P_sal_CTD_calib [Dmnless]")
+    names <- rename(names, ".O2.*", "oxygen") #"WC_dissO2_uncalib [umol/l]")
+    names <- rename(names, "^Depth", "depth")
+    names <- rename(names, "^Latitude", "latitude")
+    names <- rename(names, "^Longitude", "longitude")
+    names <- rename(names, "[Ss]tation", "station")
     oceDebug(debug, 'data names: c(\"', paste(names, sep='", "'), ")\n")
 
     nlines <- length(dataLines)
     data <- read.table(text=dataLines, header=FALSE, sep='\t', col.names=names, stringsAsFactors=FALSE)
     cruise <- as.character(data[1,1])
     ## break up into stations
-    stationStart <- which(0 < nchar(data$Station))
+    stationStart <- which(0 < nchar(data$station))
     nstation <- length(stationStart)
     if (nstation > 1)
         stationEnd <- c(stationStart[-1]-1, nlines)
@@ -46,21 +51,20 @@ read.ctd.odv <- function(file, columns=NULL, station=NULL, missing.value,
     for (i in 1:nstation) {
         oceDebug(debug, "station", i, "@", stationStart[i], ":", stationEnd[i], '\n')
         d <- data[stationStart[i]:stationEnd[i],]
-        station <- as.character(d$Station[1])
-        latitude <- as.numeric(d$Latitude[1])
-        longitude <- as.numeric(d$Longitude[1])
-        pressure <- if ("Pressure" %in% names) d$Pressure else swPressure(d$Depth, latitude=latitude)
-        salinity <- d$Salinity
-        temperature <- d$Temperature
+        station <- as.character(d$station[1])
+        latitude <- as.numeric(d$latitude[1])
+        longitude <- as.numeric(d$longitude[1])
+        pressure <- if ("pressure" %in% names) d$pressure else swPressure(d$depth, latitude=latitude)
+        salinity <- d$salinity
+        temperature <- d$temperature
         ctd[i] <- as.ctd(salinity=salinity, temperature=temperature, pressure=pressure,
-                         oxygen=d$Oxygen,
-                         longitude=longitude, latitude=latitude, station=station)
+                         oxygen=d$oxygen, longitude=longitude, latitude=latitude, station=station)
     }
     ctd                                # a list containing CTD profiles
 }
 
-ctdList <- read.ctd.odv("data/1081226_20140521_002009.txt", debug=0)
+ctdList <- read.ctd.odv("data/1081226_20140521_002009.txt", debug=3)
 for (ctd in ctdList)
-plot(ctd)
+    plot(ctd)
 
 if (!interactive()) dev.off()

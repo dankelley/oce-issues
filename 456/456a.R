@@ -1,4 +1,4 @@
-if (!interactive()) pdf("456a_%d.pdf")
+if (!interactive()) pdf("456a.pdf")
 library(oce)
 # http://www.seadatanet.org/content/download/9752/65735/file/Examples%20of%20SeaDataNet%20variant%20ODV%20spreadsheet-based%20import%20format.xls
 file <- "profile.odv"
