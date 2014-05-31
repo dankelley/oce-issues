@@ -22,40 +22,12 @@ xm <- lm(x~lon+lat+lon*lat)
 ym <- lm(y~lon+lat+lon*lat)
 cat("x model misfit:", sd(x-predict(xm)), "\n")
 cat("y model misfit:", sd(y-predict(ym)), "\n")
+message("above means we can convert lon-lat to x-y.")
 cat("lat quirkiness", round(100*sd(lat)/mean(lat), 2), "%\n")
 
 ## OK, those functions fit perfectly (well, no surprise)
 ## so all we need is a conversion from UTM (x,y) back to
 ## lon and lat.
-
-## Below from mapx library, utm to latlon
-## int inverse_transverse_mercator(mapx_class *current,
-## 				double x, double y, double *lat, double *lon)
-## {
-##   double phi, lam, f, sinh_x, d, cos_d, alpha;
-## 
-##   x -= current->false_easting;
-##   y -= current->false_northing;
-## 
-##   f = exp(x / current->Rg);
-##   sinh_x = 0.5 * (f - 1 / f);
-##   d = RADIANS(current->lat0) + y / current->Rg;
-##   cos_d = cos(d);
-##   alpha = sqrt((1.0 - cos_d * cos_d) / (1.0 + sinh_x * sinh_x));
-##   phi = asinz(alpha);
-##   if (d < 0.0)
-##     phi = -phi;
-##   if (sinh_x == 0.0 && cos_d == 0)
-##     lam = 0.0;
-##   else
-##     lam = atan2(sinh_x, cos_d);
-## 
-##   *lat = DEGREES(phi);
-##   *lon = DEGREES(lam) + current->lon0;
-##   NORMALIZE(*lon);
-##   
-##   return 0;
-## }
 
 ## In our sample: UTM datum WGS84, zone 20 with 15m cell size panchromatic.
 ## Test data:
@@ -106,3 +78,5 @@ lonError <- 111e3*(lonlat$longitude - lonExpected) # roughly in m
 latError <- 111e3*(lonlat$latitude - latExpected) # roughly in m
 cat("Longitude: ", lonlat$longitude, ", expected:", lonExpected, ", error:", round(lonError, 1), "m, approx\n")
 cat("Latitude:  ", lonlat$latitude,  ", expected:", latExpected, ", error:", round(latError, 1), "m, approx\n")
+message("code lonlat2utm next; include in R/map.R for general use")
+
