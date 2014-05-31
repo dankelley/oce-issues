@@ -1,12 +1,5 @@
-figure
-.DS_Store
+README.html
 *.out
-*.~
-*~
-*swp
 *.png
 *.pdf
-*.jpg
-.Rhistory
-
-*.rda
+*swp
