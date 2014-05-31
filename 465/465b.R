@@ -1,3 +1,4 @@
+rm(list=ls())
 if (!interactive()) png("465b.png")
 h <- readLines("LC80060292013272LGN00/LC80060292013272LGN00_MTL.txt")
 corners <- h[grep("^\\s*CORNER.*(LON)|(LAT)", h)] 
@@ -35,22 +36,59 @@ cat("lat quirkiness", round(100*sd(lat)/mean(lat), 2), "%\n")
 ##    CORNER_UR_LON_PRODUCT = -59.56594
 ##     CORNER_UR_PROJECTION_X_PRODUCT = 767700.000
 ##     CORNER_UR_PROJECTION_Y_PRODUCT = 5058000.000
-latExpected <- 45.62391
-lonExpected <- -59.56594
-northing <- 5058000.000 / 1000
-easting <- 767700.000 / 1000
+##    UTM_ZONE = 20
+longitude <- -59.56594
+latitude <- 45.62391
+easting <- 767700.000 / 1000           # convert to km
+northing <- 5058000.000 / 1000         # convert to km
 zone <- 20
 
 ## Below from [wikipedia](http://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system)
+lonlat2utm <- function(longitude, latitude)
+{
+    longitude <- ifelse(longitude < 0, longitude+360, longitude)
+    cat("longitude:", longitude, "\n")
+    rpd <- atan2(1, 1) / 45
+    lambda <- longitude * rpd
+    phi <- latitude * rpd
+    a <- 6378.137                          # earth radius in WSG84 (in km for these formulae)
+    f <- 1 / 298.257223563                 # flatening
+    n <- f / (2 - f)
+    A <- (a / (1 + n)) * (1 + n^2/4 + n^4/64)
+    t <- sinh(atanh(sin(phi)) - (2*sqrt(n))/(1+n) * atanh((2*sqrt(n))/(1+n)*sin(phi)))
+    zone <- floor((180+longitude)/6)  # FIXME: this works for zone but not positive its ok
+    cat("zone:", zone, "\n")
+    lambda0 <- rpd * (zone * 6 - 183)
+    cat("lambda0:", lambda0, "rad = ", lambda0/rpd, "deg\n")
+    xiprime <- atan(t / cos(lambda - lambda0))
+    etaprime <- atanh(sin(lambda - lambda0) / sqrt(1 + t^2))
+    alpha1 <- (1/2)*n - (2/3)*n^2 + (5/16)*n^3
+    alpha2 <- (13/48)*n^2 - (3/5)*n^3
+    alpha3 <- (61/240)*n^3
+    ## sigma and taul needed only if calculating k and gamma, which we are not.
+    ## sigma <- 1 + 2*(  alpha1*cos(2*xiprime)*cosh(2*etaprime) +
+    ##                 2*alpha2*cos(4*xiprime)*cosh(4*etaprime) +
+    ##                 3*alpha3*cos(6*xiprime)*cosh(6*etaprime))
+    ## tau <-       2*(  alpha1*sin(2*xiprime)*sinh(2*etaprime) +
+    ##                 2*alpha2*sin(4*xiprime)*sinh(4*etaprime) +
+    ##                 3*alpha3*sin(6*xiprime)*sinh(6*etaprime))
+    k0 <- 0.9996
+    E0 <- 500                              # km
+    E <- E0 + k0 * A * (etaprime + (alpha1*cos(2*xiprime)*sinh(2*etaprime)+
+                                    alpha2*cos(4*xiprime)*sinh(4*etaprime)+
+                                    alpha3*cos(6*xiprime)*sinh(6*etaprime)))
+    N0 <- ifelse(latitude>0, 0, 10000)
+    N <- N0 + k0 * A * (xiprime  + (alpha1*sin(2*xiprime)*cosh(2*etaprime)+
+                                    alpha2*sin(4*xiprime)*cosh(4*etaprime)+
+                                    alpha3*sin(6*xiprime)*cosh(6*etaprime)))
+    list(easting=E, northing=N)
+}
 utm2lonlat <- function(northing, easting, zone, hemisphere="N") 
 {
     a <- 6378.137                          # earth radius in WSG84 (in km for these formulae)
     f <- 1 / 298.257223563                 # flatening
     n <- f / (2 - f)
     A <- (a / (1 + n)) * (1 + n^2/4 + n^4/64)
-    alpha1 <- (1/2)*n - (2/3)*n^2 + (5/16)*n^3
-    alpha2 <- (13/48)*n^2 - (3/5)*n^3
-    alpha3 <- (61/240)*n^3
     beta1 <- (1/2)*n - (2/3)*n^2 + (37/96)*n^3
     beta2 <- (1/48)*n^2 + (1/15)*n^3
     beta3 <- (17/480)*n^3
@@ -64,19 +102,21 @@ utm2lonlat <- function(northing, easting, zone, hemisphere="N")
     eta <- (easting - E0) / (k0 * A)
     xiprime <-   xi -   (beta1*sin(2*xi)*cosh(2*eta) +  beta2*sin(4*xi)*cosh(4*eta) +  beta3*sin(6*xi)*cosh(6*eta))
     etaprime <- eta -   (beta1*cos(2*xi)*sinh(2*eta) +  beta2*cos(4*xi)*sinh(4*eta) +  beta3*cos(6*xi)*sinh(6*eta))
-    sigmaprime <- 1 - 2*(beta1*cos(2*xi)*cosh(2*eta) +2*beta2*cos(4*xi)*cosh(4*eta) +3*beta3*cos(6*xi)*cosh(6*eta))
-    tauprime <-       2*(beta1*sin(2*xi)*sinh(2*eta) +2*beta2*sin(4*xi)*sinh(4*eta) +3*beta3*sin(6*xi)*sinh(6*eta))
+    ## sigmaprime and tauprime not needed in present calculation
+    ##sigmaprime <- 1 - 2*(beta1*cos(2*xi)*cosh(2*eta) +2*beta2*cos(4*xi)*cosh(4*eta) +3*beta3*cos(6*xi)*cosh(6*eta))
+    ##tauprime <-       2*(beta1*sin(2*xi)*sinh(2*eta) +2*beta2*sin(4*xi)*sinh(4*eta) +3*beta3*sin(6*xi)*sinh(6*eta))
     chi <- asin(sin(xiprime)/cosh(etaprime)) # Q: in deg or radian?
     phi <- chi + (delta1*sin(2*chi) + delta2*sin(4*chi) + delta3*sin(6*chi))
-    latitude <- 180 * phi / pi
-    lambda0 <- zone * 6 - 183              # this offset is weird but apparently true
-    longitude <- lambda0 + 180/pi*atan(sinh(etaprime) / cos(xiprime))
+    latitude <- 45 * phi / atan2(1, 1)
+    lambda0 <- zone * 6 - 183
+    longitude <- lambda0 + 45/atan2(1,1)*atan(sinh(etaprime) / cos(xiprime))
     list(longitude=longitude, latitude=latitude)
 }
 lonlat <- utm2lonlat(northing, easting, zone, "N")
-lonError <- 111e3*(lonlat$longitude - lonExpected) # roughly in m
-latError <- 111e3*(lonlat$latitude - latExpected) # roughly in m
-cat("Longitude: ", lonlat$longitude, ", expected:", lonExpected, ", error:", round(lonError, 1), "m, approx\n")
-cat("Latitude:  ", lonlat$latitude,  ", expected:", latExpected, ", error:", round(latError, 1), "m, approx\n")
-message("code lonlat2utm next; include in R/map.R for general use")
-
+lonError <- 111e3*(lonlat$longitude - longitude) # roughly in m
+latError <- 111e3*(lonlat$latitude - latitude) # roughly in m
+cat("Longitude: ", lonlat$longitude, ", expected:", longitude, ", error:", round(lonError, 1), "m, roughly\n")
+cat("Latitude:  ", lonlat$latitude,  ", expected:", latitude, ", error:", round(latError, 1), "m, roughly\n")
+utm <- lonlat2utm(lonlat$longitude, lonlat$latitude)
+cat("Easting: ", utm$easting, "km, expected:", easting, "km, error:", utm$easting-easting, "\n")
+cat("Northing:  ", utm$northing,  "km, expected:", northing, "km, error:", utm$northing-northing, "\n")
