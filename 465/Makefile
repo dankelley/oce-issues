@@ -1,4 +1,4 @@
-all: 465a.out README.html
+all: 465a.out 465b.out README.html
 %.out:%.R
 	R --no-save < $< > $@
 %.html:%.md

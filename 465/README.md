@@ -18,10 +18,8 @@ graph.
 
 # 465b.R
 
-Contains code to convert from northing/easting to lat/lon.  Tested on these
-data, the formula work to under a metre, which (along with careful checking)
-suggests I typed in the formulae correctly.  There are lots of alternative
-formulae; I used ones from wikipedia.
+The two panels suggest that the problem is not in trimming, but rather in the
+lat-lon coordinates overall.
 
 # References
 * [wikipedia](http://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system#From_UTM_coordinates_.28E.2C_N.2C_Zone.2C_Hemi.29_to_latitude.2C_longitude_.28.CF.86.2C_.CE.BB.29)
