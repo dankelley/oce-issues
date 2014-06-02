@@ -3,3 +3,4 @@ README.html
 *.png
 *.pdf
 *swp
+.Rhistory

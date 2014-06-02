@@ -1,4 +1,6 @@
 library(oce)
 source('~/src/oce/R/met.R')
-d <- read.met('http://climate.weather.gc.ca/climateData/bulkdata_e.html?format=csv&stationID=30165&Year=2014&Month=5&Day=7&timeframe=1&submit=Download+Data')
+#d <- read.met('http://climate.weather.gc.ca/climateData/bulkdata_e.html?format=csv&stationID=30165&Year=2014&Month=5&Day=7&timeframe=1&submit=Download+Data')
+d <- read.met('/data/archive/sleiwex/2008/meteorology/wind/ile-rouge-eng-hourly-07012008-07312008.csv')
 str(d)
+plot(d)
