@@ -1,0 +1,13 @@
+library(oce)
+if (!interactive()) png("issue387b.png", unit="in", res=150, width=6, height=3, pointsize=8)
+data(coastlineWorld)
+data(topoWorld)
+z <- topoWorld[["z"]][450:600, 150:300]
+par(mfrow=c(2, 3))
+imagep(z, col=oceColorsGebco(100, 'both'), zlim=c(-8000, 8000))
+imagep(z, col=oceColorsGebco(100, 'water'), zlim=c(-8000, 0))
+imagep(z, col=oceColorsGebco(100, 'land'), zlim=c(0, 8000))
+imagep(z, col=oceColorsGebco(100, 'both', type="line"), zlim=c(-8000, 8000))
+imagep(z, col=oceColorsGebco(100, 'water', type="line"), zlim=c(-8000, 0))
+imagep(z, col=oceColorsGebco(100, 'land', type="line"), zlim=c(0, 8000))
+if (!interactive()) dev.off()
