@@ -8,6 +8,6 @@ try({
 data(ctd)
 ctd[["longitude"]] <- 0
 ctd[["latitude"]] <- 80
-plot(ctd)
+plot(ctd, debug=4)
 if (!interactive()) dev.off()
 

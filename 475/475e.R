@@ -1,0 +1,18 @@
+if (!interactive()) png("475e.png")
+rm(list=ls())
+library(oce)
+try({
+    source('~/src/oce/R/map.R')
+})
+d <- readLines('/data/oar/dalwhoi.kml')
+start <- grep('^\\s*<coordinates>\\s*$', d)
+end <- grep('^\\s*</coordinates>\\s*$', d)
+pathIndices <- seq(start + 1, end - 1)
+data <- read.csv(text=d[pathIndices], header=FALSE)
+lon <- data$V1
+lat <- data$V2
+mapPlot(lon, lat, lwd=3, debug=4)
+##mapPlot(lon, lat, grid=2, lwd=3, debug=4)
+data(coastlineWorldFine, package="ocedata")
+mapLines(coastlineWorldFine)
+if (!interactive()) dev.off()
