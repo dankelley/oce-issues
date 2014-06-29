@@ -1,4 +1,4 @@
-if (!interactive()) png("475b.png")
+if (!interactive()) png("475a1.png")
 library(oce)
 try({
     source('~/src/oce/R/ctd.R')
@@ -6,7 +6,9 @@ try({
     source('~/src/oce/R/map.R')
 })
 data(ctd)
-ctd[['latitude']] <- 80
-ctd[['longitude']] <- 0
-plot(ctd, which="map")
+##plot(ctd)
+plot(ctd, which='map', span=2000, debug=3)
+mapPoints(-60, 45)
+mapScalebar("topleft", length=500)
 if (!interactive()) dev.off()
+

@@ -1,4 +1,4 @@
-if (!interactive()) png("475b.png")
+if (!interactive()) png("475a2.png")
 library(oce)
 try({
     source('~/src/oce/R/ctd.R')
@@ -6,7 +6,8 @@ try({
     source('~/src/oce/R/map.R')
 })
 data(ctd)
-ctd[['latitude']] <- 80
-ctd[['longitude']] <- 0
-plot(ctd, which="map")
+ctd[["longitude"]] <- 0
+ctd[["latitude"]] <- 80
+plot(ctd)
 if (!interactive()) dev.off()
+
