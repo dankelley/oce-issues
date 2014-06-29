@@ -6,13 +6,8 @@ try({
     source('~/src/oce/R/map.R')
 })
 data(ctd)
-##plot(ctd)
 par(mfrow=c(2,1))
-plot(ctd, which='map', span=3000)
-#plot(ctd, which='map')
-mapPoints(-60, 45)
-mapScalebar("topleft", length=500)
+d <- 0
+plot(ctd, which='map', span=3000, debug=d)
+plot(ctd, which='map', debug=d)
 if (!interactive()) dev.off()
-message("grid lines should be on pretty(lat) etc")
-message("mapScalebar broken")
-
