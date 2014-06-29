@@ -1,4 +1,3 @@
-* 475a1 default ctd plot, NS (real) location **BUG** need some lat lines, sheesh!
-* 475a2 default ctd plot, fake location to be northerly enough to use stereopolar
-* 475a3 default ctd plot, fake location to be off Hatteras
+The tests here seem ok.  Most likely I'll add more, and keep returning here
+everytime I tweak the mapping code -- that's why so many tests.
 
