@@ -1,4 +1,4 @@
-all: 477a.out
+all: 477a.out 477b.out
 %.out:%.R
 	R --no-save < $< > $@
 %.html:%.md
