@@ -1,4 +1,4 @@
-if (!interactive()) png("475f.png")
+if (!interactive()) png("475f.png", height=4, width=7, unit="in", res=100, pointsize=9)
 library(oce)
 try({
     source('~/src/oce/R/coastline.R')
@@ -11,5 +11,6 @@ mapPlot(coastlineWorld, type='l',
 data(endeavour, package='ocedata')
 mapPoints(endeavour$longitude, endeavour$latitude,
           pch=20, cex=0.5)
+mapScalebar()
 if (!interactive()) dev.off()
 
