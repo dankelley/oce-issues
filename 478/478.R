@@ -21,7 +21,7 @@ for (file in files) {
     dd <- K2 / (log(K1 / Llambda + 1))
     SST <- dd - 273.15                 # convert Kelvin to Celcius
     l@data$SST <- SST
-    plot(l, band="SST", debug=10)
+    plot(l, band="SST", col=oceColorsJet)
     mtext(paste(l[["filename"]], " ", l[["time"]]))
 }
 if (!interactive()) dev.off()
