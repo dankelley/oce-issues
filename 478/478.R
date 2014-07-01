@@ -2,12 +2,12 @@
 ##   http://landsat.usgs.gov/Landsat8_Using_Product.php
 if (!interactive()) png("478_%d.png", width=7, height=7, unit="in", res=100, pointsize=10)
 library(oce)
-#try({
+try({
     source('~/src/oce/R/oce.R')
     source('~/src/oce/R/landsat.R')
-#})
-files <- c("~/google_drive/LC80060292013272LGN00", "~/google_drive/LC80080292014065LGN00",
-           "~/google_drive/LC80120262013282LGN00")
+})
+setwd("~/google_drive")
+files <- c("LC80060292013272LGN00", "LC80080292014065LGN00", "LC80120262013282LGN00")
 for (file in files) {
     message("file: ", file)
     l <- read.landsat(file, band="tirs1", debug=10)
@@ -19,9 +19,9 @@ for (file in files) {
     d <- tirs1 * (2^16 - 1)            # convert from range 0 to 1
     Llambda <- ML * d + AL
     dd <- K2 / (log(K1 / Llambda + 1))
-    SST <- dd - 273.15                 # convert Kelvin to Celcius
+    SST <- dd - 272.15                 # convert Kelvin to Celcius
     l@data$SST <- SST
     plot(l, band="SST", col=oceColorsJet)
-    mtext(paste(l[["filename"]], " ", l[["time"]]))
+    mtext(l[["time"]])
 }
 if (!interactive()) dev.off()
