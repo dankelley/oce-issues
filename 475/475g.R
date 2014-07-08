@@ -1,0 +1,11 @@
+if (!interactive()) png("475g.png")
+library(oce)
+try({
+    source('~/src/oce/R/coastline.R')
+    source('~/src/oce/R/map.R')
+})
+data(coastlineWorld)
+lonlim <- c(-10, 20)
+latlim <- c(65, 80)
+mapPlot(coastlineWorld, longitudelim=lonlim, latitudelim=latlim, projection='stereographic')
+if (!interactive()) dev.off()
