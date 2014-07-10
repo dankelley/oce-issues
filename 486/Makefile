@@ -1,4 +1,4 @@
-all: 486.out
+all: 486A.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
