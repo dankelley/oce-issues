@@ -1,13 +1,17 @@
 if (!interactive()) png("486_%d.png")
 library(oce)
-try({
-    source('~/src/oce/R/landsat.R')
-})
+#try({
+#    source('~/src/oce/R/landsat.R')
+#})
 l <- read.landsat("~/google_drive/LC80080292014065LGN00")
 
 landsat <- landsatTrim(l, 
                        list(longitude=-64.572, latitude=45.295),
                        list(longitude=-64.481, latitude=45.363))
+save(landsat, file="landsat.rda")
+library(tools)
+resaveRdaFiles("landsat.rda")
+
 for (b in 1:11)
     plot(landsat, band=b)
 
