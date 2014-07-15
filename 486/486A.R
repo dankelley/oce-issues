@@ -1,8 +1,8 @@
 if (!interactive()) png("486_%d.png")
 library(oce)
-#try({
-#    source('~/src/oce/R/landsat.R')
-#})
+try({
+    source('~/src/oce/R/landsat.R')
+})
 l <- read.landsat("~/google_drive/LC80080292014065LGN00")
 
 landsat <- landsatTrim(l, 
