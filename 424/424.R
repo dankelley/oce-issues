@@ -1,4 +1,5 @@
-if (!interactive()) png("424.png", width=7, height=4, pointsize=10)
+if (!interactive()) png("424.png", width=7, height=4, unit="in", res=100,
+                        pointsize=10)
 library(oce)
 data(landsat, package="ocedata")
 try({
