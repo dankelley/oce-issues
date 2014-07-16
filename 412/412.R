@@ -33,12 +33,13 @@ axis10exp <- function(side, constantExp=TRUE, at=NULL, labels=TRUE, tick=TRUE, l
                       lwd, lwd.ticks, col, col.ticks,
                       hadj, padj, ...)
 }
-if (!interactive()) png("412.png", width=5,height=5,unit="in",res=150,pointsize=10)
+if (!interactive()) png("412.png", width=7,height=5,unit="in",res=100,pointsize=10)
 par(mfrow=c(1,2))
 library(oce)
 data(adp)
 v <- adp[['v']][,,1] / 1e5
 imagep(v)
+mtext("EXPECT: sci-notation on rightmost palette", font=2, col="purple")
 imagep(v, axisPalette=axis10exp)
 if (!interactive()) dev.off()
 
