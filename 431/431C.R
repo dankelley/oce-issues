@@ -22,6 +22,7 @@ if (OLD) { # code before the "Colormap" renaming to "colormap".
     cm2 <- colormap(name='http://www.beamreach.org/maps/gmt/share/cpt/GMT_globe.cpt')
     par(mfrow=c(2,1))
     imagep(topoWorld, breaks=cm1$breaks, col=cm1$col)
+    mtext("EXPECT: correct coastline in Hudson's Bay", font=2, col="purple")
     imagep(topoWorld, breaks=cm2$breaks, col=cm2$col)
 }
 if (!interactive()) dev.off()

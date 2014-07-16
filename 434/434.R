@@ -4,6 +4,6 @@ library(oce)
 data(topoWorld)
 cm <- colormap(name="gmt_globe", debug=3)
 imagep(topoWorld, breaks=cm$breaks, col=cm$col)
-
+mtext("EXPECT: reasonable coastline e.g. Hudsons Bay", font=2, col='purple')
 if (!interactive()) dev.off()
 

@@ -1,8 +1,8 @@
 oce-issues
 ==========
 
-This repository holds test code for working with issues (bugs and new features)
-for Oce R package.
+This repository holds test code for working with issues (bugs and new
+features) for Oce R package.
 
 Directory setup
 ---------------
@@ -48,6 +48,15 @@ In order to prevent full rebuilds of Oce for each test, it is important that
 the Oce source be located in ``~/src``, so that the standard source call might
 be something like ``source("~/src/oce/R/imagep.R")``, where the author is
 adjusting the named function.
+
+Test suites
+-----------
+
+Do ``make imagep`` to run a series of tests involving the ``imagep()``
+function.  This will clean out previous results, generate new ones, and use
+``open`` (an OSX command) to see all the plots.  There are other test suites as
+well; see the ``Makefile``.
+
 
 Collaborators
 -------------
