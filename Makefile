@@ -6,7 +6,8 @@ dirs=356 402 404 406 408 409 412 413 414 415 416 418 420 421 423\
      479 481 482 490
 colormap=431 434 435 437 441 443 447 449 450 452 453 454
 # FIXME: imagep to add: 404 412 413 414 415 415 416 425 434 435 444 452 453 479
-imagep=412 431 485 489 490
+imagep=412 424 425 431 485 489 490
+current=424 425
 # Exceptions (since requires private data): 478 486
 
 all:
@@ -21,3 +22,5 @@ colormap:
 imagep:
 	for dir in $(imagep)   ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 
+current:
+	for dir in $(current)  ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
