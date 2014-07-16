@@ -1,5 +1,6 @@
+if (!interactive()) png("404B.png")
 library(oce)
-source('~/src/R-kelley/oce/R/map.R')
+#try({ source('~/src/oce/R/map.R') })
 library(ocedata)
 data(coastlineWorld)
 data(topoWorld)
@@ -14,7 +15,7 @@ par(mfrow=c(2,2))
 ## imagep and oceContour plots showing proper behaviour
 imagep(lon, lat, d)
 oceContour(lon, lat, d, add=TRUE)
-
+mtext("EXPECT: all panels should look similar", font=2, col='purple')
 imagep(lon, rlat, rd)
 oceContour(lon, rlat, rd, add=TRUE)
 
@@ -26,3 +27,5 @@ mapContour(lon, lat, d)
 mapPlot(coastlineWorld, latitudelim=range(lat), longitudelim=range(lon))
 mapImage(lon, rlat, rd)
 mapContour(lon, rlat, rd)
+
+if (!interactive()) dev.off()
