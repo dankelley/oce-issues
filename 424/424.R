@@ -1,20 +1,15 @@
+if (!interactive()) png("424.png", width=7, height=4, pointsize=10)
 library(oce)
-library(ocedata)
-data(landsat)
+data(landsat, package="ocedata")
+try({
+    source('~/src/oce/R/landsat.R')
+    source('~/src/oce/R/imagep.R')
+})
 
-dim <- dim(landsat@data[[1]])
-if (!interactive()) png("424A.png", width=dim[1], height=dim[2], pointsize=10)
+par(mfrow=c(1,2))
+dim <- dim(landsat@data[[1]]$msb)
 plot(landsat, which=2, zlim="histogram")
+F <- 2^16-1
+plot(landsat, which=1, zlim=c(14000, 18000), col=rev(oceColorsJet(200)))
 if (!interactive()) dev.off()
 
-if (!interactive()) png("424B.png", width=dim[1], height=dim[2], pointsize=10)
-plot(landsat, which=2, zlim=c(0.098, 0.111), col=rev(oceColorsJet(200)))
-if (!interactive()) dev.off()
-
-if (!interactive()) png("424C.png", width=dim[1], height=dim[2], pointsize=10)
-plot(landsat, which=2, zlim=c(0.101, 0.112), col=oceColorsJet(200))
-if (!interactive()) dev.off()
-
-if (!interactive()) png("424D.png", width=dim[1], height=dim[2], pointsize=10)
-plot(landsat, which=1, breaks=200, xlim=c(0.1, 0.12))
-if (!interactive()) dev.off()
