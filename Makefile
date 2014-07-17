@@ -6,7 +6,7 @@
 # 'colormap' tests colormaps -- and 'make colormap' clears old results, generates new, and views.
 # 'imagep' - like colormap
 # 'projections' - like colormap
-dirs=356 388 390 402 404 406 408 409 412 413 414 415 416 418 420 
+dirs=356 388 390 402 404 406 408 409 412 413 414 415 416 418 420 \
      421 423 424 425 426 427 428 430 431 432 434 435 437 438 441 \
      443 444 447 448 449 450 451 452 453 454 456 458 459 462 464 \
      465 475 479 481 482 490
