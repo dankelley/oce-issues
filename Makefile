@@ -14,7 +14,7 @@ colormap=437 441 443 447 449 450 452 453 454
 imagep=368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
        452 453 479 485 489 490
 projections=388 495
-current=368
+current=495
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
