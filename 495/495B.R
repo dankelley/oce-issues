@@ -40,7 +40,7 @@ mapDirectionField <- function(longitude, latitude, u, v, scalex, scaley=1, type=
     arrows(xy$x, xy$y, xy$x+DX, xy$y+DY, length=1/20)
 }
 #mapDirectionField(lonm, latm, u, v)
-mapDirectionField(lon, lat, u, v)
+mapDirectionField(lon, lat, u, v, scaley=5)
 message("FIXME: arrow angle to graticles erroneously depends on longitude")
 
 if (!interactive()) dev.off()
