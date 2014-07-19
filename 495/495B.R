@@ -13,7 +13,9 @@ latm <- matrix(expand.grid(lon,lat)[,2], nrow=length(lon))
 u <- matrix(1, nrow=length(lon), ncol=length(lat))
 v <- matrix(1, nrow=length(lon), ncol=length(lat))
 
-mapDirectionField <- function(longitude, latitude, u, v, scalex, scaley=1, type=2, length=0.05, add=TRUE) 
+mapDirectionField <- function(longitude, latitude,
+                              u, v, scale=1, code=2, length=0.05,
+                              col=par("fg"), lwd=par("lwd"))
 {
     ## handle case where lon and lat are coords on edges of grid
     if (is.matrix(u)) {
@@ -24,23 +26,18 @@ mapDirectionField <- function(longitude, latitude, u, v, scalex, scaley=1, type=
             latitude <- matrix(rep(latitude, nlon), byrow=TRUE, nrow=nlon)
         }
     }
-    if (!missing(scalex))
-        warning("value of scalex is ignored")
     xy <- mapproject(longitude, latitude)
     ## Calculate spatially-dependent scale (fails for off-page points)
-    eps <- diff(range(latitude, na.rm=TRUE)) / 200 + diff(range(longitude, na.rm=TRUE)) / 200
-    dx <- mapproject(longitude+eps, latitude)$x - xy$x
-    dx <- dx / cos(latitude * pi / 180)
-    pi <- 4 * atan2(1, 1)
-    dy <- mapproject(longitude, latitude+eps)$y - xy$y
-    scalex <- scaley # FIXME: is this right?  Arrows are definitely wrong
-    DX <- dx * u * scaley
-    DY <- dy * v * scaley
-    points(xy$x, xy$y, pch=21, bg='green')
-    arrows(xy$x, xy$y, xy$x+DX, xy$y+DY, length=1/20)
+    ## Calculate lon-lat at ends of arrows
+    scalex <- scale / cos(pi * latitude / 180)
+    latEnd <- latitude + v * scale
+    lonEnd <- longitude + u * scalex
+    xy <- mapproject(longitude, latitude)
+    xyEnd <- mapproject(lonEnd, latEnd)
+    arrows(xy$x, xy$y, xyEnd$x, xyEnd$y, length=length, code=code, col=col)
 }
-#mapDirectionField(lonm, latm, u, v)
-mapDirectionField(lon, lat, u, v, scaley=5)
-message("FIXME: arrow angle to graticles erroneously depends on longitude")
+mapDirectionField(lonm, latm, u, v, scale=3)
+mapDirectionField(lonm, latm, 0, v, scale=3, col='red')
+mapDirectionField(lonm, latm, u, 0, scale=3, col='blue')
 
 if (!interactive()) dev.off()
