@@ -1,4 +1,4 @@
-if (!interactive()) png("495.png")
+if (!interactive()) png("495A.png")
 library(oce)
 data(coastlineWorld)
 mapPlot(coastlineWorld, longitudelim=c(-130,-55), latitudelim=c(35,60),
