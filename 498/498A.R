@@ -1,0 +1,12 @@
+if (!interactive()) png("497A_%d.png", width=7, height=7, unit="in", res=150, pointsize=12)
+library(oce)
+source('~/src/oce/R/ctd.R')
+data(ctd)
+plot(ctd)
+options(oceMgp=c(1.7,0.5,0))
+par(tcl=-1/3)
+plot(ctd)
+par(tcl=1/3) # ticks inside box lets get even tighter
+options(oceMgp=c(1.5,0.3,0))
+plot(ctd)
+if (!interactive()) dev.off()
