@@ -1,0 +1,18 @@
+if (!interactive()) png("504.png")
+library(oce)
+try({
+    source("~/src/oce/R/drifter.R")
+})
+data(drifter)
+par(mfrow=c(2,2))
+plot(drifter)
+mtext("EXPECT: all data", font=2, col="purple")
+plot(subset(drifter, time > mean(time)))
+mtext("EXPECT: second half time", font=2, col="purple")
+plot(subset(drifter, longitude > mean(longitude)))
+mtext("EXPECT: east half longitude", font=2, col="purple")
+plot(subset(drifter, latitude > mean(latitude)))
+mtext("EXPECT: north half latitude", font=2, col="purple")
+##plot(subset(drifter, latitude > 55))
+if (!interactive()) dev.off()
+
