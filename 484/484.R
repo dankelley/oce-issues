@@ -5,7 +5,7 @@ try({
     source("~/src/oce/R/imagep.R")
 })
 if (!exists("l")) { # cache if rerunning interactively
-    system.time(l <- read.landsat('~/google_drive/LC80080292014065LGN00', band='pan'))
+    system.time(l <- read.landsat('/data/archive/landsat/LC80080292014065LGN00', band='panchromatic'))
 }
 ## below are some tests of new indexing scheme
 ##    d <- l[["pan", 10]]

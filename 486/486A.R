@@ -3,7 +3,7 @@ library(oce)
 try({
     source('~/src/oce/R/landsat.R')
 })
-l <- read.landsat("~/google_drive/LC80080292014065LGN00", debug=3)
+l <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", debug=3)
 
 landsat <- landsatTrim(l, 
                        list(longitude=-64.572, latitude=45.295),

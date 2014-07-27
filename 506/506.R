@@ -1,11 +1,10 @@
 if (!interactive()) png("506_%d.png")
-## try({
-##     source("~/src/oce/R/misc.R")
-##     source("~/src/oce/R/landsat.R")
-## })
 library(oce)
-i <- read.landsat("~/google_drive/LE71910202005194ASN00", band="tirs1")
+try({
+    source("~/src/oce/R/landsat.R")
+})
+i <- read.landsat("/data/archive/landsat/LE71910202005194ASN00", band="tirsA", debug=3)
 i <- decimate(i, by=33)
-plot(i)
-plot(i, band="temperature")
+plot(i, debug=3)
+plot(i, band="temperature", debug=3)
 if (!interactive()) dev.off()

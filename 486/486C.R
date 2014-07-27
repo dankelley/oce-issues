@@ -3,7 +3,7 @@ library(oce)
 try({
     source('~/src/oce/R/landsat.R')
 })
-ns <- read.landsat("~/google_drive/LC80080292014065LGN00", band="tirs1")
+ns <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", band="tirs1")
 tirs1 <- ns[["tirs1"]]
 ML <- ns@metadata$header$radiance_mult_band_10
 AL <- ns@metadata$header$radiance_add_band_10

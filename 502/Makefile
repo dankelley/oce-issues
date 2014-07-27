@@ -1,4 +1,4 @@
-all: 502.out
+all: 502A.out 502B.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
