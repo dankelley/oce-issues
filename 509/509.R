@@ -6,7 +6,7 @@ try({
 options(oceDebug=3)
 l <- read.landsat('/data/archive/landsat/LE71910202005194ASN00', band="red")
 im <- l[["red"]] / 2^16-1
-landsatAdd(l, im, 'tc')
+l <- landsatAdd(l, im, 'tc')
 summary(l)
 plot(l, band="tc")
 if (!interactive()) dev.off()
