@@ -1,4 +1,4 @@
-if (!interactive()) png("509.R")
+if (!interactive()) png("509.png")
 library(oce)
 try({
     source("~/src/oce/R/landsat.R")
