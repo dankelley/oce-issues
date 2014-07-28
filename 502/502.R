@@ -4,7 +4,7 @@ try({
     source("~/src/oce/R/landsat.R")
 })
 d <- read.landsat("/data/archive/landsat/LE71910202005194ASN00",
-                  band=c("red", "green", "blue"), debug=3)
+                  band=c("red", "green", "nir"), debug=3)
 plot(d, col="natural")
 if (!interactive()) dev.off()
 
