@@ -1,0 +1,13 @@
+if (!interactive()) png("508.png", width=7, height=3, unit="in", res=150, pointsize=8)
+library(oce)
+try({
+    source('~/src/oce/R/landsat.R')
+})
+ll <- list(longitude=18.43061, latitude=56.88854)
+ur <- list(longitude=19.01011, latitude=57.20952)
+l <- read.landsat('/data/archive/landsat/LE71910202005194ASN00', band=1)
+lbt <- landsatTrim(l, ll, ur)
+par(mfrow=c(1,2))
+plot(l)
+plot(lbt)
+if (!interactive()) dev.off()

@@ -15,8 +15,9 @@ imagep=368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
        452 453 479 485 489 490
 ctd=498
 projections=388 495
-landsat=465 484 486 501 502 506 509
-current=509
+## NOTE: suspect 509 is a non-bug so will be removed here if so
+landsat=465 484 486 501 502 506 508 509
+current=508
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
