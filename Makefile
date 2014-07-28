@@ -17,7 +17,7 @@ ctd=498
 projections=388 495
 ## NOTE: suspect 509 is a non-bug so will be removed here if so
 landsat=465 484 486 501 502 506 508 509
-current=508
+current=502
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
