@@ -1,4 +1,4 @@
-all: 510.out
+all: 510A.out 510B.out 510C.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
