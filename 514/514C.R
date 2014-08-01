@@ -4,7 +4,6 @@ library(oce)
 try({
     source('~/src/oce/R/map.R')
 })
-data(coastlineWorld)
 
 par(mar=c(4, 4, 2, 1), mgp=c(2,0.7,0), mfrow=c(1,2))
 xy <- mapproject(0, 0, projection="mollweide")
