@@ -1,6 +1,6 @@
 set.seed(514)
 if (!interactive())
-    png("514C.png", height=4, width=7, unit="in", res=150, pointsize=12)
+    png("514C.png", height=4, width=7, unit="in", res=150, pointsize=8)
 library(oce)
 try({
     source('~/src/oce/R/map.R')
