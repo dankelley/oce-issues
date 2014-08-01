@@ -1,0 +1,16 @@
+rm(list=ls())
+if (!interactive()) png("516.png", width=700, height=350)
+library(oce)
+try({
+    source("~/src/oce/R/imagep.R")
+})
+library(oce)
+data(adp)
+par(mfrow=c(1,2))
+zlim <- c(-0.2, 0.5)
+imagep(adp[['v']][,,1], zlim=zlim, zclip=TRUE)
+mtext(paste('EXPECT: colors clipped to c(-0.2, 0.5)'), col=6, font=2)
+imagep(adp[['v']][,,1], zlim=zlim, zclip=FALSE)
+mtext(paste('EXPECT: colors NOT clipped to c(-0.2, 0.5)'), col=6, font=2)
+if (!interactive()) dev.off()
+
