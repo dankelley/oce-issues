@@ -1,0 +1,20 @@
+rm(list=ls())
+set.seed(514)
+if (!interactive())
+    png("514D.png", height=4, width=7, unit="in", res=150, pointsize=12)
+library(proj4)
+par(mar=c(4, 4, 2, 1), mgp=c(2,0.7,0), mfrow=c(1,2))
+n <- 100
+eps <- 1e-4
+lon <- runif(n, -180+eps, 180-eps)
+lat <- runif(n, -90+eps, 90-eps)
+xy <- project(list(longitude=lon, latitude=lat), proj="+proj=moll")
+LONLAT <- project(xy, proj="+proj=moll", inverse=TRUE)
+plot(lon, LONLAT$x)
+mtext(sprintf("RMS: %.3f", sqrt(mean((lon-LONLAT$x)^2, na.rm=TRUE))))
+abline(0,1)
+plot(lat, LONLAT$y)
+mtext(sprintf("RMS: %.3f", sqrt(mean((lat-LONLAT$y)^2, na.rm=TRUE))))
+abline(0,1)
+if (!interactive()) dev.off()
+
