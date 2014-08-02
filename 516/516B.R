@@ -8,12 +8,11 @@ library(oce)
 
 data(coastlineWorld)
 data(topoWorld)
-#par(mfrow=c(2,2), mar=c(1, 1, 2, 1))
+par(mfrow=c(2,2), mar=c(1, 1, 2, 1))
 
 mapPlot(coastlineWorld)
 mapImage(topoWorld, breaks=seq(-2000, 2000, 500), debug=3)
 mtext(paste('EXPECT: deep=blue, mountain=red-brown'), col=6, font=2)
-mtext(paste('BUG: white Himalayas'), col=6, font=2, line=-1)
 mtext('(a) ', line=-1.2, adj=1)
 
 mapPlot(coastlineWorld)
