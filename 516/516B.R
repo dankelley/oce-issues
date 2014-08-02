@@ -1,20 +1,35 @@
 rm(list=ls())
-if (!interactive()) png("516B.png", width=700, height=700, pointsize=11)
+if (!interactive()) png("516B.png", width=700, height=400, pointsize=11)
 library(oce)
 try({
-    source("~/src/oce/R/imagep.R")
+    source("~/src/oce/R/map.R")
 })
 library(oce)
 
 data(coastlineWorld)
 data(topoWorld)
-par(mfrow=c(2,1), mar=c(1, 1, 2, 1))
+#par(mfrow=c(2,2), mar=c(1, 1, 2, 1))
+
 mapPlot(coastlineWorld)
-mapImage(topoWorld, breaks=seq(-2000, 2000, 500))
-mtext(paste('EXPECT: deep water blue, high land red-brown'), col=6, font=2)
+mapImage(topoWorld, breaks=seq(-2000, 2000, 500), debug=3)
+mtext(paste('EXPECT: deep=blue, mountain=red-brown'), col=6, font=2)
+mtext(paste('BUG: white Himalayas'), col=6, font=2, line=-1)
+mtext('(a) ', line=-1.2, adj=1)
+
 mapPlot(coastlineWorld)
 mapImage(topoWorld, zlim=c(-2000, 2000))
-mtext(paste('EXPECT: as above but different color transitions'), col=6, font=2)
+mtext(paste('EXPECT: as (a) but different colors'), col=6, font=2)
+mtext('(b) ', line=-1.2, adj=1)
+
+mapPlot(coastlineWorld)
+mapImage(topoWorld, zclip=TRUE, breaks=seq(-2000, 2000, 500))
+mtext(paste('EXPECT: white for < -2000 or > 2000m'), col=6, font=2)
+mtext('(c) ', line=-1.2, adj=1)
+
+mapPlot(coastlineWorld)
+mapImage(topoWorld, zclip=TRUE, zlim=c(-2000, 2000))
+mtext(paste('EXPECT: as (c) but different color transitions'), col=6, font=2)
+mtext('(d) ', line=-1.2, adj=1)
 
 if (!interactive()) dev.off()
 
