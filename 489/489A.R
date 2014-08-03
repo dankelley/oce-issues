@@ -10,9 +10,9 @@ t <- adp[['time']]
 d <- adp[['distance']]
 spd <- sqrt(adp[['v']][,,1]^2 + adp[['v']][,,2]^2)
 spd[10:40, 1:30] <- 0
-spd[10:40, 60:84] <- 1.1
+spd[10:40, 60:84] <- 1.3
 
-if (!interactive()) png('489A.png')
+if (!interactive()) png('489A.png', type='cairo', antialias='none')
 
 par(mfrow=c(2,1), mar=c(3, 3, 5, 1))
 
@@ -22,7 +22,8 @@ cm <- colormap(spd, breaks=breaks, col=col)
 imagep(t, d, spd, colormap=cm, filledContour=TRUE,
        mar=c(2, 2, 2, 0.5), drawTimeRange=FALSE)
 oceContour(t, d, spd, levels=breaks[2], add=TRUE)
-mtext("EXPECT: v=0 box at bottom, v=1 at top", adj=0, col="purple", font=2)
+mtext("EXPECT: white box at bottom, darkest red at top",
+      adj=0, col="purple", font=2)
 mtext("(a) ", adj=1)
 
 imagep(t, d, spd, col=col, filledContour=TRUE, breaks=breaks,
