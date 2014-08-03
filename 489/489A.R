@@ -45,7 +45,7 @@ mtext("(c) ", adj=1)
 imagep(t, d, spd, col=col, breaks=breaks, missingColor="grey",
        mar=c(2, 2, 2, 0.5), drawTimeRange=FALSE, debug=0)
 oceContour(t, d, spd, levels=breaks[2], add=TRUE)
-mtext("EXPECT: same as (b)", adj=0, col="purple", font=2)
+mtext("EXPECT: same as (a)", adj=0, col="purple", font=2)
 mtext("(d) ", adj=1)
 
 
