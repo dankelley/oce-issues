@@ -39,5 +39,7 @@ ctd:
 	for dir in $(ctd) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
 	for dir in $(landsat) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+group516:
+	for dir in $(group516) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 current:
 	for dir in $(current) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
