@@ -1,5 +1,5 @@
 rm(list=ls())
-if (!interactive()) png("516A.png", width=700, height=700, pointsize=11)
+if (!interactive()) png("516A.png", width=700, height=700, pointsize=11, type="cairo", antialias="none")
 library(oce)
 try({
     source("~/src/oce/R/imagep.R")
