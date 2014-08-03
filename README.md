@@ -4,8 +4,8 @@ oce-issues
 This repository holds test code for working with issues (bugs and new
 features) for Oce R package.
 
-Directory setup
----------------
+Directory scheme
+----------------
 
 The subdirectories are named for issue number.   Each is to test just one
 issue, with the number being as given in the [Oce issues
@@ -15,10 +15,20 @@ A strict naming convention is followed in these subdirectories.  Each is to
 have a ``Makefile``, one or more ``*.R`` file, and optionally a ``README.md``
 file.  Please see the ``413`` directory for example.
 
-* The Makefile should have a default target that does some test, a ``clean``
-  target that removes unwanted files, and a ``view`` target that shows any
-  relevant image files (typically using ``open``, an OSX command, since the
-  main collaborators are OSX users).
+* The ``Makefile`` should have a default target that does some test, a
+  ``clean`` target that removes unwanted files, and a ``view`` target that
+   shows any relevant image files (typically using ``open``, an OSX command,
+   since the main collaborators are OSX users).
+
+* If the bug can be tested numerically, it should be done using e.g.
+  ``stopifnot()``, so that the presence of the bug yields a stop
+  and the absence yields a normal termination.
+
+* If the bug requires graphical testing, ``mtext("EXPECT ...",
+  font=2,color="purple")`` should be used to put a label above each graph. The
+  message should be stated in clear terms that could be understood by somone not
+  familiar with the code or the test.  Thus, a good message might read
+  ``"EXPECT: red colour at top of image"``.
 
 * The R file(s) should be named as e.g.  ``123.R`` for issue number 123.  If
   there is more than one R file, the names should be e.g.  ``123A.R``,
@@ -30,11 +40,17 @@ file.  Please see the ``413`` directory for example.
   accustomed to programming will see that these rules simplify the task of
   the Oce author in determining what output is created by which R file.)
 
-* The ``README.md`` file should state briefly what the files are supposed to
-  test (and especially that states what's wrong in the results).
+* A ``README.md`` file, if present, should state briefly what the files are
+  supposed to test (and especially that states what's wrong in the results).
+  However, since this information is normally provided in an issue reported on
+  the Oce development site, a ``README.md`` file is not always needed.
 
 The top level has a ``Makefile`` that recursively calls Makefiles in the
-subdirectories.  
+subdirectories.  It has a target to test everything (which takes a long time),
+targets for themes (see "test suites" below), and one target for each issue.
+There is also a target (``make current``) that the developers use to test the
+prime issue under consideration.
+
 
 Work flow
 ---------
@@ -61,10 +77,11 @@ well; see the ``Makefile``.
 Collaborators
 -------------
 
-At the moment there are two collaborators on this directory.  Others who wish
-to collaborate should contact Dan Kelley.  (It might make sense to first
-provide some evidence of an ability to code in R and to use git, by cloning
-this repository, altering something, and submitting a github pull request.)
+At the moment there are two collaborators on this directory, Dan Kelley and
+Clark Richards.  Others who wish to collaborate should contact Dan Kelley.  (It
+might make sense to first provide some evidence of an ability to code in R and
+to use git, by cloning this repository, altering something, and submitting a
+github pull request.)
 
 -- Dan Kelley, Department of Oceanography, Dalhousie University, Halifax NS
 Canada
