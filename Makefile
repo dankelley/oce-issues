@@ -20,7 +20,7 @@ projections=388 495
 landsat=465 484 486 501 502 506 508 509
 drifter=510
 group516=516 337 368 # CR identified the 3xx as related
-current=516
+current=489
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
