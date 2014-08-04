@@ -2,10 +2,10 @@ library(oce)
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=3) # speed plotting 10X
 data(coastlineWorld)
-## try({
-##     source('~/src/oce/R/colors.R')
-##     source('~/src/oce/R/map.R')
-## })
+try({
+    source('~/src/oce/R/colors.R')
+    source('~/src/oce/R/map.R')
+})
 
 lim <- 1000
 
