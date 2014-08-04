@@ -2,25 +2,25 @@
 ## Pattern Makefiles on 356.
 ## Exceptions (since requires private data): 478 486
 
-# 'dirs' is everything -- run this to see if any errors occur
-# 'colormap' tests colormaps -- and 'make colormap' clears old results, generates new, and views.
-# 'imagep' - like colormap
-# 'projections' - like colormap
-dirs=356 388 390 402 404 406 408 409 412 413 414 415 416 418 420 \
-     421 423 424 425 426 427 428 430 431 432 434 435 437 438 441 \
-     443 444 447 448 449 450 451 452 453 454 456 458 459 462 464 \
-     465 475 479 481 482 490 495 504 506 509 510
-colormap=437 441 443 447 449 450 452 453 454
-imagep=368 390 404 412 413 414 415 416 424 425 431 434 435 437 \
-       444 452 453 479 485 489 490 516
-map=514
-ctd=498
-projections=388 495
-## NOTE: suspect 509 is a non-bug so will be removed here if so
-landsat=465 484 486 501 502 506 508 509
-drifter=510
-group516=516 489 337 368 # CR identified the 3xx as related
-current=489
+# TEST SETS
+# 'make all' tests everything
+# 'make imagep' tests (and displays results) for imagep() bugs
+# For similar tests, look at looping blocks near bottom.
+dirs        =356 388 390 402 404 406 408 409 412 413 414 415 416 418 420 \
+             421 423 424 425 426 427 428 430 431 432 434 435 437 438 441 \
+             443 444 447 448 449 450 451 452 453 454 456 458 459 462 464 \
+             465 475 479 481 482 490 495 501 502 504 506 508 510 513 514 \
+             516 517
+colormap    =437 441 443 447 449 450 452 453 454 517
+imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
+	     452 453 479 485 489 490 516
+map         =514 517
+ctd         =498
+projections =388 495
+landsat     =465 484 486 501 502 506 508
+drifter     =510
+group516    =516 489 337 368 # CR identified the 3xx as related
+current     =517
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
