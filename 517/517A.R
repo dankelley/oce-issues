@@ -4,7 +4,7 @@ data(coastlineWorld)
 ## source('~/src/R-richards/oce/R/colors.R')
 ## source('~/src/R-richards/oce/R/map.R')
 
-if (!interactive()) png('01.png', width=1000, height=700, type='cairo')
+if (!interactive()) png('517A.png', width=1000, height=700, type='cairo')
 par(mfrow=c(2,2), mar=c(2,2,1,1))
 
 mapPlot(coastlineWorld)
