@@ -14,6 +14,7 @@ which I have political objections. -- DK
 * http://trac.osgeo.org/proj/wiki/GenParms general parameters; note the "nadgrids" section
 * http://stackoverflow.com/tags/proj4/hot stackoverflow tagged proj4 and hot
 * http://trac.osgeo.org/proj/wiki/proj%3Dcalcofi good lord, they even have a calcofi proj
+* http://cicero.azavea.com/docs/epsg_codes.html some pre-defined codes (cicero)
 
 
 ## Files
