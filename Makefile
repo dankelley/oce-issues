@@ -20,7 +20,8 @@ projections =388 495
 landsat     =465 484 486 501 502 506 508
 drifter     =510
 group516    =516 517 489 337 368 # CR identified the 3xx as related
-current     =517
+proj4       =518 # only for developers; needs proj4 branch
+current     =518
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
