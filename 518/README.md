@@ -32,7 +32,20 @@ overlays.  The 3 minute east-west shift is about 100m.
 
 * **518A.R** mollweide tests.  Top-left shows that mapPoints, mapLines, mapText and mapPolygon? work.
 
-* **518B.R** (once called 02.R) stereopolar test. looks like you have to use ``+proj=sterea`` (note the "a" at end) or there is an error.  I want to track that error down -- may be just in drawing graticles or something internal to oce
+* **518B.R** (once called 02.R) stereopolar test.  Using ``+proj=stere`` works
+  as of oce commit c7b4a54564886ec58a0cfdea1d7bd20a18088628.
 
-* **518C.R** more mollweide tests; top line shows that proj4 has weird lines, but second row shows that existing code removes them.  However, *both* mapproj and proj4 have problems with moving lon0 in mollweide, and I think the only solution for that is some surgery on the data (maybe actual insertion of fake data, which I've seen in some datafiles, or maybe postprocessing of some sort ... **need to do some detective work to understand the issue**).
+* **518C.R** more mollweide tests; top line shows that proj4 has weird lines,
+  but second row shows that existing code removes them.  However, *both*
+  mapproj and proj4 have problems with moving lon0 in mollweide, and I think the
+  only solution for that is some surgery on the data (maybe actual insertion of
+  fake data, which I've seen in some datafiles, or maybe postprocessing of some
+  sort ... **need to do some detective work to understand the issue**).
+
+* **518D.R** testing new scheme for latlim and lonlim; only doing it on the
+  right-hand panel (+proj case).
+
+
+NEXT -- work on 518D.R, putting this trace-box-side scheme into non-proj4 case also.
+
 
