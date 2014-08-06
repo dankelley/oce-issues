@@ -4,7 +4,7 @@ data(coastlineWorld)
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=10)
 
-if (!interactive()) png("518A.png", width=8, height=7, unit="in", res=150, pointsize=9, type="cairo", antialias="none")
+if (!interactive()) png("518A.png", width=8.5, height=5, unit="in", res=150, pointsize=9, type="cairo", antialias="none")
 
 par(mfrow=c(2,2), mar=c(1, 1, 1.5, 1)) # leaves one slot empty
 
