@@ -2,7 +2,8 @@ library(oce)
 source('~/src/oce/R/map.R')
 data(coastlineWorld)
 
-if (!interactive()) png("03.png")
+if (!interactive()) png("518C.png", width=700, height=700, pointsize=11, type="cairo", antialias="none")
+
 par(mfrow=c(3,2), mar=c(3, 3, 1, 1))
 lon<-coastlineWorld[['longitude']]
 lat<-coastlineWorld[['latitude']]

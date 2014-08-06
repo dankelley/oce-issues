@@ -2,14 +2,16 @@ library(oce)
 source('~/src/oce/R/map.R')
 data(coastlineWorld)
 
-if (!interactive()) png("02.png")
+if (!interactive()) png("518B.png", width=700, height=700, pointsize=11, type="cairo", antialias="none")
+
 par(mfrow=c(2,2), mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
 lon<-coastlineWorld[['longitude']]
 lat<-coastlineWorld[['latitude']]
 
+proj <- "stereographic"
 mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(60,110),
-        proj="stereographic", fill='gray')
-mtext("mapPlot/mapproj: straight meridians", font=2, col="purple", adj=0)
+        proj=proj, fill='gray')
+mtext(proj, font=2, col="purple", adj=0)
 
 message("BUG: MUST USE 'sterea' for some reason (may be graticles)")
 proj <- "+proj=sterea +lat_0=90 +north"

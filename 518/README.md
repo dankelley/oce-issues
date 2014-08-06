@@ -6,3 +6,9 @@ To a large extent, I've created this entry mainly to get easy work-home
 transistions, without using google-drive, which breaks for me, and Dropbox, to
 which I have political objections. -- DK
 
+* **01.R** mollweide tests.  Top-left shows that mapPoints, mapLines, mapText and mapPolygon? work.
+
+* **02.R** stereopolar test. looks like you have to use ``+proj=sterea`` (note the "a" at end) or there is an error.  I want to track that error down -- may be just in drawing graticles or something internal to oce
+
+* **03.R** ?
+
