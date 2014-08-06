@@ -15,6 +15,17 @@ which I have political objections. -- DK
 * http://stackoverflow.com/tags/proj4/hot stackoverflow tagged proj4 and hot
 * http://trac.osgeo.org/proj/wiki/proj%3Dcalcofi good lord, they even have a calcofi proj
 * http://cicero.azavea.com/docs/epsg_codes.html some pre-defined codes (cicero)
+* http://proj.maptools.org/faq.html FAQ; note especially re datum shifting
+
+## Datum shift issue
+
+After installing proj.4 (see FAQ) I get
+
+    $ echo "-117 30" | cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83
+    117d0'2.901"W 30d0'0.407"N 0.000
+
+and I wonder if that may explain some differences we've sometimes seen on chart
+overlays.  The 3 minute east-west shift is about 100m.
 
 
 ## Files
