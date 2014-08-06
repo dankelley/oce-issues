@@ -1,4 +1,4 @@
-all: 01.out 02.out 03.out
+all: 518A.out 518B.out 518C.out
 %.out: %.R
 	-R --no-save < $< > $@
 clean: force
