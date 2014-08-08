@@ -42,10 +42,9 @@ overlays.  The 3 minute east-west shift is about 100m.
   fake data, which I've seen in some datafiles, or maybe postprocessing of some
   sort ... **need to do some detective work to understand the issue**).
 
-* **518D.R** testing new scheme for latlim and lonlim; only doing it on the
-  right-hand panel (+proj case).
+* **518D.R** new scheme for latlim and lonlim (trace-the-box ... **NOT** documented yet)
 
+* **518E.R** testing scheme for handling project() errors like with "ortho" WORKING ON THIS
 
-NEXT -- work on 518D.R, putting this trace-box-side scheme into non-proj4 case also.
 
 
