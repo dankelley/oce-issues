@@ -25,6 +25,12 @@ res <- matrix(unlist(lapply(1:n, function(i) {
                             t <- try({project(list(longitude[i], latitude[i]), proj=proj)}, silent=TRUE)
                             if (inherits(t, "try-error")) c(NA, NA) else c(t$x, t$y)})), ncol=2, byrow=TRUE)
 )
+ll <- cbind(longitude, latitude)
+system.time(
+res <- matrix(unlist(lapply(1:n, function(i) {
+                            t <- try({project(ll[i,], proj=proj)}, silent=TRUE)
+                            if (inherits(t, "try-error")) c(NA, NA) else t[1,]})), ncol=2, byrow=TRUE)
+)
 
 if (!interactive()) png("518E.png", width=8.5, height=7, unit="in", res=150, pointsize=9, type="cairo", antialias="none")
 
