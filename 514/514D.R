@@ -1,22 +1,16 @@
-rm(list=ls())
-set.seed(514)
-if (!interactive())
-    png("514D.png", height=4, width=7, unit="in", res=150, pointsize=8)
-library(proj4)
-par(mar=c(4, 4, 2, 1), mgp=c(2,0.7,0), mfrow=c(1,2))
-n <- 100
-eps <- 1e-4
-lon <- runif(n, -180+eps, 180-eps)
-lat <- runif(n, -90+eps, 90-eps)
-xy <- project(list(longitude=lon, latitude=lat), proj="+proj=moll")
-LONLAT <- project(xy, proj="+proj=moll", inverse=TRUE)
-plot(lon, LONLAT$x)
-abline(v=c(-90,90))
-mtext(sprintf("RMS: %.3f", sqrt(mean((lon-LONLAT$x)^2, na.rm=TRUE))))
-abline(0,1)
-plot(lat, LONLAT$y)
-abline(v=c(-90,90))
-mtext(sprintf("RMS: %.3f", sqrt(mean((lat-LONLAT$y)^2, na.rm=TRUE))))
-abline(0,1)
-if (!interactive()) dev.off()
+library(oce)
+try({
+    source('~/src/oce/R/map.R')
+})
 
+# Found this point from 514C, one of many
+lon <- -175
+lat <- 50
+xy <- mapproject(lon, lat, projection="mollweide")
+## invert
+LonLat <- map2lonlat(xy$x, xy$y)
+Lat <- LonLat$latitude
+Lon <- LonLat$longitude
+
+message("lon: ", lon, " -> ", Lon)
+message("lat: ", lat, " -> ", Lat)
