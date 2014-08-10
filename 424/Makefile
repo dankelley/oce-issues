@@ -1,10 +1,8 @@
-all: 424.out README.html
+all: 424.out
 %.out:%.R
 	R --no-save < $< > $@
-README.md: README.Rmd
-	R -e 'library(knitr); knit("README.Rmd")'
 view:
 	-open *.png
 clean:
-	-rm *~ *.pdf *.png *.out README.html README.md
+	-rm *~ *.png *.out
 
