@@ -1,4 +1,4 @@
-all: 475a1.out 475e.out 475f.out
+all: 475A.out 475B.out 475C.out
 %.out:%.R
 	R --no-save < $< > $@
 %.html:%.md
