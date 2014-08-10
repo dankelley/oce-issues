@@ -7,7 +7,6 @@ if ("kelley"==system("whoami", intern=TRUE)) {
     par(mfrow=c(2,2))
     if (!exists("whole")) {
         whole <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", band="panchromatic")
-        message("for speed during debugging, just read panchromatic band")
     }
     for (utm in c(FALSE, TRUE)) {
         plot(whole, decimate=10, utm=utm)
