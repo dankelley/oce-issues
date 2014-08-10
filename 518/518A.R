@@ -1,5 +1,7 @@
 library(oce)
-source('~/src/oce/R/map.R')
+try({
+    source('~/src/oce/R/map.R')
+})
 data(coastlineWorld)
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=10)
@@ -18,9 +20,8 @@ mapPolygon(coastlineWorld, col=rgb(1, 1, 1, alpha=0.7)) # check alpha on dots
 mapContour(topoWorld, levels=1000, col='red') # SLOW
 mtext(proj, font=2, col="purple", adj=0)
 
-
 proj <- "+proj=moll"
-mapPlot(coastlineWorld, projection=proj, fill="gray")
+mapPlot(coastlineWorld, projection=proj, fill="gray") # HERE
 ## Near to it's "mirror" in Southern hemisphere: great circle will cross meridians
 mapPoints(rep(-63, 19), seq(-45, 45, 5), pch=20, col='red')
 mapLines(c(-63, -63), c(-45, 45), col='blue', lwd=2)
