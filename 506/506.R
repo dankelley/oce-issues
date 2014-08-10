@@ -3,7 +3,7 @@ library(oce)
 try({
     source("~/src/oce/R/landsat.R")
 })
-i <- read.landsat("/data/archive/landsat/LE71910202005194ASN00", band="tirsA", debug=3)
+i <- read.landsat("/data/archive/landsat/LE71910202005194ASN00", band="tirs1", debug=3)
 i <- decimate(i, by=33)
 plot(i, debug=3)
 plot(i, band="temperature", debug=3)

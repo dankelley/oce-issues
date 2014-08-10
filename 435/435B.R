@@ -1,6 +1,10 @@
 rm(list=ls())
 if (!interactive()) png("435B.png", width=7, height=7, unit="in", res=150, pointsize=12)
 
+try({
+    source("~/src/oce/R/colors.R")
+    source("~/src/oce/R/imagep.R")
+})
 library(oce)
 library(RColorBrewer)
 N <- 7

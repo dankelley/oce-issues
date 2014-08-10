@@ -1,5 +1,6 @@
 library(oce)
-data(RRprofile)
+data(RRprofile, package='ocedata')
+if (!interactive()) png("345.png")
 plot(RRprofile$temperature, RRprofile$depth, ylim=c(500,0), xlim=c(2,11), pch=20, cex=1/2)
 #source('~/src/R-kelley/oce/R/oce.R')
 zz <- seq(0, 500, 1)
@@ -9,5 +10,5 @@ lines(a1, zz)
 lines(a2, zz, col='red')
 legend("bottomright", lwd=1, col=1:2,
        legend=c("reiniger-ross", "nodc"), cex=3/4)
-
+if (!interactive()) dev.off()
 

@@ -7,7 +7,7 @@ try({
     source('~/src/oce/R/imagep.R')
 })
 
-par(mfrow=c(1,2))
+par(mfrow=c(2,1))
 dim <- dim(landsat@data[[1]]$msb)
 plot(landsat, which=2, zlim="histogram")
 F <- 2^16-1

@@ -4,7 +4,7 @@ try({
     source('~/src/oce/R/landsat.R')
 })
 options(testLandsat1=TRUE)
-system.time(l <- read.landsat("~/Downloads/LC80150282014178LGN00", band="tirs1"))
+system.time(l <- read.landsat("/data/archive/landsat/LC80150282014178LGN00", band="tirs1"))
 tirs1 <- l[["tirs1"]]
 ML <- l@metadata$header$radiance_mult_band_10
 AL <- l@metadata$header$radiance_add_band_10
