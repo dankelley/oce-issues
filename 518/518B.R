@@ -13,14 +13,9 @@ mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(60,110),
         proj=proj, fill='gray')
 mtext(proj, font=2, col="purple", adj=0)
 
-message("BUG: MUST USE 'sterea' for some reason (may be graticles)")
-proj <- "+proj=sterea +lat_0=90 +north" # flips lons
-proj <- "+proj=stere +north" # OK
 proj <- "+proj=stere" # OK (same as with +north, I think)
 mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(70,110), proj=proj)
 mtext(proj, font=2, col="purple", adj=0)
-message("FOR DOCS: skip +k -- taken care of with lat-lon limits")
-message("FOR DOCS: skip easting and northing -- taken care of with lat-lon limits")
 
 ## set k to 1/R_earth in 1/m
 proj <- "+proj=stere +k=1.569612e-07 +lat_0=0 +y_0=-2 +north"

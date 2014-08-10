@@ -49,7 +49,4 @@ mtext(proj, font=2, col="purple", adj=0)
 mapPlot(coastlineWorld, projection="mollweide", orientation=c(90, -120, 0), fill='gray')
 mtext(proj, font=2, col="purple", adj=0)
 
-message("FOR DOCS: skip +k -- taken care of with lat-lon limits")
-message("FOR DOCS: skip easting and northing -- taken care of with lat-lon limits")
-
 if (!interactive()) dev.off()

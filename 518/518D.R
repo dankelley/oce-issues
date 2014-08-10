@@ -12,7 +12,6 @@ proj <- "stereographic"
 mapPlot(coastlineWorld, longitudelim=c(-130,180-130), latitudelim=c(90-30,90+30), proj=proj)
 mtext(proj, font=2, col="purple", adj=0)
 
-message("stere BUG: flips image")
 ## in next, can give +lon_0 if desired; giving +lat_ts has no effect
 proj <- "+proj=stere +lat_0=90"
 ## in next, note what I'm doing with image points; this should go in docs
