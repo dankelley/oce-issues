@@ -1,4 +1,4 @@
-if (!interactive()) png("356B.R")
+if (!interactive()) png("356B.png")
 library(oce)
 data(coastlineWorld)
 data(topoWorld)
