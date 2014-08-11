@@ -44,13 +44,16 @@ z <- z[IIlon, IIlat]
 
 if (!interactive()) png('356A.png', type='cairo')
 
-breaks <- seq(-5000, 5000, 500)
-par(mar=c(3, 3, 1, 1))
+breaks <- seq(-5000, 1000, 500)
+par(mar=c(3, 3, 4, 1))
 
 drawPalette(breaks, col=oceColorsJet(length(breaks)-1), zlab=expression(group('[', m, ']')))
 mapPlot(coastlineWorld, latitudelim=latlim, longitudelim=lonlim, projection = 'stereographic', orientation =c(90, 0, -50))
-mapFilledContour(lon, lat, z, breaks=breaks, contour=TRUE, col=oceColorsJet)
+t <- system.time({mapFilledContour(lon, lat, z, breaks=breaks, contour=TRUE, col=oceColorsJet)})
 ## mapPolygon(coastlineWorld, col='grey')
 box()
-
+mtext("EXPECT: image colour breaks match contoured coastline [PASS]", font=2, col="purple", adj=0)
+mtext("EXPECT: filled regions, not image-style boxes [PASS]", font=2, col="purple", adj=0, line=1)
+mtext("EXPECT: reasonable speed, say under 2s [FAIL]", font=2, col="purple", adj=0, line=2)
+mtext(sprintf("356A.R: use mapImage() on interpolated field (CR test); took %.1fs", t[[3]]), line=3, adj=0)
 if (!interactive()) dev.off()
