@@ -14,14 +14,14 @@ dirs        =337 356 388 390 402 404 406 408 409 412 413 414 415 416 418 \
 colormap    =437 441 443 447 449 450 452 453 454 517
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516
-map         =514 517
+map         =514 517 522
 ctd         =498 520
 projections =388 495 518
 landsat     =465 484 486 501 502 506 508 519
 drifter     =510
 group516    =516 517 489 337 368 # CR identified the 3xx as related
 proj4       =518
-current     =517
+current     =522
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
