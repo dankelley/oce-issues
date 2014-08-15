@@ -10,17 +10,18 @@ plot(drifter)
 mtext("(a)", adj=1)
 mtext("EXPECT: no projection", font=2, col='purple', adj=0)
 
-plot(drifter, projection="automatic")
+plot(drifter, projection="automatic", fill="lightgray")
 mtext("(b)", adj=1)
-mtext("EXPECT: auto (mollweide) projection", font=2, col='purple', adj=0)
+mtext("EXPECT: auto (mercator) projection", font=2, col='purple', adj=0)
 
-plot(drifter, projection="+proj=merc")
+plot(drifter, projection="+proj=merc", fill="lightgray")
 mtext("(c)", adj=1)
 mtext("EXPECT: mercator projection", font=2, col='purple', adj=0)
 
-plot(drifter, projection="mercator", orientation=c(90, -60, 0))
+plot(drifter, projection="mercator", fill=FALSE)
 mtext("(d)", adj=1)
-mtext("EXPECT: similar to (c)", font=2, col='purple', adj=0)
+mtext("EXPECT: similar to (c) but no fill", font=2, col='purple', adj=0)
+mtext("BUG: horiz. lines; cannot fill", font=2, col='purple', adj=0, line=1)
 
 if (!interactive()) dev.off()
 
