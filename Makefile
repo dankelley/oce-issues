@@ -15,6 +15,7 @@ colormap    =437 441 443 447 449 450 452 453 454 517
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516
 map         =514 517 522 523
+mapImage    =517 522
 ctd         =402 432 438 475 477 498 520
 #388=ugly horizontal lines in maps
 projections =388 495 518 520 521
@@ -47,6 +48,8 @@ imagep:
 	for dir in $(imagep) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 map:
 	for dir in $(map) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+mapImage:
+	for dir in $(mapImage) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 projections:
 	for dir in $(projections) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
