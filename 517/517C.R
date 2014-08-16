@@ -25,7 +25,7 @@ mapPlot(coastlineWorld, type='l',
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
 mtext('(a)', adj=1)
-mtext("!filledContour ; col ; breaks", line=1, adj=0)
+mtext("!filledContour ; col ; breaks", line=0, adj=0)
 box()
 
 ## panel b
@@ -34,9 +34,9 @@ mapPlot(coastlineWorld, type='l',
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
 mapImage(topo, colormap=cm)
 mtext('(b)', adj=1)
-mtext('EXPECT: as (a)', col=6, font=2, adj=0)
+mtext("!filledContour ; colormap", line=0, adj=0)
+mtext('EXPECT: as (a)', col=6, font=2, adj=0, line=2)
 mtext('CHECK: central NB and Glace Bay', col=6, font=2, adj=0, line=1)
-mtext("!filledContour ; colormap", line=2, adj=0)
 box()
 mapLines(coastlineWorld)
 
