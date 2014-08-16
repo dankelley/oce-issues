@@ -16,11 +16,11 @@ imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516
 map         =514 517 522
 ctd         =402 432 438 475 477 498 520
-projections =388 495 518
+projections =388 495 518 520 521
 landsat     =465 484 486 501 502 506 508 519
 drifter     =510 521
-group516    =516 517 489 337 368 # CR identified the 3xx as related
-proj4       =518
+group516    =516 517 489 337 368 # CR related 3xx; DK related others
+proj4       =518 520
 current     =522
 
 all:
@@ -30,17 +30,22 @@ clean:
 	for dir in $(dirs) ; do cd $$dir ; make clean ; cd .. ; done
 view:
 	for dir in $(dirs) ; do cd $$dir ; make view ; cd .. ; done
+current:
+	for dir in $(current) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+
+## Themed tests (alphabetical)
 colormap:
 	for dir in $(colormap) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+ctd:
+	for dir in $(ctd) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+drifter:
+	for dir in $(drifter) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+group516:
+	for dir in $(group516) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 imagep:
 	for dir in $(imagep) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 projections:
 	for dir in $(projections) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
-ctd:
-	for dir in $(ctd) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
 	for dir in $(landsat) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
-group516:
-	for dir in $(group516) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
-current:
-	for dir in $(current) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+
