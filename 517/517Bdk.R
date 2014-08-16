@@ -5,7 +5,7 @@ try({
 data(coastlineWorld)
 data(topoWorld)
 
-if (!interactive()) png('517Bdk.png', width=700, height=700, type='cairo', pointsize=13)
+if (!interactive()) png('517Bdk.png', width=700, height=700, type='cairo', pointsize=12)
 par(mfrow=c(2,2), mar=c(2, 2, 1, 1))
 
 
@@ -20,7 +20,7 @@ cm <- colormap(col=col, breaks=breaks, missingColor="red")
 ## panel a
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+        proj="polyconic", orientation=c(90,-62,0), grid=TRUE)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
 mtext('(a)', adj=1)
@@ -29,7 +29,7 @@ box()
 ## panel b
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+        proj="polyconic", orientation=c(90,-62,0), grid=TRUE)
 mapImage(topo, filledContour=TRUE, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
 mtext('EXPECT: as (a) but smooth color separators', col=6, font=2, adj=0)
@@ -39,7 +39,7 @@ box()
 ## panel c
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+        proj="polyconic", orientation=c(90,-62,0), grid=TRUE)
 mapImage(topo, colormap=cm)
 mtext('(c)', adj=1)
 mtext('EXPECT: as (a) above', col=6, font=2, adj=0)
@@ -49,7 +49,7 @@ mapLines(coastlineWorld)
 ## panel d
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+        proj="polyconic", orientation=c(90,-62,0), grid=TRUE)
 mapImage(topo, filledContour=TRUE, colormap=cm)
 mtext('(d)', adj=1)
 mtext('EXPECT: as (b) above', col=6, font=2, adj=0)

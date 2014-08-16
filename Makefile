@@ -45,6 +45,8 @@ group516:
 	for dir in $(group516) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 imagep:
 	for dir in $(imagep) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+map:
+	for dir in $(map) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 projections:
 	for dir in $(projections) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
