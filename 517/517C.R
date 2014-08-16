@@ -30,22 +30,16 @@ mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
 Z <- topo[['z']]
-mapImage(topo, col=col, breaks=breaks, debug=3)
+debug <- 11 # lots of debugging (colorized if interactive)
+debug <- 0
+mapImage(topo, col=col, breaks=breaks, debug=debug)
 mapLines(coastlineWorld)
-mtext('(a)', adj=1)
-mtext("!filledContour ; col ; breaks", line=0, adj=0)
-box()
 
 ## panel b
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
-mapImage(topo, colormap=cm, debug=3)
-mtext('(b)', adj=1)
-mtext("!filledContour ; colormap", line=0, adj=0)
-mtext('EXPECT: as (a)', col=6, font=2, adj=0, line=2)
-mtext('CHECK: central NB and Glace Bay', col=6, font=2, adj=0, line=1)
-box()
+mapImage(topo, colormap=cm, debug=debug)
 mapLines(coastlineWorld)
 
 if (!interactive()) dev.off()
