@@ -6,7 +6,7 @@ try({
 data(coastlineWorld)
 data(topoWorld)
 
-if (!interactive()) png('517C.png', width=700, height=500, type='cairo', pointsize=13)
+if (!interactive()) png('517C.png', width=700, height=300, type='cairo', pointsize=13)
 par(mfrow=c(1,2), mar=c(2, 2, 3, 1))
 
 
@@ -16,13 +16,14 @@ latlim <- c(40,50)
 topo <- subset(topoWorld, latlim[1] < latitude & latitude < latlim[2])
 topo <- subset(topo, (360+lonlim[1]) < longitude & longitude < (360+lonlim[2]))
 breaks <- seq(-2000, 0, 100)
-cm <- colormap(col=oceColorsGebco, breaks=breaks, missingColor="red")
+col <- oceColorsGebco
+cm <- colormap(col=col, breaks=breaks, missingColor="red")
 
 ## panel a
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
-mapImage(topo, col=oceColorsGebco, breaks=breaks)
+mapImage(topo, col=col, breaks=breaks, debug=3)
 mapLines(coastlineWorld)
 mtext('(a)', adj=1)
 mtext("!filledContour ; col ; breaks", line=0, adj=0)
@@ -32,7 +33,7 @@ box()
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
-mapImage(topo, colormap=cm)
+mapImage(topo, colormap=cm, debug=3)
 mtext('(b)', adj=1)
 mtext("!filledContour ; colormap", line=0, adj=0)
 mtext('EXPECT: as (a)', col=6, font=2, adj=0, line=2)
