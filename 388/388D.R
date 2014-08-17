@@ -43,8 +43,8 @@ analyze <- function(proj, factor=3)
         hist(log10(1e-3+wildness), breaks=50)
         abline(v=log10(terrible), lty='dotted', col='red')
     } else {
-        hist(log10(d/D+1e-5), breaks=seq(-5, 6, 0.1),
-             xlim=c(-5, 6),main=paste("nonNormal: ", sum(nonNormal,na.rm=TRUE), "; proj:", proj))
+        hist(log10(d/D+1e-5), breaks=100,
+             main=paste("nonNormal: ", sum(nonNormal,na.rm=TRUE), "; proj:", proj))
         abline(v=Wcutoff, lty='dotted', col='red')
     }
     if (newzealand) {
