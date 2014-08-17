@@ -1,4 +1,4 @@
-all: 388A.out 388B.out 388C.out
+all: 388A.out 388B.out 388C.out 388D.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
