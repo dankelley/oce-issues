@@ -6,8 +6,12 @@ of the projected earth).  The problem is worse when the prime merdian is
 shifted, but it also occurs without shifting.
 
 It happens with both mapproj or proj4 notations, using world coastlines from
-Oce.  I tried the maps package with ``map('world', proj='mollweide')`` and the
-problem occurs there also.
+Oce.  The test below shows that this works with the coastline from the maps
+package also.
+```{r}
+library(maps)
+map('world', proj='mollweide')
+```
 
 This directory contains some tests of possible approaches.  This is an old
 issue and lots of things have been tried.  The age of the issue indicates that
@@ -32,6 +36,18 @@ There are some old files in this directory that I've not documented here.
 **Idea** Perturb longitude and see how much x changes.  If it doesn't change
 much, the point is OK.  If it does change, it may be near an edge.  
 
-**Summary.** The tests look pretty good to me, in the sense that red dots
-appear by the UHL that appear for shifted prime merdian, and they even occur
-for some other sots that are worth checking.  
+**Results.** The tests look quite good, in the sense that red dots appear by
+the UHL that appear for shifted prime merdian, and they even occur for some
+other sots that are worth checking.  
+
+## 388F.R
+
+**Idea.** Trace the "edge of the map" empirically for the active projection, so
+it can be used to fill in fake points where the coastline cuts the edge.  This
+would yield clean edges in filled diagrams.
+
+**Results.** So far, 388F.R only draws the globe and this computed world edge.
+But it looks good.
+
+
+
