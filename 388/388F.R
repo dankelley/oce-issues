@@ -1,5 +1,5 @@
 rm(list=ls())
-if (!interactive()) pdf("388F.pdf", pointsize=9)
+if (!interactive()) pdf("388F.pdf", height=4, pointsize=9)
 par(mar=c(2, 2, 3, 1), mgp=c(2, 0.7, 0))
 
 lon <- seq(-180,180,8)
@@ -32,8 +32,7 @@ D <- 0.1                               # trace LH side of globe (works on tests 
 xy2 <- project(list(longitude=longitude+D, latitude=latitude), proj=proj)
 x <- c(xy$x, xy2$x)
 y <- c(xy$y, rev(xy2$y))
-plot(x, y, asp=1, type='o')
-grid()
+
 library(oce)
 data(coastlineWorld)
 mapPlot(coastlineWorld, proj=proj)
