@@ -1,7 +1,9 @@
-all: 388A.out 388B.out 388C.out 388D.out 388E.out
+all: 388A.out 388B.out 388C.out 388D.out 388E.out README.html
 %.out: %.R
 	R --no-save < $< > $@
+README.html: README.md
+	-pandoc README.md > README.html
 clean:
-	-rm *.out *.pdf *~ *swp
+	-rm *.out *.pdf *~ *swp README.html
 view:
 	-open *.pdf
