@@ -62,4 +62,12 @@ cross and recross the cut point, however.
 
 ![388H.  left: chop wrt cut.  middle: start trace at cut, then chop.  Right: amend near cut then fill](388H.pdf)
 
+## 388I.R
+
+**Idea.** find islands in world coastline
+
+**Results.** works.
+
+![388I. world islands, colour-coded (modulo 10)](388I.pdf)
+
 
