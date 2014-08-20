@@ -15,7 +15,7 @@ par(mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
 plot(c(-180, 180), c(-90, 90), type='n', asp=1, xlab="", ylab="")
 for (is in seq_along(i$begin)) {
    span <- seq.int(i$begin[is], i$end[is])
-   polygon(lon[span], lat[span], col=1+is%%10)
+   polygon(lon[span], lat[span], col=1+is%%10, lwd=1/4)
 }
 
 if (!interactive()) dev.off()
