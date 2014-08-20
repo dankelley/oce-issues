@@ -1,5 +1,5 @@
 ---
-issue388 UHL
+title: issue388 UHL
 ---
 
 Ugly horizontal lines (UHL) exist in some map projections.  This seems to occur
