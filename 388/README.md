@@ -6,12 +6,7 @@ of the projected earth).  The problem is worse when the prime merdian is
 shifted, but it also occurs without shifting.
 
 It happens with both mapproj or proj4 notations, using world coastlines from
-Oce.  The test below shows that this works with the coastline from the maps
-package also.
-```{r}
-library(maps)
-map('world', proj='mollweide')
-```
+Oce.  The problem occurs with the coastline from the maps package also.
 
 This directory contains some tests of possible approaches.  This is an old
 issue and lots of things have been tried.  The age of the issue indicates that
@@ -63,4 +58,7 @@ for a while
 
 **Results.** works well.  I don't know how this will work on coastlines that
 cross and recross the cut point, however.
+
+![388H.png](388H.png)
+
 
