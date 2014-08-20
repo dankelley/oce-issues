@@ -50,4 +50,17 @@ would yield clean edges in filled diagrams.
 But it looks good.
 
 
+## 388G.R
+
+**Idea.** Isolate australian coastline (``ca`` in ``coastlineAustralia.rda``)
+
+**Results.** there seems to be a break in the coastline but I'll ignore that
+for a while
+
+## 388H.R
+
+**Idea.** chop, reindex, etc the Australian continent with cut point at 120.
+
+**Results.** works well.  I don't know how this will work on coastlines that
+cross and recross the cut point, however.
 
