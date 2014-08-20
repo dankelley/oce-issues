@@ -70,4 +70,12 @@ cross and recross the cut point, however.
 
 ![388I. world islands, colour-coded (modulo 10)](388I.pdf)
 
+## 388J.R
+
+**Idea.** combine H and I to plot world coastline
+
+**Results.** works.
+
+![388J. colour-cut at 120E](388J.pdf)
+
 
