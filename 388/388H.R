@@ -1,6 +1,6 @@
 ## Isolate Australia for testing.
 
-if (!interactive()) png("388H.png", width=7, height=2, unit="in", res=150, pointsize=8)
+if (!interactive()) pdf("388H.pdf", width=7, height=2, pointsize=8)
 library(oce)
 load("coastlineAustralia.rda") # ca
 par(mar=c(3, 3, 1.5, 1), mgp=c(2, 0.7, 0), mfrow=c(1,3))

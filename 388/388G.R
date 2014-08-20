@@ -1,6 +1,6 @@
 ## Isolate Australia for testing.
 
-if (!interactive()) pdf("388G.pdf", height=4)
+if (!interactive()) pdf("388G.pdf", height=2)
 library(oce)
 data(coastlineWorld)
 lon <- coastlineWorld[['longitude']]

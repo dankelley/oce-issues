@@ -1,10 +1,11 @@
 all: 388A.out 388B.out 388C.out 388D.out 388E.out 388F.out \
-    388G.out 388H.out README.html
+    388G.out 388H.out README.pdf
 %.out: %.R
 	R --no-save < $< > $@
-README.html: README.md
+README.pdf: README.md
 	#-R -e 'library(knitr); knit("README.Rmd")'
-	-pandoc README.md > README.html
+	-pandoc -V geometry:margin=0.7in README.md -o README.pdf
+	
 clean:
 	-rm *.out *.pdf *~ *swp README.html
 view:
