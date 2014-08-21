@@ -7,6 +7,7 @@ README.pdf: README.md
 	-pandoc -V geometry:margin=0.7in README.md -o README.pdf
 	
 clean:
-	-rm *.out *.pdf *~ *swp README.html
+	-rm *.out *.png *.pdf *~ *swp README.html
 view:
-	-open *.pdf
+	-open README.pdf
+

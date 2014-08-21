@@ -1,6 +1,6 @@
 rm(list=ls())
 debug <- FALSE
-if (!interactive()) pdf("388F.pdf", height=5, pointsize=9)
+if (!interactive()) pdf("388F.pdf", height=4, pointsize=9)
 par(mar=c(2, 2, 1.5, 1), mgp=c(2, 0.7, 0), mfrow=c(2,2))
 
 library(plyr)
