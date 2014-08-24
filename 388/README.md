@@ -73,4 +73,10 @@ that later.
 
 ![388J. colour-cut at 120E](388J.pdf)
 
+## 388K.R
+
+**Idea.** first trial at doing this in projected space
+**Results.** somewhat promising results but the gap must be 2deg of lon.
+
+![388K. colour-cut at 120E](388K.pdf)
 
