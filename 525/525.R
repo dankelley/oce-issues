@@ -1,0 +1,11 @@
+if (!interactive()) png("525.png")
+library(oce)
+## try({
+##     source('~/src/oce/R/ctd.R')
+## })
+data(ctd)
+par(mfrow=c(1,3))
+plot(ctd, which='temperature')
+plot(ctd, which='temperature', lty=2)
+plot(ctd, which='temperature', lty=2, col='red', lwd=3)
+if (!interactive()) dev.off()
