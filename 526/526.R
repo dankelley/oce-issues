@@ -3,7 +3,7 @@ try({source('~/src/oce/R/map.R')})
 require(ocedata)
 data(coastlineWorldMedium)
 if (!interactive())
-    png(filename="527.png" ,hei=5, wid=8, uni='in', res=100)
+    png(filename="526.png" ,hei=5, wid=8, uni='in', res=100)
 par(mfrow=c(1,2), mar=c(2, 2, 1, 1))
 mapPlot(coastlineWorldMedium,
         longitudelim=c(-180,-120), latitudelim=c(35,60),
