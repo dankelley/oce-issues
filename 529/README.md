@@ -142,34 +142,9 @@ Insert + when done
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## mapproj style
+
+Add equivalent proj4 when done in code
 
 + aitoff()
 + albers(lat0,lat1)
