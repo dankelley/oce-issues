@@ -1,0 +1,12 @@
+require(oce)
+try({source('~/src/oce/R/map.R')})
+if (!interactive()) png(filename="526B.png" ,hei=5, wid=8, uni='in', res=100)
+library(oce)
+data(coastlineWorld)
+par(mfrow=c(1,2), mar=c(3, 3, 1, 1))
+mapPlot(coastlineWorld, proj="+proj=moll")
+mtext("proj4", adj=0)
+mapPlot(coastlineWorld, proj="mollweide")
+mtext("mapproj", adj=0)
+if (!interactive()) dev.off()
+
