@@ -1,6 +1,7 @@
 ## proj4 style
 
-Insert + when done
+Insert + when done; see list for mapproj below, which is easier for checking
+progress on coding.
 
 + "aea"
 "aeqd"
@@ -12,7 +13,7 @@ Insert + when done
 "bacon"
 "bipc"
 "boggs"
-"bonne"
++ "bonne"
 "cass"
 "cc"
 "cea"
@@ -69,10 +70,10 @@ Insert + when done
 "mbtfpp"
 "mbtfpq"
 "mbtfps"
-"merc"
++ "merc"
 "mil_os"
 "mill"
-"moll"
+# "moll"
 "murd1"
 "murd2"
 "murd3"
@@ -105,7 +106,7 @@ Insert + when done
 "rpoly"
 "sinu"
 "somerc"
-"stere"
+# "stere"
 "sterea"
 "gstmerc"
 "tcc"
@@ -144,14 +145,16 @@ Insert + when done
 
 ## mapproj style
 
-Add equivalent proj4 when done in code
+Add equivalent proj4 when done in code.
 
-+ aitoff()
-+ albers(lat0,lat1)
+Base website http://www.remotesensing.org/geotiff/proj_list
+
+"aitoff" aitoff()
+"aea" albers(lat0,lat1) # albers_equal_area_conic.html
 azequalarea()
 azequidistant()
 bicentric(lon0)
-bonne(lat0)
+"bonne" bonne(lat0)
 conic(lat0)
 cylequalarea(lat0)
 cylindrical()
@@ -167,12 +170,13 @@ harrison(dist,angle)
 hex
 homing(lat0)
 lagrange()
-lambert(lat0,lat1)
+## or laea for lambert? lambert_azimuthal_equal_area.html
+"lcc" lambert(lat0,lat1) # lambert_conic_conformal_1sp.html
 laue()
 lune(lat,angle)
 mecca(lat0)
-mercator()
-mollweide()
+"merc" mercator()
+"moll" mollweide()
 newyorker(r)
 orthographic()
 perspective(dist)
@@ -183,7 +187,7 @@ sinusoidal()
 sp_albers(lat0,lat1)
 sp_mercator()
 square
-stereographic()
+"stere" stereographic()
 tetra
 trapezoidal(lat0,lat1)
 vandergrinten()
