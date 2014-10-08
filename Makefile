@@ -24,7 +24,7 @@ landsat     =465 484 486 501 502 506 508 519
 drifter     =510 521
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520
-ts          =147
+ts          =147 531
 current     =531
 
 all:
