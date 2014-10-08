@@ -6,7 +6,8 @@
 # 'make all' tests everything
 # 'make imagep' tests (and displays results) for imagep() bugs
 # For similar tests, look at looping blocks near bottom.
-dirs        =337 356 388 390 402 404 406 408 409 412 413 414 415 416 418 \
+dirs        =147 \
+	     337 356 388 390 402 404 406 408 409 412 413 414 415 416 418 \
              420 421 423 424 425 426 427 428 430 431 432 434 435 437 438 \
              441 443 444 447 448 449 450 451 452 453 454 456 458 459 462 \
 	     464 465 475 479 481 482 490 495 501 502 504 506 508 510 513 \
@@ -23,6 +24,7 @@ landsat     =465 484 486 501 502 506 508 519
 drifter     =510 521
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520
+ts          =147
 current     =531
 
 all:
@@ -56,3 +58,5 @@ landsat:
 	for dir in $(landsat) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ugly:
 	for dir in $(ugly) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+ts:
+	for dir in $(ts) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
