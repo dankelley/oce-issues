@@ -1,0 +1,15 @@
+library(oce)
+try({source('~/src/oce/R/map.R')})
+data(coastlineWorld)
+par(mar=c(2, 2, 3, 1))
+lonlim <- c(-180, 180)
+latlim <- c(60, 120)
+p <- '+proj=stere +lat_0=90'
+mapPlot(coastlineWorld, projection=p, longitudelim=lonlim, latitudelim=latlim, grid=FALSE)
+mapGrid(15, 15, polarCircle=1/2)
+
+mapAxis(side=c(1,3))
+mtext("EXPECT: no mess at dateline", font=2, col="purple", adj=0, line=2)
+mtext("EXPECT: longitudes on all sides", font=2, col="purple", adj=0, line=1)
+#mapAxis(longitude=c(-15,0, 15))
+#mapAxis(debug=1)
