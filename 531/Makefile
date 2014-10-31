@@ -1,4 +1,4 @@
-all: 531.out
+all: 531.out 531B.out
 %.out: %.R
 	R --no-save < $< > $@
 clean:
