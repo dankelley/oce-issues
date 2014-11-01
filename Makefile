@@ -15,17 +15,17 @@ dirs        =147 \
 colormap    =437 441 443 447 449 450 452 453 454 517
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516
-map         =514 517 522 523 533
+map         =514 517 522 523 533 537
 mapImage    =517 522
 ctd         =402 432 438 475 477 498 520 525
-ugly        =388 # horiz lines on maps
-projections =388 495 518 520 521
+UHL         =388 # horiz lines on maps
+projections =388 495 518 520 521 537
 landsat     =465 484 486 501 502 506 508 519
 drifter     =510 521
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533
 ts          =147 531
-current     =531
+current     =537
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
