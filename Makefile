@@ -25,7 +25,7 @@ drifter     =510 521
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533
 ts          =147 531
-current     =533
+current     =531
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
