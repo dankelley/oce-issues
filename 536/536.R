@@ -1,0 +1,15 @@
+library(oce)
+## try({
+##     source("~/src/oce/R/colors.R")
+##     source("~/src/oce/R/imagep.R")
+## })
+if (!interactive()) png("536.png")
+library(oce)
+x <- seq(0, 1, length.out=40)
+y <- sin(2 * pi * x)
+c <- colormap(y)
+drawPalette(c$zlim, col=c$col, breaks=c$breaks)
+plot(x, y, bg=c$zcol, pch=21, cex=1)
+mtext("EXPECT: a colormap with 'jet' colorscheme", font=2, col="purple", adj=0)
+if (!interactive()) dev.off()
+
