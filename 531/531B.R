@@ -15,7 +15,7 @@ abline(v=xlim, col='red', lwd=2)
 mtext(paste('usr[1:2]=c(', paste(numberAsPOSIXct(par('usr')[1:2]), collapse=", "), ")"),
       side=1, line=1.75, col='red', cex=3/4)
 mtext("oce.plot.ts ", side=3, adj=1, cex=0.9, col='blue')
-mtext("EXPECT: similar in col (FAIL)", font=2, col="purple", line=0.75, adj=0)
+mtext("EXPECT: similar in col", font=2, col="purple", line=0.75, adj=0)
 
 plot(t, y, xlim=xlim, type='o', xlab='')
 abline(v=xlim, col='red', lwd=2)
