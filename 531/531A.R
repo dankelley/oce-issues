@@ -1,4 +1,4 @@
-if (!interactive()) png("531A.png", width=5, height=5, unit="in", res=150)
+if (!interactive()) png("531A.png", width=5, height=5, unit="in", res=150, pointsize=9)
 library(oce)
 try({source("~/src/oce/R/imagep.R")})
 try({source("~/src/oce/R/oce.R")})
