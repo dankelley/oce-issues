@@ -1,4 +1,5 @@
 library(oce)
+library(proj4)
 source('~/src/oce/R/map.R')
 data(coastlineWorld)
 
