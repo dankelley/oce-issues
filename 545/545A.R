@@ -1,6 +1,6 @@
 library(oce)
 try(source("~/src/oce/R/map.R"))
-if (!interactive()) png("545.png")
+if (!interactive()) png("545A.png")
 data(coastlineWorld)
 par(mfrow=c(1,2), mar=c(3, 3, 1, 1))
 lolim <- c(-130, 50)
