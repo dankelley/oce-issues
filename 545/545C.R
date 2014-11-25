@@ -5,7 +5,6 @@ data(coastlineWorld)
 par(mfrow=c(1,3), mar=c(2, 2, 3, 1))
 lolim <- c(-130, 50)
 lalim <- c(70, 110)
-options(issue545B=1) # set temporary test code in map.R (author only)
 mapPlot(coastlineWorld, longitudelim=lolim, latitudelim=lalim,
         proj="stereographic", orientation=c(90, -135, 0), fill=1:5)
 mtext("mapproj", adj=1)
