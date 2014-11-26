@@ -19,6 +19,7 @@ mapText(-63, 44, "Halifax", font=2, col='red', pos=3)
 mapPolygon(coastlineWorld, col=rgb(1, 1, 1, alpha=0.7)) # check alpha on dots
 mapContour(topoWorld, levels=1000, col='red') # SLOW
 mtext(proj, font=2, col="purple", adj=0)
+mtext("BUG: ugly horizontal lines", font=2, col="purple", adj=1)
 
 proj <- "+proj=moll"
 mapPlot(coastlineWorld, projection=proj, fill="gray") # HERE

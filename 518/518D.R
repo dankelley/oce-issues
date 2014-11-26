@@ -4,7 +4,7 @@ data(coastlineWorld)
 
 if (!interactive()) png("518D.png", width=8.5, height=7, unit="in", res=150, pointsize=9, type="cairo", antialias="none")
 
-par(mfrow=c(2,2), mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
+par(mfrow=c(2,1), mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
 lon<-coastlineWorld[['longitude']]
 lat<-coastlineWorld[['latitude']]
 

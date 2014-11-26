@@ -10,12 +10,12 @@ lon<-coastlineWorld[['longitude']]
 lat<-coastlineWorld[['latitude']]
 
 proj <- "stereographic"
-mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(60,110),
-        proj=proj, fill='gray')
+mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(70,110), proj=proj, fill='gray')
 mtext(proj, font=2, col="purple", adj=0)
+mtext("BUG: no prime meridian", font=2, col="purple", adj=1)
 
-proj <- "+proj=stere" # OK (same as with +north, I think)
-mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(70,110), proj=proj)
+proj <- "+proj=stere +lat_0=90" # OK (same as with +north, I think)
+mapPlot(coastlineWorld, longitudelim=c(-130,-50), latitudelim=c(70,110), proj=proj, fill='lightgray')
 mtext(proj, font=2, col="purple", adj=0)
 
 ## set k to 1/R_earth in 1/m
