@@ -9,7 +9,7 @@ mtext("Stereographic/mapproj", adj=1)
 mtext("EXPECT: sensible meridians", font=2, col="purple", adj=0, line=1)
 mtext("EXPECT: sensible axis labels", font=2, col="purple", adj=0, line=2)
 mapPlot(coastlineWorld, longitudelim=c(-130,50), latitudelim=c(70,110),
-        proj="+proj=stere +lat_0=90 +lon_0=-135")#, fill='gray')
+        proj="+proj=stere +lat_0=90 +lon_0=-135", fill='gray')
 mtext("Stereographic/proj4", adj=1)
 mtext("EXPECT: sensible meridians", font=2, col="purple", adj=0, line=1)
 mtext("EXPECT: sensible axis labels", font=2, col="purple", adj=0, line=2)
