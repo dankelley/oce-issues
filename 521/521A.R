@@ -15,9 +15,10 @@ plot(drifter, projection="automatic", fill="lightgray")
 mtext("(b)", adj=1)
 mtext("EXPECT: auto (mercator) projection", font=2, col='purple', adj=0)
 
-plot(drifter, projection="+proj=merc", fill="lightgray")
+p <- "+proj=merc"
+plot(drifter, projection=p, fill="lightgray")
 mtext("(c)", adj=1)
-mtext("EXPECT: mercator projection", font=2, col='purple', adj=0)
+mtext(p, font=2, col='purple', adj=0)
 
 plot(drifter, projection="mercator", fill=FALSE)
 mtext("(d)", adj=1)

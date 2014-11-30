@@ -1,32 +1,41 @@
 library(oce)
 try({source('~/src/oce/R/map.R')})
 data(coastlineWorld)
-par(mfrow=c(2,1), mar=c(2, 2, 3, 1))
+
+if (!interactive()) png("533A.png")
+par(mfrow=c(2,2), mar=c(2, 2, 3, 1))
 lonlim <- c(-180, 180)
-latlim <- c(60, 120) # centre the pole
+latlim <- c(50+20, 130-20) # centre the pole
 
 p <- '+proj=stere +lat_0=90'
-mapPlot(coastlineWorld, projection=p, longitudelim=lonlim, latitudelim=latlim, grid=FALSE)
-mapGrid(15, 15, polarCircle=1/2)
-mtext(p, side=3, adj=1)
-## mapAxis(side=1, debug=1)
-                                        #mapAxis(side=1, lon=seq(-180, 180, 45)) # buggy labels
-mapAxis(side=1, lat=seq(0, 90, 15), debug=1)
-mapAxis(side=1, lon=c(-15, 0, 15, 30, 45), debug=1)
+mapPlot(coastlineWorld, longitudelim=lonlim, latitudelim=latlim,
+        projection=p, fill='lightgray')
+mtext(p, side=3, adj=1, cex=0.9)
+mtext("EXPECT: grid + axes (auto)", font=2, col="purple", adj=0, line=1)
 
-## mapAxis(side=c(1,3), debug=1)
-mtext("EXPECT: no mess at dateline", font=2, col="purple", adj=0, line=2)
-mtext("EXPECT: longitudes on all sides", font=2, col="purple", adj=0, line=1)
-
-lonlim <- c(-100, -50)
-latlim <- c(30, 60)
+mapPlot(coastlineWorld, longitudelim=lonlim, latitudelim=latlim,
+        projection=p, fill='lightgray', grid=FALSE, axes=FALSE)
+mapGrid(10, 10, polarCircle=5)
+mtext(p, side=3, adj=1, cex=0.9)
+mapAxis(side=1)
+mapAxis(side=2)
+mtext("EXPECT: 10deg grid/axes", font=2, col="purple", adj=0, line=1)
 
 lonlim <- c(-100, -50)
 latlim <- c(30, 60)
 
+p <- "+proj=lcc +lon_0=-100 +lat_1=30 +lat_2=65"
+mapPlot(coastlineWorld, longitudelim=c(-130,-55), latitudelim=c(35,60),
+        projection=p, fill='lightgray', axes=TRUE, grid=TRUE)
+mtext(p, side=3, adj=1, cex=0.9)
+mtext("EXPECT: auto grid/axes", font=2, col="purple", adj=0, line=1)
 
-p <- "+proj=lcc +lon_0=-100"
-mapPlot(coastlineWorld, longitudelim=c(-130,-55), latitudelim=c(35,60), projection=p)
-mapGrid(15, 15, polarCircle=1/2)
-mapAxis(side=1, debug=1)
-mtext(p, side=3, adj=1)
+mapPlot(coastlineWorld, longitudelim=c(-130,-55), latitudelim=c(35,60),
+        projection=p, fill='lightgray', axes=FALSE, grid=FALSE)
+mapGrid(10, 10, polarCircle=5)
+mapAxis(side=1)
+mapAxis(side=2)
+mtext(p, side=3, adj=, cex=0.9)
+mtext("EXPECT: 10 deg grid/axes", font=2, col="purple", adj=0, line=1)
+
+if (!interactive()) dev.off()
