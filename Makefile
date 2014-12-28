@@ -27,7 +27,8 @@ drifter     =510 521 548
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533
 ts          =147 531
-current     =548
+current     =557
+gsw         =557
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
@@ -48,6 +49,9 @@ drifter:
 	for dir in $(drifter) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 group516:
 	for dir in $(group516) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+gsw:
+	for dir in $(gsw) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+
 imagep:
 	for dir in $(imagep) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 map:
