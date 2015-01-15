@@ -1,5 +1,4 @@
 require(oce)
-
 outerWrapper <- function(start, end) {
     wrapper <- function(start, end) {
         make_tdr <- function(start, end) {
@@ -14,7 +13,6 @@ outerWrapper <- function(start, end) {
     }
     wrapper(start, end)
 }
-
 focus <- as.POSIXct(c('2015-01-15 12:00:00', '2015-01-15 15:00:00'), tz='UTC')
 d <- outerWrapper(focus[1], focus[2])
 str(d)
