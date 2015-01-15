@@ -15,15 +15,14 @@ to other cases.
 
 # Tests
 
-* 01.R similar to CR
-* 02.R define start and end in function
-* 03.R do the subset outside the function
-* 04.R like 01.R but with a function one level deeper
-* 05.R like 01.R but with a function one level deeper
+* ``01.R`` similar to CR
+* ``02.R`` define start and end in function
+* ``03.R`` do the subset outside the function
+* ``04.R`` like ``01.R`` but with a function one level deeper
+* ``05.R`` like ``01.R`` but with a function one level deeper
 
 # Resources
 
-* [a nabble
-  comment]{http://r.789695.n4.nabble.com/getting-environment-from-quot-top-quot-promise-td4685138.html}
+[a nabble comment](http://r.789695.n4.nabble.com/getting-environment-from-quot-top-quot-promise-td4685138.html)
 provided the solution: use ``parent.frame(2)`` instead of ``parent.frame()``.
 
