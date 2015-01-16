@@ -15,16 +15,17 @@ to other cases.
 
 # Tests
 
+NOTE: ``01.R`` etc are for ``tdr`` objects; similar test for ctd are
+``01ctd.R``, etc. The latter were written later and are better tests, since
+they employ ``stopifnot()`` tests to ensure correctness.
+
 * ``01.R`` similar to CR
-* ``01ctd.R`` as ``01.R`` but for ctd
 * ``02.R`` define ``start`` and ``end`` in function
-* ``02ctd.R`` as ``02.R`` but for ctd
 * ``03.R`` do the subset outside the function
-* ``03ctd.R`` as ``03.R`` but for ctd
 * ``04.R`` like ``01.R`` but with a function one level deeper
-* ``04ctd.R`` as ``04.R`` but for ctd
 * ``05.R`` like ``01.R`` but with a function one level deeper
-* ``05ctd.R`` as ``05.R`` but for ctd
+* ``06.R`` like ``01.R`` but over-ride values within function
+
 
 # Resources
 

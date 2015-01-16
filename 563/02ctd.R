@@ -10,5 +10,4 @@ make_ctd <- function(start, end) {
 }
 focus <- c(20, 30)
 d <- make_ctd(focus[1], focus[2])
-str(d)
-
+stopifnot(all.equal.numeric(d[["pressure"]], 20:30))

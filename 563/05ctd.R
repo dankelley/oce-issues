@@ -14,5 +14,4 @@ outerWrapper <- function(start, end) {
 }
 focus <- c(20, 30)
 d <- outerWrapper(focus[1], focus[2])
-str(d)
-
+stopifnot(all.equal.numeric(d[["pressure"]], 20:30))

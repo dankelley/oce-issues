@@ -6,5 +6,4 @@ S <- 35 + p / 100
 T <- 20 - p / 100
 d <- as.ctd(S, T, p)
 d <- subset(d, start <= pressure & pressure <= end)
-str(d)
-
+stopifnot(all.equal.numeric(d[["pressure"]], 20:30))
