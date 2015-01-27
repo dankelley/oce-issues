@@ -22,13 +22,13 @@ mapImage    =517 522
 ctd         =402 432 438 475 477 498 520 525
 UHL         =388 # horiz lines on maps
 projections =388 495 518 520 521 537
-landsat     =465 484 486 501 502 506 508 519
+landsat     =465 484 486 501 502 506 508 519 572
 drifter     =510 521 548
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533
 ts          =147 531
-current     =568
 gsw         =557
+current     =572
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
