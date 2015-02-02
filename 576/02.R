@@ -1,0 +1,11 @@
+# As originally reported
+require(oce)
+require(ocedata)
+data(coastlineWorldMedium)
+longitudelim <- c(-180,-125)
+latitudelim <- c(45,55)
+if (!interactive()) png('02.png')
+mapPlot(coastlineWorldMedium, longitudelim=longitudelim, latitudelim=latitudelim, proj="+proj=lcc +lat_0=40 +lat_1=60 +lon_0=-150",  grid=c(10,10))
+mapGrid(dlongitude=5, dlatitude=5)
+mapAxis(side=2, latitude=seq(35,60, by=5))
+if (!interactive()) dev.off()
