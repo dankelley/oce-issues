@@ -28,7 +28,7 @@ group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533
 ts          =147 531
 gsw         =557
-current     =572
+current     =576
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
