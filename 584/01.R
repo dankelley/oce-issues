@@ -96,7 +96,8 @@ show("http://www.remotesensing.org/geotiff/proj_list/vandergrinten.html")
 ## * Tunisia Mining Grid
 ## * VanDerGrinten
 
-
+## hm, some others are available.
+show("+proj=natearth")
 
 if (FALSE) {
     ## 2. below a random sampling
