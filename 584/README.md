@@ -1,0 +1,144 @@
+Manual
+======
+
+ftp://ftp.remotesensing.org/proj/OF90-284.pdf
+
+
+Projection nicknames
+====================
+
+To get a full listing from the source code:
+
+    cd oce/src
+    grep PROJ_HEAD PJ_*c|sed -e 's/[^(]*(//'|sed -e 's/,.*$//'|sort
+
+Which produces as follows:
+
+    aea
+    aeqd
+    airy
+    aitoff
+    alsk
+    apian
+    august
+    bacon
+    bipc
+    boggs
+    bonne
+    cass
+    cc
+    cea
+    chamb
+    collg
+    crast
+    denoy
+    eck1
+    eck2
+    eck3
+    eck4
+    eck5
+    eck6
+    eqc
+    eqdc
+    euler
+    fahey
+    fouc
+    fouc_s
+    gall
+    geos
+    gins8
+    gn_sinu
+    gnom
+    goode
+    gs48
+    gs50
+    gstmerc
+    hammer
+    hatano
+    healpix
+    igh
+    imw_p
+    isea
+    kav5
+    kav7
+    krovak
+    labrd
+    laea
+    lagrng
+    larr
+    lask
+    lcc
+    lcca
+    leac
+    lee_os
+    loxim
+    lsat
+    mbt_fps
+    mbt_s
+    mbtfpp
+    mbtfpq
+    mbtfps
+    merc
+    mil_os
+    mill
+    moll
+    murd1
+    murd2
+    murd3
+    natearth
+    nell
+    nell_h
+    nicol
+    nsper
+    nzmg
+    ob_tran
+    ocea
+    oea
+    omerc
+    ortel
+    ortho
+    pconic
+    poly
+    putp1
+    putp2
+    putp3
+    putp3p
+    putp4p
+    putp5
+    putp5p
+    putp6
+    putp6p
+    qua_aut
+    rhealpix
+    robin
+    rpoly
+    sinu
+    somerc
+    stere
+    sterea
+    tcc
+    tcea
+    tissot
+    tmerc
+    tpeqd
+    tpers
+    ups
+    urm5
+    urmfps
+    utm
+    vandg
+    vandg2
+    vandg3
+    vandg4
+    vitk1
+    wag1
+    wag2
+    wag3
+    wag4
+    wag5
+    wag6
+    wag7
+    weren
+    wink1
+    wink2
+    wintri
