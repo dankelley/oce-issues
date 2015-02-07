@@ -17,7 +17,7 @@ colormap    =437 441 443 447 449 450 452 453 454 517
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516 581
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
-	     577
+	     577 584
 mapImage    =517 522
 ctd         =402 432 438 475 477 498 520 525
 UHL         =388 # horiz lines on maps
@@ -28,7 +28,7 @@ group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533 579
 ts          =147 531
 gsw         =557
-current     =581
+current     =584
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
