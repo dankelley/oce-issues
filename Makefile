@@ -13,24 +13,27 @@ dirs        =147 \
 	     464 465 475 479 481 482 490 495 501 502 504 506 508 510 513 \
 	     514 516 517 518 519 520 525 526 531 533 536 537 539 540 541 \
              543 544 545 546 548 554 557 562 563 568 572 576 577 579 581 \
-	     584 585 586
+	     584 585 586 588
+adp         =595 586
 colormap    =437 441 443 447 449 450 452 453 454 517
+ctd         =402 432 438 475 477 498 520 525
+drifter     =510 521 548
+group516    =516 517 489 337 368 # CR related 3xx; DK related others
+gsw         =557
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516 581 585 586
-adp         =595 586
+landsat     =465 484 486 501 502 506 508 519 572
+logger      =588
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
 	     577 584
 mapImage    =517 522
-ctd         =402 432 438 475 477 498 520 525
-UHL         =388 # horiz lines on maps
 projections =388 495 518 520 521 537 559
-landsat     =465 484 486 501 502 506 508 519 572
-drifter     =510 521 548
-group516    =516 517 489 337 368 # CR related 3xx; DK related others
 proj4       =518 520 533 579
 ts          =147 531
-gsw         =557
-current     =586
+UHL         =388 # horiz lines on maps
+
+# current is the issue being worked on most actively
+current     =588
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
