@@ -8,7 +8,7 @@ par(mfrow=c(3,1))
 cm <- colormap(z=adp[["v"]])
 
 plot(adp, which=1, breaks=seq(-1, 1, 0.5), drawTimeRange=FALSE)
-mtext('EXPECT: 3 color levels between -1 and 1', col='magenta', font=2)
+mtext('EXPECT: 4 color levels between -1 and 1', col='magenta', font=2)
 
 plot(adp, which=1, zlim=c(-1, 1), drawTimeRange=FALSE)
 mtext('EXPECT: many color levels between -1 and 1', col='magenta', font=2)
