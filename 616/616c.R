@@ -9,7 +9,8 @@ lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
 aa <- lat < -60
 n <- length(lat)
-LL <- fakeSouthPole(lon, lat)
+F <- -89
+LL <- fakeSouthPole(lon, lat, pole=F)
 lon <- LL$lon
 lat <- LL$lat
 
@@ -18,11 +19,12 @@ aa <- lat < -60
 alon <- lon[aa]
 alat <- lat[aa]
 xy <- lonlat2map(alon, alat, projection=p)
-fake <- alat < -88 & is.finite(alat)
+fake <- alat <= F & is.finite(alat)
 plot(alon, alat, type='o', pch=0, cex=1/2, lwd=1/3)
 points(alon[fake], alat[fake], col='red')
 
 plot(xy$x, xy$y, type='l',asp=1)
+polygon(xy$x, xy$y, col='gray')
 points(xy$x[fake], xy$y[fake], col='red')
 plot(diff(xy$x), diff(xy$y), type='l', asp=1)
 cat("# fake South poles:", sum(fake, na.rm=TRUE), "\n")
