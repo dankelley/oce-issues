@@ -18,7 +18,7 @@ aa <- lat < -60
 alon <- lon[aa]
 alat <- lat[aa]
 xy <- lonlat2map(alon, alat, projection=p)
-fake <- alat < -89.5 & is.finite(alat)
+fake <- alat < -88 & is.finite(alat)
 plot(alon, alat, type='o', pch=0, cex=1/2, lwd=1/3)
 points(alon[fake], alat[fake], col='red')
 
