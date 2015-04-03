@@ -38,12 +38,9 @@ mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
 
 p <- "+proj=calcofi"
-message("calcofi missing ID")
-#mapPlot(coastlineWorld, projection=p)
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
+mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("unknown projection id", line=line, adj=0, col=ecol, font=font)
+mtext("Units?", line=line, adj=0, col='red')
 
 p <- "+proj=cass +lon_0=-45"
 mapPlot(coastlineWorld, projection=p, longitudelim=c(-80,0), latitudelim=c(0,60))
@@ -371,13 +368,9 @@ p <- "+proj=qua_aut"
 mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
 
-p <- "+proj=qsc"
-message("qsc missing ID")
-#mapPlot(coastlineWorld, projection=p)
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
+p <- "+proj=qsc +lon_0=-100"
+mapPlot(coastlineWorld, projection=p, grid=15, fill='lightgray')
 mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("unknown projection id", line=line, adj=0, col=ecol, font=font)
 
 p <- "+proj=robin"
 mapPlot(coastlineWorld, projection=p)
