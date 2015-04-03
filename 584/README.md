@@ -4,141 +4,19 @@ Manual
 ftp://ftp.remotesensing.org/proj/OF90-284.pdf
 
 
-Projection nicknames
-====================
+# 2015-04-03
 
-To get a full listing from the source code:
+I coded proj 4.9.0 into oce. The early work is done but I imagine there will be
+some problems cropping up. I only put projections that have inverses into oce;
+there seems little point in the others, and they cause problems in oce because
+the crude approximation of inverses is error prone. (Recall that the lack of
+inverses in the mapproj package was a big motivation for switching to proj.)
 
-    cd oce/src
-    grep PROJ_HEAD PJ_*c|sed -e 's/[^(]*(//'|sed -e 's/,.*$//'|sort
+I added ``projection_test_suite.R``. This work was done quite fast by cutting
+and pasting code, and I am quite sure that some of the examples should be
+tweaked in terms of projection parameters or map limits. Note that a handful of
+projection caused problems. I will look into those later, working first on
+projections that seem most valuable. My guess is that oceanographers will
+select from only a half-dozen projections, i.e. those used commonly in atlases
+and charts, and therefore these are of highest priority.
 
-Which produces as follows:
-
-    aea
-    aeqd
-    airy
-    aitoff
-    alsk
-    apian
-    august
-    bacon
-    bipc
-    boggs
-    bonne
-    cass
-    cc
-    cea
-    chamb
-    collg
-    crast
-    denoy
-    eck1
-    eck2
-    eck3
-    eck4
-    eck5
-    eck6
-    eqc
-    eqdc
-    euler
-    fahey
-    fouc
-    fouc_s
-    gall
-    geos
-    gins8
-    gn_sinu
-    gnom
-    goode
-    gs48
-    gs50
-    gstmerc
-    hammer
-    hatano
-    healpix
-    igh
-    imw_p
-    isea
-    kav5
-    kav7
-    krovak
-    labrd
-    laea
-    lagrng
-    larr
-    lask
-    lcc
-    lcca
-    leac
-    lee_os
-    loxim
-    lsat
-    mbt_fps
-    mbt_s
-    mbtfpp
-    mbtfpq
-    mbtfps
-    merc
-    mil_os
-    mill
-    moll
-    murd1
-    murd2
-    murd3
-    natearth
-    nell
-    nell_h
-    nicol
-    nsper
-    nzmg
-    ob_tran
-    ocea
-    oea
-    omerc
-    ortel
-    ortho
-    pconic
-    poly
-    putp1
-    putp2
-    putp3
-    putp3p
-    putp4p
-    putp5
-    putp5p
-    putp6
-    putp6p
-    qua_aut
-    rhealpix
-    robin
-    rpoly
-    sinu
-    somerc
-    stere
-    sterea
-    tcc
-    tcea
-    tissot
-    tmerc
-    tpeqd
-    tpers
-    ups
-    urm5
-    urmfps
-    utm
-    vandg
-    vandg2
-    vandg3
-    vandg4
-    vitk1
-    wag1
-    wag2
-    wag3
-    wag4
-    wag5
-    wag6
-    wag7
-    weren
-    wink1
-    wink2
-    wintri
