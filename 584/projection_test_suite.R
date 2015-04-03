@@ -1,5 +1,5 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
+#try(source("~/src/oce/R/map.R"))
 data(coastlineWorld)
 if (!interactive()) png("projection_test_suite_%03d.png")
 
@@ -36,11 +36,6 @@ mtext(p, line=line, adj=1, col=pcol, font=font)
 p <- "+proj=bonne +lat_1=45"
 mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
-
-p <- "+proj=calcofi"
-mapPlot(coastlineWorld, projection=p)
-mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("Units?", line=line, adj=0, col='red')
 
 p <- "+proj=cass +lon_0=-45"
 mapPlot(coastlineWorld, projection=p, longitudelim=c(-80,0), latitudelim=c(0,60))
@@ -121,11 +116,9 @@ p <- "+proj=geos +h=1e8"
 mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
 
-p <- "+proj=gn_sinu"
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
+p <- "+proj=gn_sinu +n=6 +m=3"
+mapPlot(coastlineWorld, projection=p)
 mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("invalid projection system error", line=line, adj=0, col=ecol, font=font)
 
 p <- "+proj=gnom +lon_0=-40"
 mapPlot(coastlineWorld, projection=p, longitudelim=c(-80,0), latitudelim=c(-30,30))
@@ -167,11 +160,13 @@ mapPlot(coastlineWorld, projection=p, longitudelim=c(-80, 0), latitudelim=c(0, 6
 mtext(p, line=line, adj=1, col=pcol, font=font)
 mtext("Grid anomalies", line=line, adj=0, col=ecol, font=font)
 
-p <- "+proj=isea"
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
-mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("Segmentation fault", line=line, adj=0, col=ecol, font=font)
+### isea not included in oce
+## p <- "+proj=isea"
+## #mapPlot(coastlineWorld, projection=p)#, longitudelim=c(-80, 0), latitudelim=c(0, 60))
+## plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
+## box()
+## mtext(p, line=line, adj=1, col=pcol, font=font)
+## mtext("Segmentation fault", line=line, adj=0, col=ecol, font=font)
 
 p <- "+proj=kav5"
 mapPlot(coastlineWorld, projection=p)
@@ -186,12 +181,13 @@ mapPlot(coastlineWorld, projection=p, longitudelim=c(-80, 0), latitudelim=c(0, 6
 mtext(p, line=line, adj=1, col=pcol, font=font)
 mtext("Overdrawn coastline", line=line, adj=0, col=ecol, font=font)
 
-p <- "+proj=labrd"
-#mapPlot(coastlineWorld, projection=p, longitudelim=c(-80, 0), latitudelim=c(0, 60))
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
-mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("Nothing plotted", line=line, adj=0, col=ecol, font=font)
+### labrd not included in oce
+## p <- "+proj=labrd"
+## mapPlot(coastlineWorld, projection=p, longitudelim=c(-30, -20), latitudelim=c(30, 50))
+## plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
+## box()
+## mtext(p, line=line, adj=1, col=pcol, font=font)
+## mtext("Nothing plotted", line=line, adj=0, col=ecol, font=font)
 
 p <- "+proj=laea +lon_0=-40"
 mapPlot(coastlineWorld, projection=p)
@@ -470,12 +466,13 @@ p <- "+proj=wink1"
 mapPlot(coastlineWorld, projection=p, grid=FALSE)
 mtext(p, line=line, adj=1, col=pcol, font=font)
 
-p <- "+proj=wintri"
-#mapPlot(coastlineWorld, projection=p, grid=FALSE)
-plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
-box()
-mtext(p, line=line, adj=1, col=pcol, font=font)
-mtext("Hangs R", line=line, adj=0, col=ecol, font=font)
-message("wintri hangs R")
+### wintri is not in oce
+## p <- "+proj=wintri"
+## #mapPlot(coastlineWorld, projection=p, grid=FALSE)
+## plot(0:1, 0:1, axes=FALSE, type='n', xlab="", ylab="")
+## box()
+## mtext(p, line=line, adj=1, col=pcol, font=font)
+## mtext("Hangs R", line=line, adj=0, col=ecol, font=font)
+## message("wintri hangs R")
 
 if (!interactive()) dev.off()
