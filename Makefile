@@ -27,7 +27,7 @@ logger      =588
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
 	     577 584
 mapImage    =517 522
-projections =388 495 518 520 521 537 559
+projections =388 495 518 520 521 537
 proj4       =518 520 533 579
 ts          =147 531
 UHL         =388 # horiz lines on maps
@@ -65,7 +65,7 @@ map:
 mapImage:
 	for dir in $(mapImage)    ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 projections:
-	for dir in $(projections) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+	for dir in $(projections) ; do cd $$dir ; echo $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
 	for dir in $(landsat)     ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ugly:
