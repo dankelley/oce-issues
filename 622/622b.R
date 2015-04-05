@@ -1,6 +1,6 @@
 library(oce)
 d <- read.oce("a.rsk", patm=FALSE)
-message("patm=FALSE doesn't keep the presure from being corrected")
+stopifnot(min(d[["pressure"]]) > 5)
 dt <- ctdTrim(d)
 if (!interactive()) png("622b.png")
 plot(dt)
