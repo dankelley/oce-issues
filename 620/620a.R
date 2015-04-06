@@ -2,6 +2,7 @@ rm(list=ls())
 library(oce)
 
 d <- read.oce('../622/a.rsk')
+stopifnot(!is.null(d[['conductivity']]))
 S <- d[['salinity']]
 C <- d[['conductivity']]/42.914
 T <- d[['temperature']]
