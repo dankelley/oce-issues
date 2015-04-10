@@ -34,6 +34,7 @@ UHL         =388 # horiz lines on maps
 
 # current is the issue being worked on most actively
 current     = 616
+focus       = 616
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
