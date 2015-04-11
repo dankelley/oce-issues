@@ -1,0 +1,17 @@
+library(oce)
+data(coastlineWorld)
+if (!interactive()) png("628c.png")
+mapPlot(coastlineWorld, projection="+proj=wintri")
+x <- 1e7
+map2lonlat(0.9*x, 0.9*x)
+map2lonlat(0.99*x, 0.99*x)
+map2lonlat(0.9999*x, 0.9999*x)
+map2lonlat(1.0001*x, 1.0001*x)
+map2lonlat(0, 1.01*x)
+map2lonlat(1.01*x, 1.01*x)
+#map2lonlat(1.7*x, 1.7*x)
+#map2lonlat(1.75*x, 1.75*x)
+#map2lonlat(1.8*x, 1.8*x)
+#map2lonlat(1e7, 1e7)
+
+if (!interactive()) dev.off()
