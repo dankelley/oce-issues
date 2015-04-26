@@ -1,8 +1,8 @@
 library(oce)
+try(source("~/src/oce/R/map.R"))
 data(coastlineWorld)
 data(topoWorld)
-
-if (!interactive()) png('517B.png', width=1000, height=700, type='cairo')
+if (!interactive()) png("638a.png")
 par(mfrow=c(2,1), mar=c(2, 2, 1, 1))
 lonlim <- c(-70,-50)
 latlim <- c(40,50)
@@ -15,17 +15,13 @@ mapPlot(coastlineWorld, type='l',
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
-box()
+
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="+proj=poly +lon_0=-60", orientation=c(90,-60,0), grid=TRUE)
-#mapPlot(coastlineWorld, type='l',
-#        longitudelim=lonlim, latitudelim=latlim,
-#        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
-cm <- colormap(topo[['z']], col=oceColorsGebco, breaks=breaks)
-mapImage(topo, filledContour=TRUE, colormap=cm)
-mtext('EXPECT: dark blue < -2000 light blue > 0 e.g. as above but with filled contours', col=6, font=2)
-box()
+        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+breaks <- seq(-2000, 0, 100)
+mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
+mtext("EXPECT: same as other panel", font=2, col="purple", adj=0)
 
 if (!interactive()) dev.off()

@@ -40,22 +40,22 @@ cm <- colormap(x0=cm$x0, x1=cm$x1, col0=cm$col0, col1=cm$col1)
 imagep(topoWorld, breaks=cm$breaks, col=cm$col)
 mtext("EXPECT: black below 4km", side=3, line=0, font=2, col="purple")
 
-## Example 4. image of world topography with water colorized 
-##            smoothly from violet at 8km depth to blue
-##            at 4km depth, then blending in 0.5km increments
-##            to white at the coast, with tan for land.
-cm <- colormap(x0=c(-8000, -4000,   0,  100),
-               x1=c(-4000,     0, 100, 5000),
-               col0=c("violet","blue","white","tan"),
-               col1=c("blue","white","tan","yelloe"),
-               blend=c(100, 8, 0))
-lon <- topoWorld[['longitude']]
-lat <- topoWorld[['latitude']]
-z <- topoWorld[['z']]
-imagep(lon, lat, z, breaks=cm$breaks, col=cm$col)
-contour(lon, lat, z, levels=0, add=TRUE)
-mtext("EXPECT: violet to blue smooth from 8km to 4km, etc -- broken",
-      side=3, line=0, font=2, col="purple")
+## 20150426broken ## Example 4. image of world topography with water colorized 
+## 20150426broken ##            smoothly from violet at 8km depth to blue
+## 20150426broken ##            at 4km depth, then blending in 0.5km increments
+## 20150426broken ##            to white at the coast, with tan for land.
+## 20150426broken cm <- colormap(x0=c(-8000, -4000,   0,  100),
+## 20150426broken                x1=c(-4000,     0, 100, 5000),
+## 20150426broken                col0=c("violet","blue","white","tan"),
+## 20150426broken                col1=c("blue","white","tan","yelloe"),
+## 20150426broken                blend=c(100, 8, 0))
+## 20150426broken lon <- topoWorld[['longitude']]
+## 20150426broken lat <- topoWorld[['latitude']]
+## 20150426broken z <- topoWorld[['z']]
+## 20150426broken imagep(lon, lat, z, breaks=cm$breaks, col=cm$col)
+## 20150426broken contour(lon, lat, z, levels=0, add=TRUE)
+## 20150426broken mtext("EXPECT: violet to blue smooth from 8km to 4km, etc -- broken",
+## 20150426broken       side=3, line=0, font=2, col="purple")
 
 ## Example 5. visualize GMT style color map
 cm <- colormap(name="gmt_globe", debug=4)

@@ -30,7 +30,7 @@ stopifnot(!any(is.na(cm3$zcol)))
 drawPalette(colormap=cm3)
 plot(t, p, type='p', pch=21, cex=1.5, bg=cm3$zcol) 
 abline(h=c(39, 40))
-mtext("TEST 3 (zclip=TRUE)", side=3)
+mtext("TEST 3 (zclip=TRUE, gray=missing)", side=3)
 
 par(mar=omar)
 cm4 <- colormap(p, zlim=c(39, 40), zclip=TRUE, debug=3, missingColor='pink')
@@ -38,7 +38,7 @@ stopifnot(!any(is.na(cm4$zcol)))
 drawPalette(colormap=cm4)
 plot(t, p, type='p', pch=21, cex=1.5, bg=cm4$zcol) 
 abline(h=c(39, 40))
-mtext("TEST 4 (zclip=TRUE)", side=3)
+mtext("TEST 4 (zclip=TRUE, pink=missing)", side=3)
 
 if (!interactive()) dev.off()
 
