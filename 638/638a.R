@@ -21,7 +21,7 @@ mapPlot(coastlineWorld, type='l',
         proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
-mapLines(coastlineWorld)
+mapLines(coastlineWorld, col='red')
 mtext("EXPECT: same as other panel", font=2, col="purple", adj=0)
 
 if (!interactive()) dev.off()

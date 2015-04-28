@@ -1,0 +1,5 @@
+library ("oce")
+l <- read.landsat("~/Downloads/LC82170622015108LGN00", band="tirs1")
+if (!interactive()) png("639a.png")
+plot(l, band="temperature", col=oceColorsJet)
+if (!interactive()) dev.off()
