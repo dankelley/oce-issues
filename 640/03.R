@@ -12,8 +12,6 @@ lon <- c(lon, rep(NA,2))
 lat <- c(lat, rep(NA,2))
 lon <- c(lon, 190 + R * cos(-theta))
 lat <- c(lat, 180 + R * sin(-theta))
-lon <- 1:3
-lat <- lon
 nlon <- length(lon)
 nlat <- length(lat)
 cat("nlon=", nlon, ", nlat=", nlat, "\n")
