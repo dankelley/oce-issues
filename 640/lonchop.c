@@ -66,11 +66,21 @@ void lonchop(int *n, double *lon, double *lat, double *lon0, int *no, double *lo
   epsilon=0.1;
 
   for (iseg = 0; iseg < nseg; iseg++) {
-    int first_on_right = POSITIVE(lon[start]-(*lon0));
+    // Find whether first point is to east or west of lon0. Call this
+    // "first_side". Then proceed through the data, storing points in 
+    // one of two buffers. For each point, determine the side, named
+    // "this_side". If it is on the same as first point, then store the
+    // (lon,lat) into the "buf1" buffer. Otherwise, store into the "buf2"
+    // buffer. When we pass back into first_side, emit buf2 into
+    // (lono, lato) and reset buf2. When all this is done, the final
+    // point will be back on first_side (or will assume so). Thus,
+    // when buf1 is emited to (lono, lato), we will have completed one
+    // side.  FIXME: think more on the logic.
+    int first_side = POSITIVE(lon[start]-(*lon0));
     Rprintf("SEGMENT %d\n", iseg);
     for (int i = seg_start[iseg]; i <= seg_end[iseg]; i++) {
-      int this_on_right = POSITIVE(lon[i]-(*lon0));
-      if (first_on_right && !this_on_right) {
+      int this_side  = POSITIVE(lon[i]-(*lon0));
+      if (this_side != first_side) {
 	// Done with this segment
 	first_on_right = this_on_right;
       } else {

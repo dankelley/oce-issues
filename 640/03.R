@@ -1,13 +1,14 @@
 theta <- seq(0, 2*pi, length.out=8)
 R <- 4
 lon0 <- 180
+lon <- lat <- NULL
 lon <- c(lon, 170 + R * cos(-theta))
 lat <- c(lat, 180 + R * sin(-theta))
 lon <- c(lon, NA)
 lat <- c(lat, NA)
 
-lon <- 180 + R * cos(-theta)
-lat <- 180 + R * sin(-theta)
+lon <- c(lon, 180 + R * cos(-theta))
+lat <- c(lat, 180 + R * sin(-theta))
 lon <- c(lon, rep(NA,2))
 lat <- c(lat, rep(NA,2))
 
