@@ -23,7 +23,6 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
   unsigned int *poly_start = (unsigned int*)R_alloc(*(n), sizeof(unsigned int));
   unsigned int *poly_end = (unsigned int*)R_alloc(*(n), sizeof(unsigned int));
   unsigned int ipoly=0, npoly = 0;
-  int ibuf = 0;
 
   // Separate steps to make it easier to write/debug/read.
 
@@ -67,29 +66,107 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
     //int nseg = 1 + poly_end[ipoly] - poly_start[ipoly];
     //Rprintf("  nseg=%d\n", nseg);
     nintersection = 0;
-    for (i = poly_start[ipoly], j=poly_end[ipoly]; i <= poly_end[ipoly]; j=i++) {
-      Rprintf("   x[%d] %f  x[%d] %f\n", i, x[i], j, x[j]);
+    for (i = poly_start[ipoly], j=poly_end[ipoly]; i < poly_end[ipoly]; j=i++) {
+      Rprintf("   x[%d]=%6.2f x[%d]=%6.2f & y[%d]=%6.2f y[%d]=%6.2f\n", i, x[i], j, x[j], i, y[i], j, y[j]);
       if ((x[i] <= (*x0) && (*x0) <= x[j]) || (x[j] <= (*x0) && (*x0) <= x[i])) {
 	Rprintf("     the previous point intersects x0=%f\n", (*x0));
-	nintersection++;
+	intersection[nintersection++] = i;
       }
     }
     if (nintersection == 0) {
       for (i = poly_start[ipoly]; i < poly_end[ipoly]; i++) {
 	xo[(*no)] = x[i];
 	yo[(*no)] = y[i];
-	Rprintf("     xo[%d]=%f yo[%d]=%f\n", (*no), x[i], (*no), y[i]);
+	Rprintf("     xo[%d]=%6.2f yo[%d]=%6.2f\n", (*no), x[i], (*no), y[i]);
 	(*no)++;
       }
       xo[(*no)] = NA_REAL;
       yo[(*no)] = NA_REAL;
-      Rprintf("     xo[%d]=%f yo[%d]=%f\n", (*no), x[i], (*no), y[i]);
+      Rprintf("     xo[%d]=%6.2f yo[%d]=%6.2f\n", (*no), x[i], (*no), y[i]);
       (*no)++;
     } else {
       Rprintf("   MUST SUBDIVIDE\n");
+      Rprintf("   Reorder intersections so first is topmost\n");
+      double ymax = y[poly_start[ipoly]];
+      int imax = -1;
+      for (i = 1 + poly_start[ipoly]; i < poly_end[ipoly]; i++) {
+	if (y[i] > ymax) {
+	  ymax = y[i];
+	  imax = i;
+	}
+      }
+      Rprintf("       top y[%d] is %f\n", imax, y[imax]);
+      int k = imax, kk=imax+1;
+      if (kk >= poly_end[ipoly])
+	kk = 0;
+      double epsilon=0.001;
+      /*
+       * In an example, here get 3.697 and, calculating by hand
+       * with same values, get
+       *    > x<-c(179.110, 182.494);y<-c(3.90,3.127);predict(lm(y~x),new=list(x=180))
+       *          1 
+       *    3.696699 
+       * so I have confidence this is okay.
+       */
+      // Left of x0
+      for (i = 0; i < poly_end[ipoly]-poly_start[ipoly]; i++) {
+	Rprintf("       i=%d k=%d kk=%d  x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
+	if ((x[k] <= (*x0) && (*x0) <= x[kk]) || (x[kk] <= (*x0) && (*x0) <= x[k])) {
+	  double Y = y[k] + (y[kk]-y[k])*((*x0)-x[k])/(x[kk]-x[k]);
+	  //Rprintf("     the previous point intersects x0=%f with y=%6.3f\n", (*x0), Y);
+	  Rprintf(" ** save %7.3f %7.3f now\n", (*x0)-epsilon, Y);
+	  xo[(*no)] = (*x0);
+	  yo[(*no)] = Y;
+	} else {
+	  if (x[k] < (*x0)) {
+	    Rprintf(" ** save %7.3f %7.3f now\n", x[k], y[k]);
+	    xo[(*no)] = x[k];
+	    yo[(*no)] = y[k];
+	  } else {
+	    Rprintf(" ** save %7.3f %7.3f now\n", (*x0)-epsilon, y[k]);
+	    xo[(*no)] = (*x0);
+	    yo[(*no)] = y[k];
+	  }
+	}
+	(*no)++;
+	k++;
+	if (k >= poly_end[ipoly])
+	  k = poly_start[ipoly];
+	kk++;
+	if (kk >= poly_end[ipoly])
+	  kk = poly_start[ipoly];
+      }
+      xo[(*no)] = NA_REAL;
+      // Right of x0
+      for (i = 0; i < poly_end[ipoly]-poly_start[ipoly]; i++) {
+	Rprintf("       i=%d k=%d kk=%d  x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
+	if ((x[k] <= (*x0) && (*x0) <= x[kk]) || (x[kk] <= (*x0) && (*x0) <= x[k])) {
+	  double Y = y[k] + (y[kk]-y[k])*((*x0)-x[k])/(x[kk]-x[k]);
+	  //Rprintf("     the previous point intersects x0=%f with y=%6.3f\n", (*x0), Y);
+	  Rprintf(" ** save %7.3f %7.3f now\n", (*x0)+epsilon, Y);
+	  xo[(*no)] = (*x0);
+	  yo[(*no)] = Y;
+	} else {
+	  if (x[k] > (*x0)) {
+	    Rprintf(" ** save %7.3f %7.3f now\n", x[k], y[k]);
+	    xo[(*no)] = x[k];
+	    yo[(*no)] = y[k];
+	  } else {
+	    Rprintf(" ** save %7.3f %7.3f now\n", (*x0)+epsilon, y[k]);
+	    xo[(*no)] = (*x0);
+	    yo[(*no)] = y[k];
+	  }
+	}
+	(*no)++;
+	k++;
+	if (k >= poly_end[ipoly])
+	  k = poly_start[ipoly];
+	kk++;
+	if (kk >= poly_end[ipoly])
+	  kk = poly_start[ipoly];
+      }
+      yo[(*no)] = NA_REAL;
     }
-    double epsilon=0.001;
-    epsilon=0.1;
   }
 }
 
