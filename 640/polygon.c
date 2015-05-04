@@ -13,6 +13,8 @@
 
 #define NEXT if (++(*no) >= (*nomax)) error("Ran out of space; contact developer.\n")
 
+#define SAVE(x,y) {xo[(*no)]=(x);yo[(*no)]=(y);if (++(*no) >= (*nomax)) error("Ran out of space; contact developer.\n");}
+
 // On input, no is size provided for xo and yo. An error results if we
 // run out of space. (It may be sufficient to use no as double
 // n.) Otherwise, no is set to the number filled in by the present
@@ -85,17 +87,19 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
     if (nintersection == 0) {
       // This polygon does not intersect x0, so just emit it.
       for (i = poly_start[ipoly]; i < poly_end[ipoly]; i++) {
-	xo[(*no)] = x[i];
-	yo[(*no)] = y[i];
+	//xo[(*no)] = x[i];
+	//yo[(*no)] = y[i];
+	SAVE(x[i], y[i]);
 	Rprintf("     xo[%d]=%6.2f yo[%d]=%6.2f\n", (*no), x[i], (*no), y[i]);
 	//if (++(*no) >= (*nomax)) error("Ran out of space at position 1; contact developer.\n");
-	NEXT;
+	//NEXT;
       }
-      xo[(*no)] = NA_REAL;
-      yo[(*no)] = NA_REAL;
+      //xo[(*no)] = NA_REAL;
+      //yo[(*no)] = NA_REAL;
+      SAVE(NA_REAL, NA_REAL);
       Rprintf("     xo[%d]=%6.2f yo[%d]=%6.2f\n", (*no), x[i], (*no), y[i]);
       //if (++(*no) >= (*nomax)) error("Ran out of space at position 2; contact developer.\n");
-      NEXT;
+      //NEXT;
     } else {
       // This polygon intersects x0, so subdivide and emit the two portions. 
       // Do this by tracing along the path, starting at the intersection
@@ -124,41 +128,46 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 	  //yo[(*no)] = Y;
 	  Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
 	  if (x[k] < x[kk]) {
-	    xo[(*no)] = x[k];
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = x[k];
+	    //yo[(*no)] = y[k];
+	    SAVE(x[k], y[k]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
-	    NEXT;
-	    xo[(*no)] = (*x0) - epsilon;
-	    yo[(*no)] = Y;
+	    //NEXT;
+	    //xo[(*no)] = (*x0) - epsilon;
+	    //yo[(*no)] = Y;
+	    SAVE((*x0)-epsilon, Y);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
 	  } else {
-	    xo[(*no)] = (*x0) - epsilon;
-	    yo[(*no)] = Y;
+	    //xo[(*no)] = (*x0) - epsilon;
+	    //yo[(*no)] = Y;
+	    SAVE((*x0)-epsilon, Y);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
-	    NEXT;
-	    xo[(*no)] = x[kk];
-	    yo[(*no)] = y[kk];
+	    //NEXT;
+	    //xo[(*no)] = x[kk];
+	    //yo[(*no)] = y[kk];
+	    SAVE(x[kk], y[kk]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
 	  }
 	} else {
 	  if (x[k] <= (*x0)) {
 	    Rprintf("CASE B (left):  save k=%d %7.3f %7.3f\n", k, x[k], y[k]);
-	    xo[(*no)] = x[k];
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = x[k];
+	    //yo[(*no)] = y[k];
+	    SAVE(x[k], y[k]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	  } else {
 	    Rprintf("CASE C (right): save k=%d %7.3f %7.3f\n", k, (*x0)-epsilon, y[k]);
-	    xo[(*no)] = (*x0) - epsilon;
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = (*x0) - epsilon;
+	    //yo[(*no)] = y[k];
+	    SAVE((*x0)-epsilon, y[k]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	  }
 	}
-	if (++(*no) >= (*nomax))
-	  error("Ran out of space at position 4; contact developer.\n");
+	//if (++(*no) >= (*nomax)) error("Ran out of space at position 4; contact developer.\n");
 	k++;
 	if (k > poly_end[ipoly])
 	  k = poly_start[ipoly];
@@ -166,10 +175,11 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 	if (kk > poly_end[ipoly])
 	  kk = poly_start[ipoly];
       }
-      xo[(*no)] = NA_REAL;
-      yo[(*no)] = NA_REAL;
+      //xo[(*no)] = NA_REAL;
+      //yo[(*no)] = NA_REAL;
+      SAVE(NA_REAL, NA_REAL);
       //if (++(*no) >= (*nomax)) error("Ran out of space at position 5; contact developer.\n");
-      NEXT;
+      //NEXT;
 
 #if 1
       // Right of x0
@@ -188,43 +198,44 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 	  //if (++(*no) >= (*nomax))
 	  //  error("Ran out of space at position 3; contact developer.\n");
 	  if (x[k] > x[kk]) {
-	    xo[(*no)] = x[k];
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = x[k];
+	    //yo[(*no)] = y[k];
+	    SAVE(x[k], y[k]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
-	    NEXT;
-	    xo[(*no)] = (*x0) + epsilon;
-	    yo[(*no)] = Y;
+	    //NEXT;
+	    //xo[(*no)] = (*x0) + epsilon;
+	    //yo[(*no)] = Y;
+	    SAVE((*x0)+epsilon, Y);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
 	  } else {
-	    xo[(*no)] = (*x0) + epsilon;
-	    yo[(*no)] = Y;
+	    //xo[(*no)] = (*x0) + epsilon;
+	    //yo[(*no)] = Y;
+	    SAVE((*x0)+epsilon, Y);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 	    //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
-	    NEXT;
-	    xo[(*no)] = x[kk];
-	    yo[(*no)] = y[kk];
+	    //NEXT;
+	    //xo[(*no)] = x[kk];
+	    //yo[(*no)] = y[kk];
+	    SAVE(x[kk], y[kk]);
 	    Rprintf(" [ %7.2f %7.2f @ %d]\n", xo[(*no)], yo[(*no)], (*no));
 //if (++(*no) >= (*nomax)) error("Ran out of space at position 3; contact developer.\n");
 	  }
-
-
-
-
 	} else {
 	  if (x[k] > (*x0)) {
 	    Rprintf(" ** save %7.3f %7.3f now\n", x[k], y[k]);
-	    xo[(*no)] = x[k];
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = x[k];
+	    //yo[(*no)] = y[k];
+	    SAVE(x[k], y[k]);
 	  } else {
 	    Rprintf(" ** save %7.3f %7.3f now\n", (*x0)+epsilon, y[k]);
-	    xo[(*no)] = (*x0) + epsilon;
-	    yo[(*no)] = y[k];
+	    //xo[(*no)] = (*x0) + epsilon;
+	    //yo[(*no)] = y[k];
+	    SAVE((*x0)+epsilon, y[k]);
 	  }
 	}
-	if (++(*no) >= (*nomax))
-	  error("Ran out of space at position 6; contact developer.\n");
+	//if (++(*no) >= (*nomax)) error("Ran out of space at position 6; contact developer.\n");
 	k++;
 	if (k > poly_end[ipoly])
 	  k = poly_start[ipoly];
