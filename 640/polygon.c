@@ -5,7 +5,6 @@
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
-#define POSITIVE(x) ((x) > 0.0)
 /*
 
    system("R CMD SHLIB polygon_subdivide.c") 
@@ -14,10 +13,11 @@
 */
 
 #define SAVE(x,y) {\
+  if ((*no) >= (*nomax)) error("Ran out of space; contact developer.\n");\
   xo[(*no)]=(x);\
   yo[(*no)]=(y);\
-  if (DEBUG) Rprintf(" [ %7.2f %7.2f @ %d ]\n", (x), (y), (*no));\
-  if (++(*no) >= (*nomax)) error("Ran out of space; contact developer.\n");\
+  ++(*no);\
+  if (DEBUG) Rprintf(" [ %7.2f %7.2f @ %3d ]\n", (x), (y), (*no));\
 }
 
 // On input, no is size provided for xo and yo. An error results if we
@@ -42,7 +42,7 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 
   // Separate steps to make it easier to write/debug/read.
 
-  // 1. Find segments
+  // 1. Find polygons.
   // Skip any NA at start
   int start;
   for (start = 0; start < (*n)-1; start++) {
@@ -72,7 +72,7 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
   }
   if (npoly == 0) 
     error("no polygons\n");
-  // Process each polygon individually
+  // 2. Process each polygon individually.
   for (ipoly = 0; ipoly < npoly; ipoly++) {
     Rprintf("\npoly %d @ %d to %d\n", ipoly, poly_start[ipoly], poly_end[ipoly]);
     // Find intersection segments
@@ -116,17 +116,18 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
       // Left of x0
       for (i = 0; i <= poly_end[ipoly]-poly_start[ipoly]; i++) {
 	Rprintf("   i=%d k=%d kk=%d x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f ", i, k, kk, x[k], y[k], x[kk], y[kk]);
-	if ((x[k] <= (*x0) && (*x0) <= x[kk]) || (x[kk] <= (*x0) && (*x0) <= x[k])) {
+	if (x[k] <= (*x0) && (*x0) <= x[kk]) {
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)-epsilon-x[k])/(x[kk]-x[k]);
-	  Rprintf("CASE A (cross): save k=%d %7.3f %7.3f\n", k, (*x0)-epsilon, Y);
-	  Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
-	  if (x[k] < x[kk]) {
-	    SAVE(x[k], y[k]);
-	    SAVE((*x0)-epsilon, Y);
-	  } else {
-	    SAVE((*x0)-epsilon, Y);
-	    SAVE(x[kk], y[kk]);
-	  }
+	  Rprintf("CASE A (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)-epsilon, Y);
+	  //Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
+	  SAVE((*x0)-epsilon, Y);
+	  SAVE(x[kk], y[kk]);
+	} else if (x[kk] <= (*x0) && (*x0) <= x[k]) {
+	  double Y = y[k] + (y[kk]-y[k])*((*x0)-epsilon-x[k])/(x[kk]-x[k]);
+	  Rprintf("CASE B (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)-epsilon, Y);
+	  //Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
+	  SAVE((*x0)-epsilon, Y);
+	  SAVE(x[kk], y[kk]);
 	} else {
 	  if (x[k] <= (*x0)) {
 	    SAVE(x[k], y[k]);
@@ -135,11 +136,9 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 	    SAVE((*x0)-epsilon, y[k]);
 	  }
 	}
-	k++;
-	if (k > poly_end[ipoly])
+	if (++k > poly_end[ipoly])
 	  k = poly_start[ipoly];
-	kk++;
-	if (kk > poly_end[ipoly])
+	if (++kk > poly_end[ipoly])
 	  kk = poly_start[ipoly];
       }
       SAVE(NA_REAL, NA_REAL);
@@ -147,34 +146,36 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 #ifdef DORIGHT
       // Right of x0
       k = imax;
-      kk=imax+1;
+      kk = imax + 1;
       if (kk > poly_end[ipoly]) // FIXME: probably this is wrong
 	kk = poly_start[ipoly]; // FIXME: probably this is wrong
       for (i = 0; i <= poly_end[ipoly]-poly_start[ipoly]; i++) {
-	Rprintf("       i=%d k=%d kk=%d  x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
-	if ((x[k] <= (*x0) && (*x0) <= x[kk]) || (x[kk] <= (*x0) && (*x0) <= x[k])) {
+	Rprintf("  i=%d k=%d kk=%d  x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
+	if (x[k] <= (*x0) && (*x0) <= x[kk]) {
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)+epsilon-x[k])/(x[kk]-x[k]);
-	  if (x[k] > x[kk]) {
-	    SAVE(x[k], y[k]);
-	    SAVE((*x0)+epsilon, Y);
-	  } else {
-	    SAVE((*x0)+epsilon, Y);
-	    SAVE(x[kk], y[kk]);
-	  }
+	  Rprintf("CASE A (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)+epsilon, Y);
+	  SAVE((*x0)+epsilon, Y);
+	  SAVE(x[kk], y[kk]);
+	} else if (x[kk] <= (*x0) && (*x0) <= x[k]) {
+	  double Y = y[k] + (y[kk]-y[k])*((*x0)+epsilon-x[k])/(x[kk]-x[k]);
+	  Rprintf("CASE B (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)+epsilon, Y);
+	  SAVE(x[k], y[k]);
+	  SAVE((*x0)+epsilon, Y);
 	} else {
 	  if (x[k] >= (*x0)) {
+	    Rprintf("CASE C (x[k] >= x0): save x[k=%d]=%7.3f and y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
 	    SAVE(x[k], y[k]);
 	  } else {
+	    Rprintf("CASE D (x[k] <  x0): save x=x0+epsilon=%7.3f and y[k=%d]=%7.3f\n", (*x0)+epsilon, k, y[k]);
 	    SAVE((*x0)+epsilon, y[k]);
 	  }
 	}
-	k++;
-	if (k > poly_end[ipoly])
+	if (++k > poly_end[ipoly])
 	  k = poly_start[ipoly];
-	kk++;
-	if (kk > poly_end[ipoly])
+	if (++kk > poly_end[ipoly])
 	  kk = poly_start[ipoly];
       }
+      SAVE(NA_REAL, NA_REAL);
 #endif
     }
   }
