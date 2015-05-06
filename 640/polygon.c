@@ -67,9 +67,9 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
     //Rprintf("  nseg=%d\n", nseg);
     nintersection = 0;
     for (i = poly_start[ipoly], j=poly_end[ipoly]; i < poly_end[ipoly]; j=i++) {
-      Rprintf("   x[%d]=%6.2f x[%d]=%6.2f & y[%d]=%6.2f y[%d]=%6.2f\n", i, x[i], j, x[j], i, y[i], j, y[j]);
+      //Rprintf("   x[%d]=%6.2f x[%d]=%6.2f & y[%d]=%6.2f y[%d]=%6.2f\n", i, x[i], j, x[j], i, y[i], j, y[j]);
       if ((x[i] <= (*x0) && (*x0) <= x[j]) || (x[j] <= (*x0) && (*x0) <= x[i])) {
-	Rprintf("     the previous point intersects x0=%f\n", (*x0));
+	//Rprintf("     the previous point intersects x0=%f\n", (*x0));
 	intersection[nintersection++] = i;
       }
     }
@@ -96,29 +96,30 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
       if (kk > poly_end[ipoly]) // FIXME: probably this is wrong
 	kk = poly_start[ipoly]; // FIXME: probably this is wrong
       double epsilon=0.25;
-      int hidden_points = 0;
+      //int hidden_points = 0;
 #ifdef DOLEFT
       // Left of x0
       for (i = 0; i <= poly_end[ipoly]-poly_start[ipoly]; i++) {
-	Rprintf("   i=%d k=%d kk=%d x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f ", i, k, kk, x[k], y[k], x[kk], y[kk]);
+	Rprintf("   i=%d k=%d kk=%d x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
 	if (x[k] <= (*x0) && (*x0) <= x[kk]) {
+	  // passing cut point, going right
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)-epsilon-x[k])/(x[kk]-x[k]);
-	  Rprintf("CASE A (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)-epsilon, Y);
-	  //Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
+	  Rprintf("CASE left.A (crossing, going right): x[k=%d]=%7.3f x[kk=%d]=%7.3f Y=%7.3f\n", k, x[k], kk, x[kk], Y);
+	  SAVE(x[k], y[k]);
 	  SAVE((*x0)-epsilon, Y);
-	  SAVE(x[kk], y[kk]);
 	} else if (x[kk] <= (*x0) && (*x0) <= x[k]) {
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)-epsilon-x[k])/(x[kk]-x[k]);
-	  Rprintf("CASE B (cross): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)-epsilon, Y);
-	  //Rprintf("    --> fyi x[k] %7.3f,  y[k] %7.3f ; x[kk] %7.3f, y[kk] %7.3f\n", x[k],y[k],x[kk],y[kk]);
+	  Rprintf("CASE left.B (crossing, going left): x[k=%d]=%7.3f x[kk=%d]=%7.3f Y=%7.3f\n", k, x[k], kk, x[kk], Y);
 	  SAVE((*x0)-epsilon, Y);
 	  SAVE(x[kk], y[kk]);
 	} else {
 	  if (x[k] <= (*x0)) {
+	    Rprintf("CASE left.C (save point) x[k=%d]=%7.3f y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
 	    SAVE(x[k], y[k]);
 	  } else {
-	    Rprintf("CASE C (right): save k=%d %7.3f %7.3f\n", k, (*x0)-epsilon, y[k]);
-	    SAVE((*x0)-epsilon, y[k]);
+	    Rprintf("CASE left.D (ignore point) x[k=%d]=%7.3f y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
+	    //hidden_points++;
+	    //SAVE((*x0)-epsilon, y[k]);
 	  }
 	}
 	if (++k > poly_end[ipoly])
@@ -134,49 +135,47 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
       kk = imax + 1;
       if (kk > poly_end[ipoly]) // FIXME: probably this is wrong
 	kk = poly_start[ipoly]; // FIXME: probably this is wrong
-      hidden_points = 0;
-      double hidden_y_start = 0;
+      //hidden_points = 0;
+      //double hidden_y_start = 0;
       for (i = 0; i <= poly_end[ipoly]-poly_start[ipoly]; i++) {
 	Rprintf("  i=%d k=%d kk=%d  x[k]=%7.3f y[k]=%7.3f x[kk]=%7.3f y[kk]=%7.3f\n", i, k, kk, x[k], y[k], x[kk], y[kk]);
 	if (x[k] <= (*x0) && (*x0) <= x[kk]) {
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)+epsilon-x[k])/(x[kk]-x[k]);
-	  Rprintf("CASE A (leaving hidden zone): k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)+epsilon, Y);
-	  Rprintf("will draw %d hidden points\n", hidden_points);
-	  if (hidden_points > 0) {
-	    double YY = hidden_y_start, dy = (Y-YY)/hidden_points;
-	    for (int p = 0; p < hidden_points; p++) {
-	      SAVE((*x0)+epsilon, YY);
-	      YY += dy;
-	    }
-	  }
+	  Rprintf("CASE right.A (crossing, going right): x[k=%d]=%7.3f x[kk=%d]=%7.3f Y=%7.3f\n", k, x[k], kk, x[kk], Y);
+	  //if (hidden_points > 0) {
+	  //  double YY = hidden_y_start, dy = (Y-YY)/hidden_points;
+	  //  for (int p = 0; p < hidden_points; p++) {
+	  //    SAVE((*x0)+epsilon, YY);
+	  //    YY += dy;
+	  //  }
+	  //}
 	  SAVE((*x0)+epsilon, Y);
 	  SAVE(x[kk], y[kk]);
-	  hidden_points = 0;
-	  hidden_y_start = Y;
+	  //hidden_points = 0;
+	  //hidden_y_start = Y;
 	} else if (x[kk] <= (*x0) && (*x0) <= x[k]) {
 	  double Y = y[k] + (y[kk]-y[k])*((*x0)+epsilon-x[k])/(x[kk]-x[k]);
-	  Rprintf("CASE B (entering hidden zone): save k=%d cut=%7.3f Y=%7.3f\n", k, (*x0)+epsilon, Y);
-	  Rprintf("will draw %d hidden points\n", hidden_points);
-	  if (hidden_points > 0) {
-	    double YY = hidden_y_start, dy = (Y-YY)/hidden_points;
-	    for (int p = 0; p < hidden_points; p++) {
-	      SAVE((*x0)+epsilon, YY);
-	      YY += dy;
-	    }
-	  }
+	  Rprintf("CASE left.B (crossing, going left): x[k=%d]=%7.3f x[kk=%d]=%7.3f Y=%7.3f\n", k, x[k], kk, x[kk], Y);
+	  //if (hidden_points > 0) {
+	  //  double YY = hidden_y_start, dy = (Y-YY)/hidden_points;
+	  //  for (int p = 0; p < hidden_points; p++) {
+	  //    SAVE((*x0)+epsilon, YY);
+	  //    YY += dy;
+	  //  }
+	  //}
 	  SAVE(x[k], y[k]);
 	  SAVE((*x0)+epsilon, Y);
-	  hidden_points = 0;
-	  hidden_y_start = Y;
+	  //hidden_points = 0;
+	  //hidden_y_start = Y;
 	} else {
 	  if (x[k] >= (*x0)) {
-	    Rprintf("CASE C (x[k] >= x0): save x[k=%d]=%7.3f and y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
+	    Rprintf("CASE right.C (save point) x[k=%d]=%7.3f y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
 	    SAVE(x[k], y[k]);
 	  } else {
-	    Rprintf("CASE D (x[k] <  x0): save x=x0+epsilon=%7.3f and y[k=%d]=%7.3f\n", (*x0)+epsilon, k, y[k]);
+	    Rprintf("CASE right.D (ignore point) x[k=%d]=%7.3f y[k=%d]=%7.3f\n", k, x[k], k, y[k]);
 	    //SAVE((*x0)+epsilon, y[k]);
-	    Rprintf("  hidden_points=%d\n", hidden_points);
-	    hidden_points++;
+	    //Rprintf("  hidden_points=%d\n", hidden_points);
+	    //hidden_points++;
 	  }
 	}
 	if (++k > poly_end[ipoly])
