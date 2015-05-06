@@ -92,7 +92,11 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
 	}
       }
       Rprintf("       top y[%d] is %f\n", imax, y[imax]);
-      int k = imax-1, kk=imax;
+      int k, kk;
+      k = imax - 1;
+      if (k < 0)
+	k = poly_end[ipoly]
+      kk = imax;
       if (kk > poly_end[ipoly]) // FIXME: probably this is wrong
 	kk = poly_start[ipoly]; // FIXME: probably this is wrong
       double epsilon=0.25;
