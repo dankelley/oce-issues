@@ -95,7 +95,7 @@ void polygon_subdivide_vertically(int *n, double *x, double *y, double *x0,
       int k, kk;
       k = imax - 1;
       if (k < 0)
-	k = poly_end[ipoly]
+	k = poly_end[ipoly];
       kk = imax;
       if (kk > poly_end[ipoly]) // FIXME: probably this is wrong
 	kk = poly_start[ipoly]; // FIXME: probably this is wrong
