@@ -1,6 +1,6 @@
 library(oce)
 logger <- read.logger('file.rsk')
-print(names(logger@metadata))
+str(logger@metadata)
 ctd <- as.ctd(logger)
-print(names(ctd@metadata))
+str(ctd@metadata)
 
