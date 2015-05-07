@@ -1,6 +1,8 @@
 library(oce)
+try(source("~/src/oce/R/logger.R"))
+try(source("~/src/oce/R/ctd.R"))
 logger <- read.logger('file.rsk')
-print(names(logger@metadata))
+str(logger@metadata)
 ctd <- as.ctd(logger)
-print(names(ctd@metadata))
+str(ctd@metadata)
 
