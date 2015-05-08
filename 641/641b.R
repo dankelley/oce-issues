@@ -4,7 +4,7 @@ tstart <- as.POSIXct("2015-05-06 13:45:22", tz='UTC')
 t <- seq(tstart, tstart + 1.7, 0.01)
 x <- rnorm(t)
 
-if (!interactive()) png('641a.png')
+if (!interactive()) png('641b.png')
 
 oce.plot.ts(t, x, debug=10)
 for (sec in 22:29) {
