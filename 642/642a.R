@@ -5,4 +5,6 @@ logger <- read.logger('file.rsk')
 str(logger)
 ctd <- as.ctd(logger)
 str(ctd)
+print(ctd@metadata$names)
+print(ctd@metadata$labels)
 
