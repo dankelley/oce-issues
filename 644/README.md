@@ -23,7 +23,10 @@ FILES.
 Exploration Program, downloaded in a zip file from
 http://www.whoi.edu/beaufortgyre/data/LSSL_ctd2013.zip on 9 May 2015.
 
-* **03dk.cnv** file ``Station_A_2010_01.cnv`` from in Isaeli dataset (DK can't
+* **03dk.cnv** first 200 lines of file ``2008-07-03_st071.cnv`` from SLEIWEX
+  (DK and CR and colleagues own; no stable URL for download)
+
+* **04dk.cnv** file ``Station_A_2010_01.cnv`` from in Isaeli dataset (DK can't
   remember the URL but it seems probable that it was
 http://www.meteo-tech.co.il/eilat-yam/eilat_instructions_en.asp, a dataset that
 was down when he checked it on 9 May 2015). Another URL that seems like it
