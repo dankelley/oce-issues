@@ -1,4 +1,5 @@
 library(oce)
+try(source("~/src/oce/R/oce.R"))
 try(source("~/src/oce/R/ctd.R"))
 ## test inference of conductivity unit
 ctds <- list.files(".", "*.cnv")
