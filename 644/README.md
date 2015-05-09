@@ -25,6 +25,7 @@ http://www.whoi.edu/beaufortgyre/data/LSSL_ctd2013.zip on 9 May 2015.
 
 * **03dk.cnv** first 200 lines of file ``2008-07-03_st071.cnv`` from SLEIWEX
   (DK and CR and colleagues own; no stable URL for download)
+  **NOTE** this causes an error, issue 645.
 
 * **04dk.cnv** file ``Station_A_2010_01.cnv`` from in Isaeli dataset (DK can't
   remember the URL but it seems probable that it was
