@@ -4,7 +4,8 @@ oce.
 
 IMPORTANT: as CR and DK put files here, they should add notes below. It makes
 sense to use clean filenames, and to use an editor to trim down any data files
-that are large in the github context (say larger than a few 10s of kbyte).
+that are large in the github context -- all we need are maybe a few dozen
+actual data lines, for checking the values.
 
 **01.cnv** the ctd.cnv file provided with the oce package. Ownership: DK.
 
