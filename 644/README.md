@@ -1,17 +1,20 @@
-This directory will contain code, plus (PUBLIC DOMAIN) data files. The latter
-should include .cnv and .rsk file, for this to be of much help in improving
-oce.
+PURPOSE. Test suite for oce ctd-reading improvements, e.g. (a) recognizing
+conductivity units, (b) recognizing temperature units (see [blog
+item](http://dankelley.github.io/r/2015/05/10/ITS90-temperature-scale.html)),
+...
 
 INSTRUCTIONS. 
 
-1. When a data file is added, a note should be put below on its source. It may
+1. Data files must be in the public domain.
+
+2. When a data file is added, a note should be put below on its source. It may
    be sensible to number data files, and to insert initials in their names, to
 avoid collisions.
 
-2. The .R file must be updated with the file name and the expected unit, so
+3. The .R file must be updated with the file name and the expected unit, so
    that "make" will produce an error if incorrect results are found.
 
-3. It probably makes sense to use ``head`` or an editor to trim large data
+4. It probably makes sense to use ``head`` or an editor to trim large data
    files -- we just need sufficient data lines to permit checking values of
 inferred salinity and so forth; a few dozen lines should be fine.
 
