@@ -1,12 +1,17 @@
-if (!interactive()) png("653a.png")
+if (!interactive()) png("653c.png")
 library(oce)
 data(coastlineWorld)
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
 library(rgdal)
-proj <- "+proj=moll +ellps=sphere"
+proj <- "+proj=ortho +ellps=sphere"
+
+owarn <- options()$warn
+options(warn=-1)
 xy <- rgdal::project(cbind(lon,lat), proj)
 ll <- rgdal::project(xy, proj, inv=TRUE)
+options(warn=owarn)
+
 #plot(xy[,1], xy[,2], asp=1, type='l')
 par(mfrow=c(3,2))
 mapPlot(coastlineWorld, proj=proj)
