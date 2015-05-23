@@ -17,3 +17,5 @@ Things to do:
 
 2. Tests with lon0 ... don't want to forget that!!
 
+3. We will have 4 months before the next oce, so that gives time for even
+   radical changes, e.g. maybe use rgdal to do the mapping...
