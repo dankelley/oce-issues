@@ -23,7 +23,7 @@ group516    =516 517 489 337 368 # CR related 3xx; DK related others
 gsw         =557
 imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516 581 585 586 655
-issue655    =309 336 368 516 655
+extras655   =368 516 655
 landsat     =465 484 486 501 502 506 508 519 572 592
 logger      =588
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
@@ -47,7 +47,10 @@ view:
 current:
 	for dir in $(current) ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 
+
 ## Themed tests (alphabetical)
+issue655: 
+	for dir in $(extras655)   ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 adp:
 	for dir in $(adp)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 colormap:
