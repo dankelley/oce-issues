@@ -52,8 +52,7 @@ void polygon_subdivide_vertically3(int *n, double *x, double *y, double *x0,
   Rprintf("found %d polygons\n", npoly);
   //
   // 2. Process each polygon individually.
-  int j;
-  double epsilon = 2;
+  double epsilon = 0.1;
   // FIXME: might help to interpolate in an additional point near the boundary
   // FIXME: the opposite side is ugly but very thin so maybe OK
   for (ipoly = 0; ipoly < npoly; ipoly++) {
