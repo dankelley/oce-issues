@@ -6,7 +6,7 @@ data(coastlineWorld)
 system("R CMD SHLIB polygon3.c") 
 dyn.load("polygon3.so")
 
-coastlineCut <- function(coastline, lon0=0)
+local_coastlineCut <- function(coastline, lon0=0)
 {
     cleanAngle <- function(a)
         ifelse(a<(-180), a+360, ifelse(a>180, a-360, a))

@@ -11,3 +11,7 @@ with C.
     - The edge-shadowing of cut-off side is ugly. But it would go away if we
       drew the earth edge, which is not a bad idea.
 
+* 08.R coastlineCut() trial version (local)
+
+* 09.R coastlineCut() as incorporated into oce
+
