@@ -1,3 +1,4 @@
+TEST <- !FALSE
 ## Test methods for chopping at a given longitude (x0)
 library(oce)
 ##source("~/src/oce/R/map.R")
@@ -5,8 +6,8 @@ data(coastlineWorld)
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
 nlon <- length(lon)
-system("R CMD SHLIB polygon3.c") 
-dyn.load("polygon3.so")
+system("R CMD SHLIB polygon4.c") 
+dyn.load("polygon4.so")
 
 cleanAngle <- function(a)
     ifelse(a<(-180), a+360, ifelse(a>180, a-360, a))
@@ -20,12 +21,18 @@ for (lon0 in seq(-180, 180, 10)[13]) {
     e <- 4
     proj <- "robin"
     proj <- "wintri"
-    mod <- .C("polygon_subdivide_vertically3",
+    mod <- .C("polygon_subdivide_vertically4",
               n=as.integer(nlon), x=as.double(lon), y=as.double(lat), x0=as.double(lon0),
-              nomax=as.integer(e*nlon), no=integer(1), xo=double(e*nlon), yo=double(e*nlon),
+              nomax=as.integer(e*nlon), no=integer(1),
+              xo=double(e*nlon), yo=double(e*nlon), insideo=integer(e*nlon),
               NAOK=TRUE)
     mod$xo <- mod$xo[1:mod$no]
     mod$yo <- mod$yo[1:mod$no]
+    mod$insideo <- 1 == mod$insideo[1:mod$no]
+    if (TEST) {
+        mod$xo <- mod$xo[mod$insideo]
+        mod$yo <- mod$yo[mod$insideo]
+    }
     plot(mod$xo, mod$yo, xlim=c(-180,180), ylim=c(-90,90), type='l')
     lines(c(-180, 180, 180, -180, -180), c(-90, -90, 90, 90, -90), col='gray')
     polygon(mod$xo, mod$yo, col='gray')
@@ -34,10 +41,13 @@ for (lon0 in seq(-180, 180, 10)[13]) {
         mapPlot(as.coastline(mod$xo, mod$yo), fill='gray', proj=proj)
         xlim <- par('usr')[1:2]
         ylim <- par('usr')[3:4]
+        ##mapPoints(mod$xo[!mod$insideo], mod$yo[!mod$insideo], col='red', pch=20, cex=1/2)
     } else {
         mapPlot(as.coastline(mod$xo, mod$yo), fill='gray', proj=proj, xlim=xlim, ylim=ylim,
                 xaxs="i", yaxs="i")
+        ##mapPoints(mod$xo[!mod$insideo], mod$yo[!mod$insideo], col='red', pch=20, cex=1/2)
     }
     mtext(proj, side=3, line=0, adj=1)
+    mtext("bad Antarctic pt if lon_0=120", side=3, line=0.25, adj=0, col='magenta', font=2)
 }
 if (!interactive()) dev.off()
