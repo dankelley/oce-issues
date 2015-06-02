@@ -17,15 +17,16 @@ if (!interactive()) pdf("07.pdf", width=7, height=7, pointsize=8)
 par(mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
 par(mfrow=c(2,1))
 xlim <- ylim <- NULL # yields identical map scales on successive pages
-for (lon0 in seq(-180, 180, 10)[13]) {
+for (lon_0 in seq(-180, 180, 10)[13]) {
     e <- 4
     proj <- "robin"
     proj <- "wintri"
     mod <- .C("polygon_subdivide_vertically4",
-              n=as.integer(nlon), x=as.double(lon), y=as.double(lat), x0=as.double(lon0),
+              n=as.integer(nlon), x=as.double(lon), y=as.double(lat), x0=as.double(lon_0),
               nomax=as.integer(e*nlon), no=integer(1),
               xo=double(e*nlon), yo=double(e*nlon), insideo=integer(e*nlon),
               NAOK=TRUE)
+    modORIG <- mod
     mod$xo <- mod$xo[1:mod$no]
     mod$yo <- mod$yo[1:mod$no]
     mod$insideo <- 1 == mod$insideo[1:mod$no]
@@ -34,9 +35,18 @@ for (lon0 in seq(-180, 180, 10)[13]) {
         mod$yo <- mod$yo[mod$insideo]
     }
     plot(mod$xo, mod$yo, xlim=c(-180,180), ylim=c(-90,90), type='l')
+
+    if (TRUE) {
+        plot(lon, lat, xlim=c(-100,-50), ylim=c(-90,-60), type='l')
+        abline(v=lon_0, col='pink')
+        plot(mod$xo, mod$yo, xlim=c(-100,-50), ylim=c(-90,-60), type='l')
+        abline(v=lon_0, col='pink')
+        browser()
+    }
+
     lines(c(-180, 180, 180, -180, -180), c(-90, -90, 90, 90, -90), col='gray')
     polygon(mod$xo, mod$yo, col='gray')
-    proj <- sprintf("+proj=%s +lon_0=%.0f", proj, cleanAngle(lon0-180))
+    proj <- sprintf("+proj=%s +lon_0=%.0f", proj, cleanAngle(lon_0-180))
     if (is.null(xlim)) {
         mapPlot(as.coastline(mod$xo, mod$yo), fill='gray', proj=proj)
         xlim <- par('usr')[1:2]
