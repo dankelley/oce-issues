@@ -15,7 +15,7 @@ cleanAngle <- function(a)
 if (!interactive()) pdf("07.pdf", width=7, height=7, pointsize=8)
 ##layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE), respect = TRUE)
 par(mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
-par(mfrow=c(2,1))
+par(mfrow=c(2,2))
 xlim <- ylim <- NULL # yields identical map scales on successive pages
 for (lon_0 in seq(-180, 180, 10)[13]) {
     e <- 4
@@ -41,7 +41,6 @@ for (lon_0 in seq(-180, 180, 10)[13]) {
         abline(v=lon_0, col='pink')
         plot(mod$xo, mod$yo, xlim=c(-100,-50), ylim=c(-90,-60), type='l')
         abline(v=lon_0, col='pink')
-        browser()
     }
 
     lines(c(-180, 180, 180, -180, -180), c(-90, -90, 90, 90, -90), col='gray')
