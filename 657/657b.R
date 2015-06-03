@@ -1,5 +1,4 @@
 library(oce)
-source("~/src/oce/R/section.R")
 data(section)
 top <- sectionGrid(section, p=seq(0, 200, 5))
 bottom<- sectionGrid(section, p=seq(200, 6000, 100))
