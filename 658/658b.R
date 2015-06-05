@@ -6,8 +6,8 @@ s <- vector("list", nfiles)
 for (ifile in seq_along(files)) {
     message("Processing data in file '", files[ifile], "'")
     d <- nc_open(files[ifile])
-    timevec <- ncvar_get(d, "date")
-    time <- ISOdatetime(timevec[1],timevec[2],timevec[3],timevec[4],timevec[5],timevec[6],tz="UTC")
+    t <- ncvar_get(d, "date")
+    time <- ISOdatetime(t[1],t[2],t[3],t[4],t[5],t[6],tz="UTC")
     ladp <- as.ladp(station=gsub(".nc", "", files[ifile]),
                     longitude=ncvar_get(d, "lon"),
                     latitude=ncvar_get(d, "lat"),
