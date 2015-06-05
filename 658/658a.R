@@ -1,7 +1,5 @@
 library(oce)
 library(ncdf4)
-source("~/src/oce/R/section.R")
-source("~/src/oce/R/ctd.R")
 files <- c("025.nc", "040.nc", "047.nc")
 nfiles <- length(files)
 s <- vector("list", nfiles)
@@ -34,16 +32,10 @@ for (ifile in seq_along(files)) {
     this@data$salinity <- fixNaN(ncvar_get(d, "ctd_s"))
     s[[ifile]] <- this
 }
-s
-
-lat<-unlist(lapply(s, function(x) x[["latitude"]]))
-lon<-unlist(lapply(s, function(x) x[["longitude"]]))
-plot(lon,lat,type='l')
-sec <- makeSection(s)
-sec
-summary(sec)
+if (!interactive()) png("648a.png")
 par(mfrow=c(2,2))
 plot(sec, which="salinity")
 plot(sec, which="temperature")
 plot(sec, which="u")
 plot(sec, which="v")
+if (!interactive()) dev.off()

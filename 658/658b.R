@@ -1,17 +1,8 @@
 library(oce)
 library(ncdf4)
-source("~/src/oce/R/section.R")
-source("~/src/oce/R/ctd.R")
-source("~/src/oce/R/ladp.R")
 files <- c("025.nc", "040.nc", "047.nc")
 nfiles <- length(files)
 s <- vector("list", nfiles)
-
-## Change NaN to NA, and make into a vector, not a one-column matrix.
-fixNaN <- function(x) {
-    if (is.numeric(x)) x[!is.finite(x)] <- NA
-    as.vector(x)
-}
 for (ifile in seq_along(files)) {
     message("Processing data in file '", files[ifile], "'")
     d <- nc_open(files[ifile])
@@ -32,8 +23,10 @@ for (ifile in seq_along(files)) {
 sec <- makeSection(s)
 sec
 summary(sec)
+if (!interactive()) png("648b.png")
 par(mfrow=c(2,2))
 plot(sec, which="salinity")
 plot(sec, which="temperature")
 plot(sec, which="u")
 plot(sec, which="v")
+if (!interactive()) dev.off()
