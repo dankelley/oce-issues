@@ -8,3 +8,8 @@ if (!interactive()) dev.off()
 if (!interactive()) png("659a_2.png")
 plot(ladcp)
 if (!interactive()) dev.off()
+ctd
+ladcp
+summary(ctd)
+summary(ladcp)
+
