@@ -28,13 +28,6 @@ show(827, pos=3)
 show(999, pos=3)
 
 ## new indices: 826:999, 445:825
-looknew <- c(826:999, 445:825)
-LON <- longitude
-LAT <- latitude
-LON
-stopifnot(all.equal(sort(look), sort(looknew)))
-LON[look] <- longitude[looknew]
-LAT[look] <- latitude[looknew]
 n <- length(longitude)
 LON <- c(longitude[1:444], longitude[826:999], longitude[445:825],
          seq(165, -180, -15),
@@ -57,6 +50,10 @@ shownew(1010, pos=1)
 shownew(1022, pos=3)
 
 if (part3) {
+    coastlineWorld <- as.coastline(longitude=LON, latitude=LAT)
+    coastlineWorld@metadata$filename="ne_110m_admin_0_countries.shp, with Antarctica modified"
+    save(coastlineWorld, file="coastlineWorld.rda")
+    tools::resaveRdaFiles("coastlineWorld.rda")
     write.table(data.frame(longitude=LON, latitude=LAT),
                 col.names=FALSE, row.names=FALSE, file="coastlineNEW.dat")
     cl <- as.coastline(lon=LON, lat=LAT)

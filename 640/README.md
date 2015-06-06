@@ -20,3 +20,4 @@ with C.
 dataset to extract and how to reassemble them. I added 23 points circling very
 close to the South pole.
 
+* 10.R uses new coastline but otherwise as 09.R
