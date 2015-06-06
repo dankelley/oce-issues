@@ -14,7 +14,8 @@ dirs        =147 \
 	     514 516 517 518 519 520 525 526 531 533 536 537 539 540 541 \
              543 544 545 546 548 554 557 562 563 568 572 576 577 579 581 \
 	     584 585 586 588 592 611 612 613 616 620 622 623 624 627 628 \
-	     630 631 635 636 637 638 640 641 642 648 653 655
+	     630 631 635 636 637 638 640 641 642 648 653 655 657 658 659
+bremen      =659
 adp         =595 586
 colormap    =437 441 443 447 449 450 452 453 454 517 637
 ctd         =402 432 438 475 477 498 520 525
@@ -53,6 +54,8 @@ issue655:
 	for dir in $(extras655)   ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 adp:
 	for dir in $(adp)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+bremen:
+	for dir in $(bremen)      ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 colormap:
 	for dir in $(colormap)    ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ctd:
