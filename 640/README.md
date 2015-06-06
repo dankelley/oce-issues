@@ -15,3 +15,8 @@ with C.
 
 * 09.R coastlineCut() as incorporated into oce
 
+* create_new_coastline.R create a new worldCoastline that might transform
+  better. Three plot pages show the steps in how I inferred which parts of the
+dataset to extract and how to reassemble them. I added 23 points circling very
+close to the South pole.
+
