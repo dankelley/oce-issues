@@ -1,13 +1,28 @@
 ## what's wrong with Antarctica?
+
+## the load() file has:
+##    i    lon  lat
+##  444     NA   NA
+##  445   -180  -90
+## 1023   -180  -90
+## 1024     NA   NA
+## plot(lon[445:1023], lat[445:1023], type='l') # nice polygon
+
+JUST_ANTARCTICA <- TRUE
 TEST <- !FALSE
 LOAD <- TRUE
 
-findit <- function(lon, lat, plot=TRUE) {
-    xy <- locator(1)
-    i <- which.min(abs(xy$x-lon) + abs(xy$y-lat))[1]
-    points(lon[i], lat[i])
-    text(lon[i], lat[i], i)
-    c(lon[i], lat[i])
+findit <- function(n=1, lon, lat, plot=TRUE) {
+    LON <- LAT <- NULL
+    for (i in 1:n) {
+        xy <- locator(1)
+        i <- which.min(abs(xy$x-lon) + abs(xy$y-lat))[1]
+        points(lon[i], lat[i])
+        text(lon[i], lat[i], i, pos=4)
+        LON <- c(LON, lon[i])
+        LAT <- c(LAT, lat[i])
+    }
+    c(LON, LAT)
 }
 
 ## Test methods for chopping at a given longitude (x0)
@@ -16,6 +31,10 @@ library(oce)
 if (!LOAD) data(coastlineWorld) else load("coastlineWorld.rda")
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
+if (JUST_ANTARCTICA) {
+    lon <- lon[445:1023]
+    lat <- lat[445:1023]
+}
 ##lat[lat==-90] <- -89.99
 nlon <- length(lon)
 system("R CMD SHLIB polygon4.c") 
@@ -24,7 +43,7 @@ dyn.load("polygon4.so")
 cleanAngle <- function(a)
     ifelse(a<(-180), a+360, ifelse(a>180, a-360, a))
 
-if (!interactive()) pdf("07_5.pdf", width=7, height=7, pointsize=8)
+if (!interactive()) pdf("07_6.pdf", width=7, height=7, pointsize=8)
 ##layout(matrix(c(1,2,3,3), 2, 2, byrow = TRUE), respect = TRUE)
 par(mar=c(2, 2, 1, 1), mgp=c(2, 0.7, 0))
 par(mfrow=c(2,2))
@@ -40,7 +59,6 @@ for (lon_0 in -60) {
               xo=double(e*nlon), yo=double(e*nlon), insideo=integer(e*nlon),
               ipolyo=integer(e*nlon),
               NAOK=TRUE)
-    modORIG <- mod
     mod$xo <- mod$xo[1:mod$no]
     mod$yo <- mod$yo[1:mod$no]
     mod$insideo <- 1 == mod$insideo[1:mod$no]
@@ -58,19 +76,19 @@ for (lon_0 in -60) {
         par(mar=c(1.5,1.5,0.5,0.5), mgp=c(2,0.5,0))
         ##par(mfrow=c(2,2), mar=c(1.5,1.5,0.5,0.5), mgp=c(2,0.5,0))
         layout(matrix(1:4,byrow=TRUE, ncol=2), widths=rep(1,2), heights=c(0.2, 0.8))
+        #par(mfrow=c(2,1))
         plot(lon, lat, xlim=c(-180,180), ylim=c(-90,-63), type='l')
-        polygon(lon, lat, col='lightgray')
+        #polygon(lon, lat, col='lightgray')
         points(lon[LOOK], lat[LOOK], pch=20, col=2:3)
         points(lon[LOOK2], lat[LOOK2], pch=20, col=4:5)
         text(lon[LOOK2], lat[LOOK2], pos=c(1,4), labels=indices[LOOK2], cex=2/3)
         inside <- !is.na(lon)&(-68)<lon&lon<(-50)&(-65)<lat&lat<(-60)
         text(lon[LOOK], lat[LOOK], pos=c(1,4), labels=indices[LOOK], cex=2/3)
-        abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
+        #abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
         plot(mod$xo, mod$yo, xlim=c(-180,180), ylim=c(-90,-63), type='l')
         for (ip in unique(mod$ipoly)) {
             lines(mod$x[ip==mod$ipoly], mod$y[ip==mod$ipoly], col=1+ip%%5, lwd=3)
         }
-        stop()
         polygon(mod$xo, mod$yo, col='lightgray')
         abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
 

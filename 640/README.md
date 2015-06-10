@@ -11,6 +11,10 @@ with C.
     - The edge-shadowing of cut-off side is ugly. But it would go away if we
       drew the earth edge, which is not a bad idea.
 
+* 07_5.R looking at problem if lon_0 is -60
+
+* 07_6.R as 07_5. but isolate data manually to just AA
+
 * 08.R coastlineCut() trial version (local)
 
 * 09.R coastlineCut() as incorporated into oce

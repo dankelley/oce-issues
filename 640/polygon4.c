@@ -17,11 +17,12 @@ int point_in_polygon(double X, double Y, int n, double x[], double y[])
 }
 
 
-#define SAVE(x,y,inside) {\
+#define SAVE(x,y,inside,ipoly) {\
   if ((*no) >= (*nomax)) error("Ran out of space (limit %d pairs); contact developer.\n", (*nomax));\
   xo[(*no)]=(x);\
   yo[(*no)]=(y);\
   insideo[(*no)]=(inside);\
+  ipolyo[(*no)]=(ipoly);\
   ++(*no);\
   if ((inside)) Rprintf(" [ %7.2f %7.2f %d @ %3d ]\n", (x), (y), (inside), (*no));\
 }
@@ -29,7 +30,7 @@ int point_in_polygon(double X, double Y, int n, double x[], double y[])
 // 3: smash the opposite side, retaining y but fixing x as x0 +- epsilon
 // 4: try to remove UVL
 void polygon_subdivide_vertically4(int *n, double *x, double *y, double *x0,
-    int *nomax, int *no, double *xo, double *yo, int *insideo)
+    int *nomax, int *no, double *xo, double *yo, int *insideo, int *ipolyo)
 {
   Rprintf("polygon_subdivide_vertically4(*n=%d, ..., *x0=%f, *nomax=%d, ...)\n", *n, *x0, *nomax);
   unsigned int *poly_start = (unsigned int*)R_alloc(*(nomax), sizeof(unsigned int));
@@ -96,21 +97,21 @@ void polygon_subdivide_vertically4(int *n, double *x, double *y, double *x0,
 	if (i == (*n))
 	  return;
 	if (x[i] > xx) {
-	  SAVE(xx, y[i], point_in_polygon(xx, y[i], poly_len, x+poly_start[ipoly], y+poly_start[ipoly]))
+	  SAVE(xx, y[i], point_in_polygon(xx, y[i], poly_len, x+poly_start[ipoly], y+poly_start[ipoly]), ipoly)
 	} else {
-	  SAVE(x[i], y[i], 1)
+	  SAVE(x[i], y[i], 1, ipoly)
 	}
       }
-      SAVE(NA_REAL, NA_REAL, 1);
+      SAVE(NA_REAL, NA_REAL, 1, ipoly);
       xx = (*x0) + epsilon;
       for (i = poly_start[ipoly]; i <= poly_end[ipoly]; i++) {
 	//Rprintf("POLY RHS i=%d\n", i);
 	if (i == (*n))
 	  return;
 	if (x[i] < xx) {
-	  SAVE(xx, y[i], point_in_polygon(xx, y[i], poly_len, x+poly_start[ipoly], y+poly_start[ipoly]))
+	  SAVE(xx, y[i], point_in_polygon(xx, y[i], poly_len, x+poly_start[ipoly], y+poly_start[ipoly]), ipoly)
 	} else {
-	  SAVE(x[i], y[i], 1)
+	  SAVE(x[i], y[i], 1, ipoly)
 	}
       }
     } else {
@@ -118,9 +119,9 @@ void polygon_subdivide_vertically4(int *n, double *x, double *y, double *x0,
       for (i = poly_start[ipoly]; i <= poly_end[ipoly]; i++) {
 	//if (ipoly==286) Rprintf("i=%d %d:%d n=%d\n", i, poly_start[ipoly], poly_end[ipoly], *n);
 	if (i < (*n))
-	  SAVE(x[i], y[i], 1)
+	  SAVE(x[i], y[i], 1, ipoly)
       }
-      SAVE(NA_REAL, NA_REAL, 1);
+      SAVE(NA_REAL, NA_REAL, 1, ipoly);
       //if (ipoly==286) Rprintf("done with poly 286\n");
     }
   }
