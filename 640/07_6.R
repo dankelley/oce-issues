@@ -12,17 +12,23 @@ JUST_ANTARCTICA <- TRUE
 TEST <- !FALSE
 LOAD <- TRUE
 
-findit <- function(n=1, lon, lat, plot=TRUE) {
-    LON <- LAT <- NULL
+isinside <- function(alon, alat) {
+    .C("point_in_polygon2", as.double(alon), as.double(alat),
+       length(lon), as.double(lon), as.double(lat), inside=integer(1))$inside
+}
+# inside(lon[179], lat[179])
+findit <- function(n=1, pos=1) {
+    LON <- LAT <- I <- NULL
     for (i in 1:n) {
         xy <- locator(1)
         i <- which.min(abs(xy$x-lon) + abs(xy$y-lat))[1]
         points(lon[i], lat[i])
-        text(lon[i], lat[i], i, pos=4)
+        text(lon[i], lat[i], i, pos=2)
         LON <- c(LON, lon[i])
         LAT <- c(LAT, lat[i])
+        I <- c(I, i)
     }
-    c(LON, LAT)
+    c(LON, LAT, I)
 }
 
 ## Test methods for chopping at a given longitude (x0)
@@ -101,8 +107,10 @@ for (lon_0 in -60) {
         abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
         ## xy <- locator(1)
                                         # #which.min(abs(lon-xy$x)+abs(lat-xy$y))
-        points(lon[445], lat[445], pch=20, col=6, cex=1.4)
-        text(lon[445], lat[445], 445, cex=1, pos=1)
+        points(lon[238], lat[238], pch=20, col=6, cex=1.4)
+        text(lon[238], lat[238], 238, cex=1, pos=4)
+        points(lon[177], lat[177], pch=20, col=6, cex=1.4)
+        text(lon[177], lat[177], 177, cex=1, pos=4)
         message("lon[442:446]:", paste(lon[442:446], collapse=" "))
         message("lat[442:446]:", paste(lat[442:446], collapse=" "))
 
@@ -110,9 +118,17 @@ for (lon_0 in -60) {
         polygon(mod$xo, mod$yo, col='lightgray')
         points(mod$xo, mod$yo, pch=20, col='black')
         points(mod$xo[mod$insideo], mod$yo[mod$insideo],pch=20, col='red', cex=1.4)
+        points(lon[238], lat[238], pch=20, col=6, cex=1.4)
+        text(lon[238], lat[238], 238, cex=1, pos=4)
         abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
 
         message("Q: is there a break at the tip (look at numbers)")
+        isin <- isinside(lon[167], lat[167])
+        message("167 inside? ", isin)
+        isin <- isinside(lon[179], lat[179])
+        message("179 inside? ", isin)
+        isin <- isinside(-62,-73)
+        message("62W 73S inside? ", isin)
         stop()
     }
 }

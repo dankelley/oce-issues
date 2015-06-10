@@ -6,14 +6,32 @@
 
 int point_in_polygon(double X, double Y, int n, double x[], double y[])
 {
-  int i, j, c = 0;
-  for (i = 0, j = n-1; i < n; j = i++) {
+  int inside=0;
+  for (int i = 0, j = n-1; i < n; j = i++) {
+    if (X == x[i] && Y == y[i]) {
+      return 1;
+    }
     if (((y[i]>Y) != (y[j]>Y)) && (X < (x[j]-x[i]) * (Y-y[i]) / (y[j]-y[i]) + x[i]))
-      c = !c;
+      inside = !inside;
   }
-  if (c)
-    Rprintf("point_in_polygon(%f, %f, %d, ...) is %s\n", X, Y, n, c==0?"outside":"inside");
-  return c;
+  return inside;
+  //Rprintf("point_in_polygon(%f, %f, %d, ...) is %s\n", X, Y, n, c==0?"outside":"inside");
+}
+
+void point_in_polygon2(double *X, double *Y, int *n, double x[], double y[], int *inside)
+{
+  *inside = 0;
+  Rprintf("in point_in_polygon2(%f, %f, ...)\n", X[0], Y[0]);
+  for (int i = 0, j = (*n)-1; i < (*n); j = i++) {
+    if (X[0] == x[i] && Y[0] == y[i]) {
+      *inside = 1;
+      return;
+    }
+    if (((y[i]>Y[0]) != (y[j]>Y[0])) && (X[0] < (x[j]-x[i]) * (Y[0]-y[i]) / (y[j]-y[i]) + x[i])) {
+      (*inside) = !(*inside);
+      Rprintf(" i=%d j=%d inside is now %d\n", i, j, *inside);
+    }
+  }
 }
 
 
@@ -24,7 +42,7 @@ int point_in_polygon(double X, double Y, int n, double x[], double y[])
   insideo[(*no)]=(inside);\
   ipolyo[(*no)]=(ipoly);\
   ++(*no);\
-  if ((inside)) Rprintf(" [ %7.2f %7.2f %d @ %3d ]\n", (x), (y), (inside), (*no));\
+  if ((inside)) Rprintf(" inside [ %7.2f %7.2f %d @ %3d ]\n", (x), (y), (inside), (*no));\
 }
 
 // 3: smash the opposite side, retaining y but fixing x as x0 +- epsilon
@@ -68,7 +86,7 @@ void polygon_subdivide_vertically4(int *n, double *x, double *y, double *x0,
   //Rprintf("found %d polygons\n", npoly);
   //
   // 2. Process each polygon individually.
-  double epsilon = 0.125/2;
+  double epsilon = 0.125;
   // FIXME: might help to interpolate in an additional point near the boundary
   // FIXME: the opposite side is ugly but very thin so maybe OK
   for (ipoly = 0; ipoly < npoly; ipoly++) {
