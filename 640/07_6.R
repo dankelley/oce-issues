@@ -105,12 +105,24 @@ for (lon_0 in -60) {
         text(lon[LOOK2], lat[LOOK2], pos=c(4,1), labels=indices[LOOK2], cex=2/3)
         inside <- !is.na(lon)&(-68)<lon&lon<(-50)&(-65)<lat&lat<(-60)
         abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
-        ## xy <- locator(1)
-                                        # #which.min(abs(lon-xy$x)+abs(lat-xy$y))
-        points(lon[238], lat[238], pch=20, col=6, cex=1.4)
-        text(lon[238], lat[238], 238, cex=1, pos=4)
-        points(lon[177], lat[177], pch=20, col=6, cex=1.4)
-        text(lon[177], lat[177], 177, cex=1, pos=4)
+        pl <- 237
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=1)
+        pl <- 238
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=1)
+        pl <- 239
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=4)
+        for (pl in 167:173) {
+            points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+            text(lon[pl], lat[pl], pl,  cex=1, col=2, pos=3)
+        }
+        for (pl in 174:178) {
+            points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+            text(lon[pl], lat[pl], pl,  cex=1, col=2, pos=1)
+        }
+
         message("lon[442:446]:", paste(lon[442:446], collapse=" "))
         message("lat[442:446]:", paste(lat[442:446], collapse=" "))
 
@@ -118,8 +130,24 @@ for (lon_0 in -60) {
         polygon(mod$xo, mod$yo, col='lightgray')
         points(mod$xo, mod$yo, pch=20, col='black')
         points(mod$xo[mod$insideo], mod$yo[mod$insideo],pch=20, col='red', cex=1.4)
-        points(lon[238], lat[238], pch=20, col=6, cex=1.4)
-        text(lon[238], lat[238], 238, cex=1, pos=4)
+        pl <- 237
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=1)
+        pl <- 238
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=1)
+        pl <- 239
+        points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+        text(lon[pl], lat[pl], paste(pl, "'", sep=""), cex=1, col=2, pos=1)
+        for (pl in 167:173) {
+            points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+            text(lon[pl], lat[pl], pl,  cex=1, col=2, pos=3)
+        }
+        for (pl in 174:178) {
+            points(lon[pl], lat[pl], pch=20, col=2, cex=1.4)
+            text(lon[pl], lat[pl], pl,  cex=1, col=2, pos=1)
+        }
+
         abline(v=lon_0, col='red', lwd=1/2, lty='dotted')
 
         message("Q: is there a break at the tip (look at numbers)")
