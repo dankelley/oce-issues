@@ -5,4 +5,7 @@ logger <- read.logger('file.rsk')
 str(logger@metadata)
 ctd <- as.ctd(logger)
 str(ctd@metadata)
-
+if (!interactive()) png("642a.png")
+plot(ctd)
+title("EXPECT: 10<T<16 and 2<S<16 roughly", font=2, col.main='purple')
+if (!interactive()) dev.off()
