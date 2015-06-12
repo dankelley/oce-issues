@@ -28,7 +28,7 @@ imagep      =368 390 404 412 413 414 415 416 424 425 431 434 435 437 444 \
 	     452 453 479 485 489 490 516 581 585 586 655
 extras655   =368 516 655
 landsat     =465 484 486 501 502 506 508 519 572 592
-logger      =588
+rsk         =562 588 622 623 624 627 642
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
 	     577 584 653 663
 mapImage    =517 522
@@ -80,6 +80,8 @@ projections:
 	for dir in $(projections) ; do cd $$dir ; echo $$dir ; make clean ; make ; make view ; cd .. ; done
 landsat:
 	for dir in $(landsat)     ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+rsk:
+	for dir in $(rsk)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ugly:
 	for dir in $(ugly)        ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ts:
