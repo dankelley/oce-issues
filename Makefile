@@ -31,6 +31,8 @@ landsat     =465 484 486 501 502 506 508 519 572 592
 rsk         =562 588 622 623 624 627 642
 map         =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
 	     577 584 653 663
+mapnew      =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
+	     577 584 653 # skip those using mapproj
 mapImage    =517 522
 projections =388 495 518 520 521 537 635 638
 proj4       =518 520 533 579
@@ -74,6 +76,8 @@ imagep:
 	for dir in $(imagep)      ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 map:
 	for dir in $(map)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+mapnew:
+	for dir in $(mapnew)      ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 mapImage:
 	for dir in $(mapImage)    ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 projections:
