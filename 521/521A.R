@@ -5,25 +5,27 @@ try({
     source('~/src/oce/R/map.R')
 })
 data(drifter)
+data(topoWorld)
 
-par(mfrow=c(2,2))
-plot(drifter)
-mtext("no projection", adj=1)
-
-p <- "automatic"
-plot(drifter, projection=p, fill="lightgray")
-mtext(p, adj=1)
-mtext("EXPECT: auto (mercator) projection", font=2, col='purple', adj=0)
+par(mfrow=c(2,1), mar=c(2, 2, 1, 1))
+## plot(drifter)
+## contour(topoWorld[["longitude"]], topoWorld[["latitude"]], topoWorld[["z"]], levels=-1000, add=TRUE)
+## mtext("default", adj=1, line=0.2)
+## 
+## p <- "+proj=lonlat"
+## plot(drifter, projection=p, fill="lightgray")
+## mapContour(topoWorld, levels=-1000)
+## mtext(p, adj=1, line=0.2)
 
 p <- "+proj=merc"
 plot(drifter, projection=p, fill="lightgray")
-mtext(p, adj=1)
+mapContour(topoWorld, levels=-1000)
+mtext(p, adj=1, line=0.2)
 
-p <- "mercator"
-plot(drifter, projection=p, fill=FALSE)
-mtext(p, adj=1)
-mtext("EXPECT: as at left but no fill", font=2, col='purple', adj=0)
-mtext("BUG: horiz. lines; cannot fill", font=2, col='purple', adj=0, line=1)
+p <- "+proj=lcc +lon_0=-40"
+plot(drifter, projection=p, fill="lightgray")
+mapContour(topoWorld, levels=-1000)
+mtext(p, adj=1, line=0.2)
 
 if (!interactive()) dev.off()
 
