@@ -1,4 +1,5 @@
 library(oce)
+try(source("~/src/oce/R/map.R"))
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=5) # speed plotting 25X
 data(coastlineWorld)
