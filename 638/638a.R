@@ -11,14 +11,14 @@ topo <- subset(topo, latlim[1] < latitude & latitude < latlim[2])
 topo <- subset(topo, (360+lonlim[1]) < longitude & longitude < (360+lonlim[2]))
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="+proj=poly +lon_0=-60", orientation=c(90,-60,0), grid=TRUE)
+        proj="+proj=poly +lon_0=-60", grid=TRUE)
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
 
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-60,0), grid=TRUE)
+        proj="+proj=poly +lon_0=-60", grid=TRUE)
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld, col='red')
