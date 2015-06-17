@@ -4,7 +4,7 @@ lon <- -20:20
 lat <- -20:20
 lo <- expand.grid(lon, lat)[,1]
 la <- expand.grid(lon, lat)[,2]
-f <- matrix(exp(-(lo^2 + la^2)/2/10), nrow=length(lon)) # create fake 2d gaussian
+f <- matrix(exp(-(lo^2 + la^2)/2/10)+ .Machine$double.eps*rnorm(lo), nrow=length(lon)) # create fake 2d gaussian
 if (!interactive()) png("309A.png")
 par(mar=c(2, 2, 1, 1))
 mapPlot(coastlineWorld, latitudelim=range(lat), longitudelim=range(lon))
