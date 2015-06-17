@@ -19,7 +19,7 @@ cm <- colormap(col=oceColorsGebco, breaks=breaks, missingColor='red') # no need 
 ## panel a
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-52,0), grid=TRUE)
+        proj="+proj=poly", orientation=c(90,-52,0), grid=TRUE)
 mapImage(topo, col=oceColorsGebco, breaks=breaks, missingColor='red')
 mapLines(coastlineWorld)
 mtext('(a)', adj=1)
@@ -28,7 +28,7 @@ box()
 # panel b
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
-        proj="polyconic", orientation=c(90,-52,0), grid=TRUE)
+        proj="+proj=poly", orientation=c(90,-52,0), grid=TRUE)
 mapImage(topo, colormap=cm)
 mtext('(b)', adj=1)
 mtext('EXPECT: as (a), no red spot in centre', col=6, font=2, adj=0)
