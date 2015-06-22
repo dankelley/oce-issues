@@ -1,0 +1,6 @@
+library(oce)
+data(coastlineWorld)
+lonlim <- c(-75.25, -75.15)
+latlim <- c(38.78, 39.14)
+tt <- system.time(mapPlot(coastlineWorld, projection="+proj=merc", longitudelim = lonlim, latitudelim = latlim))
+print(tt)
