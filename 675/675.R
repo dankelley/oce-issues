@@ -1,5 +1,6 @@
 library(oce)
-try(source("~/src/oce/R/landsat.R")) # lets author test changes to the code
+try(source("~/src/oce/R/map.R"))       # lets author test changes to the code
+try(source("~/src/oce/R/landsat.R"))   # lets author test changes to the code
 
 if (1 == length(list.files(pattern="^LC.*$"))) {
     low <- list(longitude=-39.5, latitude=-4.5)
