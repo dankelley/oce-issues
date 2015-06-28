@@ -1,0 +1,8 @@
+library(oce)
+try(source("~/src/oce/R/ctd.R"))
+data(ctdRaw)
+if (!interactive()) png("670a.png")
+par(mfrow=c(2,1))
+plotScan(ctdRaw)
+plotScan(ctdTrim(ctdRaw, "scan", parameters=c(200,300)))
+if (!interactive()) dev.off()
