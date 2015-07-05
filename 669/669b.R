@@ -1,12 +1,16 @@
 library(oce)
 #try(source("~/src/oce/R/ctd.R"))
+try(source("~/src/R-richards/oce/R/ctd.R"))
 data(ctd)
 set.seed(669)
 n <- length(ctd[["salinity"]])
 lon <- ctd[["longitude"]] + rnorm(n, sd=0.05)
 lat <- ctd[["latitude"]] + rnorm(n, sd=0.05)
-ctdnew <- as.ctd(ctd[['salinity']], ctd[['temperature']], ctd[['pressure']],
-                 longitude = lon, latitude = lat)
+## ctdnew <- as.ctd(ctd[['salinity']], ctd[['temperature']], ctd[['pressure']],
+##                  longitude = lon, latitude = lat)
+ctdnew <- ctd
+ctdnew@metadata$longitude <- lon
+ctdnew@metadata$latitude <- lat
 ctdnewSubset <- subset(ctdnew, 200 <= scan & scan <= 300)
 ctdnewTrim <- ctdTrim(ctdnew, method='scan', parameters = c(200, 300))
 if (!interactive()) png("669b_1.png")
