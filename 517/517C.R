@@ -6,7 +6,9 @@ try(source('~/src/oce/R/map.R'))
 data(coastlineWorld)
 data(topoWorld)
 
-if (!interactive()) png('517C.png', width=700, height=700, type='cairo', pointsize=12)
+## prefer cairo, but that fails with R as of July 2015 ... perhaps a fix is in the works?
+##if (!interactive()) png('517C.png', width=700, height=700, type='cairo')
+if (!interactive()) png('517C.png', width=700, height=700)
 par(mfrow=c(2,2), mar=c(2, 2, 3, 1))
 
 ## Original test

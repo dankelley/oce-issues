@@ -8,7 +8,9 @@ try({
     source('~/src/oce/R/map.R')
 })
 
-if (!interactive()) png('517Adk.png', width=1000, height=700, type='cairo')
+## prefer cairo, but that fails with R as of July 2015 ... perhaps a fix is in the works?
+##if (!interactive()) png('517Adk.png', width=1000, height=700, type='cairo')
+if (!interactive()) png('517Adk.png', width=1000, height=700)
 par(mfrow=c(2,2), mar=c(2,2,1,1))
 
 mapPlot(coastlineWorld)
