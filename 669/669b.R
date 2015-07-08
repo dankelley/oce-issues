@@ -1,6 +1,7 @@
 library(oce)
 # DK to CR: looks like our file structure differs.
 try(source("~/src/oce/R/ctd.R"), silent=TRUE)
+try(source("~/src/oce/R/coastline.R"))
 #try(source("~/src/R-richards/oce/R/ctd.R"), silent=TRUE)
 data(ctd)
 set.seed(669)
