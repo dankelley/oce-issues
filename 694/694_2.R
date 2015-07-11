@@ -1,7 +1,6 @@
 ## Q: does offsetting conductivity smooth S wiggles. A: no
-library(R.utils)
 tmp <- tempfile(fileext=".rsk")
-decompressFile("sample.rsk.gz", destname=tmp, ext="gz", FUN=gzfile, remove=FALSE)
+R.utils::decompressFile("sample.rsk.gz", destname=tmp, ext="gz", FUN=gzfile, remove=FALSE)
 library(oce)
 rsk <- read.rsk(tmp)
 ctd <- as.ctd(rsk)
