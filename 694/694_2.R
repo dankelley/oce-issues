@@ -17,14 +17,14 @@ for (dp in dps) {
     S <- swSCTp(approx(p, C, p+dp, rule=2)$y, T, p, conductivityUnit=ctd[["conductivityUnit"]])
     ctd[["salinity"]] <- S
     plot(ctd, which="salinity+temperature")
-    mtext(paste(" dp=", dp), side=3, line=-1.5, adj=0.5)
+    mtext(paste(dp, "dbar"), side=3, line=-1.5, adj=0.5)
 }
-taus <- 0.1 * c(-1, 0, 1)
+taus <- 0.2 * c(-1, 0, 1)
 for (tau in taus) {
     S <- swSCTp(approx(t, C, t+tau, rule=2)$y, T, p, conductivityUnit=ctd[["conductivityUnit"]])
     ctd[["salinity"]] <- S
     plot(ctd, which="salinity+temperature")
-    mtext(paste(" dp=", dp), side=3, line=-1.5, adj=0.5)
+    mtext(paste(tau, "sec"), side=3, line=-1.5, adj=0.5)
 }
 t
 if (!interactive()) dev.off()
