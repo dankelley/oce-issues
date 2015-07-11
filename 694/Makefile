@@ -9,11 +9,11 @@ all: $(OBJECTS)
 	#sqlite3 sample.rsk < sample.sql
 	#gzip -c sample.rsk > sample.rsk.gz
 	#rm sample.rsk
-	python subsample2.py < 060130_20150706_1513.sql > sample.sql
+	-python subsample2.py < 060130_20150706_1513.sql > sample.sql
 	-rm sample.rsk
-	sqlite3 sample.rsk < sample.sql
-	gzip -c sample.rsk > sample.rsk.gz
-	rm sample.rsk # for R testing
+	-sqlite3 sample.rsk < sample.sql
+	-gzip -c sample.rsk > sample.rsk.gz
+	-rm sample.rsk
 	R --no-save < $< > $@
 clean:
 	-rm *.out *.png *.pdf *~ *swp *gz *.sql
