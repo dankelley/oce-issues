@@ -16,6 +16,6 @@ all: $(OBJECTS)
 	rm sample.rsk # for R testing
 	R --no-save < $< > $@
 clean:
-	-rm *.out *.png *.pdf *~ *swp
+	-rm *.out *.png *.pdf *~ *swp *gz *.sql
 view:
 	-open *.png
