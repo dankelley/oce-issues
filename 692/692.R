@@ -6,6 +6,7 @@ try(source("~/src/oce/R/ctd.R")) # DK uses for faster code-test cycle
 ## PART 1: rsk conversion
 file <- system.file("extdata", "sample.rsk.gz", package="oce")
 tmp <- tempfile(fileext=".rsk")
+requireNamespace("R.utils")
 R.utils::decompressFile(file, destname=tmp, ext="gz", FUN=gzfile, remove=FALSE)
 rsk <- read.rsk(tmp)
 rsk[["filename"]] <- "sample.rsk" # trick it ... otherwise a tmp file
