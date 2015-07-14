@@ -1,0 +1,8 @@
+library(oce)
+library(testthat)
+data(ctd)
+plot(ctd)
+expect_equal(par('usr'), c(0, 1, 0, 1))
+data(rsk)
+plot(rsk)
+expect_equal(par('usr'), c(0, 1, 0, 1))
