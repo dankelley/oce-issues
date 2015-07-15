@@ -2,7 +2,7 @@
 
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/ctd.R")) # DK uses for faster code-test cycle
+#try(source("~/src/oce/R/ctd.R")) # DK uses for faster code-test cycle
 
 ## PART 1: rsk conversion
 file <- system.file("extdata", "sample.rsk.gz", package="oce")
@@ -18,7 +18,6 @@ expect_equal(ctd1[["serialNumber"]], rsk[["serialNumber"]])
 expect_null(ctd1[["waterDepth"]])
 
 mnames <- sort(c("pressure", "temperature", "salinity", "conductivity", "sigmaTheta"))
-##, "temperatureUnit", "conductivityUnit"))
 expect_equal(mnames, sort(ctd1[["names"]]))
 mlabels <- sort(c("Pressure", "Temperature", "Salinity", "Conductivity", "Sigma Theta"))
 expect_equal(mlabels, sort(ctd1[["labels"]]))
