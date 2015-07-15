@@ -14,5 +14,7 @@ rsk[["filename"]] <- "sample.rsk" # trick it ... otherwise a tmp file
 ctd <- as.ctd(rsk)
 ctdManual <- as.ctd(ctd[['salinity']], ctd[['temperature']], ctd[['pressure']])
 
-expect_equal(ctd[['longitude']], ctdManual[['longitude']])
-expect_equal(ctd[['latitude']], ctdManual[['latitude']])
+expect_null(ctd[['longitude']])
+expect_null(ctdManual[['longitude']])
+expect_null(ctd[['latitude']])
+expect_null(ctdManual[['latitude']])
