@@ -16,11 +16,10 @@ dirs        =147 \
 	     584 585 586 588 592 611 612 613 616 620 622 623 624 627 628 \
 	     630 631 635 636 637 638 640 641 642 648 653 655 657 658 659 \
 	     661 663 664 665 667 669 670 671 672 675 678 679 692 694 699
-asctd       =456 563 620 627 642
 bremen      =659
 adp         =595 586
 colormap    =437 441 443 447 449 450 452 453 454 517 637
-ctd         =402 432 438 475 477 498 520 525 670
+ctd         =402 432 438 456 475 477 498 520 525 563 620 627 642 670 692
 drifter     =510 521 548
 group516    =516 517 489 337 368 # CR related 3xx; DK related others
 gsw         =557
@@ -58,8 +57,6 @@ issue655:
 	for dir in $(extras655)   ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 adp:
 	for dir in $(adp)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
-asctd:
-	for dir in $(asctd)       ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 bremen:
 	for dir in $(bremen)      ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 colormap:
