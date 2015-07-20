@@ -20,9 +20,9 @@ if (1 == length(list.files(path="../696", pattern="data.ENX"))) {
     ## NB. It seems, from the test GUI, that times in the gui might be truncated, instead
     ## of rounding down, so the tolerance is set at 1 second.
     expect_equal(d[['firstTime']][2], as.POSIXct("2012-11-14 9:20:10", tz="UTC"), scale=1, tolerance=1)
-    ## slatitude is called "Start Lat" in GUI
+    ## firstLatitude is called "Start Lat" in GUI
     expect_equal(d[['firstLatitude']][2], 53+(25+34/60)/60, scale=1, tolerance=1/3600)
-    ## slongitude is called "Start Lon" in GUI
+    ## firstLongitude is called "Start Lon" in GUI
     expect_equal(d[['firstLongitude']][2], -(3+(0+26/60)/60), scale=1, tolerance=1/3600)
     expect_equal(d[['lastTime']][2], as.POSIXct("2012-11-14 9:20:22", tz="UTC"), scale=1, tolerance=0.5)
     expect_equal(d[['lastLatitude']][2], 53+(25+35/60)/60, scale=1, tolerance=1/3600)
