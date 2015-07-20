@@ -17,14 +17,16 @@ if (1 == length(list.files(path="../696", pattern="data.ENX"))) {
     expect_equal(d[['speedMadeGood']][2], 0.574) # The GUI shows "Made good/Mag 0.574"
     expect_equal(d[['directionMadeGood']][2], 321.0-360, scale=1, tolerance=0.1)
     ## sNavTime is called "Start Time" in GUI
-    expect_equal(d[['sNavTime']][2], as.POSIXct("2012-11-14 9:20:10", tz="UTC"), scale=1, tolerance=0.5)
+    ## NB. It seems, from the test GUI, that times in the gui might be truncated, instead
+    ## of rounding down, so the tolerance is set at 1 second.
+    expect_equal(d[['firstTime']][2], as.POSIXct("2012-11-14 9:20:10", tz="UTC"), scale=1, tolerance=1)
     ## slatitude is called "Start Lat" in GUI
-    expect_equal(d[['slatitude']][2], 53+(25+34/60)/60, scale=1, tolerance=1/3600)
+    expect_equal(d[['firstLatitude']][2], 53+(25+34/60)/60, scale=1, tolerance=1/3600)
     ## slongitude is called "Start Lon" in GUI
-    expect_equal(d[['slongitude']][2], -(3+(0+26/60)/60), scale=1, tolerance=1/3600)
-    expect_equal(d[['eNavTime']][2], as.POSIXct("2012-11-14 9:20:22", tz="UTC"), scale=1, tolerance=0.5)
-    expect_equal(d[['elatitude']][2], 53+(25+35/60)/60, scale=1, tolerance=1/3600)
-    expect_equal(d[['elongitude']][2], -(3+(0+27/60)/60), scale=1, tolerance=1/3600)
+    expect_equal(d[['firstLongitude']][2], -(3+(0+26/60)/60), scale=1, tolerance=1/3600)
+    expect_equal(d[['lastTime']][2], as.POSIXct("2012-11-14 9:20:22", tz="UTC"), scale=1, tolerance=0.5)
+    expect_equal(d[['lastLatitude']][2], 53+(25+35/60)/60, scale=1, tolerance=1/3600)
+    expect_equal(d[['lastLongitude']][2], -(3+(0+27/60)/60), scale=1, tolerance=1/3600)
     expect_equal(d[['heading']][2], 346.92, scale=1, tolerance=0.01)
     expect_equal(d[['pitch']][2], 0, scale=1, tolerance=0.01) # GUI lists as ----
     expect_equal(d[['roll']][2], 0, scale=1, tolerance=0.01) # GUI list as ----
