@@ -6,8 +6,8 @@ if (!interactive()) png("696b.png", width=7, height=7, unit="in", res=100, point
 d <- read.adp("data.ENX")
 par(mfrow=c(5,1), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 hist(d[["avgSpeed"]], xlab="")
-hist(d[["trackTrue"]], xlab="")
-hist(d[["trackMagnetic"]], xlab="")
+hist(d[["avgTrackTrue"]], xlab="")
+hist(d[["avgTrackMagnetic"]], xlab="")
 hist(d[["speedMadeGood"]], xlab="")
 hist(d[["directionMadeGood"]], xlab="")
 
