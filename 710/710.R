@@ -1,4 +1,5 @@
 library(oce)
+library(testthat)
 if (!length(list.files(pattern="test.sbe"))) {
     columns <- list(scan=1, pressure=2, temperature=3, temperature2=4,
                     conductivity=5, conductivity2=6, oxygen=7, ph=8, oxygen2=9,
@@ -13,6 +14,9 @@ if (!length(list.files(pattern="test.sbe"))) {
     plotProfile(dd)
     title("EXPECT: identical panels", font=2, col="magenta")
     if (!interactive()) dev.off()
+    for (field in c("temperature", "salinity", "pressure", "longitude", "latitude")) {
+        expect_equal(d[[field]], d[[field]])
+    }
 } else {
     message("710.R needs a datafile named 710.sbe to run")
 }
