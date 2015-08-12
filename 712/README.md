@@ -21,3 +21,13 @@ so `oceMagic()` can be modified to recognize the file with something like:
 
 * `060130_20150720_1135.txt`: a txt export from Ruskin of a recent RSK file
 
+
+## Possible rsk dataset
+
+**DK** I created ``rsk.txt.gz``, a gzipped version of a hand-edited file. The
+file was created as follows. (1) ``cp 060130_20150720_1135.txt rsk.txt``.  (2)
+In an editor, remove lines past the first occurrence of pressure 40dbar. (3)
+Hand-edit the event sequence, trying to mimic what was there originally
+(changing sample numbers, changing times, etc).  (4) ``gzip rsk.tzt`` I am not
+sure step 3 was done correctly.
+
