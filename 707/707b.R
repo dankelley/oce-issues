@@ -1,3 +1,5 @@
+## https://github.com/dankelley/oce/issues/707
+## https://github.com/dankelley/oce/commit/b3adc80e7725ddb28a864e07ddc627a373bc0c40
 library(oce)
 library(ocedata)
 source("~/src/oce/R/landsat.R")
@@ -8,6 +10,8 @@ if (0 == length(ls(pattern="^l$"))) { # cache for speed
     load('coastline.rda')
     file <- '/data/archive/landsat/LC80100112013172LGN00'
     l <- read.landsat(file, band=c('aerosol', 'tirs1'))
+} else {
+    message("using cached data for speed")
 }
 ll <- list(longitude=-50.44143, latitude=68.86987)
 ur <- list(longitude=-50.15551, latitude=68.97754)
@@ -29,7 +33,7 @@ points(ll$longitude, ll$latitude, pch=19)
 points(ur$longitude, ur$latitude, pch=19)
 lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']])
 points(clon, clat)
-mtext('EXPECT: Coastline @ coast (misfit nearly 0.2lon 0.04lat)', col='purple', font=2, adj=0)
+mtext('EXPECT: dots along image-visible coastline', col='purple', font=2, adj=0)
 
 
 if (!interactive()) dev.off()
