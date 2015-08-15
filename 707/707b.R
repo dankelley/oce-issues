@@ -1,14 +1,17 @@
-rm(list=ls())
 library(oce)
 library(ocedata)
-data(coastlineWorldFine)
+source("~/src/oce/R/landsat.R")
 
-load('coastline.rda')
-file <- '/data/archive/landsat/LC80100112013172LGN00'
-l <- read.landsat(file, band=c('aerosol', 'tirs1'))
+if (0 == length(ls(pattern="^l$"))) { # cache for speed
+    data(coastlineWorldFine)
+    message("reading data")
+    load('coastline.rda')
+    file <- '/data/archive/landsat/LC80100112013172LGN00'
+    l <- read.landsat(file, band=c('aerosol', 'tirs1'))
+}
 ll <- list(longitude=-50.44143, latitude=68.86987)
 ur <- list(longitude=-50.15551, latitude=68.97754)
-lt <- landsatTrim(l, ll, ur)
+lt <- landsatTrim(l, ll, ur, debug=10)
 
 if (!interactive()) png('707b-%03d.png')
 
@@ -26,7 +29,7 @@ points(ll$longitude, ll$latitude, pch=19)
 points(ur$longitude, ur$latitude, pch=19)
 lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']])
 points(clon, clat)
-mtext('EXPECT: Coastline aligned with coast', col='purple', font=2)
+mtext('EXPECT: Coastline @ coast (misfit nearly 0.2lon 0.04lat)', col='purple', font=2, adj=0)
 
 
 if (!interactive()) dev.off()
