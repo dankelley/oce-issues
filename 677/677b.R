@@ -1,12 +1,16 @@
-## Test that mid-latitude plotted and actual spans agree to 10%
+## Test that high-latitude plotted and actual spans agree to 10%
 errorPermitted <- 5 # percent error in corner-to-corner span
 library(testthat)
 library(oce)
+source("~/src/oce/R/coastline.R")
 source("~/src/oce/R/ctd.R")
 data(ctd)
-if (!interactive()) png("677a.png")
+## Move CTD profile to Barrow Strait
+ctd[["longitude"]] <- -92
+ctd[["latitude"]] <- 74.5
+if (!interactive()) png("677b.png")
 par(mfrow=c(2,2))
-for (span in c(10, 50, 100, 500)) {
+for (span in c(50, 100, 500, 1000)) {
     plot(ctd, which="map", span=span)
     usr <- par('usr')
     spanPlotted <- geodDist(usr[1], usr[3], usr[2], usr[4])
