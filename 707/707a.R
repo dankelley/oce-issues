@@ -2,6 +2,7 @@
 ## https://github.com/dankelley/oce/commit/b3adc80e7725ddb28a864e07ddc627a373bc0c40
 library(oce)
 library(ocedata)
+source("~/src/oce/R/landsat.R")
 
 if (0 == length(ls(pattern="^l$"))) { # cache for speed
     data(coastlineWorldFine)
@@ -16,25 +17,24 @@ ll <- list(longitude=-50.44143, latitude=68.86987)
 ur <- list(longitude=-50.15551, latitude=68.97754)
 lt <- landsatTrim(l, ll, ur)
 
-if (!interactive()) png('707a.png')
+if (!interactive()) png('707a_%1d.png')
 
-par(mfrow=c(2,1))
 plot(l, col=grey.colors)
-lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']])
+lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']], col=2)
 lines(c(ll$longitude, ll$longitude, ur$longitude, ur$longitude, ll$longitude),
-      c(ll$latitude, ur$latitude, ur$latitude, ll$latitude, ll$latitude), col=2)
+      c(ll$latitude, ur$latitude, ur$latitude, ll$latitude, ll$latitude), col=3)
 ## points(clon, clat, pch='.', cex=1/3, col=3) # DK deleted; redundant with panel b
-mtext('(a) EXPECT: red box half dark, half bright (as panel b)', col='purple',
+mtext('EXPECT: red box half dark, half bright (as 707a_2.png)', col='purple',
       cex=0.8, font=2, adj=0)
 mtext('Any more telltales, CR?', col='purple',
       cex=0.8, font=2, adj=1, line=-1)
 
 plot(lt, col=grey.colors)
+lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']], col=2)
 lines(c(ll$longitude, ll$longitude, ur$longitude, ur$longitude, ll$longitude),
-      c(ll$latitude, ur$latitude, ur$latitude, ll$latitude, ll$latitude), col=2)
+      c(ll$latitude, ur$latitude, ur$latitude, ll$latitude, ll$latitude), col=3)
 points(clon, clat, pch='.', cex=1/3, col=3)
-## lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']])
-mtext('(b) EXPECT: Green (hi-res coastline) traces gray transition', col='purple',
+mtext('EXPECT: Green (hi-res coastline) traces gray transition', col='purple',
       cex=0.8, font=2, adj=0)
 
 if (!interactive()) dev.off()
