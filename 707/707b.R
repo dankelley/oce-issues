@@ -28,7 +28,7 @@ polygon(c(ll$longitude, ll$longitude, ur$longitude, ur$longitude),
 lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']], lwd=2)
 mtext('EXPECT: Coastline aligned with coast, box aligns with trimmed image', col='purple', font=2)
 
-plot(lt, band='aerosol', col=grey.colors)
+plot(lt, band='aerosol')
 points(ll$longitude, ll$latitude, pch=19)
 points(ur$longitude, ur$latitude, pch=19)
 lines(coastlineWorldFine[['longitude']], coastlineWorldFine[['latitude']])
