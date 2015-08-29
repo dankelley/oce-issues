@@ -12,4 +12,3 @@ mapPlot(coastlineWorld, proj='+proj=stere +lat_0=-90', longitudelim=c(-180, 180)
 print(system.time(mapImage(topoWorld, colormap=colormap(name='gmt_relief'))))
 mapLines(coastlineWorld[["longitude"]], coastlineWorld[["latitude"]], lwd=2)
 if (!interactive()) dev.off()
-
