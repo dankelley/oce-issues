@@ -28,18 +28,6 @@ i <- seq_along(aa)
 points(i[nas], rep(0, length(i[nas])), col='red')
 plot(lat[aa], type='l')
 points(i[nas], rep(-80, length(i[nas])), col='red')
-stop()
-np <- 10 # number of fake south-pole points
-LL <- fakeSouthPole2(lon, lat)
-LON <- LL$lon
-LAT <- LL$lat
-
-AA <- LAT < -60
-#plot(LON[AA], LAT[AA], type='o')
-plot(LON[AA])
-
-cl <- as.coastline(LON, LAT)
-mapPlot(cl, fill="gray", axes=FALSE, projection="+proj=ortho")
 
 if (!interactive()) dev.off()
 
