@@ -12,7 +12,7 @@ lonlim <- c(-53.5,-50)
 latlim <- c(41.5,45)
 topo <- decimate(topoWorld, by=2) # coarse to illustrate filled contours
 topo <- subset(topo, latlim[1] < latitude & latitude < latlim[2])
-topo <- subset(topo, (360+lonlim[1]) < longitude & longitude < (360+lonlim[2]))
+topo <- subset(topo, lonlim[1] < longitude & longitude < lonlim[2])
 breaks <- seq(-2000, 0, 100)
 cm <- colormap(col=oceColorsGebco, breaks=breaks, missingColor='red') # no need for z argument
 
