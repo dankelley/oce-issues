@@ -16,7 +16,7 @@ lonlim <- c(-70,-50)
 latlim <- c(40,50)
 
 topo <- subset(topoWorld, latlim[1] < latitude & latitude < latlim[2])
-topo <- subset(topo, (360+lonlim[1]) < longitude & longitude < (360+lonlim[2]))
+topo <- subset(topo, lonlim[1] < longitude & longitude < lonlim[2])
 breaks <- seq(-2000, 0, 100)
 col <- oceColorsGebco
 cm <- colormap(col=col, breaks=breaks, missingColor="red")
