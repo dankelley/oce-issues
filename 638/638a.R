@@ -8,20 +8,22 @@ lonlim <- c(-70,-50)
 latlim <- c(40,50)
 topo <- decimate(topoWorld, by=2) # coarse to illustrate filled contours
 topo <- subset(topo, latlim[1] < latitude & latitude < latlim[2])
-topo <- subset(topo, (360+lonlim[1]) < longitude & longitude < (360+lonlim[2]))
+topo <- subset(topo, lonlim[1] < longitude & longitude < lonlim[2])
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="+proj=poly +lon_0=-60", grid=TRUE)
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
 mapLines(coastlineWorld)
+mtext("(a) ", adj=1)
 
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="+proj=poly +lon_0=-60", grid=TRUE)
 breaks <- seq(-2000, 0, 100)
 mapImage(topo, col=oceColorsGebco, breaks=breaks)
-mapLines(coastlineWorld, col='red')
-mtext("EXPECT: same as other panel", font=2, col="purple", adj=0)
+mapLines(coastlineWorld)
+mtext("(b) ", adj=1)
+mtext("EXPECT: same as (a)", font=2, col="purple", adj=0)
 
 if (!interactive()) dev.off()
