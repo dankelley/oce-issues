@@ -14,7 +14,6 @@ topo <- subset(topoWorld, latlim[1] < latitude & latitude < latlim[2])
 topo <- subset(topo, lonlim[1] < longitude & longitude < lonlim[2])
 breaks <- seq(-2000, 0, 100)
 col <- oceColorsGebco
-cm <- colormap(col=col, breaks=breaks, missingColor="red")
 
 ## panel a
 mapPlot(coastlineWorld, type='l',
@@ -39,9 +38,11 @@ box()
 mapPlot(coastlineWorld, type='l',
         longitudelim=lonlim, latitudelim=latlim,
         proj="+proj=poly +lon_0=-60", grid=TRUE)
+cm <- colormap(col=col, breaks=breaks, missingColor="red")
+str(cm)
 mapImage(topo, colormap=cm, debug=3)
 mtext('(c)', adj=1)
-mtext('EXPECT: as (a) above', col=6, font=2, adj=0)
+mtext('EXPECT: as (a) with no red', col=6, font=2, adj=0)
 box()
 mapLines(coastlineWorld)
 
