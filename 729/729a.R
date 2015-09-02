@@ -1,0 +1,7 @@
+library(oce)
+source("~/src/oce/R/odf.R")
+source("read_ODF.R")
+source("define_ODF_header.R")
+d <- read_odf("MADCPS_hud2013021_1841_3367-48_3600.ODF")
+dd <- ODF2oce(d)
+print(dd)
