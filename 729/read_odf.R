@@ -70,7 +70,7 @@ read_odf <- function(filename) {
 	}
 	
 	# check if input ODF file has one and only one such line '-- DATA --'
-	dataLineArray <- grepl(DATA_LINE, F);
+	dataLineArray <- grepl(DATA_LINE, F, useBytes=TRUE)
 	data_lines_index <- which(dataLineArray==TRUE)
 	if(length(data_lines_index)>0) {
 		#if one or more data lines is found use the last index as the data to be read
@@ -127,7 +127,7 @@ read_odf <- function(filename) {
 		#if it exists in the list of ODF_Header names then
 		#create a list for the variables to follow and add
 		#them to the structrue to be returned
-		headIndex <- grep(line, names(odf_header), fixed=TRUE)
+		headIndex <- grep(line, names(odf_header), fixed=TRUE, useBytes=TRUE)
 		if( length(headIndex) > 0 || idxLine >= data_lines_index) {
 			headObject <- odf_header[headIndex]
 			if( !is.null(curParameterName) ) {
@@ -171,7 +171,7 @@ read_odf <- function(filename) {
 				  curParameterName == POLYNOMIAL_CAL_HEADER ||
 					curParameterName == COMPASS_CAL_HEADER ) {
 					tmpVals <- gsub("\\s+|\\t+", ",", val[2])
-					tmpVals <- strsplit(tmpVals, ",")[[1]]
+					tmpVals <- strsplit(tmpVals, ",", useBytes=TRUE)[[1]]
 					
 					for( i in 1:length(tmpVals) ) {
 						curParameter <- addToPram(curParameter, val[1], as.numeric(tmpVals[i]))
@@ -248,7 +248,7 @@ if(length(grep("SYTM_01",pram_names))>0) {
 #' @param val - the value to add the the parameter ist.
 #'
 addToPram <- function(pram, name, val) {
-	pramIdx <- grep(name, names(pram), fixed=TRUE)
+	pramIdx <- grep(name, names(pram), fixed=TRUE, useBytes=TRUE)
 	if( length(pramIdx) <= 0 ) {
 		#if the structrue for the current field doesn't already exists
 		#then create it and add the current list to it
@@ -378,7 +378,7 @@ readFile <- function(filename) {
 extract_val <- function(line) {
 	
 	#create a character array used for substrings and indexing
-	charArray <- strsplit(line, "")[[1]]
+	charArray <- strsplit(line, "", useBytes=TRUE)[[1]]
 	equIndex <- grep("=", charArray)[1]
 	
 	#split the filed up into the field name and it's value
