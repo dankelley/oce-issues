@@ -1,8 +1,7 @@
 library(oce)
 library(testthat)
 try(source("~/src/oce/R/ctd.R"))
-data(ctd)
-try(source("~/src/oce/R/odf.R"))
+
 data(ctd)
 
 ctd2 <- ctd
