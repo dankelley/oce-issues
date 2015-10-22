@@ -17,7 +17,7 @@ dirs        =147 \
 	     628 630 631 635 636 637 638 640 641 642 648 649 653 655 657 \
 	     658 659 661 663 664 665 667 669 670 671 672 675 677 678 679 \
 	     692 694 696 698 699 704 705 707 708 710 721 726 729 730 731 \
-	     740 756 757
+	     740 756 757 759 760 763
 odf         =649 715 729 730
 bremen      =659
 adp         =595 586 696 704
@@ -44,7 +44,7 @@ ts          =147 531
 UHL         =388 # horiz lines on maps
 
 # current is the issue being worked on most actively
-current     = 740
+current     = 763
 
 all:
 	for dir in $(dirs) ; do cd $$dir ; make ; cd .. ; done
