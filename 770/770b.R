@@ -32,7 +32,7 @@ NEWgeodLonLat <- function(x, y, lon.ref, lat.ref)
     data.frame(longitude=lonlat[,1], latitude=lonlat[,2])
 }
 
-if (!interactive()) png("geodLonLat.png")
+if (!interactive()) png("770b.png")
 par(mfrow=c(3,1), mar=c(3.5, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(lon, lat)
 XY <- NEWgeodXy(lon, lat, lonR, latR)
