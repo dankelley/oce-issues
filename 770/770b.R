@@ -36,6 +36,13 @@ if (!interactive()) png("770b.png")
 par(mfrow=c(3,1), mar=c(3.5, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(lon, lat)
 XY <- NEWgeodXy(lon, lat, lonR, latR)
+
+## Try with existing functions: answer: out by a few metres
+XYa <- lonlat2map(lon, lat, projection="+proj=merc")
+XYa0 <- lonlat2map(lon[1], lat[1], projection="+proj=merc")
+XYa$x <- XYa$x - XYa0$x
+XYa$y <- XYa$y - XYa0$y
+
 LONLAT <- NEWgeodLonLat(XY$x, XY$y, lonR, latR)
 plot(XY$x, XY$y)
 plot(LONLAT$longitude, LONLAT$latitude)
@@ -45,9 +52,11 @@ latErr <- sqrt(mean((lat-LONLAT$latitude)^2))
 mtext(sprintf("lonErr=%.1e, latErr=%.1e", lonErr, latErr), side=3, line=0, cex=3/4)
 
 library(testthat)
-## Whoa, these tests can be amazingly precise ... rgdal is impressive!
+## Whoa, these tests can be amazingly precise ... rgdal inversion is excellent!
 expect_less_than(lonErr, 1e-12)
 expect_less_than(latErr, 1e-12)
 
 if (!interactive()) dev.off()
+message(sprintf("compared with lonlat2map, out by %.1f km in x", mean(abs(XY$x-XYa$x))/1e3))
+message(sprintf("compared with lonlat2map, out by %.1f km in y", mean(abs(XY$y-XYa$y))/1e3))
 
