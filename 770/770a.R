@@ -26,6 +26,6 @@ mtext(sprintf("ellipse-sphere RMS deviation: x %.2f km, y %.2f km",
               rms(xy$x-XY$x)/1e3, rms(xy$y-XY$y)/1e3),
       side=3, line=0)
 mtext(sprintf("ellipse-sphere RMS deviation / span: x %.2g, y %.2g",
-              rms(xy$x-XY$x)/1e3/diff(range(xy$x)), rms(xy$y-XY$y)/1e3/diff(range(xy$y))),
+              rms(xy$x-XY$x)/diff(range(xy$x)), rms(xy$y-XY$y)/diff(range(xy$y))),
       side=3, line=-1)
 if (!interactive()) dev.off()
