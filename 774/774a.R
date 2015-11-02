@@ -1,0 +1,6 @@
+library(oce)
+try(source("~/src/oce/R/coastline.R"))
+data(coastlineWorld)
+if (!interactive()) png("774a.png")
+plot(coastlineWorld, col=2)
+if (!interactive()) dev.off()
