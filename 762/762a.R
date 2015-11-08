@@ -1,0 +1,39 @@
+## Try reading the "hidden" temperature channel
+
+## Need to look at the `isMeasured` field in the `channels` table,
+## which tells what data are actually stored in the `data` table.
+## Note that the current version just matches the column names with
+## the size of the data table, ignoring the `isMeasured` field, so it
+## gets the names wrong -- for example on the test file for this
+## script the hidden temperature channel gets labelled `depth` because
+## that is name of the fourth column in the `channels` table
+##
+## Will also need to detect duplicated names (e.g. temperature) and
+## append numbers to them, like temperature2. Right now I'm just
+## appending 2, but I should do this smarter so that if there are more
+## than 2 (possible in only R&D instruments) they will get labelled
+## properly.
+##
+## Finally, as.ctd will have to pass these extra data columns though,
+## as right now it just passes the default ones
+
+rm(list=ls())
+library(oce)
+source('~/src/R-richards/oce/R/rsk.R')
+source('~/src/R-richards/oce/R/ctd.R')
+options(device='x11')
+
+if (!interactive()) png('726a-%03d.png')
+
+d <- read.rsk('065583_20150516_1717.rsk')
+plot(d)
+
+ctd <- ctdTrim(as.ctd(d), parameters=list(pmin=10))
+plot(ctd)
+
+plotProfile(ctd, xtype='temperature')
+plotProfile(ctd, xtype='temperature2', col=2, add=TRUE)
+legend('bottomright', ctd[['names']][grep('temp', ctd[['names']])],
+       lty=1, col=1:2)
+
+if (!interactive()) dev.off()
