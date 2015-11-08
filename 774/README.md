@@ -1,22 +1,38 @@
 The problem is with the arguments, and (excuse alert!) the underlying
-difference between the arguments to polygon() and both plot() and lines():
+difference between the arguments to ``polygon()`` and both ``plot()`` and
+``lines()`` (below are the docs, *sans* other args):
 
-* polygon(ARGS, border = NULL, col = NA, lty = par("lty"), ARGS)
+* ``polygon(border = NULL, col = NA, lty = par("lty"))``
 
-* plot(ARGS, ...) where the ... can contain e.g. ``col`` etc.
+* ``plot(...)`` where ``...`` can contain e.g. ``col`` etc.
 
-The above would argue that we have (ARGS, border=NULL, col=NA, lty=par("lty"),
-ARGS), i.e. that we add ``border``, ``col`` and ``lty`` because they will be
-familiar to those who use the base functions. A problem is that we want people
-to be able to switch styles by just altering ``fill``, and this is tricky
-because ``col=NA`` for polygon() will still show the land but for plot() the
-land would be invisible.  This argues for *not* setting defaults for ``border``
-and ``col``, which complicates coding.
+The above would argue that we have defaults ``border=NULL``, ``col=NA``,
+``lty=par("lty")`` in order to make things familiar for those who know
+``polygon``. But then we have users who are familiar with ``plot()`` and
+``lines()``, for whom ``col`` has a different meaning. This is the essence of
+the challenge.
 
-**Possible scheme 1**
+It would be nice if users could switch styles by simply altering ``fill``. But
+that means that the defaults for ``polygon()`` cannot work (e.g. consider
+``col``). This makes me think that ``border`` and ``col`` should *not* have
+default arguments, but things should up so that the results of not supplying
+the args will be as expected for line-type or polygon-type cases.
 
-Add ``border=NULL``, ``col=NA``, and ``lty=par("lty")`` to the existing args.
-Then, process in cases as in pseudo code
+On top of this, we want to handle existing cases as they are, if at all
+possible.
+
+It's complicated! And one thing is for sure: failing to figure out the subcases
+in advance will make the programming challenge 10 times harder, and also make
+it harder for users.
+
+I will use this README for some thoughts. I propose that if CR wants to add
+notes, that he make a new README-cr.md file, or that he does notes within the
+present file with some scheme that lets us see who wrote what. Otherwise, we
+can get into the confusion of GH comments, which is what I'm trying to avoid
+here, in more of an essay style as opposed to the short-answer sort of style
+(you can tell I should be grading right now!)
+
+**DK1 pseudocode**
 
 ```R
 if (is.logical(fill)) {
