@@ -9,10 +9,7 @@
 ## that is name of the fourth column in the `channels` table
 ##
 ## Will also need to detect duplicated names (e.g. temperature) and
-## append numbers to them, like temperature2. Right now I'm just
-## appending 2, but I should do this smarter so that if there are more
-## than 2 (possible in only R&D instruments) they will get labelled
-## properly.
+## append numbers to them, like temperature2, temperature3, etc.
 ##
 ## Finally, as.ctd will have to pass these extra data columns though,
 ## as right now it just passes the default ones
