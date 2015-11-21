@@ -6,4 +6,4 @@ all: $(OBJECTS)
 clean:
 	-rm *.out *.png *.pdf *~ *swp
 view:
-	-open *.png
+	echo 'nothing to view in 783'

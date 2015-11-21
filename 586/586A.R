@@ -1,5 +1,5 @@
 library(oce)
-## source("~/src/oce/R/adp.R")
+try(source("~/src/oce/R/adp.R"))
 ## source("~/src/oce/R/imagep.R")
 data(adp)
 if (!interactive()) png("586A.png")
