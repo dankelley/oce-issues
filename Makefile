@@ -18,9 +18,9 @@ dirs        =147 \
 	     658 659 661 663 664 665 667 669 670 671 672 675 677 678 679 \
 	     692 694 696 698 699 704 705 707 708 710 721 726 729 730 731 \
 	     740 756 757 759 760 763 766 768 769 770 774 777 782 783 785
+RDItests    =785
 odf         =649 715 729 730
 bremen      =659
-## 785 is RDI test suite
 adp         =586 696 704 777 782 783 785
 cm          =740
 colormap    =437 441 443 447 449 450 452 453 454 517 637
@@ -93,3 +93,5 @@ ugly:
 	for dir in $(ugly)        ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ts:
 	for dir in $(ts)          ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+RDItests:
+	for dir in $(RDItests)    ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done

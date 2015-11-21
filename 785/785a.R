@@ -4,7 +4,7 @@ library(testthat)
 try(source("~/src/oce/R/adp.R"))
 try(source("~/src/oce/R/adp.rdi.R"))
 file <- "MS2015-150kHz002_000001.ENX"
-if (1 == length(list.files(pattern="*.ENX"))) {
+if (1 == length(list.files(pattern=file))) {
     d <- read.adp.rdi(file,
                       from=as.POSIXct("2015-09-19 14:00:00", tz="UTC"),
                       to=as.POSIXct("2015-09-19 14:30:00", tz="UTC"),
