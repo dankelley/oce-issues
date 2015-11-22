@@ -8,6 +8,6 @@ for (file in file000) {
     message(filename)
     message("    ", oceMagic(filename))
     #d <- read.adp.rdi(filename, from=1, to=10)
-    d <- read.oce(filename, from=1, to=10)
+    try({d <- read.oce(filename, from=1, to=10)})
     message("    OK")
 }
