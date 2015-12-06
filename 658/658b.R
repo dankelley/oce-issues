@@ -20,7 +20,7 @@ for (ifile in seq_along(files)) {
     ## NB. can add extra columns in the above, if required
     s[[ifile]] <- ladp
 }
-sec <- makeSection(s)
+sec <- as.section(s)
 sec
 summary(sec)
 if (!interactive()) png("648b.png")

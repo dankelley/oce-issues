@@ -48,7 +48,4 @@ ctdList <- read.ctd.odv("profile.odv")
 plot(ctdList[[1]])
 plot(ctdList[[2]])
 
-## section <- makeSection(ctdList)
-## plot(section)
-
 if (!interactive()) dev.off()

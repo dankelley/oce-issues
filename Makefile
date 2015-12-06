@@ -41,6 +41,7 @@ mapnew      =388 495 514 517 518 520 521 522 523 533 537 541 543 545 576 \
 mapImage    =309 336 368 516 517 522 655 721 726
 projections =388 495 518 520 521 537 635 638
 proj4       =518 520 533 579
+section     =456 658
 ts          =147 531
 UHL         =388 # horiz lines on maps
 
@@ -91,6 +92,8 @@ rsk:
 	for dir in $(rsk)         ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ugly:
 	for dir in $(ugly)        ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+section:
+	for dir in $(section)     ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 ts:
 	for dir in $(ts)          ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 RDItests:

@@ -32,7 +32,7 @@ for (ifile in seq_along(files)) {
     this@data$salinity <- fixNaN(ncvar_get(d, "ctd_s"))
     s[[ifile]] <- this
 }
-sec <- makeSection(s)
+sec <- as.section(s)
 if (!interactive()) png("648a.png")
 par(mfrow=c(2,2))
 plot(sec, which="salinity")

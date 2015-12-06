@@ -37,7 +37,7 @@ for (i in 1:nstation) {
                      oxygen=d$Oxygen,
                            longitude=longitude, latitude=latitude, station=station)
 }
-section <- makeSection(ctd)
+section <- as.section(ctd)
 plot(section[["station", 1]])
 plot(section[["station", 2]])
 
