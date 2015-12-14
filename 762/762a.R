@@ -18,13 +18,13 @@ rm(list=ls())
 library(oce)
 try(source('~/src/R-richards/oce/R/rsk.R'))
 try(source('~/src/R-richards/oce/R/ctd.R'))
-try(source('~/src/oce/R/rsk.R'))
-try(source('~/src/oce/R/ctd.R'))
+## try(source('~/src/oce/R/rsk.R'))
+## try(source('~/src/oce/R/ctd.R'))
 options(device='x11')
 
 if (!interactive()) png('726a-%03d.png')
 
-d <- read.oce('065583_20150516_1717.rsk')
+d <- read.rsk('065583_20150516_1717.rsk')
 plot(d)
 
 ctd <- ctdTrim(as.ctd(d), parameters=list(pmin=10))

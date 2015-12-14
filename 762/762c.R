@@ -11,6 +11,17 @@ source('~/src/R-richards/oce/R/rsk.R')
 if (!interactive()) png('726c-%03d.png')
 par(oma=c(0, 0, 2, 0))
 
+d <- read.rsk('065583_20150516_1717.rsk')
+plot(d)
+title('')
+title('from/to not provided', outer=TRUE)
+
+from <- as.POSIXct("2015-05-16 04:41:23", tz="UTC")
+d <- read.rsk('065583_20150516_1717.rsk', from=from)
+plot(d)
+title('')
+title('from only provided', outer=TRUE)
+
 from <- as.POSIXct("2015-05-16 04:41:23", tz="UTC")
 to <- as.POSIXct("2015-05-16 05:19:37", tz="UTC")
 d <- read.rsk('065583_20150516_1717.rsk', from=from, to=to)
