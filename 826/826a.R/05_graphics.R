@@ -1,0 +1,12 @@
+## Contours
+x <- seq(0, 10, 0.1)
+y <- seq(0, 10, 0.1)
+z <- outer(x, y, '*')
+## z <- outer(x, y, function(x,y) x+y^2)
+par(mfrow=c(2,2), mar=c(3,3,1,1))
+contour(x,y,z)
+image(x, y, z)
+library(oce)
+imagep(x, y, z)
+imagep(x, y, z, breaks=seq(0, 100, 10))
+par(c('fin', 'pin', 'cin', 'tcl'))
