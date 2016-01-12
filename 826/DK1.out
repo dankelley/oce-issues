@@ -1,0 +1,266 @@
+R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Revolution R Open 3.2.2
+Default CRAN mirror snapshot taken on 2015-08-27
+The enhanced R distribution from Revolution Analytics
+Visit mran.revolutionanalytics.com/open for information
+about additional features.
+
+Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
+> source('~/oce-issues/826/826a.R', echo=TRUE)
+
+> ## Contours
+> x <- seq(0, 10, 0.1)
+
+> y <- seq(0, 10, 0.1)
+
+> z <- outer(x, y, '*')
+
+> ## z <- outer(x, y, function(x,y) x+y^2)
+> par(mfrow=c(2,2), mar=c(3,3,1,1))
+
+> contour(x,y,z)
+
+> image(x, y, z)
+
+> library(oce)
+Loading required package: gsw
+Loading required package: testthat
+
+> imagep(x, y, z)
+
+> imagep(x, y, z, breaks=seq(0, 100, 10))
+
+> par()
+$xlog
+[1] FALSE
+
+$ylog
+[1] FALSE
+
+$adj
+[1] 0.5
+
+$ann
+[1] TRUE
+
+$ask
+[1] FALSE
+
+$bg
+[1] "white"
+
+$bty
+[1] "o"
+
+$cex
+[1] 0.83
+
+$cex.axis
+[1] 1
+
+$cex.lab
+[1] 1
+
+$cex.main
+[1] 1.2
+
+$cex.sub
+[1] 1
+
+$cin
+[1] 0.15 0.20
+
+$col
+[1] "black"
+
+$col.axis
+[1] "black"
+
+$col.lab
+[1] "black"
+
+$col.main
+[1] "black"
+
+$col.sub
+[1] "black"
+
+$cra
+[1] 10.8 14.4
+
+$crt
+[1] 0
+
+$csi
+[1] 0.166
+
+$cxy
+[1] 0.3016860 0.6154846
+
+$din
+[1] 12.305556  7.958333
+
+$err
+[1] 0
+
+$family
+[1] ""
+
+$fg
+[1] "black"
+
+$fig
+[1] 0.5 1.0 0.0 0.5
+
+$fin
+[1] 6.152778 3.979167
+
+$font
+[1] 1
+
+$font.axis
+[1] 1
+
+$font.lab
+[1] 1
+
+$font.main
+[1] 2
+
+$font.sub
+[1] 1
+
+$lab
+[1] 5 5 7
+
+$las
+[1] 0
+
+$lend
+[1] "round"
+
+$lheight
+[1] 1
+
+$ljoin
+[1] "round"
+
+$lmitre
+[1] 10
+
+$lty
+[1] "solid"
+
+$lwd
+[1] 1
+
+$mai
+[1] 0.4980 0.4980 0.1992 0.6330
+
+$mar
+[1] 3.000000 3.000000 1.200000 3.813253
+
+$mex
+[1] 1
+
+$mfcol
+[1] 2 2
+
+$mfg
+[1] 2 2 2 2
+
+$mfrow
+[1] 2 2
+
+$mgp
+[1] 2.0 0.7 0.0
+
+$mkh
+[1] 0.001
+
+$new
+[1] FALSE
+
+$oma
+[1] 0 0 0 0
+
+$omd
+[1] 0 1 0 1
+
+$omi
+[1] 0 0 0 0
+
+$page
+[1] TRUE
+
+$pch
+[1] 1
+
+$pin
+[1] 5.021778 3.281967
+
+$plt
+[1] 0.08093905 0.89711964 0.12515183 0.94993927
+
+$ps
+[1] 12
+
+$pty
+[1] "m"
+
+$smo
+[1] 1
+
+$srt
+[1] 0
+
+$tck
+[1] NA
+
+$tcl
+[1] -0.5
+
+$usr
+[1] -0.05 10.05 -0.05 10.05
+
+$xaxp
+[1]  0 10  5
+
+$xaxs
+[1] "r"
+
+$xaxt
+[1] "s"
+
+$xpd
+[1] FALSE
+
+$yaxp
+[1]  0 10  5
+
+$yaxs
+[1] "r"
+
+$yaxt
+[1] "s"
+
+$ylbias
+[1] 0.2
+
