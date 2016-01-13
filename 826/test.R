@@ -49,5 +49,5 @@ par(mai=mai)
 par('mai')
 plot(1:10, 1:10)
 sessionInfo()
-#RStudio.Version()
+RStudio.Version()
 
