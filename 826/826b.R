@@ -1,7 +1,8 @@
 # Demonstrate RStudio problem with margins.
 #
-# GOAL: create a 1-inch wide plot, near right edge of plot area, with a 0.5 inch margin
-# at bottom, right, and top.
+# GOAL: create a w=1-inch wide plot, near right edge of plot area, with a m=0.5 inch margin
+# at bottom, right, and top. Do this by setting the left-hand margin to 
+# par('pin)'-w-m, and the right-hand margin to m.
 #
 # MACHINE: OSX (macbook pro, retina, 13-inch)
 #
