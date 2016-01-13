@@ -37,7 +37,7 @@
 
 
 m <- 0.5 # margin at bottom, top, and right
-w <- 0.5 # width of plot region
+w <- 1.0 # inside width of plot
 pin <- par('pin')
 mai <- c(m, pin[1] - w - m, m, m)
 print(pin)
