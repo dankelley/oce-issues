@@ -1,0 +1,10 @@
+File           | Graph OK?
+---------------|----------
+dk_r.txt       | yes
+dk_rstudio.txt | no
+               |   
+               |   
+               |   
+               |   
+               |   
+               |   
