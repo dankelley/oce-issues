@@ -23,283 +23,80 @@ Visit mran.revolutionanalytics.com/open for information
 about additional features.
 
 Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
-> source('~/oce-issues/826/test.R', echo=TRUE)
+> source('~/oce-issues/826/826b.R', echo=TRUE)
 
-> library(oce)
-Loading required package: gsw
-Loading required package: testthat
+> # Demonstrate RStudio problem with margins.
+> #
+> # GOAL: create a w=1-inch wide plot, near right edge of plot area, with a m=0.5 inch margin
+> # at .... [TRUNCATED] 
 
-> imagep(volcano, debug=4)
-imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="", zlabPosition="top", filledContour=FALSE, drawTriangles=FALSE, missingColor=, ...) {
-  par('mai'): 1.02 0.82 0.82 0.42 
-  par('mar'): 5.1 4.1 4.1 2.1 
-  range(z): 94 195 
-  set auto decimation= 1 
-  decimate: 1 
-  set mai.palette= 0 0 0 0 
-  zrange=c(94,195)
-  zclip: FALSE 
-  zlimHistogram: FALSE 
-  USE breaks2 and col2 as calculated
-  head(breaks):  94 95 96 97 98 99 
-  head(col):  #053061FF #083569FF #0B3B71FF #0D407AFF #104682FF #134B8AFF 
-  zlim is missing or NULL
-  infer zlim=c(94,195) from range(breaks)
-  mai.palette=c( 0, 0, 0, 0 )
-  palette with zlim not "histogram"
-    colormapGiven = FALSE 
-  drawPalette(zlim=c(94,195), zlab="", pos=4, drawTriangles=c(FALSE,FALSE), ...) {
-    maiGiven = TRUE 
-    mai = c( 0,0,0,0 ) = the argument, not the par() value
-    breaksGiven = TRUE 
-    fullpage = FALSE 
-    zIsTime= FALSE 
-    original mai: omai=c( 0.60,0.60,0.24,0.10 )
-    paletteCalculations(separation=0.1, width=0.2, pos=4, zlab=(given), maidiff=c(0,0,0,0), debug=2) {
-      lineHeight:  0.2  from cin
-      par('csi')::  0.2 
-      figureWidth: 13 in
-      figureHeight: 6.8 in
-      tickSpace: 0.1 in
-      textSpace: 0.25 in
-      pc$mail1:  0.6 12.81 0.24 0.35 
-      pc$mailf:  0.6 0 0.24 0.35 
-    } # paletteCalculations
-    plot: TRUE ; fullpage: FALSE 
-    A. par(mai=c( 0.6,12.8,0.2,0.3 ))
-    A. par(mar=c( 3,64.1,1.2,1.7 ))
-    drawing palette image, with par('mai')=c( 0.6,12.81,0.24,0.35 )
-    palette image width = 0.2 in
-    palette image height = 5.951667 in
-    par('pin')=c( 0.200000,5.951667 ) in
-    par('fin')=c( 13.361111,6.791667 ) in
-    B. par(mai=c( 0.6,12.8,0.2,0.3 ))
-    B. x non-margin width:  0.2 
-    B. y non-margin height:  5.951667 
-    B. par(mar=c( 3,64.1,1.2,1.7 ))
-    at end of drawPalette(), par('mai') yields c( 0.60,0.60,0.24,0.65 )
-  } # drawPalette()
-  using zlim[1:2]=c( 94 , 195 ) for out-of-range values
-  the x axis does not represent time
-  not doing filled contours
-  length(x) 88 length(y) 62 
-  par('mai')=c(0.60,0.60,0.24,0.65); par('mar')=c(3.0,3.0,1.2,3.2)
-} # imagep()
+> w <- 1.0 # inside width of plot
 
-> print(par())
-$xlog
-[1] FALSE
+> pin <- par('pin')
 
-$ylog
-[1] FALSE
+> mai <- c(m, pin[1] - w - m, m, m)
 
-$adj
-[1] 0.5
+> print(pin)
+[1] 12.121111  4.951667
 
-$ann
-[1] TRUE
+> print(mai)
+[1]  0.50000 10.62111  0.50000  0.50000
 
-$ask
-[1] FALSE
+> par('mai')
+[1] 1.02 0.82 0.82 0.42
 
-$bg
-[1] "white"
+> par('csi')
+[1] 0.2
 
-$bty
-[1] "o"
-
-$cex
-[1] 1
-
-$cex.axis
-[1] 1
-
-$cex.lab
-[1] 1
-
-$cex.main
-[1] 1.2
-
-$cex.sub
-[1] 1
-
-$cin
-[1] 0.15 0.20
-
-$col
-[1] "black"
-
-$col.axis
-[1] "black"
-
-$col.lab
-[1] "black"
-
-$col.main
-[1] "black"
-
-$col.sub
-[1] "black"
-
-$cra
+> par('cra')
 [1] 10.8 14.4
 
-$crt
-[1] 0
+> par(mai=mai)
 
-$csi
-[1] 0.2
+> par('mai')
+[1]  0.50000 10.62111  0.50000  0.50000
 
-$cxy
-[1] 1.077523 2.049846
+> plot(1:10, 1:10)
 
-$din
-[1] 13.361111  6.791667
+> sessionInfo()
+R version 3.2.3 (2015-12-10)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Running under: OS X 10.11.3 (El Capitan)
 
-$err
-[1] 0
+locale:
+[1] en_CA.UTF-8/en_CA.UTF-8/en_CA.UTF-8/C/en_CA.UTF-8/en_CA.UTF-8
 
-$family
-[1] ""
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets 
+[6] methods   base     
 
-$fg
-[1] "black"
+loaded via a namespace (and not attached):
+[1] rsconnect_0.4.1.11 tools_3.2.3       
 
-$fig
-[1] 0 1 0 1
+> RStudio.Version()
+$citation
 
-$fin
-[1] 13.361111  6.791667
+To cite RStudio in publications use:
 
-$font
-[1] 1
+  RStudio Team (2015). RStudio: Integrated
+  Development for R. RStudio, Inc., Boston, MA
+  URL http://www.rstudio.com/.
 
-$font.axis
-[1] 1
+A BibTeX entry for LaTeX users is
 
-$font.lab
-[1] 1
+  @Manual{,
+    title = {RStudio: Integrated Development Environment for R},
+    author = {{RStudio Team}},
+    organization = {RStudio, Inc.},
+    address = {Boston, MA},
+    year = {2015},
+    url = {http://www.rstudio.com/},
+  }
 
-$font.main
-[1] 2
 
-$font.sub
-[1] 1
+$mode
+[1] "desktop"
 
-$lab
-[1] 5 5 7
-
-$las
-[1] 0
-
-$lend
-[1] "round"
-
-$lheight
-[1] 1
-
-$ljoin
-[1] "round"
-
-$lmitre
-[1] 10
-
-$lty
-[1] "solid"
-
-$lwd
-[1] 1
-
-$mai
-[1] 0.60 0.60 0.24 0.65
-
-$mar
-[1] 3.00 3.00 1.20 3.25
-
-$mex
-[1] 1
-
-$mfcol
-[1] 1 1
-
-$mfg
-[1] 1 1 1 1
-
-$mfrow
-[1] 1 1
-
-$mgp
-[1] 2.0 0.7 0.0
-
-$mkh
-[1] 0.001
-
-$new
-[1] FALSE
-
-$oma
-[1] 0 0 0 0
-
-$omd
-[1] 0 1 0 1
-
-$omi
-[1] 0 0 0 0
-
-$page
-[1] TRUE
-
-$pch
-[1] 1
-
-$pin
-[1] 12.111111  5.951667
-
-$plt
-[1] 0.04490644 0.95135135 0.08834356 0.96466258
-
-$ps
-[1] 12
-
-$pty
-[1] "m"
-
-$smo
-[1] 1
-
-$srt
-[1] 0
-
-$tck
-[1] NA
-
-$tcl
-[1] -0.5
-
-$usr
-[1]  0.5 87.5  0.5 61.5
-
-$xaxp
-[1] 20 80  3
-
-$xaxs
-[1] "r"
-
-$xaxt
-[1] "s"
-
-$xpd
-[1] FALSE
-
-$yaxp
-[1] 10 60  5
-
-$yaxs
-[1] "r"
-
-$yaxt
-[1] "s"
-
-$ylbias
-[1] 0.2
+$version
+[1] ‘0.99.842’
 
