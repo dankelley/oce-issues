@@ -72,6 +72,8 @@ imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="
     par('pin')=c( 0.20,4.16 ) in
     par('fin')=c( 5,5 ) in
     B. par(mai=c( 0.6,4.5,0.2,0.3 ))
+    B. x non-margin width:  0.2 
+    B. y non-margin height:  4.16 
     B. par(mar=c( 3,22.3,1.2,1.8 ))
     at end of drawPalette(), par('mai') yields c( 0.60,0.60,0.24,0.65 )
   } # drawPalette()
@@ -297,4 +299,4 @@ $yaxt
 $ylbias
 [1] 0.2
 
- 
+

@@ -58,23 +58,25 @@ imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="
     paletteCalculations(separation=0.1, width=0.2, pos=4, zlab=(given), maidiff=c(0,0,0,0), debug=2) {
       lineHeight:  0.2  from cin
       par('csi')::  0.2 
-      figureWidth: 12 in
-      figureHeight: 8 in
+      figureWidth: 13 in
+      figureHeight: 6.8 in
       tickSpace: 0.1 in
       textSpace: 0.25 in
-      pc$mail1:  0.6 11.76 0.24 0.35 
+      pc$mail1:  0.6 12.81 0.24 0.35 
       pc$mailf:  0.6 0 0.24 0.35 
     } # paletteCalculations
     plot: TRUE ; fullpage: FALSE 
-    A. par(mai=c( 0.6,11.8,0.2,0.3 ))
-    A. par(mar=c( 3,58.8,1.2,1.7 ))
-    drawing palette image, with par('mai')=c( 0.6,11.76,0.24,0.35 )
+    A. par(mai=c( 0.6,12.8,0.2,0.3 ))
+    A. par(mar=c( 3,64.1,1.2,1.7 ))
+    drawing palette image, with par('mai')=c( 0.6,12.81,0.24,0.35 )
     palette image width = 0.2 in
-    palette image height = 7.118333 in
-    par('pin')=c( 0.200000,7.118333 ) in
-    par('fin')=c( 12.305556,7.958333 ) in
-    B. par(mai=c( 0.6,11.8,0.2,0.3 ))
-    B. par(mar=c( 3,58.8,1.2,1.7 ))
+    palette image height = 5.951667 in
+    par('pin')=c( 0.200000,5.951667 ) in
+    par('fin')=c( 13.361111,6.791667 ) in
+    B. par(mai=c( 0.6,12.8,0.2,0.3 ))
+    B. x non-margin width:  0.2 
+    B. y non-margin height:  5.951667 
+    B. par(mar=c( 3,64.1,1.2,1.7 ))
     at end of drawPalette(), par('mai') yields c( 0.60,0.60,0.24,0.65 )
   } # drawPalette()
   using zlim[1:2]=c( 94 , 195 ) for out-of-range values
@@ -149,10 +151,10 @@ $csi
 [1] 0.2
 
 $cxy
-[1] 1.180402 1.713884
+[1] 1.077523 2.049846
 
 $din
-[1] 12.305556  7.958333
+[1] 13.361111  6.791667
 
 $err
 [1] 0
@@ -167,7 +169,7 @@ $fig
 [1] 0 1 0 1
 
 $fin
-[1] 12.305556  7.958333
+[1] 13.361111  6.791667
 
 $font
 [1] 1
@@ -251,10 +253,10 @@ $pch
 [1] 1
 
 $pin
-[1] 11.055556  7.118333
+[1] 12.111111  5.951667
 
 $plt
-[1] 0.04875847 0.94717833 0.07539267 0.96984293
+[1] 0.04490644 0.95135135 0.08834356 0.96466258
 
 $ps
 [1] 12
@@ -300,4 +302,4 @@ $yaxt
 
 $ylbias
 [1] 0.2
-1] 0.2
+
