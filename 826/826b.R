@@ -22,16 +22,12 @@
 # RESULT 2: no plot; instead the error 'figure margins too large'
 #    > print(pin)
 #    [1] 12.121111  4.951667
-#    
 #    > print(mai)
 #    [1]  0.50000 11.12111  0.50000  0.50000
-#    
 #    > par('mai')
 #    [1] 1.02 0.82 0.82 0.42
-#    
 #    > par('csi')
 #    [1] 0.2
-#    
 #    > par('cra')
 #    [1] 10.8 14.4
 
