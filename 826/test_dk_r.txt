@@ -25,7 +25,7 @@ about additional features.
 Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
 [R.app GUI 1.66 (7060) x86_64-apple-darwin13.4.0]
 
-> source('826b.R')
+> source('test.R')
 Loading required package: gsw
 Loading required package: testthat
 imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="", zlabPosition="top", filledContour=FALSE, drawTriangles=FALSE, missingColor=, ...) {
@@ -54,12 +54,16 @@ imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="
     zIsTime= FALSE 
     original mai: omai=c( 0.60,0.60,0.24,0.10 )
     paletteCalculations(separation=0.1, width=0.2, pos=4, zlab=(given), maidiff=c(0,0,0,0), debug=2) {
+      lineHeight:  0.2  from cin
+      par('csi')::  0.2 
       figureWidth: 5 in
       figureHeight: 5 in
       tickSpace: 0.1 in
       textSpace: 0.25 in
+      pc$mail1:  0.6 4.45 0.24 0.35 
+      pc$mailf:  0.6 0 0.24 0.35 
     } # paletteCalculations
-    plot: TRUE 
+    plot: TRUE ; fullpage: FALSE 
     A. par(mai=c( 0.6,4.5,0.2,0.3 ))
     A. par(mar=c( 3,22.3,1.2,1.8 ))
     drawing palette image, with par('mai')=c( 0.6,4.45,0.24,0.35 )
@@ -293,4 +297,4 @@ $yaxt
 $ylbias
 [1] 0.2
 
-> 
+ 

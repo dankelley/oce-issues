@@ -1,4 +1,3 @@
-
 R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
 Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin13.4.0 (64-bit)
@@ -24,7 +23,7 @@ Visit mran.revolutionanalytics.com/open for information
 about additional features.
 
 Multithreaded BLAS/LAPACK libraries detected. Using 4 cores for math algorithms.
-> source('~/oce-issues/826/826b.R', echo=TRUE)
+> source('~/oce-issues/826/test.R', echo=TRUE)
 
 > library(oce)
 Loading required package: gsw
@@ -57,12 +56,16 @@ imagep(x, y, z, cex=1, flipy=FALSE, colormap=(missing), xlab="", ylab="", zlab="
     zIsTime= FALSE 
     original mai: omai=c( 0.60,0.60,0.24,0.10 )
     paletteCalculations(separation=0.1, width=0.2, pos=4, zlab=(given), maidiff=c(0,0,0,0), debug=2) {
+      lineHeight:  0.2  from cin
+      par('csi')::  0.2 
       figureWidth: 12 in
       figureHeight: 8 in
       tickSpace: 0.1 in
       textSpace: 0.25 in
+      pc$mail1:  0.6 11.76 0.24 0.35 
+      pc$mailf:  0.6 0 0.24 0.35 
     } # paletteCalculations
-    plot: TRUE 
+    plot: TRUE ; fullpage: FALSE 
     A. par(mai=c( 0.6,11.8,0.2,0.3 ))
     A. par(mar=c( 3,58.8,1.2,1.7 ))
     drawing palette image, with par('mai')=c( 0.6,11.76,0.24,0.35 )
@@ -297,3 +300,4 @@ $yaxt
 
 $ylbias
 [1] 0.2
+1] 0.2
