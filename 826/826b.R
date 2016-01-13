@@ -41,5 +41,6 @@ par('mai')
 par('csi')
 par('cra')
 par(mai=mai)
+par('mai')
 plot(1:10, 1:10)
 
