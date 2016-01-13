@@ -17,6 +17,8 @@
 #    [1] 0.2
 #    > par('cra')
 #    [1] 10.8 14.4
+#    > par('mai')
+#    [1] 0.50 2.76 0.50 0.50
 #
 # TEST 2: RStudio 0.99.842
 # RESULT 2: no plot; instead the error 'figure margins too large'
@@ -30,6 +32,9 @@
 #    [1] 0.2
 #    > par('cra')
 #    [1] 10.8 14.4
+#    > par('mai')
+#    [1]  0.50000 11.12111  0.50000  0.50000
+
 
 m <- 0.5 # margin at bottom, top, and right
 w <- 0.5 # width of plot region
