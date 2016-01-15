@@ -12,7 +12,7 @@ for (dlon in c(-0.2, 0.2)) {
     for (dlat in c(-0.2, 0.2)) {
         ctd[["latitude"]] <- Hlat + dlat
         ctd[["longitude"]] <- Hlon + dlon
-        plot(ctd, which='map')
+        plot(ctd, which='map', fill='lightgray')
     }
 }
 if (!interactive()) dev.off()
