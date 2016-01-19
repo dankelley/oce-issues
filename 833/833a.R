@@ -1,3 +1,5 @@
+## Determine whether all fields in an argo file can be read. The answer
+## is that the HISTORY_* items cannot be read.
 library(oce)
 library(ncdf4)
 f <- nc_open("/Users/kelley/src/oce/create_data/argo/6900388_prof.nc")
