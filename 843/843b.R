@@ -71,7 +71,7 @@ setClass("g1sst", contains="satellite")
  
 read.g1sst <- function(filename)
 {
-    f <- ncdf4::nc_open("a.nc")
+    f <- ncdf4::nc_open(filename)
     res <- new("g1sst", filename=filename)
     res@metadata$longitude <- ncdf4::ncvar_get(f, "longitude")
     res@metadata$latitude <- ncdf4::ncvar_get(f, "latitude")
@@ -82,7 +82,7 @@ read.g1sst <- function(filename)
     res
 }
 
-d <- read.g1sst(s)
+d <- read.g1sst("a.nc")
 
 summary(d)
 if (!interactive()) png("843b.png")
