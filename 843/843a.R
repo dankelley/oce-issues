@@ -1,0 +1,10 @@
+s <- "http://coastwatch.pfeg.noaa.gov/erddap/griddap/jplG1SST.nc?SST%5B(2016-01-02T12:00:00Z)%5D%5B(38):(55)%5D%5B(-66.):(-45)%5D"
+if (!length(list.files(pattern="a.nc")))
+    download.file(s, "a.nc")
+library(ncdf4)
+library(oce)
+f <- nc_open("a.nc")
+if (!interactive()) png("843a.png")
+SST <- ncvar_get(f, "SST")
+imagep(SST, zlim=c(0, 30), col=oceColorsJet)
+if (!interactive()) dev.off()
