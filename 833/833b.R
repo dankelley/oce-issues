@@ -18,5 +18,6 @@ oceNames <- argoDataNames(ncNames)
 print(data.frame(ncNames, oceNames))
 
 stationParameters <- argoDataNames(gsub(" *$", "", unique(as.vector(ncvar_get(f, "STATION_PARAMETERS")))))
-print(paste("stationParameters:", paste(stationParameters, collapse=" ")))
-print("Plan: save stationParameters in @data, along with time, longitude and latitude (PLUS OTHERS??)\n")
+message(paste("ncNames:           ", paste(ncNames, collapse=" ")))
+message(paste("stationParameters: ", paste(stationParameters, collapse=" ")))
+message("Plan: save stationParameters in @data, along with time, longitude and latitude (PLUS OTHERS??)")
