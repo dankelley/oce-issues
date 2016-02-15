@@ -29,26 +29,32 @@ for (file in files) {
     f <- try(nc_open(paste(path, file, sep="/")), silent=TRUE)
     if (inherits(f, "try-error"))
         stop("you need to have '6900388_prof.nc' here")
-    message("file: ", file)
+    cat(file, "\n")
 
     getData <- function(f, name)
     {
         res <- try(ncvar_get(f, name), silent=TRUE)
         if (inherits(res, "try-error")) {
-            message(f$filename, " has no variable named '", name, "'")
+            cat(f$filename, " has no variable named '", name, "'\n")
             res <- NULL
         }
         res
     }
     ## FIXME: what if different profiles have different data? This seems to be
     ## permitted, maybe.
+    N <- gsub(" ", "", ncvar_get(f, "STATION_PARAMETERS"))
+    cat("    column sampling (unequal for 5904124_20160104211204622.nc)\n")
+    cat("    row 1  '", paste(N[,1], collapse="', '"), "'\n")
+    cat("    row 4  '", paste(N[,4], collapse="', '"), "'\n")
+    cat("\n")
+
     items <- unique(as.vector(ncvar_get(f, "STATION_PARAMETERS")))
-    message("  items: '", paste(items, collapse="', '"), "' originaly")
+    cat("    items: '", paste(items, collapse="', '"), "' originally\n")
     items <- gsub(" ", "", items)
-    message("  items: '", paste(items, collapse="', '"), "' after removing leading/trailing/interior blanks")
+    cat("    items: '", paste(items, collapse="', '"), "' after removing leading/trailing/interior blanks\n")
     ## 5904124_20160104211204622 has a blank-named item (how??)
     items <- items[nchar(items)>0]
-    message("  items: '", paste(items, collapse="', '"), "' after removing blank-named")
+    cat("    items: '", paste(items, collapse="', '"), "' after removing blank-named\n")
     variants <- 4
     res <- list()
     for (item in items) {
@@ -67,5 +73,6 @@ for (file in files) {
     ## str(res)
     resNames <- argoDataNames(names(res))
     names(res) <- resNames
-    message("  names(res): '", paste(names(res), collapse="', '", sep=""), "\n")
+    cat("    names(res): '", paste(names(res), collapse="', '", sep=""), "\n")
+    cat("\n")
 }
