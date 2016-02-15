@@ -10,7 +10,7 @@ rm(list=ls())
 library(ncdf4)
 
 path <- "~/Dropbox/oce-data/argo"
-files <- list.files(path, "*.nc")
+files <- list.files(path, "*.nc")[1]
 
 argoDataNames <- function(names)
 {
@@ -75,4 +75,8 @@ for (file in files) {
     names(res) <- resNames
     cat("    names(res): '", paste(names(res), collapse="', '", sep=""), "\n")
     cat("\n")
+    cat("below are names of f$var[i]:\n")
+    for (i in 1:f$nvar) cat("    ", names(f$var[i]), "\n")
+    cat("below is percentage of TEMP_DOXY data that are NA:\n")
+    cat(sprintf("    %.2f\n", 100*sum(is.na(ncvar_get(f, "TEMP_DOXY")))/length(ncvar_get(f,"TEMP_DOXY"))))
 }
