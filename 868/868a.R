@@ -11,20 +11,19 @@ load("lt.rda")
 
 if (!interactive()) png("868a.png", width=7, height=7, unit="in", res=100)
 par(mfrow=c(2,2), mar=c(2,2,2,2))
-cex <- 1
 
 plot(lt, band='terralook', mar=c(0.25,0.25,1,0.25), axes=FALSE)
-mtext(lt[['time']], side=3, line=0, adj=1, cex=cex*0.9, col='blue')
-mtext("A. default", side=3, line=0, adj=0, cex=cex)
+mtext(lt[['time']], side=3, line=0, adj=1, cex=0.9, col='blue')
+mtext("A. default", side=3, line=0, adj=0, cex=0.9)
 
 plot(lt, band='terralook', green.f=1.9, mar=c(0.25,0.25,1,0.25), axes=FALSE)
-mtext("B. green.f=1.9", side=3, line=0, adj=0, cex=cex)
+mtext("B. green.f=1.9", side=3, line=0, adj=0, cex=0.9)
 
 plot(lt, band='terralook', green.f=1.8, mar=c(0.25,0.25,1,0.25), axes=FALSE)
-mtext("C. green.f=1.8", side=3, line=0, adj=0, cex=cex)
+mtext("C. green.f=1.8", side=3, line=0, adj=0, cex=0.9)
 
 plot(lt, band='terralook', green.f=1.7, mar=c(0.25,0.25,1,0.25), axes=FALSE)
-mtext("D. green.f=1.7", side=3, line=0, adj=0, cex=cex)
+mtext("D. green.f=1.7", side=3, line=0, adj=0, cex=0.9)
 
 if (!interactive()) dev.off()
 
