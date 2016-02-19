@@ -14,7 +14,7 @@ library(ncdf4)
 library(testthat)
 
 path <- "~/Dropbox/oce-data/argo"
-files <- list.files(path, "*.nc")[1]
+files <- list.files(path, "*.nc")
 
 argoDataNames <- function(names)
 {
@@ -94,8 +94,4 @@ for (file in files) {
     expect_equal(res$temperature, d[["temperature"]])
     expect_equal(res$pressure, d[["pressure"]])
     expect_equal(res$salinity, d[["salinity"]])
-    dim <- dim(res$salinity)
-    expect_equal(d@metadata$flags$salinity, oce:::argoDecodeFlags(res$salinityQc, dim))
-    expect_equal(d@metadata$flags$temperature, oce:::argoDecodeFlags(res$temperatureQc, dim))
-    expect_equal(d@metadata$flags$pressure, oce:::argoDecodeFlags(res$pressureQc, dim))
 }

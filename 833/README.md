@@ -4,6 +4,5 @@
 * 833d.R looks promising; need more datafile tests before moving forward
 * 833e.R looks at all ~/Dropbox/oce-data/argo/*.nc files -- shows
   non-uniformity of profile data
-* 833f.R compares with existing read.argo() on the limited data that the latter
-  reads; last step before incorporation into read.argo
+* 833f.R compares some test code with existing read.argo()
 
