@@ -13,7 +13,14 @@ for (file in files) {
     cat("file", file, ", headerlength:", headerLength, sep="")
     oddLines <- which(ntab!=median(ntab))
     oddLines <- oddLines[oddLines > headerLength]
-    cat(", oddLines: ", if(sum(oddLines)>0)
-        paste(paste(oddLines, collapse=","), ", ...", sep="") else "NIL", "\n")
+    if (sum(oddLines)) {
+        cat(", oddLines: ", paste(paste(oddLines, collapse=","), ", ...\n", sep=""))
+        cat(" CONTEXT OF FIRST BAD LINE (with | for TAB):\n")
+        cat(gsub("\t","|",lines[oddLines[1]-1]), "\n")
+        cat(lines[oddLines[1]], "\n")
+        cat(lines[oddLines[1]+1], "\n")
+    } else {
+        cat(", oddLines: NIL\n")
+    }
 }
 
