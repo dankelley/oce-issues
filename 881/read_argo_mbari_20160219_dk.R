@@ -56,8 +56,20 @@ read.argo.mbari <- function(file)
   data <- data[,!isQF]
   names(data) <- names[!isQF]
   ## Trim two cols that held time; add in a time column
-  data <- data[-which(names=="mon.day.yr"|names=="hh.mm")]
+##>  data <- data[, -which(names=="mon.day.yr"|names=="hh.mm")] # CR had no ","
   data$time <- time
+  if (FALSE) { # DK tests
+      threeBad <- which(is.na(time))[1:3]
+      seek(file,0,"start")
+      l <- readLines(file, 1000)
+      l[skip+threeBad[1]+seq(-2,2)]
+  }
+  badLines <- data$cruise == ""
+  if (sum(badLines) > 0) {
+      data <- data[!badLines, ]
+      flags <- data[!badLines, ]
+      warning("deleted ", sum(badLines), " bad data lines")
+  }
   D <- split(data, factor(data$station))
   F <- split(flags, factor(data$station))
   nprofiles <- length(D)
