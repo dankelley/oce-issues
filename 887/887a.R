@@ -1,4 +1,5 @@
 library(oce)
 try(source("~/src/oce/R/adv.nortek.R"))
-d <- read.adv.nortek("~/Dropbox/OCE-ADV-IMU-Mr2/15080902.vec", from=1, to=100)
+## d <- read.adv.nortek("~/Dropbox/OCE-ADV-IMU-Mr2/15080902.vec", from=1, to=100)
+d <- read.adv.nortek("~/Dropbox/OCE-ADV-IMU-Mr2/I5080902.VEC", from=1, to=10000)
 names(d@data)
