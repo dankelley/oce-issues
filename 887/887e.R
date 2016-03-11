@@ -14,19 +14,25 @@ summary(dimu)
 if (!interactive()) png("887e.png")
 s <- 2
 par(mfcol=c(3,2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-plot(dimu[['time']], dimu[['v']][,1], ylab="u", ylim=c(-s,s))
-plot(dimu[['time']], dimu[['v']][,2], ylab="v", ylim=c(-s,s))
-plot(dimu[['time']], dimu[['v']][,3], ylab="w", ylim=c(-s,s))
+oce.plot.ts(dimu[['time']], dimu[['v']][,1], ylab="u", ylim=c(-s,s), grid=TRUE)
+oce.plot.ts(dimu[['time']], dimu[['v']][,2], ylab="v", ylim=c(-s,s), grid=TRUE)
+oce.plot.ts(dimu[['time']], dimu[['v']][,3], ylab="w", ylim=c(-s,s), grid=TRUE)
 
-r<-dimu[['IMUrotation']]
-v<-dimu[['v']]
+## some abbreviations for interactive work here, messing with matrix multiplication
+r <- dimu[['IMUrotation']]
+v <- dimu[['v']]
 n <- dim(v)[1]
-B <- unlist(lapply(1:n, function(i) r[,,i] %*% v[i,]))
-length(B)
+B <- matrix(unlist(lapply(1:n, function(i) r[,,i] %*% v[i,])), nrow=n, byrow=TRUE)
+## Do just one, by hand, to check that we are filling matrix correctly
+V1 <- lapply(1, function(i) r[,,i] %*% v[i,])
+sum(V1[[1]]^2)/sum(v[1,]^2)
 dim(B) <- dim(v)
-oce.plot.ts(dimu[['time']], B[,1], ylim=c(-s,s), ylab="U")
-oce.plot.ts(dimu[['time']], B[,2], ylim=c(-s,s), ylab="V")
-oce.plot.ts(dimu[['time']], B[,3], ylim=c(-s,s), ylab="W")
+V1[[1]]
+B[1,]
+stopifnot(V1[[1]]==B[1,])
+oce.plot.ts(dimu[['time']], B[,1], ylim=c(-s,s), ylab="u rotated", grid=TRUE)
+oce.plot.ts(dimu[['time']], B[,2], ylim=c(-s,s), ylab="v rotated", grid=TRUE)
+oce.plot.ts(dimu[['time']], B[,3], ylim=c(-s,s), ylab="w rotated", grid=TRUE)
 
 
 if (!interactive()) dev.off()
