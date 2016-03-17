@@ -6,6 +6,7 @@ dI <- read.adv.nortek("~/Dropbox/OCE-ADV-IMU-Mr2/I5080902.VEC")
 vectorShow(dI[['time']])
 vectorShow(dI[['IMUtime']])
 
+if (!interactive()) png("887a.png")
 look <- 1:100
 oce.plot.ts(dI[['time']][look], dI[['IMUtime']][look], type='o')
-
+if (!interactive()) dev.off()
