@@ -59,10 +59,17 @@ stopifnot(all.equal.numeric(o[["IMUdeltaVelocityY"]], t$dv2, tolerance=0.1))
 stopifnot(all.equal.numeric(o[["IMUdeltaVelocityZ"]], t$dv3, tolerance=1))
 message("ERROR -- something is wrong with deltaVelocityY and Z")
 head(t$dv3)
-## [1] -0.29789 -0.29734 -0.29677 -0.29800 -0.29689 -0.29947
 head(o[['IMUdeltaVelocityZ']])
-fivenum(t$dv3 - o[["IMUdeltaVelocityZ"]], na.rm=TRUE)
-##[1] -0.03037681 -0.03032058 -0.03026246 -0.03038788 -0.03027449 -0.03053777
+if (!interactive()) png("887g.png")
+par(mfcol=c(3,2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
+look <- 1:1000
+plot(o[['time']][look], (o[["IMUdeltaAngleX"]]*180/pi-t$da1)[look], ylab="angle x err", xlab="time")
+plot(o[['time']][look], (o[["IMUdeltaAngleY"]]*180/pi-t$da2)[look], ylab="angle y err", xlab="time")
+plot(o[['time']][look], (o[["IMUdeltaAngleZ"]]*180/pi-t$da3)[look], ylab="angle z err", xlab="time")
+plot(o[['time']][look], (t$dv1-o[['IMUdeltaVelocityX']])[look], ylab="v1 err", xlab="time")
+plot(o[['time']][look], (t$dv2-o[['IMUdeltaVelocityY']])[look], ylab="v2 err", xlab="time")
+plot(o[['time']][look], (t$dv3-o[['IMUdeltaVelocityZ']])[look], ylab="v3 err", xlab="time")
+if (!interactive()) dev.off()
 
 stopifnot(all.equal.numeric(t$m11, o[['IMUrotation']][1,1,], tolerance=0.0001))
 stopifnot(all.equal.numeric(t$m12, o[['IMUrotation']][1,2,], tolerance=0.0001))
@@ -74,4 +81,5 @@ stopifnot(all.equal.numeric(t$m31, o[['IMUrotation']][3,1,], tolerance=0.001))
 stopifnot(all.equal.numeric(t$m32, o[['IMUrotation']][3,2,], tolerance=0.001))
 stopifnot(all.equal.numeric(t$m33, o[['IMUrotation']][3,3,], tolerance=0.0001))
 message("ERROR: oce is not reading pitch, heading, and roll")
+
 
