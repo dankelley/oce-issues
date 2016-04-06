@@ -20,7 +20,7 @@ ctd5[['startTime']] <- ctd5[['startTime']] + 3600*4
 d <- list(ctd1, ctd2, ctd3, ctd4, ctd5)
 sec <- as.section(d)
 
-if (!interactive()) png('907b.png')
+if (!interactive()) png('908b.png')
 plot(sec, which='temperature', xtype='time')
 if (!interactive()) dev.off()
 
