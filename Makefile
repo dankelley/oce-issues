@@ -19,12 +19,13 @@ dirs        =147 \
 	     692 694 696 698 699 704 705 707 708 710 721 726 729 730 731 \
 	     740 756 757 759 760 763 766 768 769 770 774 777 782 783 785 \
 	     800 805 816 817 818 826 827 828 829 833 838 839 843 861 868\
-	     870 872 874 881 887 888 889 896 907 908 915 920 924
+	     870 872 874 881 887 888 889 896 907 908 915 920 924 929
 
 # current is the issue being worked on most actively
 current     =887
 
 flags       =896 920 924
+units       =929
 adp         =586 696 704 777 782 783 785
 adv         =887 888
 amsr        =839
@@ -108,3 +109,5 @@ ts:
 	for dir in $(ts)          ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
 RDItests:
 	for dir in $(RDItests)    ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
+units:
+	for dir in $(units)       ; do cd $$dir ; make clean ; make ; make view ; cd .. ; done
