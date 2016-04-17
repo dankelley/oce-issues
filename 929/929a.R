@@ -1,3 +1,6 @@
 library(oce)
-d <- read.oce(system.file("extdata", "d201211_0011.cnv", package="oce"),debug=1)
-str(d[['units']])
+for (file in list.files(pattern=".cnv")) {
+    d <- read.oce(file)
+    summary(d)
+    plot(d)
+}
