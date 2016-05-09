@@ -1,5 +1,5 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
+str(ctd)
 d <- ctdDecimate(ctd, p=1)
 str(d)
