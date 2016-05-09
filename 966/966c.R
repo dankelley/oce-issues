@@ -5,7 +5,8 @@ for (epsilon in seq(10, -1, -1)) {
     #xy <- rgdal::project(cbind(-180+epsilon,-90+epsilon), "+proj=wintri")
     xy <- proj4::project(cbind(lon0+epsilon,-90+epsilon), "+proj=wintri")
     print(xy)
-    lonlat <- proj4::project(xy, "+proj=wintri", inv=TRUE)
+    ## note that silent=TRUE does not silence the errors; they are coming from C.
+    try({lonlat <- proj4::project(xy, "+proj=wintri", inv=TRUE)}, silent=TRUE)
     print(lonlat)
 }
 
