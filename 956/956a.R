@@ -1,6 +1,6 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/R-richards/oce/R/rsk.R'))
+try(source('~/src/R/oce/R/rsk.R'))
 
 d <- read.rsk('065584_20140816_1633.rsk')
 ctd <- as.ctd(d)
