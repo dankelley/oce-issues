@@ -5,7 +5,7 @@ for (i in seq_along(rsks)) {
     cat("\n\n")
     cat(paste(rep("#", 100), collapse=""), "\n")
     cat("# rsk[", i, "] = ", rsks[i], "\n", sep="")
-    rsk <- read.rsk(rsks[i])
+    rsk <- read.rsk(rsks[i], debug=99)
     cat("\n")
     summary(rsk)
     try({
