@@ -4,7 +4,7 @@ library(oce)
 data(section)
 ctd <- section[["station", 1]]
 
-if (!interactive()) png("981.png")
+if (!interactive()) png("981a.png")
 
 N <- 4
 par(mfrow=c(N,4))
