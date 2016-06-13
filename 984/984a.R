@@ -1,0 +1,8 @@
+library(oce)
+data(section)
+names <- names(section[['station',1]]@data)
+if (!interactive()) png("984a.png")
+par(mfrow=c(2,1), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
+plot(section, which="oxygen")
+plot(section, which="silicate")
+if (!interactive()) dev.off()
