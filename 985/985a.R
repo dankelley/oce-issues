@@ -1,0 +1,6 @@
+library(oce)
+data(argo)
+if (!interactive()) png("985a.png")
+argo <- oceSetData(argo, 'stuff', argo[['temperature']] + rnorm(argo[['temperature']], 0, 20))
+plot(as.section(argo), which='stuff')
+if (!interactive()) dev.off()
