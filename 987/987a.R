@@ -17,10 +17,9 @@ ctd <- oceSetData(ctd, 'time', seq_along(ctd[['pressure']]))
 smoother <- function (x, n = 11, ...) 
 {
     f <- rep(1/n, n)
-    xf <- as.numeric(stats::filter(x, f, ...))
+    stats::filter(x, f, ...)
 }
 
-if (FALSE){
 pr <- ctdFindProfiles(ctd)
 npr <- length(pr)
 print('smoother = smooth.spline')
@@ -31,7 +30,6 @@ npr <- length(pr)
 print('smoother = smooth')
 print(paste0('Number of profiles found (of ', N, '): ', npr))
 expect_equal(N, npr)
-}
 
 pr <- ctdFindProfiles(ctd, smoother=smoother)
 npr <- length(pr)
@@ -39,11 +37,11 @@ print('smoother = custom moving average')
 print(paste0('Number of profiles found (of ', N, '): ', npr))
 expect_equal(N, npr)
 
-## If salinities are equal, probably everything else is, also.
-## NOTE: the very first profile differs slightly from the others (it has 2 more points) so
-## NOTE: we do not insist that it be correct.
-if (npr > 1) {
-    for (i in 3:length(pr)) {
-        expect_equal(pr[[i-1]][["salinity"]], pr[[i]][["salinity"]], info=paste("salinities in profiles", i-1, "and", i, "do not match"))
-    }
-}
+##> ## If salinities are equal, probably everything else is, also.
+##> ## NOTE: the very first profile differs slightly from the others (it has 2 more points) so
+##> ## NOTE: we do not insist that it be correct.
+##> if (npr > 1) {
+##>     for (i in 2:length(pr)) {
+##>         expect_equal(pr[[i-1]][["salinity"]], pr[[i]][["salinity"]], info=paste("salinities in profiles", i-1, "and", i, "do not match"))
+##>     }
+##> }
