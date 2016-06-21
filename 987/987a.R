@@ -1,7 +1,8 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/ctd.R'))
-try(source('~/src/R-richards/oce/R/ctd.R'))
+library(testthat)
+## try(source('~/src/oce/R/ctd.R'))
+## try(source('~/src/R-richards/oce/R/ctd.R'))
 
 data(ctd)
 N <- 200
@@ -28,5 +29,11 @@ print('smoother = smooth')
 print(paste0('Number of profiles found (of ', N, '): ', length(pr)))
 
 pr <- ctdFindProfiles(ctd, smoother=smoother)
+npr <- length(pr)
 print('smoother = custom moving average')
-print(paste0('Number of profiles found (of ', N, '): ', length(pr)))
+print(paste0('Number of profiles found (of ', N, '): ', npr))
+
+## If salinities are equal, probably everything else is, also.
+for (i in 2:npr) {
+  expect_equal(pr[[i-1]][["salinity"]], pr[[i]][["salinity"]])
+}
