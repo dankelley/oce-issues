@@ -1,6 +1,6 @@
 library(oce)
-options(warn=3)
-try(source("~/src/oce/R/section.R"))
+## try(source("~/src/oce/R/section.R"))
+options(warn=2) # convert warnings to errors, for checking
 data(section)
 if (!interactive()) png("1007a1.png")
 plot(section)

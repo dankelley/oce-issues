@@ -1,8 +1,10 @@
 library(oce)
+source("~/src/oce/R/oce.R")
 source("~/src/oce/R/section.R")
+options(warn=2)
 ## a <- read.oce("/Users/kelley/MEOP-CTD_2015-07-01/CANADA/ncARGO/ct55-9575-10_prof.nc")
 a <- read.oce("ct55-9575-10_prof.nc")
 s <- as.section(a)
+if (!interactive()) png("1006a.png")
 plot(s, ztype='image')
-
-
+if (!interactive()) dev.off()
