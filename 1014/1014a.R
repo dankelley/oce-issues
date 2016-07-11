@@ -1,0 +1,10 @@
+library(oce)
+earth <- read.amsr("../839/f34_20160102v7.2.gz")
+save(earth, file="earth.rda")
+fclat <- subset(earth , 35 <= latitude & latitude <= 55)
+fc <- subset(fclat , -55 <= longitude & longitude <= -35)
+save(fc, file="fc.rda")
+if (!interactive()) png("2014a.png")
+plot(fc)
+if (!interactive()) dev.off()
+
