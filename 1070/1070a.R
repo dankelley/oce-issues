@@ -15,5 +15,4 @@ for (istep in seq_along(step)) {
     }
 }
 if (!interactive()) dev.off()
-warnings()
 
