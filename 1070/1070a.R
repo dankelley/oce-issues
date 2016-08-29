@@ -8,14 +8,13 @@ onetwofive <- c(1, 2, 5)
 for (istep in seq_along(step)) {
     for (ionetwofive in seq_along(onetwofive)) {
         t[2] <- t[1] + onetwofive[ionetwofive] * step[istep]
-        oce.plot.ts(t, x, type='o', debug=3)
+        oce.plot.ts(t, x, type='o' , debug=3)
         mtext(paste(" step[", istep, "] =", step[istep],
                     ", onetwofive[", ionetwofive, "] = ", onetwofive[ionetwofive], sep=""),
               side=3, line=-1)
         grid()
         par(mar=c(3,3,1,1))
         plot(t, x, type='o', xlab="")
-        cat("istep=", istep, ", ionetwofive=", ionetwofive, "\n", sep="")
         sec  <- as.numeric(t[2]) - as.numeric(t[1])
         mtext(sprintf("%gs %gmin %ghour %gday", sec, sec/60, sec/3600, sec/86400), side=3, line=-1)
     }
