@@ -1,5 +1,6 @@
 ## trial code
-file <- "M39_5_phys_oce.tab.tsv"
+file <- "M39_5_phys_oce.tab.tsv" # in this github repository
+##file <- "Schneider-etal_2015.tab.tsv" # private file
 lines <- readLines(file)
 headerEnd <- grep("^\\*/$", lines)
 if (!length(headerEnd))
@@ -12,6 +13,12 @@ print(header)
 ## FIXME: probably we want to reop
 data <- read.delim(file, skip=headerEnd, sep="\t", header=TRUE)
 print(head(data))
-message("FIXME: (1) decode units; (2) select conventional names; (3) store originalNames; (4) decode times")
+time <- as.POSIXct(data$Date.Time, tz="UTC")
+data$time <- time
+message("FIXME:")
+message("(1) decode units")
+message("(2) select conventional names")
+message("(3) store originalNames")
+message("(4) make ctdFindProfile work with these data (if it doesn't)")
 
 
