@@ -1,0 +1,63 @@
+library(oce)
+read.owhl <- function(file, tz="UTC")
+{
+    filename <- ""
+    if (is.character(file)) {
+        filename <- fullFilename(file)
+        file <- file(file, "r")
+        on.exit(close(file))
+    }
+    if (!inherits(file, "connection"))
+        stop("argument `file' must be a character string or connection")
+    if (!isOpen(file)) {
+        open(file, "r")
+        on.exit(close(file))
+    }
+    res <- new("oce")
+    nheader <- 2 # FIXME: are there docs telling us how header works?
+    header <- readLines(file, n=nheader)
+    namesInHeader <- strsplit(header[nheader], ",")[[1]]
+    names <- namesInHeader
+    units <- list()
+    dataNamesOriginal <- as.list(namesInHeader)
+    names(dataNamesOriginal) <- namesInHeader
+    ## The upcoming code is brittle because I don't know whether
+    ## the column names are fixed in this file format.  All I know is
+    ## that a sample file has as below:
+    ##     POSIXt,DateTime,frac.seconds,Pressure.mbar,TempC
+    if ("TempC" %in% namesInHeader) {
+        names[names=="TempC"] <- "temperature"
+        units$temperature <- list(unit=expression(degree*C), scale="ITS-90") # assumption on scale
+        dataNamesOriginal$temperature <- "TempC"
+    }
+    if ("Pressure.mbar" %in% namesInHeader) {
+        names[names=="Pressure.mbar"] <- "pressure"
+        units$pressure <- list(unit=expression(dbar), scale="") # will use dbar, not the mbar in the file
+        dataNamesOriginal$pressure <- "Pressure.mbar"
+    }
+
+    pushBack(header, file)
+    data <- read.csv(file, skip=nheader, header=FALSE, col.names=names, stringsAsFactors=FALSE)
+    ## I am not sure what 'frac.seconds' means, e.g. does "25" mean 0.25s? I'm guessing that
+    time <- numberAsPOSIXct(data$POSIXt, tz=tz) + data$frac.seconds / 100
+    data$time <- time
+    if ("pressure" %in% names(data)) {
+        data$pressure <- data$pressure / 10
+        warning("converted pressure to dbar because that is the oceanographic convention")
+    }
+    dataNamesOriginal$time <- "-"
+    res@metadata$filename <- filename
+    res@metadata$header <- header
+    res@metadata$dataNamesOriginal <- dataNamesOriginal
+    res@metadata$units <- units
+    res@data <- data
+    res@processingLog <- processingLogAppend(res@processingLog,
+                                             paste("read.owhl(\"",filename, "\")", sep=""))
+    res
+}
+d <- read.owhl("~/git/testing_OWHL/sample_data/15032600_halfday.CSV")
+summary(d)
+if (!interactive()) png("784a.png")
+oce.plot.ts(d[["time"]], d[["pressure"]], ylab="Pressure [dbar]")
+if (!interactive()) dev.off()
+
