@@ -72,7 +72,7 @@ lines(plp$x, plp$y, col='red', lwd=3)
 php <- p - plp$y
 phpts <- ts(php, deltat=diff(as.numeric(t[1:2])))
 
-par(mar=c(3.5, 3.5, 2, 1), mgp=c(2, 0.7, 0))
+par(mar=c(3.5, 3.5, 2.5, 1), mgp=c(2, 0.7, 0))
 
 s <- spectrum(phpts, spans=c(31,11,5), plot=FALSE)
 plot(s$freq, s$spec, type='l', xlab="Frequency [Hz]", ylab="Power [dbar^2/Hz]")
@@ -84,7 +84,7 @@ plot(s$freq, s$spec, type='l', xlab="Frequency [Hz]", ylab="Power [dbar^2/Hz]")
 
 
 plot(log10(s$freq), s$spec*s$freq, type='l',
-     xlim=c(-1.5,-0.6), xlab="Frequency [Hz]", ylab=expression("Freq*Power [dbar^2]"), axes=FALSE)
+     xlim=c(-1.5,-0.6), xlab="log10(Freq [Hz])", ylab=expression("Freq*Power [dbar^2]"), axes=FALSE)
 xaxp <- par("xaxp")
 l <- seq(xaxp[1], xaxp[2], length.out=xaxp[3]+1)
 axis(side=2)
@@ -93,7 +93,7 @@ period <- c(5, 10, 15, 20, 25)
 rug(log10(1/period), side=3, tick=-0.02, lwd=1)
 rug(log10(1/(1:100)), side=3, tick=-0.01, lwd=1)
 mtext(period, side=3, line=0.7, at=log10(1/period), cex=par('cex'))
-mtext("Period [s]", side=3, line=2)
+mtext("Period [s]", side=3, line=2, cex=par('cex'))
 box()
 
 if (!interactive()) dev.off()
