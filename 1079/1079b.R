@@ -1,0 +1,16 @@
+library(oce)
+try(source("~/src/oce/R/map.R"))       # speed code development by saving rebuild
+data(coastlineWorld)
+if (!interactive()) png("1079b_%d.png")
+par(mar=c(2, 2, 1, 1))
+plot(coastlineWorld, proj=oceCRS("Atlantic"), span=12000)
+plot(coastlineWorld, proj=oceCRS("North Atlantic"), span=8000)
+plot(coastlineWorld, proj=oceCRS("South Atlantic"), span=8000)
+plot(coastlineWorld, proj=oceCRS("Arctic"), span=4000)
+plot(coastlineWorld, proj=oceCRS("Antarctic"), span=10000)
+pacific <- coastlineCut(coastlineWorld, -150)
+plot(pacific, proj=oceCRS("Pacific"), span=18000)
+plot(pacific, proj=oceCRS("North Pacific"), span=14000)
+plot(pacific, proj=oceCRS("South Pacific"), span=14000)
+if (!interactive()) dev.off()
+
