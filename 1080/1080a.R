@@ -14,12 +14,16 @@ ctd <- as.ctd(salinity=d$Sal,
               
 ctd <- subset(ctd, pressure < 520)
 
+myCTDplot <- function(x) {
+    par(mfrow=c(2, 2))
+    plotProfile(x, xtype='temperature')
+    plotProfile(x, xtype='salinity')
+    plotProfile(x, xtype='turbidity')
+    plotTS(x)
+}
+
 if (!interactive()) png('1080a.png')
 
-par(mfrow=c(2, 2))
-plotProfile(ctd, xtype='temperature')
-plotProfile(ctd, xtype='salinity')
-plotProfile(ctd, xtype='turbidity')
-plotTS(ctd)
+myCTDplot(ctd)
 
 if (!interactive()) dev.off()
