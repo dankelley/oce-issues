@@ -30,7 +30,7 @@ for (fillgap in c(2, 4, 6)) {
     print(system.time(G <- binMean2D(lon, lat, SST, lonG, latG, fill=TRUE, fillgap=fillgap)))
     imagep(G$xmids, G$ymids, G$result, zlim=c(10,30), col=oceColorsJet, asp=asp)
     data(coastlineWorldMedium, package="ocedata")
-    lines(coastlineWorldMedium[['longitude']], coastlineWorldMedium[['latitude']])
+    polygon(coastlineWorldMedium[['longitude']], coastlineWorldMedium[['latitude']], col='lightgray')
     mtext(sprintf("gridded to dlon=%.2f and dlat=%.2f fillgap=%.0f",
                   G$xmids[2]-G$xmids[1], G$ymids[2]-G$ymids[1], fillgap), side=3, line=0, adj=0)
 }
