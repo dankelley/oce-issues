@@ -19,7 +19,6 @@ if (0 == length(ls(pattern="lon"))) { # cache
     MidTime <- h5read(file, "All_Data/VIIRS-MOD-GEO-TC_All/MidTime", bit64conversion="double")
     t <- as.POSIXct("1958-01-01 00:00:00", tz="UTC") + mean(MidTime/1e6)
 }
-cm <- colormap(SST, zlim=c(10,30))
 if (!interactive()) png("1089b_%d.png", width=800)
 par(mar=c(3, 3, 1, 1))
 asp <- 1/cos(pi*mean(range(lat))/180)
