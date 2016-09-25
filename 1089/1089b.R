@@ -1,6 +1,6 @@
 ## read, then grid and plot, VIIRS data
 library(oce)
-decimate <- 10 # speeds up by 100X and the output is cleaner, too
+decimate <- 4 # speeds up gridding
 library(rhdf5)
 file <- "~/Downloads/GMTCO-VSSTO_npp_d20160920_t0320078_e0325482_b25378_c20160924115556098849_noaa_ops.h5"
 if (0 == length(ls(pattern="lon"))) { # cache
@@ -19,22 +19,20 @@ if (0 == length(ls(pattern="lon"))) { # cache
     MidTime <- h5read(file, "All_Data/VIIRS-MOD-GEO-TC_All/MidTime", bit64conversion="double")
     t <- as.POSIXct("1958-01-01 00:00:00", tz="UTC") + mean(MidTime/1e6)
 }
-look <- seq(1L, length=prod(dim(SST)), by=decimate)
-SST0 <- SST[look]
-lon0 <- lon[look]
-lat0 <- lat[look]
-cm <- colormap(SST0, zlim=c(10,30))
-if (!interactive()) png("1089b.png", width=800)
+cm <- colormap(SST, zlim=c(10,30))
+if (!interactive()) png("1089b_%d.png", width=800)
 par(mar=c(3, 3, 1, 1))
 asp <- 1/cos(pi*mean(range(lat))/180)
-n <- as.integer(sqrt(length(lon))) / 4 # coarsen by factor 4
-lonG <- pretty(lon, n)
-latG <- pretty(lat, n)
-G <- binMean2D(lon, lat, SST, lonG, latG)
-imagep(G$xmids, G$ymids, G$result, zlim=c(10,30), col=oceColorsJet, asp=asp)
-data(coastlineWorldMedium, package="ocedata")
-lines(coastlineWorldMedium[['longitude']], coastlineWorldMedium[['latitude']])
-mtext(sprintf("gridded to dlon=%.2f and dlat=%.2f",
-              G$xmids[2]-G$xmids[1], G$ymids[2]-G$ymids[1]), side=3, line=0, adj=0)
+n <- as.integer(sqrt(length(lon)))
+lonG <- pretty(lon, n/decimate)
+latG <- pretty(lat, n/decimate)
+for (fillgap in c(2, 4, 6)) {
+    print(system.time(G <- binMean2D(lon, lat, SST, lonG, latG, fill=TRUE, fillgap=fillgap)))
+    imagep(G$xmids, G$ymids, G$result, zlim=c(10,30), col=oceColorsJet, asp=asp)
+    data(coastlineWorldMedium, package="ocedata")
+    lines(coastlineWorldMedium[['longitude']], coastlineWorldMedium[['latitude']])
+    mtext(sprintf("gridded to dlon=%.2f and dlat=%.2f fillgap=%.0f",
+                  G$xmids[2]-G$xmids[1], G$ymids[2]-G$ymids[1], fillgap), side=3, line=0, adj=0)
+}
 
 if (!interactive()) dev.off()
