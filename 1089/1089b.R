@@ -1,3 +1,4 @@
+## read, then grid and plot, VIIRS data
 library(oce)
 decimate <- 10 # speeds up by 100X and the output is cleaner, too
 library(rhdf5)
@@ -23,16 +24,17 @@ SST0 <- SST[look]
 lon0 <- lon[look]
 lat0 <- lat[look]
 cm <- colormap(SST0, zlim=c(10,30))
-if (!interactive()) png("1089a.png", width=800)
+if (!interactive()) png("1089b.png", width=800)
 par(mar=c(3, 3, 1, 1))
-drawPalette(colormap=cm)
-plot(lon0, lat0, col=cm$zcol, pch=20, asp=1/cos(pi*mean(range(lat))/180), cex=1/3)
+asp <- 1/cos(pi*mean(range(lat))/180)
+n <- as.integer(sqrt(length(lon))) / 4 # coarsen by factor 4
+lonG <- pretty(lon, n)
+latG <- pretty(lat, n)
+G <- binMean2D(lon, lat, SST, lonG, latG)
+imagep(G$xmids, G$ymids, G$result, zlim=c(10,30), col=oceColorsJet, asp=asp)
 data(coastlineWorldMedium, package="ocedata")
 lines(coastlineWorldMedium[['longitude']], coastlineWorldMedium[['latitude']])
-mtext(t, side=3, line=0, adj=1)
-## estimate density of data
-pointPerKm <- sqrt(prod(dim(SST))) / diff(range(lat)) / 111
-mtext(sprintf("~%.1fkm resolution, here decimated %dX",
-              pointPerKm, decimate), side=3, line=0, adj=0)
-if (!interactive()) dev.off()
+mtext(sprintf("gridded to dlon=%.2f and dlat=%.2f",
+              G$xmids[2]-G$xmids[1], G$ymids[2]-G$ymids[1]), side=3, line=0, adj=0)
 
+if (!interactive()) dev.off()
