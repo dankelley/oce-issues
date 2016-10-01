@@ -8,4 +8,5 @@ for (dt in deltat) { # hours
     t <- seq(start, start + dt*3600, by=60)
     yy <- rnorm(length(t))
     oce.plot.ts(t, yy)
+    mtext(paste("dt:", dt, "hours"), side=3, line=0, adj=1)
 }
