@@ -1,9 +1,8 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 source("fake_south_pole.R")
 par(mfrow=c(2,2), mar=c(3, 3, 2, 1), mgp=c(2, 0.7, 0))
 data(coastlineWorld)
-mapPlot(coastlineWorld, fill="gray", axes=FALSE, projection="+proj=ortho")
+mapPlot(coastlineWorld, col="gray", axes=FALSE, projection="+proj=ortho")
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
 aa <- lat < -60
@@ -29,4 +28,4 @@ AA <- LAT < -60
 plot(LON[AA], LAT[AA], type='o')
 
 cl <- as.coastline(LON, LAT)
-mapPlot(cl, fill="gray", axes=FALSE, projection="+proj=ortho")
+mapPlot(cl, col="gray", axes=FALSE, projection="+proj=ortho")

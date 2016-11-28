@@ -1,11 +1,10 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 source("fake_south_pole.R")
 if (!interactive()) png("616f.png", unit="in", width=6, height=3, res=150, pointsize=7)
                         
 par(mfrow=c(2,2), mar=c(3, 3, 2, 1), mgp=c(2, 0.7, 0))
 data(coastlineWorld)
-mapPlot(coastlineWorld, fill="gray", axes=FALSE, projection="+proj=ortho")
+mapPlot(coastlineWorld, col="gray", axes=FALSE, projection="+proj=ortho")
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]
 aa <- lat < -60

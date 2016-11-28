@@ -4,7 +4,7 @@ pch <- 20
 cex <- 1/4
 grid <- expand.grid(lon=seq(-180, 180, inc), lat=seq(-90, 90, inc), KEEP.OUT.ATTRS=FALSE)
 write.table(grid, file="lonlat.dat", row.names=FALSE, col.names=FALSE)
-system("cat lonlat.dat | proj '+proj=ortho' | sed -e 's/*/Inf/g' > xy.dat")
+system("cat lonlat.dat | proj +proj=ortho +ellps=WGS84 | sed -e 's/*/NA/g' > xy.dat")
 xy <- read.table("xy.dat", col.names=c("x", "y"), header=FALSE)
 d <- data.frame(lon=grid$lon, lat=grid$lat, x=xy$x, y=xy$y)
 write.table(d, file="616d_results.dat", row.names=FALSE)
