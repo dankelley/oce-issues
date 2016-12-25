@@ -1,0 +1,368 @@
+ODF_HEADER,
+  FILE_SPECIFICATION='D:\Barrow_Strait_200809\CTD\Translate\dBS_09_01.cnv'
+CRUISE_HEADER,
+  COUNTRY_INSTITUTE_CODE=1810,
+  CRUISE_NUMBER='DGR2009001',
+  ORGANIZATION='BIO/Coastal Ocean Sciences',
+  CHIEF_SCIENTIST='Jim Hamilton',
+  START_DATE='',
+  END_DATE='',
+  PLATFORM='CCGS Des Groseilliers',
+  CRUISE_NAME='Barrow Strait - Arctic Ocean Through Flow 2009',
+  CRUISE_DESCRIPTION='Barrow Strait Eastern Line'
+EVENT_HEADER,
+  DATA_TYPE='CTD',
+  EVENT_NUMBER='1',
+  EVENT_QUALIFIER1='1',
+  EVENT_QUALIFIER2='DN',
+  CREATION_DATE='16-DEC-2009 15:46:16.91',
+  ORIG_CREATION_DATE='16-DEC-2009 14:14:06.33',
+  START_DATE_TIME='07-AUG-2009 12:20:00.00',
+  END_DATE_TIME='07-AUG-2009 12:20:00.00',
+  INITIAL_LATITUDE=74.045300,
+  INITIAL_LONGITUDE=-91.099600,
+  END_LATITUDE=74.045300,
+  END_LONGITUDE=-91.099600,
+  MIN_DEPTH=2.474000,
+  MAX_DEPTH=45.024000,
+  SAMPLING_INTERVAL=-99.000000,
+  SOUNDING=49.000000,
+  DEPTH_OFF_BOTTOM=3.976000,
+  EVENT_COMMENTS=' ',
+  EVENT_COMMENTS='16-Dec-2009: Original Input File Name "dBS_09_01.cnv".',
+  EVENT_COMMENTS='16-Dec-2009: Cloudy with sunny periods, windy.',
+  EVENT_COMMENTS='16-Dec-2009: No data for station 6 due to instrument malfunction.'
+INSTRUMENT_HEADER,
+  INST_TYPE='SeaBird',
+  MODEL='SBE 25',
+  SERIAL_NUMBER='026',
+  DESCRIPTION=''
+HISTORY_HEADER,
+  CREATION_DATE='16-DEC-2009 14:14:06.33',
+  PROCESS='Conversion',
+  PROCESS='Unknown WMO Code(UNKN_01) info: prSM: Pressure, Strain Gauge [db]',
+  PROCESS='Unknown WMO Code(UNKN_02) info: t068C: Temperature [ITS-68, deg C]',
+  PROCESS='Unknown WMO Code(UNKN_03) info: c0S/m: Conductivity [S/m]',
+  PROCESS='Unknown WMO Code(UNKN_04) info: sal00: Salinity [PSU]',
+  PROCESS='Unknown WMO Code(UNKN_05) info: depSM: Depth [salt water, m], lat = 74.1',
+  PROCESS='Unknown WMO Code(UNKN_06) info: sigma-t00: Density [sigma-t, Kg/m^3 ]',
+  PROCESS='Unknown WMO Code(UNKN_07) info: sigma-é00: Density [sigma-theta, Kg/m^3]',
+  PROCESS='Quality Control Flag(FFFF_01) info: flag: flag',
+  PROCESS='* Sea-Bird SBE25 Data File:',
+  PROCESS='* FileName = C:\Orphan Knoll_09\BS_09_01.hex',
+  PROCESS='* Software Version 1.59',
+  PROCESS='* Temperature SN = 1100',
+  PROCESS='* Conductivity SN = 9768',
+  PROCESS='* System UpLoad Time = Aug 07 2009 14:35:25',
+  PROCESS='** PROGAM:Barrow Strait',
+  PROCESS='** SHIP:CCGS DES GROSEILLIERS',
+  PROCESS='** DATE:AUGUST 7, 2009',
+  PROCESS='** STATION NO.:CTD STN 01',
+  PROCESS='** LATATUDE:74 02.718',
+  PROCESS='** LONGITUDE:091 05.979',
+  PROCESS='** DEPTH:49 METERS',
+  PROCESS='** COMMENTS:',
+  PROCESS='* ds',
+  PROCESS='* SBE 25 CTD  V 4.0b SN 026   08/07/09  14:31:10.677',
+  PROCESS='* external pressure sensor, range = 1450 psia,  tcval = -107',
+  PROCESS='* xtal = 9437520   clk = 32768.113   vmain = 12.9   iop = 130   vlith = 4.9',
+  PROCESS='* ncasts = 5   samples = 23670   free = 41372   lwait = 0 msec',
+  PROCESS='*',
+  PROCESS='* CTD configuration:',
+  PROCESS='* number of scans averaged = 1,  data stored at 8 scans per second',
+  PROCESS='* real time data transmitted at 1 scans per second',
+  PROCESS='* minimum conductivity frequency for pump turn on = 0',
+  PROCESS='* pump delay = 30 seconds',
+  PROCESS='*',
+  PROCESS='* battery type = ALKALINE',
+  PROCESS='*',
+  PROCESS='* 0 external voltages sampled',
+  PROCESS='*',
+  PROCESS='* S>',
+  PROCESS='* dh',
+  PROCESS='* cast 0  08/07 12:14:35  smpls 0 to 3557  nv = 0  avg = 1  stp = switch of',
+  PROCESS='* S>',
+  PROCESS='# nquan = 8',
+  PROCESS='# nvalues = 87',
+  PROCESS='# units = specified',
+  PROCESS='# name 0 = prSM: Pressure, Strain Gauge [db]',
+  PROCESS='# name 1 = t068C: Temperature [ITS-68, deg C]',
+  PROCESS='# name 2 = c0S/m: Conductivity [S/m]',
+  PROCESS='# name 3 = sal00: Salinity [PSU]',
+  PROCESS='# name 4 = depSM: Depth [salt water, m], lat = 74.1',
+  PROCESS='# name 5 = sigma-t00: Density [sigma-t, Kg/m^3 ]',
+  PROCESS='# name 6 = sigma-é00: Density [sigma-theta, Kg/m^3]',
+  PROCESS='# name 7 = flag: flag',
+  PROCESS='# span 0 =      2.500,     45.500',
+  PROCESS='# span 1 =    -1.4622,     3.4646',
+  PROCESS='# span 2 =  -0.014621,   2.630601',
+  PROCESS='# span 3 =    -0.1951,    31.9599',
+  PROCESS='# span 4 =      2.474,     45.024',
+  PROCESS='# span 5 =    -0.1873,    25.7021',
+  PROCESS='# span 6 =    -0.1873,    25.7022',
+  PROCESS='# span 7 = 0.0000e+00, 0.0000e+00',
+  PROCESS='# interval = decibars: 0.5',
+  PROCESS='# start_time = Aug 07 2009 12:14:35',
+  PROCESS='# bad_flag = -9.990e-29',
+  PROCESS='# sensor 0 = Frequency 0  temperature, 1100, 10-Jun-2009',
+  PROCESS='# sensor 1 = Frequency 1  conductivity, 0768, 10-Jun-2009, cpcor = -9.5700e-08',
+  PROCESS='# sensor 2 = Pressure Voltage, 290137/, 16-Jun-2009/, cpcor = -9.5700e-08',
+  PROCESS='# datcnv_date = Dec 16 2009 11:32:47, 7.18c',
+  PROCESS='# datcnv_in = D:\Barrow_Strait_200809\CTD\Raw Data\BS_09_01.hex D:\Barrow_Strait_200809\CTD\Raw Data\026.con',
+  PROCESS='# datcnv_skipover = 0',
+  PROCESS='# wfilter_date = Dec 16 2009 11:35:14, 7.18c',
+  PROCESS='# wfilter_in = D:\Barrow_Strait_200809\CTD\DatCnv\BS_09_01.cnv',
+  PROCESS='# wfilter_excl_bad_scans = yes',
+  PROCESS='# wfilter_action prSM = median, 11',
+  PROCESS='# wfilter_action t068C = median, 11',
+  PROCESS='# wfilter_action c0S/m = median, 11',
+  PROCESS='# wildedit_date = Dec 16 2009 11:38:44, 7.18c',
+  PROCESS='# wildedit_in = D:\Barrow_Strait_200809\CTD\WFilter\BS_09_01.cnv',
+  PROCESS='# wildedit_pass1_nstd = 2.0',
+  PROCESS='# wildedit_pass2_nstd = 20.0',
+  PROCESS='# wildedit_pass2_mindelta = 0.000e+000',
+  PROCESS='# wildedit_npoint = 100',
+  PROCESS='# wildedit_vars = prSM t068C c0S/m',
+  PROCESS='# wildedit_excl_bad_scans = yes',
+  PROCESS='# alignctd_date = Dec 16 2009 11:40:35, 7.18c',
+  PROCESS='# alignctd_in = D:\Barrow_Strait_200809\CTD\Wildedit\BS_09_01.cnv',
+  PROCESS='# alignctd_adv = c0S/m 0.089',
+  PROCESS='# celltm_date = Dec 16 2009 11:42:48, 7.18c',
+  PROCESS='# celltm_in = D:\Barrow_Strait_200809\CTD\AlignCTD\BS_09_01.cnv',
+  PROCESS='# celltm_alpha = 0.0400, 0.0000',
+  PROCESS='# celltm_tau = 8.0000, 0.0000',
+  PROCESS='# celltm_temp_sensor_use_for_cond = primary,',
+  PROCESS='# filter_date = Dec 16 2009 11:46:07, 7.18c',
+  PROCESS='# filter_in = D:\Barrow_Strait_200809\CTD\CellTM\BS_09_01.cnv',
+  PROCESS='# filter_low_pass_tc_A = 0.030',
+  PROCESS='# filter_low_pass_tc_B = 0.500',
+  PROCESS='# filter_low_pass_A_vars = c0S/m',
+  PROCESS='# filter_low_pass_B_vars = prSM',
+  PROCESS='# Derive_date = Dec 16 2009 11:49:51, 7.18c',
+  PROCESS='# Derive_in = D:\Barrow_Strait_200809\CTD\Filter\BS_09_01.cnv D:\Barrow_Strait_200809\CTD\Raw Data\026.con',
+  PROCESS='# loopedit_date = Dec 16 2009 11:51:46, 7.18c',
+  PROCESS='# loopedit_in = D:\Barrow_Strait_200809\CTD\Derive\BS_09_01.cnv',
+  PROCESS='# loopedit_minVelocity = 0.010',
+  PROCESS='# loopedit_surfaceSoak: do not remove',
+  PROCESS='# loopedit_excl_bad_scans = yes',
+  PROCESS='# binavg_date = Dec 16 2009 11:54:37, 7.18c',
+  PROCESS='# binavg_in = D:\Barrow_Strait_200809\CTD\Loopedit\BS_09_01.cnv',
+  PROCESS='# binavg_bintype = decibars',
+  PROCESS='# binavg_binsize = 0.5',
+  PROCESS='# binavg_excl_bad_scans = yes',
+  PROCESS='# binavg_skipover = 0',
+  PROCESS='# binavg_surface_bin = yes, min = 0.000, max = 0.000, value = 0.000',
+  PROCESS='# split_date = Dec 16 2009 11:56:17, 7.18c',
+  PROCESS='# split_in = D:\Barrow_Strait_200809\CTD\BinAvg\BS_09_01.cnv',
+  PROCESS='# split_excl_bad_scans = yes',
+  PROCESS='# file_type = ascii',
+  PROCESS='*END*',
+  PROCESS='Edit Cruise: Cruise_Number=DGR2009001 Chief_Scientist=Jim Hamilton Platform=CCGS Des Groseilliers Organization=BIO/Coastal Ocean Sciences Cruise_Name=Barrow Strait - Arctic Ocean Through Flow 2009 Cruise_Description=Barrow Strait Eastern Line',
+  PROCESS='The code of Parameter `Sea Pressure (sea surface - 0)´ will be changed to: `PRES_01´.',
+  PROCESS='Add_Parameter: A.Data.PRES_01 = evalin('caller','A.Data.UNKN_01');',
+  PROCESS='The code of Parameter `Sea Temperature´ will be changed to: `TEMP_01´.',
+  PROCESS='Add_Parameter: A.Data.TEMP_01 = evalin('caller','A.Data.UNKN_02');',
+  PROCESS='The code of Parameter `Conductivity Ratio´ will be changed to: `CRAT_01´.',
+  PROCESS='Add_Parameter: A.Data.CRAT_01 = evalin('caller','A.Data.UNKN_03*10./sw_c3515');',
+  PROCESS='The code of Parameter `Sensor Depth below Sea Surface´ will be changed to: `DEPH_01´.',
+  PROCESS='Add_Parameter: A.Data.DEPH_01 = evalin('caller','A.Data.UNKN_05');',
+  PROCESS='The code of Parameter `Practical Salinity´ will be changed to: `PSAL_01´.',
+  PROCESS='Add_Parameter: A.Data.PSAL_01 = evalin('caller','A.Data.UNKN_04');',
+  PROCESS='The code of Parameter `Sigma-T´ will be changed to: `SIGT_01´.',
+  PROCESS='Add_Parameter: A.Data.SIGT_01 = evalin('caller','A.Data.UNKN_06');',
+  PROCESS='Edit Event: Event_Number=1 Sounding=49 Event_Qualifier1=1 Event_Qualifier2=DN Data_Type=CTD Start_Date_Time=07-AUG-2009 12:20:00.00 End_Date_Time=07-AUG-2009 12:20:00.00 Initial_Latitude=74.0453 Initial_Longitude=-91.0996 Min_Depth=2.474 Max_Depth=45.024 Depth_Off_Bottom=3.976',
+  PROCESS='Edit Instrument: Inst_Type=SeaBird Model=SBE 25 Serial_Number=026',
+  PROCESS='Edit Parameter: CRAT_01 Units=ratio Print_Field_Width=10 Print_Decimal_Places=6',
+  PROCESS='Edit Parameter: PRES_01 Print_Field_Width=6 Print_Decimal_Places=1',
+  PROCESS='Edit Parameter: DEPH_01 Print_Field_Width=8 Print_Decimal_Places=3',
+  PROCESS='Edit Parameter: TEMP_01 Print_Field_Width=8 Print_Decimal_Places=4',
+  PROCESS='Edit Parameter: PSAL_01 Print_Field_Width=8 Print_Decimal_Places=4',
+  PROCESS='Edit Parameter: SIGT_01 Print_Field_Width=8 Print_Decimal_Places=4'
+HISTORY_HEADER,
+  CREATION_DATE='16-DEC-2009 15:45:55.74',
+  PROCESS='GF3 Name Checking and Code Formatting',
+  PROCESS='Name check performed'
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sea Pressure (sea surface - 0)',
+  UNITS='decibars',
+  CODE=PRES_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=6,
+  PRINT_DECIMAL_PLACES=1,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=2.5,
+  MAXIMUM_VALUE=45.5,
+  NUMBER_VALID=87,
+  NUMBER_NULL=0
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sensor Depth below Sea Surface',
+  UNITS='metres',
+  CODE=DEPH_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=8,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=2.474,
+  MAXIMUM_VALUE=45.024,
+  NUMBER_VALID=87,
+  NUMBER_NULL=0
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sea Temperature',
+  UNITS='degrees C',
+  CODE=TEMP_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=8,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=-1.4622,
+  MAXIMUM_VALUE=0.1664,
+  NUMBER_VALID=85,
+  NUMBER_NULL=2
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Conductivity Ratio',
+  UNITS='ratio',
+  CODE=CRAT_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=10,
+  PRINT_DECIMAL_PLACES=6,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=0.595812,
+  MAXIMUM_VALUE=0.603468,
+  NUMBER_VALID=82,
+  NUMBER_NULL=5
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Practical Salinity',
+  UNITS='psu',
+  CODE=PSAL_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=8,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=30.7103,
+  MAXIMUM_VALUE=31.9599,
+  NUMBER_VALID=82,
+  NUMBER_NULL=5
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sigma-T',
+  UNITS='kg/m**3',
+  CODE=SIGT_01,
+  NULL_VALUE=-99.0,
+  PRINT_FIELD_WIDTH=8,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=45.024000 ,
+  MINIMUM_VALUE=24.6387,
+  MAXIMUM_VALUE=25.7021,
+  NUMBER_VALID=82,
+  NUMBER_NULL=5
+RECORD_HEADER,
+  NUM_CALIBRATION=0,
+  NUM_SWING=0,
+  NUM_HISTORY=2,
+  NUM_CYCLE=87,
+  NUM_PARAM=6
+ -- DATA --
+    2.5    2.474 -99.0000 -99.000000 -99.0000 -99.0000
+    3.0    2.969 -99.0000 -99.000000 -99.0000 -99.0000
+    3.5    3.464   0.1505 -99.000000 -99.0000 -99.0000
+    4.0    3.959   0.1664 -99.000000 -99.0000 -99.0000
+    4.5    4.453   0.1326 -99.000000 -99.0000 -99.0000
+    5.0    4.948   0.1220   0.603226  30.7163  24.6442
+    5.5    5.443   0.1237   0.603289  30.7179  24.6455
+    6.0    5.938   0.1283   0.603357  30.7168  24.6444
+    6.5    6.433   0.1324   0.603378  30.7135  24.6415
+    7.0    6.927   0.1326   0.603359  30.7120  24.6403
+    7.5    7.422   0.1311   0.603352  30.7129  24.6411
+    8.0    7.917   0.1309   0.603352  30.7127  24.6410
+    8.5    8.412   0.1310   0.603338  30.7117  24.6402
+    9.0    8.907   0.1304   0.603345  30.7124  24.6407
+    9.5    9.402   0.1302   0.603362  30.7133  24.6415
+   10.0    9.896   0.1310   0.603372  30.7126  24.6409
+   10.5   10.391   0.1385   0.603468  30.7103  24.6387
+   11.0   10.886   0.1072   0.603319  30.7331  24.6584
+   11.5   11.381   0.0212   0.602529  30.7750  24.6957
+   12.0   11.876  -0.2613   0.599636  30.8971  24.8053
+   12.5   12.370  -0.2900   0.599243  30.9037  24.8117
+   13.0   12.865  -0.3236   0.598948  30.9209  24.8268
+   13.5   13.360  -0.3806   0.598521  30.9544  24.8559
+   14.0   13.855  -0.4706   0.597850  31.0079  24.9023
+   14.5   14.349  -0.5180   0.597379  31.0292  24.9211
+   15.0   14.844  -0.5193   0.597279  31.0246  24.9175
+   15.5   15.339  -0.5088   0.597384  31.0195  24.9130
+   16.0   15.834  -0.5253   0.597523  31.0440  24.9334
+   16.5   16.329  -0.5421   0.597551  31.0626  24.9490
+   17.0   16.823  -0.5689   0.597510  31.0875  24.9700
+   17.5   17.318  -0.5769   0.597502  31.0950  24.9763
+   18.0   17.813  -0.5865   0.597536  31.1065  24.9859
+   18.5   18.308  -0.5763   0.597637  31.1015  24.9816
+   19.0   18.803  -0.5762   0.597634  31.1009  24.9811
+   19.5   19.297  -0.6015   0.597531  31.1208  24.9980
+   20.0   19.792  -0.6476   0.597423  31.1618  25.0327
+   20.5   20.287  -0.6599   0.597396  31.1727  25.0419
+   21.0   20.782  -0.6768   0.597387  31.1893  25.0559
+   21.5   21.276  -0.6698   0.597412  31.1831  25.0506
+   22.0   21.771  -0.6645   0.597407  31.1772  25.0457
+   22.5   22.266  -0.6782   0.597411  31.1912  25.0574
+   23.0   22.761  -0.7393   0.597340  31.2501  25.1070
+   23.5   23.256  -0.8068   0.597263  31.3155  25.1621
+   24.0   23.750  -0.7635   0.597277  31.2710  25.1247
+   24.5   24.245  -0.7486   0.597308  31.2570  25.1129
+   25.0   24.740  -0.7528   0.597357  31.2639  25.1186
+   25.5   25.235  -0.8631   0.597292  31.3745  25.2115
+   26.0   25.729  -0.9913   0.597126  31.4988  25.3160
+   26.5   26.224  -1.1576   0.596794  31.6541  25.4464
+   27.0   26.719  -1.2228   0.596548  31.7084  25.4922
+   27.5   27.214  -1.2368   0.596485  31.7193  25.5014
+   28.0   27.708  -1.2674   0.596322  31.7419  25.5205
+   28.5   28.203  -1.2801   0.596255  31.7512  25.5284
+   29.0   28.698  -1.3121   0.596123  31.7773  25.5503
+   29.5   29.193  -1.3290   0.596089  31.7930  25.5635
+   30.0   29.687  -1.3411   0.596050  31.8033  25.5722
+   30.5   30.182  -1.3414   0.596073  31.8045  25.5731
+   31.0   30.677  -1.3417   0.596093  31.8058  25.5742
+   31.5   31.172  -1.3435   0.596105  31.8081  25.5761
+   32.0   31.666  -1.3500   0.596067  31.8125  25.5798
+   32.5   32.161  -1.3569   0.596050  31.8186  25.5850
+   33.0   32.656  -1.3613   0.596020  31.8212  25.5872
+   33.5   33.151  -1.3759   0.595921  31.8307  25.5952
+   34.0   33.645  -1.3858   0.595930  31.8415  25.6042
+   34.5   34.140  -1.3915   0.595940  31.8479  25.6096
+   35.0   34.635  -1.4049   0.595940  31.8619  25.6213
+   35.5   35.130  -1.4213   0.595879  31.8755  25.6327
+   36.0   35.624  -1.4254   0.595839  31.8772  25.6342
+   36.5   36.119  -1.4284   0.595824  31.8792  25.6359
+   37.0   36.614  -1.4339   0.595812  31.8842  25.6400
+   37.5   37.109  -1.4351   0.595832  31.8863  25.6418
+   38.0   37.603  -1.4350   0.595838  31.8862  25.6417
+   38.5   38.098  -1.4353   0.595843  31.8866  25.6420
+   39.0   38.593  -1.4367   0.595873  31.8895  25.6444
+   39.5   39.088  -1.4466   0.595895  31.9012  25.6541
+   40.0   39.582  -1.4470   0.595898  31.9014  25.6543
+   40.5   40.077  -1.4483   0.595895  31.9023  25.6551
+   41.0   40.572  -1.4490   0.595883  31.9021  25.6549
+   41.5   41.067  -1.4519   0.595870  31.9042  25.6567
+   42.0   41.561  -1.4509   0.595883  31.9035  25.6561
+   42.5   42.056  -1.4512   0.595913  31.9053  25.6576
+   43.0   42.551  -1.4531   0.595936  31.9084  25.6601
+   43.5   43.045  -1.4533   0.596019  31.9131  25.6640
+   44.0   43.540  -1.4539   0.596215  31.9251  25.6737
+   44.5   44.035  -1.4554   0.596499  31.9431  25.6884
+   45.0   44.530  -1.4571   0.596598  31.9505  25.6944
+   45.5   45.024  -1.4622   0.596671  31.9599  25.7021
