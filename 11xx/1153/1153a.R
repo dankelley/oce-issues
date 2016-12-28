@@ -1,10 +1,16 @@
 library(oce)
 a <- read.oce("A.pd0")
 b <- read.oce("B.pd0")
+
 head(a[["time"]])
 head(b[["time"]])
+
 range(a[["time"]])
 range(b[["time"]])
+
 length(a[["time"]])
 length(b[["time"]])
+
+summary(a)
+summary(b)
 
