@@ -1,16 +1,22 @@
 library(oce)
-a <- read.oce("A.pd0")
-b <- read.oce("B.pd0")
+library(testthat)
+debug <- 0                             # set to 5 or so for full debugging info
 
-head(a[["time"]])
-head(b[["time"]])
+a <- read.oce("A.pd0", debug=debug)
+b <- read.oce("B.pd0", debug=debug)
 
-range(a[["time"]])
-range(b[["time"]])
-
-length(a[["time"]])
-length(b[["time"]])
+expect_identical(a[["time"]], b[["time"]])
 
 summary(a)
 summary(b)
+
+options(digits=10)
+
+## first profile, first 3 bins, all 4 beams
+a[["v"]][1, 1:3, 1:4]
+b[["v"]][1, 1:3, 1:4]
+
+## second profile, first 3 bins, all 4 beams
+a[["v"]][2, 1:3, 1:4]
+b[["v"]][2, 1:3, 1:4]
 
