@@ -6,6 +6,7 @@ a <- read.oce("A.pd0", debug=debug)
 b <- read.oce("B.pd0", debug=debug)
 
 expect_identical(a[["time"]], b[["time"]])
+expect_identical(a[["time"]], b[["time"]])
 
 summary(a)
 summary(b)
