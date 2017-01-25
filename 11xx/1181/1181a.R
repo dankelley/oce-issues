@@ -3,6 +3,7 @@
 
 library(oce)
 library(ocedata)
+source("~/git/oce/R/map.R")
 data(coastlineWorldFine)
 
 cl <- as.coastline(longitude = c(NA, -45.819, -45.881, - 45.842, -45.842, -45.780, NA, 
@@ -22,7 +23,9 @@ polygon(cl[['longitude']], cl[['latitude']], col='grey')
 
 mapPlot(coastlineWorldFine, latitudelim = latlim, longitudelim=lonlim, 
                proj="+proj=merc", col='lightgray')
-mapPolygon(cl[['longitude']], cl[['latitude']])
+
+options(oce1181=TRUE)
+mapPolygon(cl[['longitude']], cl[['latitude']], col='lightgray')
 
 mapPlot(coastlineWorldFine, latitudelim = latlim, longitudelim=lonlim, 
                proj="+proj=merc", col='lightgray')
