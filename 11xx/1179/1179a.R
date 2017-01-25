@@ -4,7 +4,6 @@
 library(oce)
 library(testthat)
 data(sealevel)
-data(tidedata)
 
 ## The text given below is from the docs (updated for this issue):
 ##
