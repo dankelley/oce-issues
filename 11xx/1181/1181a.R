@@ -14,7 +14,7 @@ cl <- as.coastline(longitude = c(NA, -45.819, -45.881, - 45.842, -45.842, -45.78
 latlim <- c(46,49)
 lonlim <- c(-47,-44)
 
-if (!interactive()) png("1191a.png")
+if (!interactive()) png("1181a.png")
 
 par(mfrow=c(1,3))
 plot(coastlineWorldFine, clatitude= 47.5, clongitude= -45.5, span=700, mar=c(2,2,1,1))
