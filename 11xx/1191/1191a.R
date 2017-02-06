@@ -5,7 +5,7 @@ if (1 == length(list.files(path=".", pattern="^ct21-36-07_prof.nc$"))) {
     for(flag in 0:5) {
         cat("flag", flag, "\n") 
         for (name in names(d[["flags"]])) {
-            cat("  ", name, "has", sum(d[["flags"]][[name]]==flag),"flagged\n")
+            cat("  ", name, "has", sum(d[["flags"]][[name]]==flag, na.rm=TRUE),"flagged\n")
         }
     }
     ## NOTE: the above reveals that the only flags in this file are 1 (good) and 4 (bad).
