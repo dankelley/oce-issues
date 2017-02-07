@@ -10,18 +10,23 @@ if (1 == length(list.files(path=".", pattern="^ct21-36-07_prof.nc$"))) {
     }
     ## NOTE: the above reveals that the only flags in this file are 1 (good) and 4 (bad).
     d1 <- handleFlags(d)               # 1=good 4=bad
-    d2 <- handleFlags(d, flags=list(all=c(0, 3:9)), action=list("NA")) # expect same output as d1
+    d2 <- handleFlags(d, flags=list(all=c(0, 3:9)), action=list("NA"))
     d3 <- handleFlags(d, flags=list(all=c(3:9)), action=list("NA"))
-    d4 <- handleFlags(d, flags=list(all=c(1,2)), action=list("NA")) # should differ from d1
-    cat("d  (built-in data)\n")
+    d4 <- handleFlags(d, flags=list(all=c(1,2)), action=list("NA"))
+    cat("\n\n\n")
+    cat("d: with no flag handling\n")
     summary(d)
-    cat("d1 (default flag handling; expect different from d)\n")
+    cat("\n\n\n")
+    cat("d1: Default flag handling, so expect different from d. [OK]\n")
     summary(d1)
-    cat("d2 (catches also flag=9; expect same as d1)\n")
+    cat("\n\n\n")
+    cat("d2: Also catches flag=9; expect same as d1. [OK]\n")
     summary(d2)
-    cat("d3 (since no flag=0, exect same as d2)\n")
+    cat("\n\n\n")
+    cat("d3: Since have no flag=0, exect same as d2. [OK]\n")
     summary(d3)
-    cat("d4 (sets flag=1,2 to NA ... but we don't have such cases; expect same as d1)\n")
+    cat("\n\n\n")
+    cat("d4: Set flag=1,2 to NA, but ther are no such cases; expect same as d. [OK]\n")
     cat("here is why I say no such cases...\n")
     cat("   flag=1 has", sum(1==d[["salinityFlag"]]), "cases\n")
     cat("   flag=2 has", sum(2==d[["salinityFlag"]]), "cases\n")
