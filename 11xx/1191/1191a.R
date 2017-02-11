@@ -2,19 +2,6 @@ library(oce)
 if (1 == length(list.files(path=".", pattern="^ct21-36-07_prof.nc$"))) {
     d <- read.argo("~/Desktop/ct21-36-07_prof.nc")
     ## learn about the flags in the data; I plan to make 'summary()' tell this
-    if (FALSE) { # ugly
-        for(flag in 0:9) {
-            cat("flag", flag, "\n") 
-            for (name in names(d[["flags"]])) {
-                cat("  ", name, "has", sum(d[["flags"]][[name]]==flag, na.rm=TRUE),"flagged\n")
-            }
-        }
-    }
-
-    for (item in c("salinity", "temperature", "pressure")) {
-        cat(item, "flags:")
-        print(table(d[[paste(item, "Flag", sep="")]]))
-    }
 
     ## NOTE: the above reveals that the only salinity flags in this file are 1 (good) and 4 (bad).
     d1 <- handleFlags(d, debug=2)               # default: 1=good, 0=bad, 2:9=bad
