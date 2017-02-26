@@ -2,8 +2,6 @@
 rm(list=ls())
 library(oce)
 library(testthat)
-## try(source('~/src/oce/R/ctd.R'))
-## try(source('~/src/R-richards/oce/R/ctd.R'))
 
 data(ctd)
 N <- 4

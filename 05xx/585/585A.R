@@ -1,6 +1,4 @@
 library(oce)
-# source("~/src/oce/R/imagep.R")
-# source("~/src/oce/R/adp.R")
 data(adp)
 if (!interactive()) png("585A_%d.png", pointsize=11)
 par(mfrow=c(3,1))

@@ -1,5 +1,4 @@
 rm(list=ls())
-source("~/src/oce/R/colors.R")
 library(oce)
 if (!interactive()) png("636a.png")
 par(mfrow=c(1,1))

@@ -1,5 +1,4 @@
 require(oce)
-try({source('~/src/oce/R/map.R')})
 require(ocedata)
 data(coastlineWorldMedium)
 if (!interactive()) png(filename="526A.png" ,hei=5, wid=8, uni='in', res=100)

@@ -2,7 +2,6 @@
 ## https://github.com/dankelley/oce/commit/b3adc80e7725ddb28a864e07ddc627a373bc0c40
 library(oce)
 library(ocedata)
-source("~/src/oce/R/landsat.R")
 
 if (0 == length(ls(pattern="^l$"))) { # cache for speed
     data(coastlineWorldFine)

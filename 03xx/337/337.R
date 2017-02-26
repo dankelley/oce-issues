@@ -1,9 +1,6 @@
 if (!interactive()) png("337.png", width=7, height=3, unit="in", res=100, pointsize=9,
                         type="cairo", antialias="none")
 library(oce)
-try({
-    source("~/src/oce/R/landsat.R")
-})
 
 n <- 10 # focus so we can see what is going on
 data(topoWorld)

@@ -2,8 +2,6 @@
 if (!interactive()) png("785c.png")
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/adp.R"))
-try(source("~/src/oce/R/adp.rdi.R"))
 file <- "/data/archive/sleiwex/2008/fielddata/2008-07-04/Coriolis/Ship_ADCP/leg2001_000000.ENX"
 if (1 == length(list.files(pattern=file))) {
     ## easier to debug without skipping through the file

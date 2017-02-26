@@ -2,7 +2,6 @@
 
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/ctd.R")) # DK uses for faster code-test cycle
 
 ## PART 1: rsk conversion
 file <- system.file("extdata", "sample.rsk.gz", package="oce")

@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 data(coastlineWorld)
 longitudelim <- c(-180,-125)
 latitudelim <- c(45,55)

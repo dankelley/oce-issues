@@ -1,6 +1,5 @@
 # from magneticField.Rd
 library(oce)
-#try(source("~/src/oce/R/map.R"))
 if (!interactive()) png("617b.png")
 ## map of North American values
 data(coastlineWorld)

@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
 ctd <- ctdAddColumn(ctd, ctd[["salinity"]]+10, "salinityPlus10", "S + 10")
 if (!interactive()) png("595.png")

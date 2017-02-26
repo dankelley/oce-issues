@@ -1,5 +1,4 @@
 library(oce)
-source('~/src/oce/R/map.R')
 data(coastlineWorld)
 
 if (!interactive()) png("518D.png", width=8.5, height=7, unit="in", res=150, pointsize=9, type="cairo", antialias="none")

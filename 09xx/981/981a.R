@@ -1,6 +1,4 @@
 library(oce)
-## try(source("~/src/oce/R/misc.R"))
-## try(source("~/src/oce/R/ctd.R"))
 data(section)
 ctd <- section[["station", 1]]
 

@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-## source('~/src/R-richards/oce/R/drifter.R')
-## source('~/src/oce/R/drifter.R')
 data(drifter)
 drifterGrid <- drifterGrid(drifter)
 ds <- subset(drifterGrid, pressure > 500 & pressure < 1000)

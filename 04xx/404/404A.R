@@ -1,5 +1,4 @@
 if (!interactive()) png("404A.png")
-#try({ source('~/src/oce/R/map.R') })
 set.seed(404)
 library(oce)
 library(ocedata)

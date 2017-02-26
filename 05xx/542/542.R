@@ -1,5 +1,4 @@
 library(oce)
-try({source("~/src/oce/R/imagep.r")})
 data(adp)
 if (!interactive()) png("542.png", pointsize=12)
 par(mfrow=c(2,2))

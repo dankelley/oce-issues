@@ -8,9 +8,6 @@
 
 rm(list=ls())
 library(oce)
-source('~/src/R-richards/oce/R/rsk.R')
-## try(source('~/src/oce/R/rsk.R'))
-## try(source('~/src/oce/R/ctd.R'))
 
 if (!interactive()) png('726b-%03d.png')
 

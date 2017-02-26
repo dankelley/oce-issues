@@ -1,5 +1,4 @@
 library(oce)
-source("~/src/oce/R/map.R")
 library(gsw)
 data(coastlineWorld)
 

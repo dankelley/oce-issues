@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/ctd.R'))
-try(source('~/src/R-richards/oce/R/ctd.R'))
 
 data(ctd)
 ctd <- ctdAddColumn(ctd, rnorm(length(ctd[['time']])), 'stupid', 'St')

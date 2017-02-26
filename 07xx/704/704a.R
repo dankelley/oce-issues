@@ -3,10 +3,6 @@
 library(oce)
 library(testthat)
 
-## try(source("~/src/oce/R/oce.R"))
-## try(source("~/src/oce/R/adp.R"))
-## try(source("~/src/oce/R/adp.rdi.R"))
-
 if (1 == length(list.files(path="../696", pattern="data.ENX"))) {
     d <- read.oce("../696/data.ENX") # PRIVATE DATA
     ## The numbers from DK reading of "Teledyne RDI VmDas" screen snapshot CR provided, viz

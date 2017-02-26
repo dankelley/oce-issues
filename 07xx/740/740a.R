@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/cm.R"))
-try(source("~/src/oce/R/misc.R"))
 data(cm)
 if (!interactive()) png("740a.png")
 plot(cm)

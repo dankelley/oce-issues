@@ -1,5 +1,4 @@
 library(oce)
-##try(source("~/src/oce/R/section.R"))
 data(section)
 GS <- subset(section, 109<=stationId & stationId<=129)
 if (!interactive()) png("763a.png")

@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-# source("~/src/oce/R/oce.R")
-# source("~/src/oce/R/ctd.R")
 
 ## 1. See if magic update works
 expect_equal("section", oceMagic("example_hy1.csv"))

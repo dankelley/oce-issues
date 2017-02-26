@@ -1,6 +1,5 @@
 if (!interactive()) pdf("415C.pdf")
 library(oce)
-#source("~/src/oce/R/imagep.R")
 data(adp)
 drawPalette(c(0,1), zlab='415C', pos=3)
 plot(1,1)

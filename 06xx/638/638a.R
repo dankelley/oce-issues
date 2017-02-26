@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 data(coastlineWorld)
 data(topoWorld)
 if (!interactive()) png("638a.png")

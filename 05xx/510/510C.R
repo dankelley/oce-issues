@@ -1,5 +1,4 @@
 library(oce)
-source('~/src/oce/R/drifter.R')
 d <- read.oce("6901067_prof.nc")
 g <- drifterGrid(d, p=seq(0, 100, 1))
 par(mfrow=c(2,1))

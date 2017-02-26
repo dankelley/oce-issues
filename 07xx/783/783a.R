@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/adp.R"))
-try(source("~/src/oce/R/adp.rdi.R"))
 file <- "ADCP064_000000.ENX"
 if (1 == length(list.files(pattern="*.ENX"))) {
     d <- read.adp.rdi(file)#, debug=3)

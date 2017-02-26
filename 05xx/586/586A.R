@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/adp.R"))
-## source("~/src/oce/R/imagep.R")
 data(adp)
 if (!interactive()) png("586A.png")
 plot(adp, which=1, breaks=seq(-1, 1, 0.5), xlim=range(adp[['time']]), drawTimeRange=FALSE)

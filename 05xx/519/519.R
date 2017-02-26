@@ -1,8 +1,5 @@
 if (!interactive()) png("519.png")
 library(oce)
-try({
-    source("~/src/oce/R/landsat.R")
-})
 par(mfrow=c(2,1))
 f <- "/data/archive/landsat/LE71910202005194ASN00"
 i <- read.landsat(f, band="tirs1")

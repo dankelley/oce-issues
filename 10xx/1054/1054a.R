@@ -1,6 +1,4 @@
 library(oce)
-source("~/src/oce/R/section.R")
-source("~/src/oce/R/sw.R")
 library(testthat)
 if (1 == length(list.files(pattern="^LADCPall.rda$"))) {
     load("LADCPall.rda")

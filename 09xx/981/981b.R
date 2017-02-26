@@ -1,7 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/section.R"))
-try(source("~/src/oce/R/ctd.R"))
-try(source("~/src/oce/R/misc.R"))
 
 data(section)
 

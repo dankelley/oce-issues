@@ -1,10 +1,6 @@
 rm(list=ls())
 if (!interactive()) png("516B.png", width=700, height=400, pointsize=11, type="cairo", antialias="none")
 library(oce)
-try({
-    source("~/src/oce/R/map.R")
-})
-library(oce)
 
 data(coastlineWorld)
 data(topoWorld)

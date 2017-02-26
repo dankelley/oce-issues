@@ -2,7 +2,6 @@
 errorPermitted <- 5 # percent error in corner-to-corner span
 library(testthat)
 library(oce)
-source("~/src/oce/R/ctd.R")
 data(ctd)
 if (!interactive()) png("677a.png")
 par(mfrow=c(2,2))

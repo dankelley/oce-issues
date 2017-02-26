@@ -1,6 +1,5 @@
 library(oce)
 options(width=120)
-## try(source("~/src/oce/R/ctd.sbe.R"))
 if (1 == length(list.files(pattern="S262-023-CTD.cnv"))) {
     d <- read.ctd.sbe("S262-023-CTD.cnv")
     summary(d)

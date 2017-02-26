@@ -1,6 +1,5 @@
 if (!interactive()) pdf("447b.pdf")
 library(oce)
-## source('~/src/oce/R/colors.R')
 data(adp)
 t <- adp[['time']]
 p <- adp[['pressure']]

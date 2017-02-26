@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 d <- read.oce("a.rsk")
 dt <- ctdTrim(d)
 dd <- d

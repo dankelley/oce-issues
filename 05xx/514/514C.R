@@ -4,9 +4,6 @@ if (!interactive())
     png("514C.png", height=5, width=5, unit="in", res=120, pointsize=8)
 library(oce)
 library(proj4)
-try({
-    source('~/src/oce/R/map.R')
-})
 
 par(mar=c(2.5, 2.5, 2.5, 0.5), mgp=c(1.5,0.5,0), mfrow=c(3,2))
 n <- 100

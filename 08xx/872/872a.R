@@ -1,5 +1,4 @@
 library(oce)
-## try(source("~/src/oce/R/tidem.R"))
 data(sealevel)
 lat <- sealevel[["latitude"]]
 lon <- sealevel[["longitude"]]

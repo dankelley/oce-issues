@@ -1,10 +1,6 @@
 rm(list=ls())
 library(oce)
 try({
-    ##> source("~/src/oce/R/argo.R")
-    ##> source("~/src/oce/R/section.R")
-    ##> source("~/src/oce/R/misc.R")
-    ##> source("~/src/oce/R/ctd.R")
     argo <- read.argo("~/src/oce/create_data/argo/6900388_prof.nc")
     argo[['flags']]$pressure[,14]
     A <- handleFlags(argo, "NA")

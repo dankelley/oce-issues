@@ -1,8 +1,5 @@
 if (!interactive()) png("481A.png")
 library(oce)
-try({
-    source('~/src/oce/R/section.R')
-})
 data(section)
 GS <- subset(section, 109<=stationId&stationId<=129)
 GS <- sectionSort(GS, by="longitude")

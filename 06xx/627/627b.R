@@ -1,7 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/rsk.R"))
-try(source("~/src/oce/R/sw.R"))
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
 ## This does not have conductivity, so add it
 salinity <- ctd[["salinity"]]

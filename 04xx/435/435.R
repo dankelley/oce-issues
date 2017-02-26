@@ -1,9 +1,6 @@
 rm(list=ls())
 if (!interactive()) png("435.png", width=7, height=7, unit="in", res=150, pointsize=12)
 
-# source("~/src/oce/R/imagep.R")
-# source("~/src/oce/R/adp.R")
-
 library(oce)
 library(RColorBrewer)
 N <- 7

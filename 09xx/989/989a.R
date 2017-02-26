@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
 ## make up a fake oxygen field
 ctd <- oceSetData(ctd, "oxygen", ctd[['temperature']]/2,

@@ -1,7 +1,6 @@
 TEST <- !FALSE
 ## Test methods for chopping at a given longitude (x0)
 library(oce)
-##source("~/src/oce/R/map.R")
 data(coastlineWorld)
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]

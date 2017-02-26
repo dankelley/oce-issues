@@ -1,8 +1,5 @@
 if (!interactive()) png("486_%d.png")
 library(oce)
-try({
-    source('~/src/oce/R/landsat.R')
-})
 l <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", debug=3)
 
 landsat <- landsatTrim(l, 

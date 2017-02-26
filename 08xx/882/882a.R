@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/rsk.R'))
-try(source('~/src/R-richards/oce/R/rsk.R'))
 
 if (!interactive()) png('882a-%03d.png')
 ## read the "old" rsk version

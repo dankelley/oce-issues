@@ -1,7 +1,6 @@
 if (!interactive()) pdf("459.pdf")
 library(oce)
 data(section)
-try(source('~/src/oce/R/section.R'), silent=FALSE)
 GS <- subset(section, -73.2 <= longitude & longitude <= -69.4)
 GSdistance <- sectionSort(GS, by="longitude")
 plot(GSdistance)

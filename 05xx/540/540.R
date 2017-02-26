@@ -1,5 +1,4 @@
 library(oce)
-try({source("~/src/oce/R/map.R")})
 data(coastlineWorld)
 if (!interactive()) pdf('539A-%03d.pdf')
 #if (!interactive()) png('539A-%03d.png')

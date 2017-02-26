@@ -1,6 +1,5 @@
 library(oce)
 data(coastlineWorld)
-source("~/src/oce/R/map.R")
 ##mapPlot(coastlineWorld, projection="+proj=wintri +lon_0=70", grid=FALSE, debug=4)
 par(mfrow=c(1,2), mar=rep(0.5, 4))
 mapPlot(coastlineWorld, projection="+proj=wintri +lon_0=70", debug=4)

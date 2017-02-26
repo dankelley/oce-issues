@@ -1,6 +1,5 @@
 message("655b.R is 517Bdk.R, moved here for simplicity of checking")
 library(oce)
-try(source('~/src/oce/R/map.R'))
 data(coastlineWorld)
 data(topoWorld)
 

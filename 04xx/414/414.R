@@ -1,6 +1,5 @@
 rm(list=ls())
 library(oce)
-#source('~/src/oce/R/imagep.R')
 
 load('data.rda')
 

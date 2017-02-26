@@ -2,8 +2,6 @@ if (!interactive()) png("402.png", width=7, height=7, unit="in", res=150, points
 
 library(oce)
 data(ctd)
-try(source('~/src/oce/R/ctd.R'), silent=TRUE)
-source('~/src/oce/R/ctd.R')
 plotProfile(ctd, xtype="salinity", type='p', pch=20, cex=1/2, ylim=c(10,0))
 p <- seq(0, 45, 1)
 d0 <- ctdDecimate(ctd, p=p)

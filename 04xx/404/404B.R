@@ -1,6 +1,5 @@
 if (!interactive()) png("404B.png")
 library(oce)
-#try({ source('~/src/oce/R/map.R') })
 library(ocedata)
 data(coastlineWorld)
 data(topoWorld)

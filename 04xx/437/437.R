@@ -1,5 +1,4 @@
 library(oce)
-source('~/src/oce/R/colors.R')
 cm1 <- colormap(name='test1.cpt')
 cm2 <- colormap(name='test2.cpt')
 cm3 <- colormap(name='test3.cpt')

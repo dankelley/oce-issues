@@ -1,7 +1,5 @@
-require(oce)
-try({source('~/src/oce/R/map.R')})
-if (!interactive()) png(filename="526B.png" ,hei=5, wid=8, uni='in', res=100)
 library(oce)
+if (!interactive()) png(filename="526B.png" ,hei=5, wid=8, uni='in', res=100)
 data(coastlineWorld)
 par(mfrow=c(1,2), mar=c(3, 3, 1, 1))
 mapPlot(coastlineWorld, proj="+proj=moll")

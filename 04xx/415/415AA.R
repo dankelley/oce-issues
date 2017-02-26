@@ -1,5 +1,4 @@
 library(oce)
-#source("~/src/oce/R/imagep.R")
 par(mfrow=c(1,2))
 if (!interactive()) pdf("415AA.pdf")
 drawPalette(c(0,1), zlab='415AA-1')

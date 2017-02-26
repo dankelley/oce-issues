@@ -1,6 +1,4 @@
 library(oce)
-source("~/src/oce/R/oce.R")
-source("~/src/oce/R/rsk.R")
 
 if (!interactive()) png("622d_%d.png")
 

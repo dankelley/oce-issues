@@ -2,8 +2,6 @@
 
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/rsk.R'))
-try(source('~/src/R-richards/oce/R/rsk.R'))
 
 if (!interactive()) png('726d-%03d.png')
 

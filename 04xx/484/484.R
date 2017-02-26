@@ -1,9 +1,5 @@
 if (!interactive()) png("484_%d.png", width=7, height=7, unit="in", res=150, pointsize=12)
 library(oce)
-try({
-    source("~/src/oce/R/landsat.R")
-    source("~/src/oce/R/imagep.R")
-})
 if (!exists("l")) { # cache if rerunning interactively
     system.time(l <- read.landsat('/data/archive/landsat/LC80080292014065LGN00', band='panchromatic'))
 }

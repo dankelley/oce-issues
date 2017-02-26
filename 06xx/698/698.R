@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
 if (!interactive()) png("698.png")
 par(mfrow=c(2,2))

@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 if (!interactive()) png("631b.png")
 data(coastlineWorldFine, package="ocedata")
 par(mar=c(2, 2, 1, 1), mfrow=c(1,2))

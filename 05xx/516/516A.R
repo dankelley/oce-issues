@@ -1,10 +1,6 @@
 rm(list=ls())
 if (!interactive()) png("516A.png", width=700, height=700, pointsize=11, type="cairo", antialias="none")
 library(oce)
-try({
-    source("~/src/oce/R/imagep.R")
-})
-library(oce)
 data(adp)
 par(mfrow=c(2,2))
 zlim <- c(-0.5, 0.5)

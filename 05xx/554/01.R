@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
-try(source("~/src/oce/R/sw.R"))
 library(gsw)
 data(ctd)
 SA1<-ctd[["SA"]]

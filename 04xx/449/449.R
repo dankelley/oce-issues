@@ -1,7 +1,6 @@
 if (!interactive()) png("449.png", width=7, height=4, unit="in", res=150, pointsize=9)
 
 library(oce)
-try(source('~/src/oce/R/colors.R'), silent=TRUE)
 data(adp)
 t <- adp[['time']]
 p <- adp[['pressure']]

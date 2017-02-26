@@ -1,9 +1,5 @@
 if (!interactive()) png("485.png", width=7, height=4, unit="in", res=100)
 library(oce)
-try({
-    source('~/src/oce/R/landsat.R')
-    source('~/src/oce/R/imagep.R')
-})
 data(landsat, package='ocedata')
 par(mfrow=c(1,2))
 plot(landsat)

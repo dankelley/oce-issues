@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/oce.R"))
-try(source("~/src/oce/R/ctd.R"))
 ## test inference of conductivity unit
 files <- c("01dk.cnv", "02dk.cnv", "03dk.cnv", "04dk.cnv")
 Cunit <- c("unknown", "mS/cm", "mS/cm", "unknown")

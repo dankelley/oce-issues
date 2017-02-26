@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 # options(issue721=TRUE) # testing code Wed Aug 26, 2015 ("issue721" branch)
 data(coastlineWorld)
 data(topoWorld)

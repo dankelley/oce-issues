@@ -1,7 +1,4 @@
 library(oce)
-try({
-    source('~/src/oce/R/map.R')
-})
 data(coastlineWorld)
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=10)

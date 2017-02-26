@@ -1,8 +1,5 @@
 if (!interactive()) png("514B.png")
 library(oce)
-try({
-    source('~/src/oce/R/map.R')
-})
 data(coastlineWorld)
 
 par(mar=c(2, 2, 1, 1), mfrow=c(2,1))

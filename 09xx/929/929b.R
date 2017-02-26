@@ -1,5 +1,4 @@
 library(oce)
-## source("~/src/oce/R/ctd.sbe.R")
 for (file in list.files(pattern=".cnv")) {
     message(file)
     #cmd <- paste("grep '^# name [0-9]+ ='", file)

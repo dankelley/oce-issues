@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 data(topoWorld)
 data(coastlineWorld)
 ## source('~/src/R-richards/oce/R/colors.R')

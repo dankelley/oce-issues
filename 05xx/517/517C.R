@@ -1,7 +1,5 @@
 ## further test panels a and c from 517Bdk.R
 library(oce)
-try(source('~/src/oce/R/imagep.R'))
-try(source('~/src/oce/R/map.R'))
 
 data(coastlineWorld)
 data(topoWorld)

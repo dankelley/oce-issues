@@ -1,8 +1,4 @@
 library(oce)
-## try({
-##     source("~/src/oce/R/colors.R")
-##     source("~/src/oce/R/imagep.R")
-## })
 if (!interactive()) png("536.png")
 library(oce)
 x <- seq(0, 1, length.out=40)

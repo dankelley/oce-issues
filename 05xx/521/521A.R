@@ -1,9 +1,5 @@
 if (!interactive()) png("521A.png", width=700, height=700, pointsize=12)
 library(oce)
-try({
-    source('~/src/oce/R/drifter.R')
-    source('~/src/oce/R/map.R')
-})
 data(drifter)
 data(topoWorld)
 

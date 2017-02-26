@@ -1,10 +1,5 @@
 rm(list=ls())
 library(oce)
-try({
-    source('~/src/oce/R/imagep.R')
-})
-
-
 data(adp)
 t <- adp[['time']]
 d <- adp[['distance']]

@@ -1,5 +1,4 @@
 library(oce)
-##try(source("~/src/oce/R/landsat.R"))
 if (0 == length(ls(pattern="^l$")))
     l <- read.landsat("/data/archive/landsat/LC80080292014065LGN00")
 ##system.time(l <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", decimate=10)) # u 15.2 s 3.8 e 19.0
@@ -14,7 +13,6 @@ save(lt, file="lt.rda")
 lt <- l
 if (!interactive()) png("874a.png")
 plot(lt)
-try(source("~/src/oce/R/landsat.R"))
 plot(lt, band='terralook')
 if (!interactive()) dev.off()
 

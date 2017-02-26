@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
-try(source("~/src/oce/R/coastline.R"))
 data(ctd)
 Hlon <- -157.8
 Hlat <- 21.2 - 0.2

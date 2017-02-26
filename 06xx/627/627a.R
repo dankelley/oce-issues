@@ -1,7 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/rsk.R"))
-try(source("~/src/oce/R/sw.R"))
-try(source("~/src/oce/R/ctd.R"))
 rsk <- read.rsk("cast4.rsk")
 ctd <- as.ctd(rsk)
 Srsk <- swSCTp(rsk)

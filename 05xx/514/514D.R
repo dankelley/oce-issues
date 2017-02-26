@@ -1,7 +1,4 @@
 library(oce)
-try({
-    source('~/src/oce/R/map.R')
-})
 
 # Found this point from 514C, one of many
 lon <- -175

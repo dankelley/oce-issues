@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/rsk.R"))
-try(source("~/src/oce/R/ctd.R"))
 rsk <- read.rsk('file.rsk')
 str(rsk@metadata)
 ctd <- as.ctd(rsk)

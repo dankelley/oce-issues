@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/oce.R"))
-try(source("~/src/oce/R/ctd.R"))
 d <- read.oce("example_ct1.csv")
 if (!"flags" %in% names(d@metadata))
     stop("should be storing 'flags' into the metadata' slot")

@@ -1,10 +1,6 @@
 library(oce)
 library(testthat)
 
-try(source("~/git/oce/R/oce.R"))
-try(source("~/git/oce/R/ctd.R"))
-try(source("~/git/oce/R/ctd.woce.R"))
-
 woce <- read.oce("18HU20130507_00235_00001_ct1.csv")
 summary(woce)
 

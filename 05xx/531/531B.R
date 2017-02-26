@@ -1,9 +1,5 @@
 if (!interactive()) png("531B.png", width=5, height=5, unit="in", res=150, pointsize=9)
 library(oce)
-try({
-    source("~/src/oce/R/oce.R")
-    source("~/src/oce/R/imagep.R")
-})
 options(oceDrawTimeRange=FALSE)
 
 t <- seq.POSIXt(ISOdate(2012, 1, 1, tz='UTC'), ISOdate(2012, 12, 31, tz='UTC'), 7200)

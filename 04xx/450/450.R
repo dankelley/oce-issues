@@ -1,6 +1,5 @@
 if (!interactive()) png("450.png", width=7, height=4, unit="in", res=150, pointsize=9)
 library(oce)
-try(source("~/src/oce/R/colors.R"), silent=TRUE)
 x <- seq(0, 1, length.out=40)
 y <- sin(2 * pi * x)
 par(mar=c(3, 3, 1, 1))

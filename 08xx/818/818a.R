@@ -1,6 +1,4 @@
 library(oce)
-## try(source("~/src/oce/R/ctd.R"))
-## try(source("~/src/oce/R/section.R"))
 data(argo)
 ## fake some data
 degF <- 32+(9/5)*argo[['temperature']]

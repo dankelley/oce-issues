@@ -2,8 +2,6 @@ if (!interactive()) png("465b.png", width=7, height=7, unit="in", res=150, point
 ## Test trimming on Cape Split (the landsat dataset in ocedata)
 library(oce)
 if ("kelley"==system("whoami", intern=TRUE)) {
-    ## source('~/src/oce/R/map.R')
-    ## source('~/src/oce/R/landsat.R')
     par(mfrow=c(2,2))
     if (!exists("whole")) {
         whole <- read.landsat("/data/archive/landsat/LC80080292014065LGN00", band="panchromatic")

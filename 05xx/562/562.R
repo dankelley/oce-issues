@@ -1,9 +1,4 @@
 library(oce)
-try({
-    source('~/src/oce/R/imagep.R')
-    source('~/src/oce/R/oce.R')
-    source("~/src/oce/R/tdr.R")
-})
 d <- read.oce("~/Downloads/RSKtools/sample.rsk")
 if (!interactive()) png("562.png")
 plot(d, which=1)

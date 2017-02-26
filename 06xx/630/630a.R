@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/sw.R"))
 data(ctd)
 salinity <- ctd[["salinity"]]
 temperature <- ctd[["temperature"]]

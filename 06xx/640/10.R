@@ -2,7 +2,6 @@
 TEST <- !FALSE
 ## Test methods for chopping at a given longitude (x0)
 library(oce)
-##source("~/src/oce/R/map.R")
 #data(coastlineWorld)
 load("coastlineWorld.rda")
 

@@ -3,11 +3,6 @@ rm(list=ls())
 do <- c("a", "b", "c", "d") # easier to read output during debugging
 if (!interactive()) png("516C.png", width=700, height=400, pointsize=11, type="cairo", antialias="none")
 library(oce)
-try({
-    source("~/src/oce/R/oce.R")
-    source("~/src/oce/R/map.R")
-    source("~/src/oce/R/imagep.R")
-})
 
 data(coastlineWorld)
 data(topoWorld)

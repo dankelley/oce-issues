@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/rsk.R"))
-try(source("~/src/oce/R/oce.R"))
 d <- read.oce("a.rsk")
 stopifnot(abs(d[['pressure']][1]) < 1)
 d <- read.rsk("a.rsk")

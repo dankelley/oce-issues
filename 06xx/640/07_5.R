@@ -12,7 +12,6 @@ findit <- function(lon, lat, plot=TRUE) {
 
 ## Test methods for chopping at a given longitude (x0)
 library(oce)
-##source("~/src/oce/R/map.R")
 if (!LOAD) data(coastlineWorld) else load("coastlineWorld.rda")
 lon <- coastlineWorld[["longitude"]]
 lat <- coastlineWorld[["latitude"]]

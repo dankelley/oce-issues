@@ -1,12 +1,7 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))
 data(topoWorld)
 topoWorld <- decimate(topoWorld, by=5) # speed plotting 25X
 data(coastlineWorld)
-try({
-    source('~/src/oce/R/colors.R')
-    source('~/src/oce/R/map.R')
-})
 
 ## prefer cairo, but that fails with R as of July 2015 ... perhaps a fix is in the works?
 ##if (!interactive()) png('517Adk.png', width=1000, height=700, type='cairo')

@@ -4,9 +4,6 @@
 
 rm(list=ls())
 library(oce)
-source('~/src/R-richards/oce/R/rsk.R')
-## try(source('~/src/oce/R/rsk.R'))
-## try(source('~/src/oce/R/ctd.R'))
 
 if (!interactive()) png('726c-%03d.png')
 par(oma=c(0, 0, 2, 0))

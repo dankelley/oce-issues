@@ -1,9 +1,5 @@
 ## fake data and local loads ... latter only work for developers
 library(oce)
-##system("R CMD SHLIB coastline2.c")
-##dyn.load("coastline2.so")
-##source("~/src/oce/R/coastline.R")
-##source("~/src/oce/R/map.R")
 lon <- -70 + 5 * cos(seq(0, 2*pi, length.out=8))
 lat <- 10 + 5 * sin(seq(0, 2*pi, length.out=8))
 lonlim <- c(-80, -60)

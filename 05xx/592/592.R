@@ -1,6 +1,5 @@
 ## three pages: CR originally go that only first worked
 library(oce)
-## source("~/src/oce/R/landsat.R")
 if (!interactive()) png("592_%d.png")
 
 l <- read.landsat('LC80080292014065LGN00', band=8)

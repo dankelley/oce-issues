@@ -3,7 +3,6 @@
 
 library(oce)
 library(ocedata)
-source("~/git/oce/R/map.R")
 data(coastlineWorldFine)
 
 cl <- as.coastline(longitude = c(NA, -45.819, -45.881, - 45.842, -45.842, -45.780, NA, 

@@ -3,10 +3,6 @@ if (!interactive()) png("435B.png", width=7, height=7, unit="in", res=150, point
 library(oce)
 library(RColorBrewer)
 
-try({
-    source("~/src/oce/R/colors.R")
-    source("~/src/oce/R/imagep.R")
-})
 N <- 7
 pal <- brewer.pal(N, 'RdBu')
 xlim <- 1.5

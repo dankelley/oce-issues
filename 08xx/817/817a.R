@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/ctd.R"))
-try(source("~/src/oce/R/section.R"))
 data(argo)
 #summary(argo)
 ## fake some sigma-theta data

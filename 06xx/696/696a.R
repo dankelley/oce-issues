@@ -1,7 +1,5 @@
 library(oce)
 data("coastlineWorldFine", package="ocedata")
-## try(source("~/src/oce/R/adp.R"))
-## try(source("~/src/oce/R/adp.rdi.R"))
 if (!interactive()) png("696a.png", width=7, height=4, unit="in", res=150, pointsize=9)
 d <- read.adp("data.ENX")
 par(mfrow=c(1,2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))

@@ -1,8 +1,5 @@
 rm(list=ls())
 library(oce) # using commit fb5e45f120cabf35 from rsktxt branch
-try(source('~/src/oce/R/oce.R')) # for updated oceMagic from rsktxt branch
-try(source('~/src/oce/R/imagep.R')) # to allow oce.plot.ts to work
-try(source('~/src/oce/R/rsk.R')) # for updated read.rsk
 
 d <- read.oce('060130_20150720_1135.txt', debug=10)
 

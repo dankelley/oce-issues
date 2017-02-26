@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source("~/src/oce/R/argo.R"))
-try(source("~/src/R-richards/oce/R/argo.R"))
 
 d <- read.argo('~/src/oce/create_data/argo/6900388_prof.nc')
 D <- subset(d, dataMode == "D")

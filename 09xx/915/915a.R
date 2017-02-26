@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/ctd.R'))
-try(source('~/src/R-richards/oce/R/ctd.R'))
 
 if ('2016-01-0002.cnv' %in% list.files()) {
     d <- read.ctd.sbe('2016-01-0002.cnv')

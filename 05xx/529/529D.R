@@ -1,6 +1,5 @@
 # Tests from CR posting to the issue thread
 library(oce)
-try({source('~/src/oce/R/map.R')})
 
 library(ocedata)
 data(coastlineWorld)

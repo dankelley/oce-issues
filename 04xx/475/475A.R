@@ -1,10 +1,5 @@
 if (!interactive()) png("475a1.png")
 library(oce)
-try({
-    source('~/src/oce/R/ctd.R')
-    source('~/src/oce/R/coastline.R')
-    source('~/src/oce/R/map.R')
-})
 data(ctd)
 par(mfrow=c(2,1))
 d <- 0

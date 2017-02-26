@@ -1,8 +1,5 @@
 if (!interactive()) png("537B.png")
 library(oce)
-try({
-    source("~/src/oce/R/map.R")
-})
 data(coastlineWorld)
 mapPlot(coastlineWorld, projection="mollweide")
 mapLines(coastlineWorld, col='red')

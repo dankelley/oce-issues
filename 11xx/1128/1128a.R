@@ -1,7 +1,6 @@
 library(oce)
 library(testthat)
 data(adp)
-source("~/git/oce/R/adp.R")
 
 if (!interactive()) png("1128a.png")
 

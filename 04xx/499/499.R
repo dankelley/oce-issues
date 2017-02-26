@@ -1,9 +1,5 @@
 message("499.R only works if two private .rda files are present")
 library(oce)
-## try({
-##     source('~/src/oce/R/ctd.R')
-##     source('~/src/oce/R/sw.R')
-## })
 load("ctd071.rda")                     # ctd
 swDynamicHeight(ctd)
 load("knorr_section_2002.rda")         # sec

@@ -1,6 +1,5 @@
 library(marmap)
 library(oce)
-try(source("~/src/oce/R/topo.R"))
 a <- getNOAA.bathy(-70, -50, 40, 50, resolution=10)
 t <- as.topo(a)
 if (!interactive()) png("613A.png")

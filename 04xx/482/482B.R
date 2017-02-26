@@ -1,8 +1,5 @@
 if (!interactive()) png("482B.png")
 library(oce)
-try({
-    source('~/src/oce/R/landsat.R')
-})
 options(testLandsat1=TRUE)
 system.time(l <- read.landsat("/data/archive/landsat/LC80150282014178LGN00", band="tirs1"))
 tirs1 <- l[["tirs1"]]

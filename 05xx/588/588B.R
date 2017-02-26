@@ -1,6 +1,4 @@
 library(oce)
-## source("~/src/oce/R/ctd.R")
-d <- read.oce('050107_20130620_2245cast4.rsk')
 d1 <- subset(d, pressure > 2)
 options(warn=3)
 d2 <- ctdTrim(d1, debug=3) 

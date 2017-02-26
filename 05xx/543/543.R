@@ -1,6 +1,5 @@
 library(oce)
 data(coastlineWorld)
-try(source("~/src/oce/R/map.R"))
 if (!interactive()) png("543.png")
 par(mfrow=c(1,2), mar=c(2, 2, 3, 1))
 mapPlot(coastlineWorld, longitudelim=c(-130,50), latitudelim=c(70,110),

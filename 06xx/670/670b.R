@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctd)
 scanRange <- range(ctd[['scan']])
 prange <- range(ctd[['pressure']])

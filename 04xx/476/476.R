@@ -1,7 +1,4 @@
 library(oce)
-try({
-    source("~/src/oce/R/map.R")
-})
 halifax <- list(latitude=44.6478, longitude=-63.5714)
 projections <- c("mercator", "stereographic")
 err <- matrix(nrow=length(projections), ncol=2)

@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/map.R"))       # speed code development by saving rebuild
 data(coastlineWorld)
 if (!interactive()) png("1079b_%d.png")
 par(mar=c(2, 2, 1, 1))

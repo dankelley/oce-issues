@@ -1,11 +1,6 @@
 rm(list=ls())
 if (1 == length(list.files(pattern="CTD_DGR2006001_9_1_DN.ODF"))) {
     library(oce)
-    source("~/src/oce/R/AllClass.R")
-    source("~/src/oce/R/imagep.R")
-    source("~/src/oce/R/oce.R")
-    source("~/src/oce/R/odf.R")
-    source("~/src/oce/R/ctd.R")
     source("define_ODF_header.R")
     source("read_ODF.R")
     if (!interactive()) pdf("715b.pdf")

@@ -2,8 +2,6 @@
 errorPermitted <- 5 # percent error in corner-to-corner span
 library(testthat)
 library(oce)
-source("~/src/oce/R/coastline.R")
-source("~/src/oce/R/ctd.R")
 data(ctd)
 ## Move CTD profile to Barrow Strait
 ctd[["longitude"]] <- -92

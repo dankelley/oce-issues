@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
 data(ctdRaw)
 TRIM <- c(200, 300)
 

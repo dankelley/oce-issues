@@ -1,6 +1,4 @@
 library(oce)
-#try(source("~/src/oce/R/rsk.R"))
-#try(source("~/src/oce/R/ctd.R"))
 
 ## TESTING code -- to be place in oce/tests/rsk.R eventually.  There are 3
 ## options for read.rsk(): patm can be TRUE, FALSE, or a number; denote these

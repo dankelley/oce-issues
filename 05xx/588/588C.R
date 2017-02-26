@@ -1,5 +1,4 @@
 library(oce)
-## source("~/src/oce/R/ctd.R")
 f <- '050107_20130620_2245cast4.rsk'
 d <- read.oce('050107_20130620_2245cast4.rsk')
 if (!interactive()) png("588C_%d.png")

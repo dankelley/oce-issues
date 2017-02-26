@@ -1,6 +1,4 @@
 library(oce)
-## source("~/src/oce/R/ctd.R")
-## source("~/src/oce/R/odf.R")
 d1 <- read.odf(system.file("extdata", "CTD_BCD2014666_008_1_DN.ODF", package="oce")) 
 summary(d1)
 

@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-## source('~/src/oce/R/landsat.R')
-## source('~/src/R-richards/oce/R/landsat.R')
 data(landsat)
 
 if (!interactive()) png('706a.png', width=1000, height=500) else dev.new(width=7, height=3.5)

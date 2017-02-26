@@ -1,8 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/oce.R')) # for updated oceMagic from rsktxt branch
-try(source('~/src/oce/R/imagep.R')) # to allow oce.plot.ts to work
-try(source('~/src/oce/R/rsk.R')) # for updated read.rsk
 
 ## MH's file (that started this whole thing)
 ## d <- read.rsk('010858_20150225_1139.eng.txt', type='txt', debug=10)

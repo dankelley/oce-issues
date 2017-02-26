@@ -1,6 +1,5 @@
 library(oce)
 library(testthat)
-source("read.adp.rdi.text.R") # defines read.adp.rdi.text()
 debug <- 0                             # set to 5 or so for full debugging info
 
 if (0 == length(ls(pattern="^a$"))) {

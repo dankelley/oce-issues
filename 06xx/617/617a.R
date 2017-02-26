@@ -1,6 +1,5 @@
 ## from old binApply.Rd (which now uses proj4)
 library(oce)
-#try(source("~/src/oce/R/map.R"))
 if (!interactive()) png("617a.png")
 data(secchi, package="ocedata")
 col <- rev(oce.colorsJet(100))[rescale(secchi$depth, xlow=0, xhigh=20, rlow=1, rhigh=100)]

@@ -1,7 +1,5 @@
 rm(list=ls())
 library(oce)
-try(source('~/src/oce/R/section.R'))
-try(source('~/src/R-richards/oce/R/section.R'))
 
 data(section)
 s <- section

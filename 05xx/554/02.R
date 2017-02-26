@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/sw.R"))
-try(source("~/src/oce/R/ctd.R"))
 library(gsw)
 data(ctd)
 if (!interactive()) png("02_teos.png", res=200, pointsize=11, width=7, height=7, unit="in")

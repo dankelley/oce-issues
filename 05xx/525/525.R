@@ -1,8 +1,5 @@
 if (!interactive()) png("525.png")
 library(oce)
-## try({
-##     source('~/src/oce/R/ctd.R')
-## })
 data(ctd)
 par(mfrow=c(1,3))
 plot(ctd, which='temperature')

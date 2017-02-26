@@ -1,7 +1,5 @@
 library(oce)
 library(testthat)
-## source("~/git/oce/R/ctd.R")
-## source("~/git/oce/R/sw.R")
 
 d <- read.oce("CTD_98911_1P_1_DN.txt")
 

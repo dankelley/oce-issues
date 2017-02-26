@@ -1,9 +1,6 @@
 if (!interactive()) png("475e.png")
 rm(list=ls())
 library(oce)
-try({
-    source('~/src/oce/R/map.R')
-})
 d <- readLines('/data/oar/dalwhoi.kml')
 start <- grep('^\\s*<coordinates>\\s*$', d)
 end <- grep('^\\s*</coordinates>\\s*$', d)

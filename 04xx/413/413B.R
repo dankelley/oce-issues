@@ -1,6 +1,5 @@
 if (!interactive()) png("413B.png", width=5, height=5, unit="in", res=150, pointsize=9)
 library(oce)
-#source('~/src/oce/R/imagep.R')
 
 ## Try a range of thinner palette regions.  NOTE: the space to the right
 ## of the main image is dictated by the initial par("mar"), which is of course

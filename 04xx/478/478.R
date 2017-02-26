@@ -2,10 +2,6 @@
 ##   http://landsat.usgs.gov/Landsat8_Using_Product.php
 if (!interactive()) png("478_%d.png", width=7, height=7, unit="in", res=100, pointsize=10)
 library(oce)
-try({
-    source('~/src/oce/R/oce.R')
-    source('~/src/oce/R/landsat.R')
-})
 setwd("~/google_drive")
 files <- c("LC80060292013272LGN00", "LC80080292014065LGN00", "LC80120262013282LGN00")
 for (file in files) {

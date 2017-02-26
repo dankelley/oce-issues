@@ -1,6 +1,5 @@
 if (!interactive()) png("497A_%d.png", width=7, height=7, unit="in", res=150, pointsize=12)
 library(oce)
-source('~/src/oce/R/ctd.R')
 data(ctd)
 plot(ctd)
 options(oceMgp=c(1.7,0.5,0))

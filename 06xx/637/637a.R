@@ -1,5 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/colors.R"))
 if (!interactive()) png("637a_%d.png")
 
 cm <- colormap(x0=1:2,x1=1:2,col0=c("red","blue"),col1=c("red","blue"))

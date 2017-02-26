@@ -1,5 +1,4 @@
 library(oce)
-## try(source("~/src/oce/R/map.R"))
 data(coastlineWorld)
 data(coastlineWorldMedium, package="ocedata")
 if (!interactive()) png("766a.png")

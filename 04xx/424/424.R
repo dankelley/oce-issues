@@ -2,10 +2,6 @@ if (!interactive()) png("424.png", width=7, height=4, unit="in", res=100,
                         pointsize=10)
 library(oce)
 data(landsat, package="ocedata")
-try({
-    source('~/src/oce/R/landsat.R')
-    source('~/src/oce/R/imagep.R')
-})
 
 par(mfrow=c(2,1))
 dim <- dim(landsat@data[[1]]$msb)

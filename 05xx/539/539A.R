@@ -1,5 +1,4 @@
 library(oce)
-try({source("~/src/oce/R/map.R")})
 data(coastlineWorld)
 if (!interactive()) png('539A-%03d.png')
 lons <- seq(179, -179, -10)

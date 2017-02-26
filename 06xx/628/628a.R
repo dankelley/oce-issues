@@ -1,5 +1,4 @@
 library(oce)
-#source("~/src/oce/R/map.R") # has temporary change to test wintri
 sessionInfo()
 if (!interactive()) png("628a.png")
 data(coastlineWorld)

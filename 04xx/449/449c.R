@@ -3,7 +3,6 @@ rm(list=ls())
 if (!interactive()) png("449c.png", width=7, height=4, unit="in", res=150, pointsize=9)
 
 library(oce)
-try(source('~/src/oce/R/colors.R'), silent=TRUE)
 par(mfcol=c(2,2), mar=c(3, 3, 1, 1))
 t <- seq(0, 1, length.out=100)
 plim <- c(38, 41)

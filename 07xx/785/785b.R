@@ -2,8 +2,6 @@
 if (!interactive()) png("785b.png")
 library(oce)
 library(testthat)
-try(source("~/src/oce/R/adp.R"))
-try(source("~/src/oce/R/adp.rdi.R"))
 file <- "MS2015-150kHz002_000001.ENX"
 if (1 == length(list.files(pattern=file))) {
     ## easier to debug without skipping through the file

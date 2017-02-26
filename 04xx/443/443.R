@@ -1,5 +1,4 @@
 library(oce)
-source('~/src/oce/R/colors.R')
 ## extract some data to use
 data(adp)
 t <- adp[['time']]

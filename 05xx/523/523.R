@@ -1,6 +1,5 @@
 if (!interactive()) png("523.png", height=250)
 library(oce)
-try({ source("~/src/oce/R/map.R") })
 data(coastlineWorld)
 par(mfrow=c(2,1), mar=c(3, 3, 1, 1))
 mapPlot(coastlineWorld, proj="+proj=moll")

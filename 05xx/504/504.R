@@ -1,8 +1,5 @@
 if (!interactive()) png("504.png")
 library(oce)
-try({
-    source("~/src/oce/R/drifter.R")
-})
 data(drifter)
 par(mfrow=c(2,2))
 plot(drifter)

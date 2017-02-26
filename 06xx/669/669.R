@@ -1,6 +1,4 @@
 library(oce)
-try(source("~/src/oce/R/ctd.R"))
-try(source("~/src/oce/R/coastline.R"))
 data(ctd)
 set.seed(669)
 n <- length(ctd[["salinity"]])
