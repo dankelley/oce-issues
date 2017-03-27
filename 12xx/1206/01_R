@@ -1,0 +1,39 @@
+## DK version of Lorena's code
+rm(list=ls(all=TRUE))
+library(oce)
+library(readxl)
+a <- read_excel("Lorena.xlsx", sheet = 1, col_names = TRUE, col_types = NULL, na = "",
+                  skip = 0)
+## 1.
+## There are many ways to make up a section. I prefer to create individual CTDs so 
+## I can plot each and see if I trust the data. You have "station" in your data,
+## so that provides an easy way to chop the data up with "split()". I'll call
+## the results "asplit"
+asplit <- split(a, a$station)
+
+## 2.
+## Now, let's create CTD objects, by running through the entries in this
+## list called "asplit".
+ctds <- vector("list", length(asplit))
+for (i in seq_along(asplit)) {
+    ctds[[i]] <- as.ctd(asplit[[i]], longitude=asplit[[i]]$longitude[1], latitude=asplit[[i]]$longitude[1])
+}
+
+## 3.
+## Plot the profiles (always a good idea .. are the data sensible? I think 
+## ctds[[2]] and ctds[[3]] have odd surface salinities but you will know
+## your data better than I do.
+for (i in seq_along(asplit)) {
+    plot(ctds[[i]])
+}
+
+## 4.
+## Assemble the CTDs into a section, summarize it, and plot a default-style plot.
+sec <- as.section(ctds)
+summary(sec)
+plot(sec)
+
+## 5.
+## Plot just salinity
+plot(sec, which="salinity")
+
