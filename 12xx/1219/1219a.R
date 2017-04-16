@@ -21,6 +21,7 @@ pressure <- vector("numeric", N)
 heading <- vector("numeric", N)
 pitch <- vector("numeric", N)
 roll <- vector("numeric", N)
+BCC <- vector("character", N)
 coordinateSystem <- vector("character", N)
 ncells <- vector("numeric", N)
 nbeams <- vector("numeric", N)
@@ -67,11 +68,13 @@ for (ch in 1:N) {
             ## cat("beam+coord+cells ... NOT DECODED YET\n")
             ## cat("0x", d$buf[i+31], " -> ", byteToBinary(d$buf[i+31]), " (b31)\n", sep="")
             ## cat("0x", d$buf[i+32], " -> ", byteToBinary(d$buf[i+32]), " (b32)\n", sep="")
-            bcc <- strsplit(paste(byteToBinary(c(d$buf[i+31], d$buf[i+32])), collapse=""), "")[[1]]
-            cs <- paste(bcc[12:11], collapse="")
-            coordinateSystem[ch] <- switch(cs,"00"="enu", "01"="xyz", "10"="beam","11"="?")
-            ncells[ch] <- sum(unlist(lapply(1:10,function(i) as.numeric(bcc[1:10][i])*2^(i-1))))
-            nbeams[ch] <- sum(unlist(lapply(1:4,function(i) as.numeric(bcc[12:15][i])*2^(i-1))))
+            bits <- rawToBits(d$buf[i+31:32])==0x01
+            ncells[ch] <- sum(unlist(lapply(1:10, function(i) bits[0+i]*2^(i-1))))
+            nbeams[ch] <- sum(unlist(lapply(1:4, function(i) bits[12+i]*2^(i-1))))
+            BCC[ch] <- paste(ifelse(bits, "1", "0"), collapse="")
+            coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[bits[11]+2*bits[12]]
+            ##message("bits:", bits, ", coord_bits:", substr(bits, 11, 12), ", COORD: ", coordinateSystem[ch])
+            ##message("bits:", bits, ", ncell_bits:", substr(bits, 1, 10))
             ##message("coordinateSystem=", coordinateSystem, ", ncells=", ncells, ", nbeams=", nbeams, "\n")
             cellSize[ch] <- 0.001 * readBin(d$buf[i+33:34], "integer", size=2, signed=FALSE, endian="little")
             blanking[ch] <- 0.001 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
@@ -98,14 +101,15 @@ for (ch in 1:N) {
         cat("chunk ", ch, " is id=", d$id[ch], "\n", sep="")
     }
 }
-options(width=120) # to get wide printing
+options(width=200) # to get wide printing
 time <- as.POSIXct(time, origin="1970-01-01 00:00:00", tz="UTC")
-res <- data.frame(time, id, version,
+res <- data.frame(time, id, vsn=version,
                   soundSpeed, temperature, pressure,
                   heading, pitch, roll,
-                  coordinateSystem, nbeams, ncells, cellSize, blanking, 
-                  nominalCorrelation,
-                  accelerometerz,
+                  BCC, coord=coordinateSystem, nbeams, ncells,
+                  cellSize, blanking, 
+                  nomcor=nominalCorrelation,
+                  accz=accelerometerz,
                   transmitEnergy,
                   velocityScaling,
                   powerLevel,
@@ -115,7 +119,6 @@ res <- data.frame(time, id, version,
                   v)
 print(head(res, 10))
 
-context("pressure (burst)")
 expect_equal(serialNumber, 100159)
 ## >> load labtestsig3.ad2cp.00000_1.mat
 ## >> fieldnames(Data)
@@ -151,16 +154,16 @@ expect_equal(head(subset(res, id==21), 10)$blanking, blankingMatlab)
 ## >> Data.Alt_BurstHR_NominalCor(1:10)
 nominalCorrelationMatlab <- c(100, 100, 100, 100, 100,
                               100, 100, 100, 100, 100)
-expect_equal(head(subset(res, id==21), 10)$nominalCorrelation, nominalCorrelationMatlab)
+expect_equal(head(subset(res, id==21), 10)$nomcor, nominalCorrelationMatlab)
 ##>> Data.Alt_Average_NominalCor(1:6)
 avgNominalCorrelationMatlab <- c(33, 33, 33, 33, 33, 33)
-expect_equal(head(subset(res, id==22), 6)$nominalCorrelation, avgNominalCorrelationMatlab)
+expect_equal(head(subset(res, id==22), 6)$nomcor, avgNominalCorrelationMatlab)
 
 ##>> Data.BurstHR_AccelerometerZ(1:10)
-accelerometerzMatlab <- c(0.066895, 0.065918, 0.065430, 0.066406, 0.065918,
+acczMatlab <- c(0.066895, 0.065918, 0.065430, 0.066406, 0.065918,
                           0.068359, 0.070801, 0.068359, 0.069336, 0.069336)
 ## relax tolerance since it's a 16-bit value
-expect_equal(head(subset(res, id==21), 10)$accelerometerz, accelerometerzMatlab, tolerance=1e-6)
+expect_equal(head(subset(res, id==21), 10)$accz, acczMatlab, tolerance=1e-6)
 
 powerLevelMatlab <- rep(0, 10)
 expect_equal(head(subset(res, id==21), 10)$powerLevel, powerLevelMatlab)
@@ -196,10 +199,63 @@ temperatureMagnetometerMatlab <- c(2.579800034e+01, 2.584499931e+01, 2.593899918
                                    2.584499931e+01, 2.579800034e+01)
 expect_equal(head(subset(res, id==21), 10)$temperatureMagnetometer, temperatureMagnetometerMatlab, tolerance=1e-5)
 
-## Evidently the bursts were just beam 5.
+## The bursts are just beam 5.
 ## >> size(Data.BurstHR_VelBeam5)
 ## ans = 23112     256
 ##>> Data.BurstHR_VelBeam5(1:3)
 vMatlab <- c(3.623999953e-01, 3.375000060e-01, 3.422999978e-01, 3.871000111e-01, 3.436999917e-01,
               3.104000092e-01, 3.336000144e-01, 3.194999993e-01, -4.390000179e-02, 3.334000111e-01)
 expect_equal(head(subset(res, id==21), 1)$v, vMatlab[1], tolerance=1e-5)
+
+expect_equal(subset(res, id==21)$nbeams[1], 1)
+expect_equal(subset(res, id==21)$ncells[1], 256)
+expect_equal(subset(res, id==22)$nbeams[1], 4)
+expect_equal(subset(res, id==22)$ncells[1], 150)
+
+
+## The averages are 4 beam
+## >> size(Data.Average_VelBeam1)
+## ans =
+## 
+##    2889    150
+## > (intToBits(150))[1:8]
+## [1] 00 01 01 00 01 00 00 01
+## THus, we are looking for bit string 01101001 in bcc
+## We have 0110100110000100 for id=22 (AVG)
+## We have 01101001 10000100 for id=22, so it's there.
+
+## Notes on decoding the nbeam/coord/ncell structure.
+## According to p47 of the ad2cp doc:
+##  bits  9 to  0: ncells
+##  bits 11 to 10: coord system (00=enu, 01=xyz, 10=beam, 11=NA)
+##  bits 15 to 12: nbeams
+##
+## Try using intToBits() etc ... these functions return with least-signficant
+## bit first, e.g. 2 decimal corresponds to 0,1 and not 1,0 as one would write
+## on paper. This has to be borne in mind whilst reading the Nortek documents,
+## which list e.g. bit 9 to bit 0 (which in R, with intToBits() etc,
+## corresponds to bit 1 to bit 10).
+##
+## ch==2 (burst) expect nbeam=1, ncell=256, "beam"(?)
+## > substr(paste(ifelse(intToBits(256)==0x01, "1", "0"), collapse=""), 1, 10)
+## [1] "0000000010"
+## > substr(paste(ifelse(intToBits(1)==0x01, "1", "0"), collapse=""), 1, 4)
+## [1] "1000"
+## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
+## [1] "0000000010011000"
+## bit  0 to  9: 0000000010 OK
+## bit 10 to 11: 01 OK
+## bit 12 to 15: 1000 OK
+##
+## ch==3 (avg) expect nbeam=4, ncell=150, "beam"(?)
+## ncell=150 so expect bit pattern
+## > substr(paste(ifelse(intToBits(150)==0x01, "1", "0"), collapse=""), 1, 10)
+## [1] "0110100100"
+## > substr(paste(ifelse(intToBits(4)==0x01, "1", "0"), collapse=""), 1, 4)
+## [1] "0010"
+## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
+## [1] "0110100100010010"
+## bit  0 to  9: 0110100100 OK
+## bit 10 to 11: 01 OK
+## bit 12 to 15: 0010 OK
+
