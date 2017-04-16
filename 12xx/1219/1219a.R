@@ -269,3 +269,26 @@ if (FALSE) { # plot some image
     par(mfrow=c(1,1))
 }
 
+## Ensemble 2 is burst mode.
+## The bursts are just beam 5.
+## >> Data.BurstHR_VelBeam5(1,1:10)
+v <- c(0.36240, 0.35830, 0.36430, 0.20590, 0.35690, 0.35650, 0.35730, 0.36090, 0.36390, 0.36600)
+expect_equal(res$v[[2]][1:10], v, tolerance=1e-5)
+
+## Ensemble 3 is average mode.
+## >> Data.Average_VelBeam1(1,1:10)
+v <- c(-0.81700,-0.88900,-1.91700,-2.11100,-1.00000,-2.08900,-1.54000,-0.85800,-1.93400,-1.56100)
+expect_equal(res$v[[3]][1:10,1], v, tolerance=1e-5)
+
+## >> Data.Average_VelBeam2(1,1:10)
+v <- c(-0.16300,1.69300,1.84900,1.11200,1.57300,-1.50400,1.60000,-2.52800,1.72100,1.68400)
+expect_equal(res$v[[3]][1:10,2], v, tolerance=1e-5)
+ 
+## >> Data.Average_VelBeam3(1,1:10)
+v <- c(-1.56000,1.41400,1.56300,1.55100,-0.32300,-1.27200,-2.11300,-1.28600,-2.36900,-2.38800)
+expect_equal(res$v[[3]][1:10,3], v, tolerance=1e-5)
+ 
+## >> Data.Average_VelBeam4(1,1:10)
+v <- c(-0.079000,1.522000,1.587000,1.702000,1.674000,1.230000,2.855000,2.999000,2.913000,1.486000)
+expect_equal(res$v[[3]][1:10,4], v, tolerance=1e-5)
+
