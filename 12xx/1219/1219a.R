@@ -37,7 +37,7 @@ powerLevel <- vector("numeric", N)
 temperatureMagnetometer <- vector("numeric", N)
 temperatureRTC <- vector("numeric", N)
 ensemble <- vector("numeric", N)
-v <- vector("numeric", N)
+v <- vector("list", N)
 
 options(digits.secs=6)
 for (ch in 1:N) {
@@ -64,15 +64,46 @@ for (ch in 1:N) {
             heading[ch] <- 0.01 * readBin(d$buf[i+25:26], "integer", size=2, endian="little")
             pitch[ch] <- 0.01 * readBin(d$buf[i+27:28], "integer", size=2, endian="little")
             roll[ch] <- 0.01 * readBin(d$buf[i+29:30], "integer", size=2, endian="little")
-            ## FIXME: this is pretty ugly code, but doing bit-level in R is awkward.
-            ## cat("beam+coord+cells ... NOT DECODED YET\n")
-            ## cat("0x", d$buf[i+31], " -> ", byteToBinary(d$buf[i+31]), " (b31)\n", sep="")
-            ## cat("0x", d$buf[i+32], " -> ", byteToBinary(d$buf[i+32]), " (b32)\n", sep="")
+            ## Notes on decoding the nbeam/coord/ncell structure.
+            ## According to p47 of the ad2cp doc:
+            ##  bits  9 to  0: ncells
+            ##  bits 11 to 10: coord system (00=enu, 01=xyz, 10=beam, 11=NA)
+            ##  bits 15 to 12: nbeams
+            ##
+            ## Try using intToBits() etc ... these functions return with least-signficant
+            ## bit first, e.g. 2 decimal corresponds to 0,1 and not 1,0 as one would write
+            ## on paper. This has to be borne in mind whilst reading the Nortek documents,
+            ## which list e.g. bit 9 to bit 0 (which in R, with intToBits() etc,
+            ## corresponds to bit 1 to bit 10).
+            ##
+            ## ch==2 (burst) expect nbeam=1, ncell=256, "beam"(?)
+            ## > substr(paste(ifelse(intToBits(256)==0x01, "1", "0"), collapse=""), 1, 10)
+            ## [1] "0000000010"
+            ## > substr(paste(ifelse(intToBits(1)==0x01, "1", "0"), collapse=""), 1, 4)
+            ## [1] "1000"
+            ## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
+            ## [1] "0000000010011000"
+            ## bit  0 to  9: 0000000010 OK
+            ## bit 10 to 11: 01 OK
+            ## bit 12 to 15: 1000 OK
+            ##
+            ## ch==3 (avg) expect nbeam=4, ncell=150, "beam"(?)
+            ## ncell=150 so expect bit pattern
+            ## > substr(paste(ifelse(intToBits(150)==0x01, "1", "0"), collapse=""), 1, 10)
+            ## [1] "0110100100"
+            ## > substr(paste(ifelse(intToBits(4)==0x01, "1", "0"), collapse=""), 1, 4)
+            ## [1] "0010"
+            ## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
+            ## [1] "0110100100010010"
+            ## bit  0 to  9: 0110100100 OK
+            ## bit 10 to 11: 01 OK
+            ## bit 12 to 15: 0010 OK
+
             bits <- rawToBits(d$buf[i+31:32])==0x01
             ncells[ch] <- sum(unlist(lapply(1:10, function(i) bits[0+i]*2^(i-1))))
             nbeams[ch] <- sum(unlist(lapply(1:4, function(i) bits[12+i]*2^(i-1))))
             BCC[ch] <- paste(ifelse(bits, "1", "0"), collapse="")
-            coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[bits[11]+2*bits[12]]
+            coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[1+bits[11]+2*bits[12]]
             ##message("bits:", bits, ", coord_bits:", substr(bits, 11, 12), ", COORD: ", coordinateSystem[ch])
             ##message("bits:", bits, ", ncell_bits:", substr(bits, 1, 10))
             ##message("coordinateSystem=", coordinateSystem, ", ncells=", ncells, ", nbeams=", nbeams, "\n")
@@ -90,7 +121,12 @@ for (ch in 1:N) {
             temperatureRTC[ch] <- 0.01 * readBin(d$buf[i+63:64], "integer", size=2, endian="little")
             ensemble[ch] <- readBin(d$buf[i+73:76], "integer", size=4, endian="little")
             ## 77=1+offsetOfData
-            v[ch] <- velocityFactor * readBin(d$buf[i+77:78], "integer", size=2, endian="little")
+            nbytes <- 2 * nbeams[ch] * ncells[ch]
+            velocity <- velocityFactor * readBin(d$buf[i+77+seq(0, nbytes-1)],
+                                                 "integer", size=2, n=nbeams[ch]*ncells[ch],
+                                                 endian="little")
+            velocityArray <- matrix(velocity, ncol=nbeams[ch], nrow=ncells[ch], byrow=FALSE)
+            v[[ch]] <- velocityArray
             ##ensemble[ch] <- readBin(d$buf[i+73:74], "integer", size=2, signed=FALSE, endian="little") +
             ##65536 * readBin(d$buf[i+75:76], "integer", size=2, signed=FALSE, endian="little")
             ##cat("chunk ", ch, " decoded\n")
@@ -103,21 +139,21 @@ for (ch in 1:N) {
 }
 options(width=200) # to get wide printing
 time <- as.POSIXct(time, origin="1970-01-01 00:00:00", tz="UTC")
-res <- data.frame(time, id, vsn=version,
-                  soundSpeed, temperature, pressure,
-                  heading, pitch, roll,
-                  BCC, coord=coordinateSystem, nbeams, ncells,
-                  cellSize, blanking, 
-                  nomcor=nominalCorrelation,
-                  accz=accelerometerz,
-                  transmitEnergy,
-                  velocityScaling,
-                  powerLevel,
-                  temperatureMagnetometer,
-                  temperatureRTC,
-                  ensemble,
-                  v)
-print(head(res, 10))
+res <- list(time=time, id=id, vsn=version,
+            soundSpeed=soundSpeed, temperature=temperature, pressure=pressure,
+            heading=heading, pitch=pitch, roll=roll,
+            BCC=BCC, coord=coordinateSystem, nbeams=nbeams, ncells=ncells,
+            cellSize=cellSize, blanking=blanking, 
+            nomcor=nominalCorrelation,
+            accz=accelerometerz,
+            transmitEnergy=transmitEnergy,
+            velocityScaling=velocityScaling,
+            powerLevel=powerLevel,
+            temperatureMagnetometer=temperatureMagnetometer,
+            temperatureRTC=temperatureRTC,
+            ensemble=ensemble,
+            v=v)
+str(res)
 
 expect_equal(serialNumber, 100159)
 ## >> load labtestsig3.ad2cp.00000_1.mat
@@ -125,64 +161,63 @@ expect_equal(serialNumber, 100159)
 ## >> Data.BurstHR_Pressure(1:10)
 pressureMatlab <- c(10.260, 10.258, 10.264, 10.261, 10.263,
                     10.260, 10.260, 10.261, 10.259, 10.259)
-expect_equal(head(subset(res, id==21), 10)$pressure, pressureMatlab)
+expect_equal(res$pressure[res$id==21][1:10], pressureMatlab)
 ## >> Data.BurstHR_WaterTemperature(1:10)
 temperatureMatlab <- c(24.010, 24.000, 24.010, 24.010, 24.010,
                        24.010, 24.010, 24.010, 24.010, 24.000)
-expect_equal(head(subset(res, id==21), 10)$temperature, temperatureMatlab)
+expect_equal(res$temperature[res$id==21][1:10], temperatureMatlab)
 ## >> Data.BurstHR_Heading(1:10)
 headingMatlab <- c(10.890, 10.910, 10.920, 10.980, 10.960,
                    10.910, 10.900, 10.900, 10.900, 10.900)
-expect_equal(head(subset(res, id==21), 10)$heading, headingMatlab)
+expect_equal(res$heading[res$id==21][1:10], headingMatlab)
 ## >> Data.BurstHR_Pitch(1:10)
 pitchMatlab <- c(-71.280, -71.280, -71.270, -71.280, -71.280,
                  -71.280, -71.270, -71.270, -71.270, -71.270)
-expect_equal(head(subset(res, id==21), 10)$pitch, pitchMatlab)
+expect_equal(res$pitch[res$id==21][1:10], pitchMatlab)
 ## >> Data.BurstHR_ROll(1:10)
 rollMatlab <- c(-78.050, -78.080, -78.080, -78.090, -78.090,
                 -78.080, -78.080, -78.080, -78.080, -78.080)
-expect_equal(head(subset(res, id==21), 10)$roll, rollMatlab)
+expect_equal(res$roll[res$id==21][1:10], rollMatlab)
 
 cellSizeMatlab <- rep(0.02, 10)
-expect_equal(head(subset(res, id==21), 10)$cellSize, cellSizeMatlab)
+expect_equal(res$cellSize[res$id==21][1:10], cellSizeMatlab)
 
-message("I think the blanking is in cm, not mm ... or the matlab is wrong")
+warning("I think the blanking is in cm, not mm ... or the matlab is wrong")
 ## NOTE dividing by 10 to check against matlab
 blankingMatlab <- rep(2.8000, 10) / 10
-expect_equal(head(subset(res, id==21), 10)$blanking, blankingMatlab)
+expect_equal(res$blanking[res$id==21][1:10], blankingMatlab)
 
 ## >> Data.Alt_BurstHR_NominalCor(1:10)
 nominalCorrelationMatlab <- c(100, 100, 100, 100, 100,
                               100, 100, 100, 100, 100)
-expect_equal(head(subset(res, id==21), 10)$nomcor, nominalCorrelationMatlab)
+expect_equal(res$nomcor[res$id==21][1:10], nominalCorrelationMatlab)
 ##>> Data.Alt_Average_NominalCor(1:6)
 avgNominalCorrelationMatlab <- c(33, 33, 33, 33, 33, 33)
-expect_equal(head(subset(res, id==22), 6)$nomcor, avgNominalCorrelationMatlab)
+expect_equal(res$nomcor[res$id==22][1:6], avgNominalCorrelationMatlab)
 
 ##>> Data.BurstHR_AccelerometerZ(1:10)
 acczMatlab <- c(0.066895, 0.065918, 0.065430, 0.066406, 0.065918,
-                          0.068359, 0.070801, 0.068359, 0.069336, 0.069336)
+                0.068359, 0.070801, 0.068359, 0.069336, 0.069336)
 ## relax tolerance since it's a 16-bit value
-expect_equal(head(subset(res, id==21), 10)$accz, acczMatlab, tolerance=1e-6)
+expect_equal(res$accz[res$id==21][1:10], acczMatlab, tolerance=1e-6)
 
 powerLevelMatlab <- rep(0, 10)
-expect_equal(head(subset(res, id==21), 10)$powerLevel, powerLevelMatlab)
+expect_equal(res$powerLevel[res$id==21][1:10], powerLevelMatlab)
 
 ## >> Data.BurstHR_TransmitEnergy(1:10)
 transmitEnergyMatlab <- c(4, 0, 4, 4, 4,
                           4, 4, 4, 4, 0)
-expect_equal(head(subset(res, id==21), 10)$transmitEnergy, transmitEnergyMatlab)
+expect_equal(res$transmitEnergy[res$id==21][1:10], transmitEnergyMatlab)
 
 ## > Data.BurstHR_RTCTemperature(1:10)
 temperatureRTCMatlab <- c(28.500, 28.500, 28.500, 28.500, 28.500,
                           28.500, 28.500, 28.500, 28.500, 28.500)
-expect_equal(head(subset(res, id==21), 10)$temperatureRTC, temperatureRTCMatlab)
-
+expect_equal(res$temperatureRTC[res$id==21][1:10], temperatureRTCMatlab)
 
 ##> Data.BurstHR_EnsembleCount(1:10)
 ensembleMatlab <- c(969, 970, 971, 972, 973,
                     974, 975, 976, 977, 978)
-expect_equal(head(subset(res, id==21), 10)$ensemble, ensembleMatlab)
+expect_equal(res$ensemble[res$id==21][1:10], ensembleMatlab)
 
 ## >> output_precision(25)
 ## >> Data.BurstHR_TimeStamp(1:10)
@@ -191,71 +226,46 @@ ts <- c(1.490564521001000165939331e+09, 1.490564521125800132751465e+09, 1.490564
         1.490564521751000165939331e+09, 1.490564521876000165939331e+09, 1.490564522001000165939331e+09,
         1.490564522125800132751465e+09)
 timeMatlab <- numberAsPOSIXct(ts)
-expect_equal(head(subset(res, id==21), 10)$time, timeMatlab)
+expect_equal(res$time[res$id==21][1:10], timeMatlab)
 
 ## >> Data.BurstHR_MagnetometerTemperature(1:10)
 temperatureMagnetometerMatlab <- c(2.579800034e+01, 2.584499931e+01, 2.593899918e+01, 2.589200020e+01,
                                    2.584499931e+01, 2.575099945e+01, 2.579800034e+01, 2.589200020e+01,
                                    2.584499931e+01, 2.579800034e+01)
-expect_equal(head(subset(res, id==21), 10)$temperatureMagnetometer, temperatureMagnetometerMatlab, tolerance=1e-5)
+expect_equal(res$temperatureMagnetometer[res$id==21][1:10], temperatureMagnetometerMatlab, tolerance=1e-5)
 
-## The bursts are just beam 5.
-## >> size(Data.BurstHR_VelBeam5)
-## ans = 23112     256
-##>> Data.BurstHR_VelBeam5(1:3)
-vMatlab <- c(3.623999953e-01, 3.375000060e-01, 3.422999978e-01, 3.871000111e-01, 3.436999917e-01,
-              3.104000092e-01, 3.336000144e-01, 3.194999993e-01, -4.390000179e-02, 3.334000111e-01)
-expect_equal(head(subset(res, id==21), 1)$v, vMatlab[1], tolerance=1e-5)
+context("nbeams and ncells")
+expect_equal(res$nbeams[res$id==21][1], 1)
+expect_equal(res$ncells[res$id==21][1], 256)
+expect_equal(res$nbeams[res$id==22][1], 4)
+expect_equal(res$ncells[res$id==22][1], 150)
 
-expect_equal(subset(res, id==21)$nbeams[1], 1)
-expect_equal(subset(res, id==21)$ncells[1], 256)
-expect_equal(subset(res, id==22)$nbeams[1], 4)
-expect_equal(subset(res, id==22)$ncells[1], 150)
+## Ensemble 2 is "burst" mode (beam5)
+## >> Data.BurstHR_VelBeam5(1,1:10)
+v <- c(0.36240, 0.35830, 0.36430, 0.20590, 0.35690, 0.35650, 0.35730, 0.36090, 0.36390, 0.36600)
+expect_equal(res$v[[2]][1:10], v, tolerance=1e-5)
 
+## Ensemble 3 is in "average" mode.
+## >> Data.Average_VelBeam1(1,1:10)
+v <- c(-0.81700,-0.88900,-1.91700,-2.11100,-1.00000,-2.08900,-1.54000,-0.85800,-1.93400,-1.56100)
+expect_equal(res$v[[3]][1:10,1], v)
 
-## The averages are 4 beam
-## >> size(Data.Average_VelBeam1)
-## ans =
-## 
-##    2889    150
-## > (intToBits(150))[1:8]
-## [1] 00 01 01 00 01 00 00 01
-## THus, we are looking for bit string 01101001 in bcc
-## We have 0110100110000100 for id=22 (AVG)
-## We have 01101001 10000100 for id=22, so it's there.
+## >> Data.Average_VelBeam2(1,1:10)
+v <- c(-0.16300,1.69300,1.84900,1.11200,1.57300,-1.50400,1.60000,-2.52800,1.72100,1.68400)
+expect_equal(res$v[[3]][1:10,2], v)
+ 
+## >> Data.Average_VelBeam3(1,1:10)
+v <- c(-1.56000,1.41400,1.56300,1.55100,-0.32300,-1.27200,-2.11300,-1.28600,-2.36900,-2.38800)
+expect_equal(res$v[[3]][1:10,3], v)
+ 
+## >> Data.Average_VelBeam4(1,1:10)
+v <- c(-0.079000,1.522000,1.587000,1.702000,1.674000,1.230000,2.855000,2.999000,2.913000,1.486000)
+expect_equal(res$v[[3]][1:10,4], v)
 
-## Notes on decoding the nbeam/coord/ncell structure.
-## According to p47 of the ad2cp doc:
-##  bits  9 to  0: ncells
-##  bits 11 to 10: coord system (00=enu, 01=xyz, 10=beam, 11=NA)
-##  bits 15 to 12: nbeams
-##
-## Try using intToBits() etc ... these functions return with least-signficant
-## bit first, e.g. 2 decimal corresponds to 0,1 and not 1,0 as one would write
-## on paper. This has to be borne in mind whilst reading the Nortek documents,
-## which list e.g. bit 9 to bit 0 (which in R, with intToBits() etc,
-## corresponds to bit 1 to bit 10).
-##
-## ch==2 (burst) expect nbeam=1, ncell=256, "beam"(?)
-## > substr(paste(ifelse(intToBits(256)==0x01, "1", "0"), collapse=""), 1, 10)
-## [1] "0000000010"
-## > substr(paste(ifelse(intToBits(1)==0x01, "1", "0"), collapse=""), 1, 4)
-## [1] "1000"
-## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
-## [1] "0000000010011000"
-## bit  0 to  9: 0000000010 OK
-## bit 10 to 11: 01 OK
-## bit 12 to 15: 1000 OK
-##
-## ch==3 (avg) expect nbeam=4, ncell=150, "beam"(?)
-## ncell=150 so expect bit pattern
-## > substr(paste(ifelse(intToBits(150)==0x01, "1", "0"), collapse=""), 1, 10)
-## [1] "0110100100"
-## > substr(paste(ifelse(intToBits(4)==0x01, "1", "0"), collapse=""), 1, 4)
-## [1] "0010"
-## > paste(ifelse(rawToBits(d$buf[i+31:32])==0x01, "1", "0"), collapse="")
-## [1] "0110100100010010"
-## bit  0 to  9: 0110100100 OK
-## bit 10 to 11: 01 OK
-## bit 12 to 15: 0010 OK
+if (FALSE) { # plot some image
+    par(mfrow=c(3,3))
+    for (i in 1:9)
+        imagep(res$v[[i+1]])
+    par(mfrow=c(1,1))
+}
 
