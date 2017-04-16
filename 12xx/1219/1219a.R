@@ -38,15 +38,21 @@ temperatureMagnetometer <- vector("numeric", N)
 temperatureRTC <- vector("numeric", N)
 ensemble <- vector("numeric", N)
 v <- vector("list", N)
+amplitude <- vector("list", N)
+correlation <- vector("list", N)
 
 options(digits.secs=6)
 for (ch in 1:N) {
     id[ch] <- d$id[ch]
-    if (d$id[ch] %in% c(21, 22)) {
+    if (d$id[ch] == 160) {
+        ## skip an extra byte at start because it is a code
+        chars <- rawToChar(d$buf[seq.int(2+d$index[ch], by=1, length.out=-1+d$length[ch])])
+        header <- strsplit(chars, "\r\n")[[1]]
+    } else if (d$id[ch] %in% c(21, 22)) {
         version[ch] <- as.integer(d$buf[d$index[ch]+1])
         if (version[ch] == 3) {
             offsetOfData <- as.integer(d$buf[d$index[ch]+2])
-            if (ch==2) message("offsetOfData=", offsetOfData)
+            ##if (ch==2) message("offsetOfData=", offsetOfData)
             i <- d$index[ch]
             serialNumber <- readBin(d$buf[i+5:8], "integer", size=4, endian="little")
             year<-as.integer(d$buf[i+9])
@@ -104,9 +110,6 @@ for (ch in 1:N) {
             nbeams[ch] <- sum(unlist(lapply(1:4, function(i) bits[12+i]*2^(i-1))))
             BCC[ch] <- paste(ifelse(bits, "1", "0"), collapse="")
             coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[1+bits[11]+2*bits[12]]
-            ##message("bits:", bits, ", coord_bits:", substr(bits, 11, 12), ", COORD: ", coordinateSystem[ch])
-            ##message("bits:", bits, ", ncell_bits:", substr(bits, 1, 10))
-            ##message("coordinateSystem=", coordinateSystem, ", ncells=", ncells, ", nbeams=", nbeams, "\n")
             cellSize[ch] <- 0.001 * readBin(d$buf[i+33:34], "integer", size=2, signed=FALSE, endian="little")
             blanking[ch] <- 0.001 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
             nominalCorrelation[ch] <- as.integer(d$buf[i+37])
@@ -121,14 +124,17 @@ for (ch in 1:N) {
             temperatureRTC[ch] <- 0.01 * readBin(d$buf[i+63:64], "integer", size=2, endian="little")
             ensemble[ch] <- readBin(d$buf[i+73:76], "integer", size=4, endian="little")
             ## 77=1+offsetOfData
-            nbytes <- 2 * nbeams[ch] * ncells[ch]
+            nn <- nbeams[ch] * ncells[ch]
+            nbytes <- 2 * nn
             velocity <- velocityFactor * readBin(d$buf[i+77+seq(0, nbytes-1)],
                                                  "integer", size=2, n=nbeams[ch]*ncells[ch],
                                                  endian="little")
-            velocityArray <- matrix(velocity, ncol=nbeams[ch], nrow=ncells[ch], byrow=FALSE)
-            v[[ch]] <- velocityArray
-            ##ensemble[ch] <- readBin(d$buf[i+73:74], "integer", size=2, signed=FALSE, endian="little") +
-            ##65536 * readBin(d$buf[i+75:76], "integer", size=2, signed=FALSE, endian="little")
+            v[[ch]] <- matrix(velocity, ncol=nbeams[ch], nrow=ncells[ch], byrow=FALSE)
+            amp <- d$buf[i+77+nbytes+seq(0, nn-1)]
+            amplitude[[ch]] <- matrix(amp, ncol=nbeams[ch], nrow=ncells[ch], byrow=FALSE)
+            cor <- d$buf[i+77+nbytes+nn+seq(0, nn-1)]
+            correlation[[ch]] <- matrix(cor, ncol=nbeams[ch], nrow=ncells[ch], byrow=FALSE)
+            ## FIXME: read correlation etc
             ##cat("chunk ", ch, " decoded\n")
         } else {
             cat("chunk ", ch, " is id=", d$id[ch], " version=", version, "\n", sep="")
@@ -139,7 +145,8 @@ for (ch in 1:N) {
 }
 options(width=200) # to get wide printing
 time <- as.POSIXct(time, origin="1970-01-01 00:00:00", tz="UTC")
-res <- list(time=time, id=id, vsn=version,
+res <- list(header=header,
+            time=time, id=id, vsn=version,
             soundSpeed=soundSpeed, temperature=temperature, pressure=pressure,
             heading=heading, pitch=pitch, roll=roll,
             BCC=BCC, coord=coordinateSystem, nbeams=nbeams, ncells=ncells,
@@ -152,7 +159,7 @@ res <- list(time=time, id=id, vsn=version,
             temperatureMagnetometer=temperatureMagnetometer,
             temperatureRTC=temperatureRTC,
             ensemble=ensemble,
-            v=v)
+            v=v, amplitude=amplitude, correlation=correlation)
 str(res)
 
 expect_equal(serialNumber, 100159)
@@ -182,7 +189,6 @@ expect_equal(res$roll[res$id==21][1:10], rollMatlab)
 cellSizeMatlab <- rep(0.02, 10)
 expect_equal(res$cellSize[res$id==21][1:10], cellSizeMatlab)
 
-warning("I think the blanking is in cm, not mm ... or the matlab is wrong")
 ## NOTE dividing by 10 to check against matlab
 blankingMatlab <- rep(2.8000, 10) / 10
 expect_equal(res$blanking[res$id==21][1:10], blankingMatlab)
@@ -291,4 +297,9 @@ expect_equal(res$v[[3]][1:10,3], v, tolerance=1e-5)
 ## >> Data.Average_VelBeam4(1,1:10)
 v <- c(-0.079000,1.522000,1.587000,1.702000,1.674000,1.230000,2.855000,2.999000,2.913000,1.486000)
 expect_equal(res$v[[3]][1:10,4], v, tolerance=1e-5)
+
+warning("is blanking in cm, or is matlab wrong?")
+warning("should read configuration (bytes 3:4)")
+warning("should test amplitude,correlation etc")
+warning("should read more things from page 49")
 
