@@ -111,7 +111,8 @@ for (ch in 1:N) {
             BCC[ch] <- paste(ifelse(bits, "1", "0"), collapse="")
             coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[1+bits[11]+2*bits[12]]
             cellSize[ch] <- 0.001 * readBin(d$buf[i+33:34], "integer", size=2, signed=FALSE, endian="little")
-            blanking[ch] <- 0.001 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
+            ## FIXME: the docs say mm for blanking, but cm matches matlab and the .cfg file
+            blanking[ch] <- 0.01 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
             nominalCorrelation[ch] <- as.integer(d$buf[i+37])
             ## skipping some variables
             accelerometerz[ch] <- 1/16384 * readBin(d$buf[i+51:52], "integer", size=2, signed=TRUE, endian="little")
@@ -190,7 +191,7 @@ cellSizeMatlab <- rep(0.02, 10)
 expect_equal(res$cellSize[res$id==21][1:10], cellSizeMatlab)
 
 ## NOTE dividing by 10 to check against matlab
-blankingMatlab <- rep(2.8000, 10) / 10
+blankingMatlab <- rep(2.8000, 10)
 expect_equal(res$blanking[res$id==21][1:10], blankingMatlab)
 
 ## >> Data.Alt_BurstHR_NominalCor(1:10)
