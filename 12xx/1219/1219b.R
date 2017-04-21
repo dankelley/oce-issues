@@ -38,6 +38,7 @@ velocityScaling <- vector("numeric", N)
 powerLevel <- vector("numeric", N)
 temperatureMagnetometer <- vector("numeric", N)
 temperatureRTC <- vector("numeric", N)
+status <- vector("integer", N)
 ensemble <- vector("numeric", N)
 v <- vector("list", N)
 amplitude <- vector("list", N)
@@ -114,7 +115,11 @@ for (ch in 1:N) {
             coordinateSystem[ch] <- c("enu", "xyz", "beam", "?")[1+bits[11]+2*bits[12]]
             cellSize[ch] <- 0.001 * readBin(d$buf[i+33:34], "integer", size=2, signed=FALSE, endian="little")
             ## FIXME: the docs say mm for blanking, but cm matches matlab and the .cfg file
-            blanking[ch] <- 0.01 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
+            ## Update from nortek forum: the blanking unit depends on the configuration; see
+            ## http://www.nortek-as.com/en/knowledge-center/forum/current-profilers-and-current-meters/519140451
+            ## NOTE that we may multiply blanking[ch] by 10 to get cm, a few lines below when we check
+            ## status.
+            blanking[ch] <- 0.001 * readBin(d$buf[i+35:36], "integer", size=2, signed=FALSE, endian="little")
             nominalCorrelation[ch] <- as.integer(d$buf[i+37])
             ## skipping some variables
             accelerometerz[ch] <- 1/16384 * readBin(d$buf[i+51:52], "integer", size=2, signed=TRUE, endian="little")
@@ -125,6 +130,13 @@ for (ch in 1:N) {
             powerLevel[ch] <- readBin(d$buf[i+60], "integer", size=1, signed=TRUE, endian="little")
             temperatureMagnetometer[ch] <- 0.001 * readBin(d$buf[i+61:62], "integer", size=2, signed=TRUE, endian="little")
             temperatureRTC[ch] <- 0.01 * readBin(d$buf[i+63:64], "integer", size=2, endian="little")
+            error <- readBin(d$buf[i+65:68], "integer", size=4, endian="little") # NOT USED YET
+            status[ch] <- readBin(d$buf[i+69:72], "integer", size=4, endian="little")
+            statusBits <- intToBits(status[ch])
+            if (statusBits[2] == 0x01) {
+                blanking[ch] <- blanking[ch] * 10
+            }
+            ## if (ch<5) message("status= ", paste(statusBits, collapse=" "))
             ensemble[ch] <- readBin(d$buf[i+73:76], "integer", size=4, endian="little")
             ## 77=1+offsetOfData
             nn <- nbeams[ch] * ncells[ch]
@@ -161,6 +173,7 @@ value <- list(header=header,
             powerLevel=powerLevel,
             temperatureMagnetometer=temperatureMagnetometer,
             temperatureRTC=temperatureRTC,
+            status=status,
             ensemble=ensemble,
             v=v, amplitude=amplitude, correlation=correlation)
 
@@ -315,7 +328,6 @@ warning("FIXME: read configuration (bytes 3:4)")
 warning("FIXME: test amplitude,correlation etc")
 warning("FIXME: test cell size")
 warning("FIXME: read more things from p49")
-warning("Q: blanking=? matlab|doc error (RC)")
 warning("Q: how many types can exist? (RC)")
 warning("Q: are all 'versions' used? (RC)")
 
