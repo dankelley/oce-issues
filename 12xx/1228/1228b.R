@@ -51,11 +51,32 @@ print(head(df, 50))
 message("here's the end pressures compared:")
 print(tail(df, 50))
 
-if (!interactive()) png("1228a.png", unit="in", width=7, height=7, res=150, pointsize=11)
-par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-plot(df$poce - df$pmat, type='l', ylab="poce-pmat")
-mtext(sprintf("for index>100, mean(diff) = %.5f and sd(diff) = %.5f",
-              mean(df$poce[-(1:100)] -df$pmat[-(1:100)]),
-              sd(df$poce[-(1:100)]-df$pmat[-(1:100)])), side=3)
+
+for (look in ndata-c(20:0)) {
+    message("matE, matN, v[,,1], v[,,2] @ ensemble", look, " (NOTE: 2^15=32768 is NA?)")
+    print(cbind(m$SerEmmpersec[look,]/1000.0, m$SerNmmpersec[look,]/1000.0,
+                d[["v"]][look,,1],  d[["v"]][look,,2]))
+}
+
+## Panels show matlab on left, oce on right
+n <- 100
+ylim <- c(-1, 1)
+if (!interactive()) png("1228b.png", unit="in", width=7, height=7, res=150, pointsize=11)
+par(mfcol=c(3, 2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
+oce.plot.ts(tdf$tmat, m$SerEmmpersec[-1,1]/1000.0, ylim=ylim, ylab="mat E")
+oce.plot.ts(head(tdf$tmat,n), head(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
+oce.plot.ts(tail(tdf$tmat,n), tail(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
+icutoff <- 8281 # by eye
+cutoff <- toce[icutoff]
+abline(v=cutoff, col=2, lty='dotted')
+mtext(paste(format(cutoff), " (", icutoff, ") ", sep=""),
+      side=3, adj=1, cex=0.9, line=-1.1, col=2)
+
+oce.plot.ts(tdf$toce, d[["v"]][,1,1], ylim=ylim, ylab="oce 1")
+oce.plot.ts(head(tdf$toce,n), head(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
+oce.plot.ts(tail(tdf$toce,n), tail(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
+abline(v=cutoff, col=2, lty='dotted')
+mtext(paste(format(cutoff), " (", icutoff, ") ", sep=""),
+      side=3, adj=1, cex=0.8, line=-1.1, col=2)
 
 if (!interactive()) dev.off()

@@ -15,4 +15,9 @@ matlab pressure (with index offset by 1), minus a constant value of 0.128 (that
 I got by trial and error). For reasons I don't know, this difference is always
 a small integer times 1e-3.  I assume that's some sort of rounding artifact.
 
+* 1228b.R looks at velocity (just 1 component). Result: diff at start (matlab
+  is inserting 2^15 values, like missing values I guess) and from ensemble
+number 8281 (found using locator() on the graph ... I've not looked at the data
+carefully yet)
+
 
