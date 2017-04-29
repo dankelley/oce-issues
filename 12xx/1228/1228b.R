@@ -38,7 +38,6 @@ expect_equal(tdf$toce, tdf$tmat)
 
 
 ## Panels show matlab on left, oce on right
-n <- 100
 tudf <- data.frame(toce=toce, uoceTOP=d[["v"]][,1,1], umatTOP=m$SerEmmpersec[-1,1]/1000.0)
 cat("head of surface velocities compared\n")
 print(head(tudf))
@@ -51,24 +50,16 @@ ylim <- c(-1, 1)
 if (!interactive()) png("1228b.png", unit="in", width=7, height=7, res=150, pointsize=11)
 par(mfcol=c(3, 2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 oce.plot.ts(tdf$tmat, m$SerEmmpersec[-1,1]/1000.0, ylim=ylim, ylab="mat E")
+n <- 100
 oce.plot.ts(head(tdf$tmat,n), head(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
 oce.plot.ts(tail(tdf$tmat,n), tail(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
-icutoff <- 8281 # by eye
-cutoff <- toce[icutoff]
-abline(v=cutoff, col=2, lty='dotted')
-mtext(paste(format(cutoff), " (", icutoff, ") ", sep=""),
-      side=3, adj=1, cex=0.9, line=-1.1, col=2)
 
 oce.plot.ts(tdf$toce, d[["v"]][,1,1], ylim=ylim, ylab="oce 1")
 oce.plot.ts(head(tdf$toce,n), head(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
 oce.plot.ts(tail(tdf$toce,n), tail(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
-abline(v=cutoff, col=2, lty='dotted')
-mtext(paste(format(cutoff), " (", icutoff, ") ", sep=""),
-      side=3, adj=1, cex=0.8, line=-1.1, col=2)
 
 if (!interactive()) dev.off()
 
-par(mfrow=c(1,1))
 file <- file("adcp.000","rb")
 seek(file, 0, "start")
 seek(file, where=0, origin="end")

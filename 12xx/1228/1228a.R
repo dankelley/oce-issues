@@ -7,11 +7,11 @@ options(digits=10)
 options(digits.secs=4)
 
 if (!length(objects(pattern="^m$"))) {
-    message("rereading data")
+    cat("rereading data\n")
     m <- readMat("adcp.mat")
     d <- read.oce("adcp.000")
 } else {
-    message("using cached data")
+    cat("using cached data\n")
 }
 
 poce <- d[["pressure"]]
@@ -28,27 +28,27 @@ tmat <- ISOdatetime(as.vector(2000+m$SerYear),
                     as.vector(m$SerMin),
                     as.vector(m$SerSec)+as.vector(m$SerHund)/100, tz="UTC")
 tdf <- data.frame(toce=toce, tmat=tmat[-1])
-message("check that we are reading times right. Below is head:")
+cat("check that we are reading times right. Below is head:\n")
 print(head(tdf))
-message("check that we are reading times right. Below is tail:")
+cat("check that we are reading times right. Below is tail:\n")
 print(tail(tdf))
-message("fivenum on t diff")
+cat("fivenum on t diff\n")
 print(fivenum(tdf$toce-tdf$tmat))
 expect_equal(tdf$toce, tdf$tmat)
 
 
 ## demo that we are missing one time.
 i <- 1:5
-message("below shows that oce is missing 1 ensemble at the start")
+cat("below shows that oce is missing 1 ensemble at the start\n")
 start <- data.frame(ocetime=d[["time"]][i], mday=m$SerDay[i], mhour=m$SerHour[i],
                     mmin=m$SerMin[i], msec=m$SerSec[i], msec100=m$SerHund[i])
 print(start)
 
 ## look at pressure timeseries (after dropping first mat)
 df <- data.frame(poce=poce, pmat=pmat[-1], pmatCorrected=pmat[-1]+DP)
-message("here's the start pressures compared:")
+cat("here's the start pressures compared:\n")
 print(head(df, 50))
-message("here's the end pressures compared:")
+cat("here's the end pressures compared:\n")
 print(tail(df, 50))
 
 if (!interactive()) png("1228a.png", unit="in", width=7, height=7, res=150, pointsize=11)
