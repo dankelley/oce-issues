@@ -7,10 +7,15 @@ library(testthat)
 options(digits=10)
 options(digits.secs=4)
 
-if (!length(objects(pattern="^m$"))) {
+if (TRUE||!length(objects(pattern="^m$"))) {
     message("rereading data")
     m <- readMat("adcp.mat")
-    d <- read.oce("adcp.000")
+    ## source("~/git/oce/R/oce.R")
+    ## source("~/git/oce/R/adp.rdi.R")
+    ## source("~/git/oce/R/misc.R")
+    ## source("~/git/oce/R/imagep.R")
+    ## source("~/git/oce/R/processingLog.R")
+    d <- read.oce("adcp.000", debug=3)
 } else {
     message("using cached data")
 }
@@ -62,3 +67,16 @@ mtext(paste(format(cutoff), " (", icutoff, ") ", sep=""),
       side=3, adj=1, cex=0.8, line=-1.1, col=2)
 
 if (!interactive()) dev.off()
+
+par(mfrow=c(1,1))
+file <- file("adcp.000","rb")
+seek(file, 0, "start")
+seek(file, where=0, origin="end")
+fileSize <- seek(file, where=0)
+bufFile <- readBin(file, what="raw", n=fileSize, endian="little")
+close(file)
+n <- min(c(length(bufFile), length(buf)))
+mismatched <- sum(bufFile[1:n]!=buf[1:n])
+message("n=", n, ", mismatched=", mismatched)
+
+message("length(buf)=", length(buf), "; expect ", 6168576)
