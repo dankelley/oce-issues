@@ -13,7 +13,8 @@ df <- data.frame(poce=d[["pressure"]][i], pm=m$AnDepthmm[o+i]/1000.0)
 print(head(df, 40))
 plot(df$poce - df$pm, type='l')
 rms <- function(x,y) sqrt(mean((x-y)^2))
-mtext(sprintf("sd difference for index>100: %.5f", rms(df$poce[100:200], df$pm[100:200])), side=3)
+mtext(sprintf("RMS difference for index>100: %.5f",
+              rms(df$poce[100:200], df$pm[100:200])), side=3)
 
 ## oce misses first profile (look at the hour)
 i <- 1:100
