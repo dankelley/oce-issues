@@ -1,4 +1,5 @@
 DP <- 0.128 # inferred pressure change in matlab
+icutoff <- 8281 # at end, where matlab and oce disagree (by eye on graph)
 o <- 1 # the offset we need to compare (since oce is losing first ensemble)
 library(R.matlab)
 library(oce)
@@ -14,12 +15,6 @@ if (!length(objects(pattern="^m$"))) {
     message("using cached data")
 }
 
-poce <- d[["pressure"]]
-pmat <- as.numeric(m$AnDepthmm) / 1000.0
-ndata <- length(poce) # matlab has 1 more data point
-vectorShow(poce, n=4)
-vectorShow(pmat, n=4)
-
 toce <- d[["time"]]
 tmat <- ISOdatetime(as.vector(2000+m$SerYear), 
                     as.vector(m$SerMon),
@@ -28,38 +23,25 @@ tmat <- ISOdatetime(as.vector(2000+m$SerYear),
                     as.vector(m$SerMin),
                     as.vector(m$SerSec)+as.vector(m$SerHund)/100, tz="UTC")
 tdf <- data.frame(toce=toce, tmat=tmat[-1])
-message("check that we are reading times right. Below is head:")
+cat("check that we are reading times right. Below is head:\n")
 print(head(tdf))
-message("check that we are reading times right. Below is tail:")
+cat("check that we are reading times right. Below is tail:\n")
 print(tail(tdf))
-message("fivenum on t diff")
+cat("fivenum on t diff\n")
 print(fivenum(tdf$toce-tdf$tmat))
 expect_equal(tdf$toce, tdf$tmat)
 
 
-## demo that we are missing one time.
-i <- 1:5
-message("below shows that oce is missing 1 ensemble at the start")
-start <- data.frame(ocetime=d[["time"]][i], mday=m$SerDay[i], mhour=m$SerHour[i],
-                    mmin=m$SerMin[i], msec=m$SerSec[i], msec100=m$SerHund[i])
-print(start)
-
-## look at pressure timeseries (after dropping first mat)
-df <- data.frame(poce=poce, pmat=pmat[-1], pmatCorrected=pmat[-1]+DP)
-message("here's the start pressures compared:")
-print(head(df, 50))
-message("here's the end pressures compared:")
-print(tail(df, 50))
-
-
-for (look in ndata-c(20:0)) {
-    message("matE, matN, v[,,1], v[,,2] @ ensemble", look, " (NOTE: 2^15=32768 is NA?)")
-    print(cbind(m$SerEmmpersec[look,]/1000.0, m$SerNmmpersec[look,]/1000.0,
-                d[["v"]][look,,1],  d[["v"]][look,,2]))
-}
-
 ## Panels show matlab on left, oce on right
 n <- 100
+tudf <- data.frame(toce=toce, uoceTOP=d[["v"]][,1,1], umatTOP=m$SerEmmpersec[-1,1]/1000.0)
+cat("head of surface velocities compared\n")
+print(head(tudf))
+cat("tail of surface velocities compared\n")
+print(tail(tudf))
+cat("surface velocities compared at indices ", icutoff, "+seq(-5,5)\n")
+print(tudf[icutoff+seq.int(-5, 5), ])
+
 ylim <- c(-1, 1)
 if (!interactive()) png("1228b.png", unit="in", width=7, height=7, res=150, pointsize=11)
 par(mfcol=c(3, 2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
