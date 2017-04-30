@@ -6,13 +6,8 @@ library(testthat)
 options(digits=10)
 options(digits.secs=4)
 
-if (!length(objects(pattern="^m$"))) {
-    cat("rereading data\n")
-    m <- readMat("adcp.mat")
-    d <- read.oce("adcp.000")
-} else {
-    cat("using cached data\n")
-}
+m <- readMat("adcp.mat")
+d <- read.oce("adcp.000")
 
 poce <- d[["pressure"]]
 pmat <- as.numeric(m$AnDepthmm) / 1000.0
@@ -52,7 +47,7 @@ cat("here's the end pressures compared:\n")
 print(tail(df, 50))
 
 if (!interactive()) png("1228a.png", unit="in", width=7, height=7, res=150, pointsize=11)
-par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
+par(mfrow=c(1,1), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(df$poce - df$pmat, type='l', ylab="poce-pmat")
 mtext(sprintf("for index>100, mean(diff) = %.5f and sd(diff) = %.5f",
               mean(df$poce[-(1:100)] -df$pmat[-(1:100)]),

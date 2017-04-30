@@ -7,18 +7,13 @@ library(testthat)
 options(digits=10)
 options(digits.secs=4)
 
-if (TRUE||!length(objects(pattern="^m$"))) {
-    message("rereading data")
-    m <- readMat("adcp.mat")
-    ## source("~/git/oce/R/oce.R")
-    ## source("~/git/oce/R/adp.rdi.R")
-    ## source("~/git/oce/R/misc.R")
-    ## source("~/git/oce/R/imagep.R")
-    ## source("~/git/oce/R/processingLog.R")
-    d <- read.oce("adcp.000", debug=3)
-} else {
-    message("using cached data")
-}
+m <- readMat("adcp.mat")
+## source("~/git/oce/R/oce.R")
+## source("~/git/oce/R/adp.rdi.R")
+## source("~/git/oce/R/misc.R")
+## source("~/git/oce/R/imagep.R")
+## source("~/git/oce/R/processingLog.R")
+d <- read.oce("adcp.000", debug=3)
 
 toce <- d[["time"]]
 tmat <- ISOdatetime(as.vector(2000+m$SerYear), 
