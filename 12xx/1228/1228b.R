@@ -7,6 +7,10 @@ library(testthat)
 options(digits=10)
 options(digits.secs=4)
 
+#load("~/Dropbox/buf0.rda")
+# paste("0x", paste(head(buf,50), collapse=" 0x"), sep="")
+# 0x7f 0x7f 0xe3 0x02 0x00 0x07 0x14 0x00 0x4f 0x00 0x90 0x00 0x5a 0x01 0xc0 0x01 0x26 0x02 0x8c 0x02 0x00 0x00 0x33 0x28 0xca 0x41 0x00 0x0d 0x04 0x19 0x50 0x00 0x90 0x01 0xb0 0x00 0x01 0x40 0x09 0x00 0xd0 0x07 0x00 0x03 0x00 0x17 0x00 0x00 0x00 0x00
+
 m <- readMat("adcp.mat")
 ## source("~/git/oce/R/oce.R")
 ## source("~/git/oce/R/adp.rdi.R")
@@ -22,7 +26,7 @@ tmat <- ISOdatetime(as.vector(2000+m$SerYear),
                     as.vector(m$SerHour),
                     as.vector(m$SerMin),
                     as.vector(m$SerSec)+as.vector(m$SerHund)/100, tz="UTC")
-tdf <- data.frame(toce=toce, tmat=tmat[-1])
+tdf <- data.frame(toce=toce, tmat=tmat)
 cat("check that we are reading times right. Below is head:\n")
 print(head(tdf))
 cat("check that we are reading times right. Below is tail:\n")
@@ -33,7 +37,7 @@ expect_equal(tdf$toce, tdf$tmat)
 
 
 ## Panels show matlab on left, oce on right
-tudf <- data.frame(toce=toce, uoceTOP=d[["v"]][,1,1], umatTOP=m$SerEmmpersec[-1,1]/1000.0)
+tudf <- data.frame(toce=toce, uoceTOP=d[["v"]][,1,1], umatTOP=m$SerEmmpersec[,1]/1000.0)
 cat("head of surface velocities compared\n")
 print(head(tudf))
 cat("tail of surface velocities compared\n")
@@ -44,10 +48,10 @@ print(tudf[icutoff+seq.int(-5, 5), ])
 ylim <- c(-1, 1)
 if (!interactive()) png("1228b.png", unit="in", width=7, height=7, res=150, pointsize=11)
 par(mfcol=c(3, 2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-oce.plot.ts(tdf$tmat, m$SerEmmpersec[-1,1]/1000.0, ylim=ylim, ylab="mat E")
+oce.plot.ts(tdf$tmat, m$SerEmmpersec[,1]/1000.0, ylim=ylim, ylab="mat E")
 n <- 100
-oce.plot.ts(head(tdf$tmat,n), head(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
-oce.plot.ts(tail(tdf$tmat,n), tail(m$SerEmmpersec[-1,1]/1000.0,n), ylim=ylim, ylab="mat E")
+oce.plot.ts(head(tdf$tmat,n), head(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
+oce.plot.ts(tail(tdf$tmat,n), tail(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
 
 oce.plot.ts(tdf$toce, d[["v"]][,1,1], ylim=ylim, ylab="oce 1")
 oce.plot.ts(head(tdf$toce,n), head(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
@@ -61,8 +65,8 @@ seek(file, where=0, origin="end")
 fileSize <- seek(file, where=0)
 bufFile <- readBin(file, what="raw", n=fileSize, endian="little")
 close(file)
-n <- min(c(length(bufFile), length(buf)))
-mismatched <- sum(bufFile[1:n]!=buf[1:n])
+n <- min(c(length(bufFile), length(ldc$outbuf)))
+mismatched <- sum(bufFile[1:n]!=ldc$outbuf[1:n])
 message("n=", n, ", mismatched=", mismatched)
 
-message("length(buf)=", length(buf), "; expect ", 6168576)
+message("length(ldc$outbuf)=", length(ldc$outbuf), "; expect ", 6168576)
