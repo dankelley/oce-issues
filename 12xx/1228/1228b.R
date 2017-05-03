@@ -47,8 +47,10 @@ seek(file, where=0, origin="end")
 fileSize <- seek(file, where=0)
 bufFile <- readBin(file, what="raw", n=fileSize, endian="little")
 close(file)
-n <- min(c(length(bufFile), length(ldc$outbuf)))
-mismatched <- sum(bufFile[1:n]!=ldc$outbuf[1:n])
-message("n=", n, ", mismatched=", mismatched)
-
-message("length(ldc$outbuf)=", length(ldc$outbuf), "; expect ", 6168576)
+if (length(ls(pattern="^ldc$"))) {
+    ## this gave 0 mismatches so I removed the ldc export
+    n <- min(c(length(bufFile), length(ldc$outbuf)))
+    mismatched <- sum(bufFile[1:n]!=ldc$outbuf[1:n])
+    message("n=", n, ", mismatched=", mismatched)
+    message("length(ldc$outbuf)=", length(ldc$outbuf), "; expect ", 6168576)
+}
