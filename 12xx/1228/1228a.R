@@ -1,5 +1,4 @@
 DP <- 0.128 # inferred pressure change in matlab
-o <- 1 # the offset we need to compare (since oce is losing first ensemble)
 library(R.matlab)
 library(oce)
 library(testthat)
