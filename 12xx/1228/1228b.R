@@ -26,15 +26,7 @@ tmat <- ISOdatetime(as.vector(2000+m$SerYear),
                     as.vector(m$SerHour),
                     as.vector(m$SerMin),
                     as.vector(m$SerSec)+as.vector(m$SerHund)/100, tz="UTC")
-tdf <- data.frame(toce=toce, tmat=tmat)
-cat("check that we are reading times right. Below is head:\n")
-print(head(tdf))
-cat("check that we are reading times right. Below is tail:\n")
-print(tail(tdf))
-cat("fivenum on t diff\n")
-print(fivenum(tdf$toce-tdf$tmat))
-expect_equal(tdf$toce, tdf$tmat)
-
+expect_equal(toce, tmat)
 
 ## Panels show matlab on left, oce on right
 tudf <- data.frame(toce=toce, uoceTOP=d[["v"]][,1,1], umatTOP=m$SerEmmpersec[,1]/1000.0)
@@ -48,14 +40,14 @@ print(tudf[icutoff+seq.int(-5, 5), ])
 ylim <- c(-1, 1)
 if (!interactive()) png("1228b.png", unit="in", width=7, height=7, res=150, pointsize=11)
 par(mfcol=c(3, 2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-oce.plot.ts(tdf$tmat, m$SerEmmpersec[,1]/1000.0, ylim=ylim, ylab="mat E")
+oce.plot.ts(tmat, m$SerEmmpersec[,1]/1000.0, ylim=ylim, ylab="mat E")
 n <- 100
-oce.plot.ts(head(tdf$tmat,n), head(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
-oce.plot.ts(tail(tdf$tmat,n), tail(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
+oce.plot.ts(head(tmat,n), head(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
+oce.plot.ts(tail(tmat,n), tail(m$SerEmmpersec[,1]/1000.0,n), ylim=ylim, ylab="mat E")
 
-oce.plot.ts(tdf$toce, d[["v"]][,1,1], ylim=ylim, ylab="oce 1")
-oce.plot.ts(head(tdf$toce,n), head(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
-oce.plot.ts(tail(tdf$toce,n), tail(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
+oce.plot.ts(toce, d[["v"]][,1,1], ylim=ylim, ylab="oce 1")
+oce.plot.ts(head(toce,n), head(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
+oce.plot.ts(tail(toce,n), tail(d[["v"]][,1,1],n), ylim=ylim, ylab="oce 1")
 
 if (!interactive()) dev.off()
 
