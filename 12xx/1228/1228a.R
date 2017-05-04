@@ -6,7 +6,7 @@ options(digits=10)
 options(digits.secs=4)
 
 m <- readMat("adcp.mat")
-d <- read.oce("adcp.000")
+d <- read.oce("adcp.000", debug=100)
 
 poce <- d[["pressure"]]
 pmat <- as.numeric(m$AnDepthmm) / 1000.0

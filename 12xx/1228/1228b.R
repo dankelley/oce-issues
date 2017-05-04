@@ -7,7 +7,7 @@ options(digits=10)
 options(digits.secs=4)
 
 m <- readMat("adcp.mat")
-d <- read.oce("adcp.000", debug=3)
+d <- read.oce("adcp.000", debug=100)
 
 toce <- d[["time"]]
 tmat <- ISOdatetime(as.vector(2000+m$SerYear), 
@@ -48,7 +48,7 @@ fileSize <- seek(file, where=0)
 bufFile <- readBin(file, what="raw", n=fileSize, endian="little")
 close(file)
 if (length(ls(pattern="^ldc$"))) {
-    ## this gave 0 mismatches so I removed the ldc export
+    ## ldc will exist only if read.adp.rdi() has debug>99 (and I may remove that, too...)
     n <- min(c(length(bufFile), length(ldc$outbuf)))
     mismatched <- sum(bufFile[1:n]!=ldc$outbuf[1:n])
     message("n=", n, ", mismatched=", mismatched)
