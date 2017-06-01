@@ -4,8 +4,8 @@ data(section)
 stn <- section[["station", 3]]
 options(oceDeveloper=NULL)
 options(digits=10, width=100)
-for (i in 1:2) {
-    if (i == 1) options(oceDeveloper=NULL) else options(oceDeveloper=1)
+for (i in 1:3) {
+    if (i == 1) options(oceDeveloper=NULL) else options(oceDeveloper=i-1)
     cat("LOOP i=", i, ", oceDeveloper=", getOption("oceDeveloper"), "\n")
     options(oceEOS="gsw")
     A <- stn[["sigmaTheta"]]
