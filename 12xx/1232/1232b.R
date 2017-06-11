@@ -11,8 +11,6 @@ lat <- section[["latitude", "byStation"]]
 distance <- geodDist(lon, lat, alongPath=TRUE)
 resolutionKm <- resolution / 60 * 111  # km
 
-
-
 lonRange <- range(lon, na.rm=TRUE)
 latRange <- range(lat, na.rm=TRUE)
 
