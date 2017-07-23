@@ -11,7 +11,7 @@ for (b in bad) {
     print(as.data.frame(section[["station", b]][["data"]]))
 }
 plot(dhg$distance, dhg$height)
-points(dhu$distance,dhu$height,col=2)
+points(dhu$distance,dhu$height,col=2, pch=20)
 mtext(paste("bad: ", paste(bad, collapse=" ")), side=3, line=0.2)
 plot(dhg$distance, dhg$height, ylim=c(-1, 3.5))
 points(dhu$distance,dhu$height,col=2,pch=20)
