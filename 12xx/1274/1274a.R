@@ -21,11 +21,3 @@ if (length(bad)) {
     }
 }
 
-if (!interactive()) png("1274a.png")
-par(mfrow=c(2,1), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-plot(dhg$distance, dhg$height)
-points(dhu$distance,dhu$height,col=2)
-plot(dhg$distance, dhg$height, ylim=c(-1, 3.5))
-points(dhu$distance,dhu$height,col=2,pch=20)
-if (!interactive()) dev.off()
-
