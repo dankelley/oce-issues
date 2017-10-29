@@ -25,7 +25,7 @@ points(xy[LOOK[1]+1,1], xy[LOOK[1]+1,2], col='red') # first point
 mtext("(a)", side=3, line=0, adj=1, col='magenta', font=2)
 
 mapPlot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray', clip=TRUE,
-        latitudelim=c(60, 120), longitudelim=c(-130,-20), debug=10)
+        latitudelim=c(60, 120), longitudelim=c(-130,-20))
 axis(2)
 axis(3)
 ## OK mapPolygon(lon[LOOK], lat[LOOK], col='lightgreen')
@@ -41,16 +41,8 @@ lines(xy[!wild,1], xy[!wild,2])
 points(xy[LOOK,1], xy[LOOK,2], col=2)
 mtext("(c)", side=3, line=0, adj=1, col='magenta', font=2)
 
-##> ## sketch for issue report
-##> xx <- c(0,0,1)
-##> yy <- c(0,1,1)
-##> plot(xx, yy, type='p', pch=20, cex=3, xlab="", ylab="")
-##> polygon(xx, yy, col='lightgray')
-##> polygon(c(0.4,.4,.8,.8),c(0.2, 0.5, 0.5, 0.2),border='blue',lwd=3)
-##> mtext("(d)", side=3, line=0, adj=1, col='magenta', font=2)
-
 mapPlot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray', clip=FALSE,
-        latitudelim=c(60, 120), longitudelim=c(-130,-20), debug=10)
+        latitudelim=c(60, 120), longitudelim=c(-130,-20))
 axis(2)
 axis(3)
 mtext("(d)", side=3, line=0, adj=1, col='magenta', font=2)
