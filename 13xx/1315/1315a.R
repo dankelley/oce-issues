@@ -21,6 +21,7 @@ abline(h=0, col='blue')
 abline(v=0, col='blue')
 lines(xy[LOOK,1], xy[LOOK,2], col=2)
 polygon(xy[LOOK,1], xy[LOOK,2], col='lightgreen')
+points(xy[LOOK[1]+1,1], xy[LOOK[1]+1,2], col='red') # first point
 mtext("(a)", side=3, line=0, adj=1, col='magenta', font=2)
 
 mapPlot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray', clip=TRUE,
@@ -30,6 +31,7 @@ axis(3)
 ## OK mapPolygon(lon[LOOK], lat[LOOK], col='lightgreen')
 mapLines(lon, lat, col=2)
 mapLines(lon[LOOK], lat[LOOK], col=3)
+mapPoints(lon[LOOK[1]+1], lat[LOOK[1]+1], col='red') # first point
 mtext("(b)", side=3, line=0, adj=1, col='magenta', font=2)
 
 wild<-xy[,2]>1e22
