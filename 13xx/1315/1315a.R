@@ -1,24 +1,56 @@
+LOOK <- 4575:4707 # NA to NA on Greenland
 library(oce)
 data(coastlineWorld)
-if (!interactive()) png("1315a.png")
-par(mfrow=c(2,2), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
-plot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray',
-     latitudelim=c(60, 120), longitudelim=c(-130,-50))
+if (!interactive()) png("1315a.png", width=7, height=7, unit="in", res=150, pointsize=9)
+par(mfrow=c(2,2), mar=c(3, 3, 2, 1), mgp=c(2, 0.7, 0))
+
 lon<-coastlineWorld[["longitude"]]
 lat<-coastlineWorld[["latitude"]]
 ll<-cbind(lon, lat)
 library(rgdal)
 xy <- project(ll, "+proj=stere +lat_0=90")
+
+x <- xy[,1]
+y <- xy[,2]
+clLOOK <- .Call("map_clip_xy", x[LOOK], y[LOOK], c(-3e6,3e6,-3e6,3e6))
+cl <- .Call("map_clip_xy", x, y, c(-3e6,3e6,-3e6,3e6))
+
+L <- 3.4e6
+plot(xy[,1], xy[,2], xlim=L*c(-1, 1), ylim=L*c(-1,1), asp=1, type="l")
+abline(h=0, col='blue')
+abline(v=0, col='blue')
+lines(xy[LOOK,1], xy[LOOK,2], col=2)
+polygon(xy[LOOK,1], xy[LOOK,2], col='lightgreen')
+mtext("(a)", side=3, line=0, adj=1, col='magenta', font=2)
+
+mapPlot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray', clip=TRUE,
+        latitudelim=c(60, 120), longitudelim=c(-130,-20), debug=10)
+axis(2)
+axis(3)
+## OK mapPolygon(lon[LOOK], lat[LOOK], col='lightgreen')
+mapLines(lon, lat, col=2)
+mapLines(lon[LOOK], lat[LOOK], col=3)
+mtext("(b)", side=3, line=0, adj=1, col='magenta', font=2)
+
 wild<-xy[,2]>1e22
 plot(xy[!wild,1], xy[!wild,2], type='l')
 polygon(xy[!wild,1], xy[!wild,2],col='lightgray')
 lines(xy[!wild,1], xy[!wild,2])
+points(xy[LOOK,1], xy[LOOK,2], col=2)
+mtext("(c)", side=3, line=0, adj=1, col='magenta', font=2)
 
-## sketch for issue report
-xx <- c(0,0,1)
-yy <- c(0,1,1)
-plot(xx, yy, type='p', pch=20, cex=3, xlab="", ylab="")
-polygon(xx, yy, col='lightgray')
-polygon(c(0.4,.4,.8,.8),c(0.2, 0.5, 0.5, 0.2),border='blue',lwd=3)
+##> ## sketch for issue report
+##> xx <- c(0,0,1)
+##> yy <- c(0,1,1)
+##> plot(xx, yy, type='p', pch=20, cex=3, xlab="", ylab="")
+##> polygon(xx, yy, col='lightgray')
+##> polygon(c(0.4,.4,.8,.8),c(0.2, 0.5, 0.5, 0.2),border='blue',lwd=3)
+##> mtext("(d)", side=3, line=0, adj=1, col='magenta', font=2)
+
+mapPlot(coastlineWorld, proj="+proj=stere +lat_0=90", col='lightgray', clip=FALSE,
+        latitudelim=c(60, 120), longitudelim=c(-130,-20), debug=10)
+axis(2)
+axis(3)
+mtext("(d)", side=3, line=0, adj=1, col='magenta', font=2)
 
 if (!interactive()) dev.off()
