@@ -1,0 +1,7 @@
+library(oce)
+data("ctd")
+if (!interactive()) png("1324a.png")
+plot(ctd,Tlim=c(0,15),Slim=c(30.2,32.2),densitylim=c(21,26),N2lim=c(-0.001,0.005))
+mtext("EXPECT: N2lim -0.001 to 0.005", side=3, col="magenta", line=-0.5, adj=1, cex=0.8, font=2)
+mtext("EXPECT: densitylim 21 to 26", side=3, col="magenta", line=-1.5, adj=1, cex=0.8, font=2)
+if (!interactive()) dev.off()
