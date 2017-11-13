@@ -2,7 +2,6 @@ library(oce)
 data(coastlineWorld)
 if (!interactive()) pdf('539D-%03d.pdf')
 lons <- seq(179, -179, -10)
-#options(oceProj4Test=1)
 ilon <- 1:3
 ilon <- seq_along(lons)
 for (i in ilon) {

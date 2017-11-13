@@ -2,7 +2,6 @@ library(oce)
 data(coastlineWorld)
 if (!interactive()) png('539A-%03d.png')
 lons <- seq(179, -179, -10)
-#options(oceProj4Test=1)
 ilon <- 1:3
 ilon <- seq_along(lons)
 for (i in ilon) {
