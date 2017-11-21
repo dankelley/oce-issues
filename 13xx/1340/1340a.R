@@ -23,7 +23,8 @@ mapImage(lo, la, SA, missingColor=NA, debug=0)
 mapLines(coastlineWorld, col='gray')
 
 mapPlot(coastlineWorld, projection=p)
-mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
+options("dan"=1);mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
+options("dan"=2);mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
 mapLines(coastlineWorld, col='gray')
 
 ## does it help to specify breaks?
