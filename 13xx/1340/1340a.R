@@ -22,10 +22,20 @@ mapPlot(coastlineWorld, projection=p)
 mapImage(lo, la, SA, missingColor=NA, debug=0)
 mapLines(coastlineWorld, col='gray')
 
+par(mfrow=c(2, 1))
 mapPlot(coastlineWorld, projection=p)
-options("dan"=1);mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
-options("dan"=2);mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
+
+options("dan"=2)
+mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
+dan2 <- dan
 mapLines(coastlineWorld, col='gray')
+
+options("dan"=1)
+mapPlot(coastlineWorld, projection=p)
+mapImage(lo, la, SA, missingColor=NA, col=oceColorsJet, debug=0) # bad
+dan1 <- dan
+mapLines(coastlineWorld, col='gray')
+par(mfrow=c(1, 1))
 
 ## does it help to specify breaks?
 mapPlot(coastlineWorld, projection=p)
