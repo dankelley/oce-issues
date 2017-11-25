@@ -6,7 +6,7 @@ ilon <- 1:3
 ilon <- seq_along(lons)
 for (i in ilon) {
     lon <- lons[i]
-    par(mar=rep(1, 4), bg=NA)
+    par(mar=rep(1, 4))# , bg=NA)
     p <- paste('+proj=ortho +lat_0=30 +lon_0=', lon, sep='')
     if (i == 1) {
         mapPlot(coastlineWorld, projection=p)

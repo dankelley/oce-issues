@@ -2,7 +2,7 @@ library(oce)
 data(coastlineWorld)
 if (!interactive()) png('539C.png')
 lon <- -30
-par(mar=rep(1, 4), bg=NA)
+par(mar=rep(1, 4))# , bg=NA)
 p <- paste('+proj=ortho +lat_0=30 +lon_0=', lon, sep='')
 mapPlot(coastlineWorld, projection=p)
 mapPoints(0, 90, col='red', debug=99)

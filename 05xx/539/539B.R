@@ -4,7 +4,7 @@ if (!interactive()) png('539B-%03d.png')
 lons <- seq(179, -179, -10)
 ilon <- 1:3
 ilon <- seq_along(lons)
-par(mar=rep(1, 4), bg=NA)
+par(mar=rep(1, 4))# , bg=NA)
 for (i in ilon) {
     lon <- lons[i]
     p <- paste('+proj=ortho +lat_0=30 +lon_0=', lon, sep='')
