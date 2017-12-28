@@ -8,6 +8,6 @@ mapPlot(coastlineWorldFine,
         latitudelim = c(45.5, 46.5),
         proj = '+proj=merc',
         col = 'grey')
-mtext("Expect: lat labels by the grid lines", font=2, col="magenta", side=3)
+mtext("Expect: axis at 45, 46, and 46.5N (for default png() window)", font=2, col="magenta", side=3)
 if (!interactive()) dev.off()
 
