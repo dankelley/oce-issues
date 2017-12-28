@@ -3,8 +3,11 @@
 # some problem of PDF tables. This problem was easy to diagnose, because R
 # reported a wrong number of items per line, and a glance at the screenshot
 # ttide_screenshot.png of the PDF viewer indicated where to insert blanks.
+# Finally, a Z0 line was added, to make comparision with tidem() results
+# a bit simpler.
 
 Tide Freq Amp AmpErr Pha PhaErr Snr
+Z0 0 1.98 NA 0 NA NA
 MM 0.00151 0.2121 0.503 263.34 161.41 0.18
 MSF 0.00282 0.1561 0.526 133.80 188.82 0.088
 ALP1 0.03440 0.0152 0.044 334.95 150.82 0.12
