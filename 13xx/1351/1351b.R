@@ -11,6 +11,8 @@ showinferred <- function(x)
     abline(v=x[["frequency"]][x[["name"]]=="K2"], col="red")
     abline(v=x[["frequency"]][x[["name"]]=="K1"], col="blue", lty=2)
     abline(v=x[["frequency"]][x[["name"]]=="S2"], col="blue", lty=2)
+    mtext("P1", at=x[["frequency"]][x[["name"]]=="P1"], side=1, col="red")
+    mtext("K2", at=x[["frequency"]][x[["name"]]=="K2"], side=1, col="red")
 }
 data(sealevelTuktoyaktuk)
 m <- tidem(sealevelTuktoyaktuk,
@@ -23,16 +25,16 @@ summary(m)
 ttide <- read.table("ttide.dat", header=TRUE, skip=8, stringsAsFactors=FALSE)
 head(ttide, 3)
 ## use Foreman names to make comparisons easier
-ttide$Tide <- gsub("^MS$", "M8", gsub("^UPSI$", "UPS1", ttide$Tide))
-expect_equal(m[["name"]], ttide$Tide)
-expect_equal(m[["freq"]], ttide$Freq, tol=1e-5) # ttide table e.g. 0.08333
+ttide$name <- gsub("^MS$", "M8", gsub("^UPSI$", "UPS1", ttide$name))
+expect_equal(m[["name"]], ttide$name)
+expect_equal(m[["freq"]], ttide$frequency, tol=1e-5) # ttide table e.g. 0.08333
 cmp <- data.frame(name=m[["name"]],
                   frequency=m[["frequency"]],
-                  ampttide=ttide$Amp,
+                  ampttide=ttide$amplitude,
                   amptidem=m[["amplitude"]],
-                  ampdiff=ttide$Amp-m[["amplitude"]])
+                  ampdiff=ttide$amplitude-m[["amplitude"]])
 if (!interactive()) png("1351b.png")
-par(mfrow=c(2,1), mar=c(3, 3, 2, 3), mgp=c(2, 0.7, 0))
+par(mfrow=c(2,1), mar=c(3, 3, 2, 2), mgp=c(2, 0.7, 0))
 plot(cmp$frequency, log10(cmp$ampttide), xlab="Freq", ylab="log10(Amp)", ylim=range(log10(c(cmp$ampttide, cmp$amptidem))))
 axis(side=4, at=seq(-3, 0, 1), label=c("1mm", "10mm", "1cm", "1m"))
 points(cmp$frequency, log10(cmp$amptidem), pch='+')
@@ -60,7 +62,7 @@ points(cmp$frequency[k2], diff[k2], col=5, lwd=2)
 points(cmp$frequency[s2], diff[s2], col=6, lwd=2)
 showinferred(m)
 abline(h=c(0, -0.0001, 0.0001), lty=c(1, 2, 2), col="gray") # match, +- 0.1mm
-mtext("horiz dashed lines show 0.1mm resolution", side=3)
+mtext("horiz dashed show 0.1mm resolution", side=3)
 legend("topright", pch=1, col=c(6,5,4,3,1), pt.lwd=2,
        legend=c("P1 (inferred from K2)", "K1 (inferred from S2)", "P1", "S2", "Other components"))
 

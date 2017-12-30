@@ -7,7 +7,7 @@
 # a bit simpler; that line uses amplitude from Foreman 1997 instead of
 # pawlowicz2002cthw.pdf, because it has 2 more digits after the 1.98 value.
 
-Tide Freq Amp AmpErr Pha PhaErr Snr
+name frequency amplitude amplitudeErr phase phaseErr SNR
 Z0 0 1.9806 NA 0 NA NA
 MM 0.00151 0.2121 0.503 263.34 161.41 0.18
 MSF 0.00282 0.1561 0.526 133.80 188.82 0.088
