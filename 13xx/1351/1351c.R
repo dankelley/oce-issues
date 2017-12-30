@@ -41,7 +41,7 @@ m <- tidem(sealevelTuktoyaktuk,
            infer=list(name=c("P1","K2"),
                       from=c("K1", "S2"),
                       amp=c(0.33093, 0.27215),
-                      phase=c(-7.07, -22.4)))
+                      phase=c(-7.07, -22.40)))
 ##summary(m)
 ## 1. are constituents in the relationship implied by the following code
 ##    from t_demo.m?
@@ -181,8 +181,15 @@ showLegend()
 
 if (!interactive()) dev.off()
 
-## Three points differ between T_TIDE and Foreman by more than 0.1mm or more:
+cat("Three points differ between T_TIDE and Foreman\n")
 for (check in c("K1", "S2", "K2")) {
-    print(ttide[ttide$name==check,])#  c("name", "frequency", "amplitude")])
-    print(foreman[foreman$name==check,])#  c("name", "frequency", "A")])
+    print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
+    print(foreman[foreman$name==check, c("name", "frequency", "A")])
+}
+
+cat("Three points differ between T_TIDE (first in pairs below) and tidem (second).\n")
+df <- data.frame(name=m[["name"]], frequency=m[["frequency"]], amplitude=m[["amplitude"]])
+for (check in c("K1", "P1", "S2")) {
+    print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
+    print(df[which(m[["name"]]==check),])
 }
