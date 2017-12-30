@@ -1,0 +1,14 @@
+1. why does amp differ from t-tide, just on the inference cases?
+
+2. what are the two amplitudes given in foreman (and ttide?) and which are we
+   meant to use?
+
+3. do foreman.dat and ttide.dat match?
+
+
+```{r}
+f <- read.table("foreman.dat",header=TRUE)
+plot(f$Freq, f$amp1/f$amp2)
+```
+
+
