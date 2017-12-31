@@ -26,8 +26,11 @@ ttide <- read.table("ttide.dat", header=TRUE, skip=8, stringsAsFactors=FALSE)
 head(ttide, 3)
 ## use Foreman names to make comparisons easier
 ttide$name <- gsub("^MS$", "M8", gsub("^UPSI$", "UPS1", ttide$name))
+
+## Next 2 tests are now in tests/testthat/test_tidem.R
 expect_equal(m[["name"]], ttide$name)
 expect_equal(m[["freq"]], ttide$frequency, tol=1e-5) # ttide table e.g. 0.08333
+
 cmp <- data.frame(name=m[["name"]],
                   frequency=m[["frequency"]],
                   ampttide=ttide$amplitude,

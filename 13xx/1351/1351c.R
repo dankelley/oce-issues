@@ -38,11 +38,11 @@ ttide$name <- gsub("^MS$", "M8", gsub("^UPSI$", "UPS1", ttide$name))
 data(sealevelTuktoyaktuk)
 m <- tidem(sealevelTuktoyaktuk,
            constituents=c("standard", "M10"),
-           infer=list(name=c("P1","K2"),
-                      from=c("K1", "S2"),
+           infer=list(name=c("P1", "K2"), # 0.0415525871 0.0835614924
+                      from=c("K1", "S2"), # 0.0417807462 0.0833333333
                       amp=c(0.33093, 0.27215),
-                      phase=c(-7.07, -22.40)))
-##summary(m)
+                      phase=c(-7.07, -22.40)), debug=0)
+
 ## 1. are constituents in the relationship implied by the following code
 ##    from t_demo.m?
 ##         infername=['P1';'K2'];
@@ -67,9 +67,10 @@ k1 <- which(foreman$name=="K1")[1]
 k2 <- which(foreman$name=="K2")[1]
 s2 <- which(foreman$name=="S2")[1]
 
-## 2. doe ttide and foreman frequencies match?
-expect_equal(ttide$name, foreman$name)
-expect_equal(ttide$frequency, foreman$frequency, tol=5e-6) # T_TIDE reports to 1e-5
+##> These two tests are now in tests/testthat/test_tidem.R
+##> ## 2. do ttide and foreman frequencies match?
+##> expect_equal(ttide$name, foreman$name)
+##> expect_equal(ttide$frequency, foreman$frequency, tol=5e-6) # T_TIDE reports to 1e-5
 
 if (!interactive()) png("1351c.png", height=4, width=7, unit="in", res=150, pointsize=10)
 par(mfcol=c(2,4), mar=c(3, 3, 2, 3), mgp=c(2, 0.7, 0))
@@ -77,7 +78,7 @@ par(mfcol=c(2,4), mar=c(3, 3, 2, 3), mgp=c(2, 0.7, 0))
 ## LEFT PANELS: Foreman "A" vs T_TIDE amplitude
 ## LEFT TOP: value
 plot(ttide$frequency, log10(foreman$A), xlab="Frequency", ylab="log10(amp)")
-mtext("Foreman A vs T_TIDE Amp", side=3, cex=0.9, line=0.5)
+mtext("Foreman A vs T_TIDE", side=3, cex=0.9, line=0.5)
 showInferred(foreman)
 points(foreman$frequency[p1], log10(foreman$A[p1]), col=3, lwd=2)
 points(foreman$frequency[k1], log10(foreman$A[k1]), col=4, lwd=2)
@@ -103,7 +104,7 @@ showLegend()
 ## LEFT-MIDDLE PANELS: Foreman "AL" vs T_TIDE amplitude
 ## LEFT-MIDDLE TOP: value
 plot(ttide$frequency, log10(foreman$AL), xlab="Frequency", ylab="log10(amp)")
-mtext("Foreman AL vs T_TIDE Amp", side=3, cex=0.9, line=0.5)
+mtext("Foreman AL vs T_TIDE", side=3, cex=0.9, line=0.5)
 showInferred(foreman)
 points(foreman$frequency[p1], log10(foreman$AL[p1]), col=3, lwd=2)
 points(foreman$frequency[k1], log10(foreman$AL[k1]), col=4, lwd=2)
@@ -130,7 +131,7 @@ showLegend()
 ## RIGHT-MIDDLE TOP: value
 ylim <- range(log10(c(ttide$amplitude, m[["amplitude"]])))
 plot(ttide$frequency, log10(ttide$amplitude), ylim=ylim, xlab="Frequency", ylab="log10(amp)")
-mtext("T_TIDE vs tidem() Amp", side=3, cex=0.9, line=0.5)
+mtext("T_TIDE vs tidem", side=3, cex=0.9, line=0.5)
 points(ttide$frequency, log10(m[["amplitude"]]), pch='+')
 points(ttide$frequency[p1], (ttide$amplitude-m[["amplitude"]])[p1], col=3, lwd=2)
 points(ttide$frequency[k1], (ttide$amplitude-m[["amplitude"]])[k1], col=4, lwd=2)
@@ -156,7 +157,7 @@ showLegend()
 ## RIGHT PANELS: Foreman vs tidem() amplitude
 ## RIGHT TOP: value
 plot(foreman$frequency, log10(foreman$A), xlab="Frequency", ylab="log10(amp)")
-mtext("Foreman A vs tidem Amp", side=3, cex=0.9, line=0.5)
+mtext("Foreman A vs tidem", side=3, cex=0.9, line=0.5)
 showInferred(foreman)
 points(foreman$frequency[p1], log10(m[["amplitude"]][p1]), col=3, lwd=2)
 points(foreman$frequency[k1], log10(m[["amplitude"]][k1]), col=4, lwd=2)
@@ -181,6 +182,18 @@ showLegend()
 
 if (!interactive()) dev.off()
 
+# Did inference formula work?
+expect_equal(0.33093,
+             m[["amplitude"]][which(m[["name"]]=="P1")]/m[["amplitude"]][which(m[["name"]]=="K1")])
+expect_equal(m[["phase"]][which(m[["name"]]=="P1")],
+             m[["phase"]][which(m[["name"]]=="K1")]-(-7.07))
+expect_equal(0.27215,
+             m[["amplitude"]][which(m[["name"]]=="K2")]/m[["amplitude"]][which(m[["name"]]=="S2")])
+expect_equal(m[["phase"]][which(m[["name"]]=="K2")],
+             m[["phase"]][which(m[["name"]]=="S2")]-(-22.40))
+
+##summary(m)
+
 cat("Three points differ between T_TIDE and Foreman\n")
 for (check in c("K1", "S2", "K2")) {
     print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
@@ -193,3 +206,4 @@ for (check in c("K1", "P1", "S2")) {
     print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
     print(df[which(m[["name"]]==check),])
 }
+
