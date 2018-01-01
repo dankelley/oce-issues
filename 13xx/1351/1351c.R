@@ -1,6 +1,8 @@
 rm(list=ls())
+detailed <- FALSE
 library(oce)
 library(testthat)
+source("~/git/oce/R/tides.R")
 
 showInferred <- function(x)
 {
@@ -19,9 +21,9 @@ showDiffs <- function(diff)
     rms <- function(x) sqrt(mean(x^2, na.rm=TRUE))
     mad <- function(x) mean(abs(x), na.rm=TRUE)
     medad <- function(x) median(abs(x), na.rm=TRUE)
-    mtext(sprintf("rms diff %.2fmm ", 1000*rms(diff)), line=-3, adj=1, side=1, cex=0.7)
-    mtext(sprintf("mean |diff| %.2fmm ", 1000*mad(diff)), line=-2, adj=1, side=1, cex=0.7)
-    mtext(sprintf("median |diff| %.2fmm ", 1000*medad(diff)), line=-1, adj=1, side=1, cex=0.7)
+    mtext(sprintf("rms diff %.2fmm ", round(1000*rms(diff), 2)), line=-3, adj=1, side=1, cex=0.7)
+    mtext(sprintf("mean |diff| %.2fmm ", round(1000*mad(diff), 2)), line=-2, adj=1, side=1, cex=0.7)
+    mtext(sprintf("median |diff| %.2fmm ", round(1000*medad(diff), 2)), line=-1, adj=1, side=1, cex=0.7)
 }
 
 showLegend <- function()
@@ -141,7 +143,7 @@ axis(side=4, at=seq(-3, 0, 1), label=c("1mm", "10mm", "1cm", "1m"))
 showInferred(foreman)
 showLegend()
 ## RIGHT-RIGHT BOTTOM: difference
-diff <- ttide$amplitude - m[["amplitude"]]
+diff <- ttide$amplitude - round(m[["amplitude"]], 4)
 ylim <- c(-1,1)*max(abs(diff), na.rm=TRUE)
 plot(foreman$frequency, diff, ylim=ylim,
      xlab="Freq", ylab="tidem - T_TIDE [m]")
@@ -159,15 +161,16 @@ showLegend()
 plot(foreman$frequency, log10(foreman$A), xlab="Frequency", ylab="log10(amp)")
 mtext("Foreman A vs tidem", side=3, cex=0.9, line=0.5)
 showInferred(foreman)
-points(foreman$frequency[p1], log10(m[["amplitude"]][p1]), col=3, lwd=2)
-points(foreman$frequency[k1], log10(m[["amplitude"]][k1]), col=4, lwd=2)
-points(foreman$frequency[k2], log10(m[["amplitude"]][k2]), col=5, lwd=2)
-points(foreman$frequency[s2], log10(m[["amplitude"]][s2]), col=6, lwd=2)
-points(foreman$frequency, log10(ttide$amplitude), pch="+")
+points(foreman$frequency[p1], log10(foreman$A[p1]), col=3, lwd=2)
+points(foreman$frequency[k1], log10(foreman$A[k1]), col=4, lwd=2)
+points(foreman$frequency[k2], log10(foreman$A[k2]), col=5, lwd=2)
+points(foreman$frequency[s2], log10(foreman$A[s2]), col=6, lwd=2)
+amp <- round(m[["amplitude"]], 4) ## round to match Foreman App 7.3 (1977) and Pawlowicz et al. (2002) table 1
+points(foreman$frequency, log10(amp), pch="+")
 axis(side=4, at=seq(-3, 0, 1), label=c("1mm", "10mm", "1cm", "1m"))
 showLegend()
 ## RIGHT BOTTOM: difference
-diff <- foreman$A - m[["amplitude"]]
+diff <- foreman$A - amp
 ylim <- c(-1,1)*max(abs(diff), na.rm=TRUE)
 plot(foreman$frequency, diff, ylim=ylim,
      xlab="Freq", ylab="Ttide-tidem amp. [m]")
@@ -194,16 +197,27 @@ expect_equal(m[["phase"]][which(m[["name"]]=="K2")],
 
 ##summary(m)
 
-cat("Three points differ between T_TIDE and Foreman\n")
-for (check in c("K1", "S2", "K2")) {
-    print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
-    print(foreman[foreman$name==check, c("name", "frequency", "A")])
+if (detailed) {
+    cat("Three points differ between T_TIDE and Foreman\n")
+    for (check in c("K1", "S2", "K2")) {
+        print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
+        print(foreman[foreman$name==check, c("name", "frequency", "A")])
+    }
 }
 
 cat("Three points differ between T_TIDE (first in pairs below) and tidem (second).\n")
 df <- data.frame(name=m[["name"]], frequency=m[["frequency"]], amplitude=m[["amplitude"]])
 for (check in c("K1", "P1", "S2")) {
     print(ttide[ttide$name==check, c("name", "frequency", "amplitude")])
-    print(df[which(m[["name"]]==check),])
 }
+name <- c("K1", "P1", "K2", "S2")
+df <- data.frame(name=name,
+                 freq=unlist(lapply(name, function(n) ttide$freq[which(ttide$name==n)])),
+                 ForemanAmp=unlist(lapply(name, function(n) foreman$A[which(foreman$name==n)])),
+                 ForemanPhase=unlist(lapply(name, function(n) foreman$G[which(foreman$name==n)])),
+                 TTIDEAmp=unlist(lapply(name, function(n) ttide$amplitude[which(ttide$name==n)])),
+                 TTIDEPhase=unlist(lapply(name, function(n) ttide$phase[which(ttide$name==n)])),
+                 tidemAmp=unlist(lapply(name, function(n) round(m[["amplitude"]][which(m[["name"]]==n)],4))),
+                 tidemPhase=unlist(lapply(name, function(n) round(m[["phase"]][which(m[["name"]]==n)],4))))
+print(df)
 
