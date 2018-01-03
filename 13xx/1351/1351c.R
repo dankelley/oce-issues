@@ -2,7 +2,6 @@ rm(list=ls())
 detailed <- FALSE
 library(oce)
 library(testthat)
-source("~/git/oce/R/tides.R")
 
 showInferred <- function(x)
 {
