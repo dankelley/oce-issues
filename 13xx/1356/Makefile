@@ -4,6 +4,6 @@ all: $(OBJECTS)
 %.out: %.R
 	R --no-save < $< > $@
 clean:
-	-rm *.out 13*.png 13*.pdf *~ *swp
+	-rm *.out 13*.png 13*.pdf *~ *swp *.pdf
 view:
 	-open *.png
