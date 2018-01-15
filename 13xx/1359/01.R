@@ -50,6 +50,10 @@ spec <- spec / n$kint / sum(window^2)
 freq <- seq(0, 1, length.out=1+floor(len+lenlen)/2)
 expect_equal(length(freq), 129)
 Spec <- spec[seq(1L, 1+floor(len+lenlen)/2)]
+
+if (!interactive())
+    png("01.png", width=7, height=5, unit="in", res=150, pointsize=9)
+
 par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(freq, 10*log10(Spec), type='l', xaxs='i')# , ylim=c(-12,8))
 grid()
@@ -66,3 +70,7 @@ which(bad)
 data.frame(pxx[bad], Spec[bad], freq[bad])
 # plot(freq, 100*(Spec-predict(m))/Spec, type='l')
 # abline(h=0)
+
+if (!interactive())
+    dev.off()
+
