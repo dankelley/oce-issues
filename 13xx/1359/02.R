@@ -76,7 +76,7 @@ expect_equal(head(window, 8),
              c(0.0800000000, 0.0818518248, 0.0873923892, 0.0965770841,
                0.1093319595, 0.1255543208, 0.1451135549, 0.1678521826))
 
-plot(freq, 1-pxx/Spec, type='l', xaxs='i')
+plot(freq, 1-pxx/Spec, type='o', xaxs='i')
 
 m <- lm(Spec~pxx)
 percentage <- as.vector(100*(Spec-predict(m))/Spec)

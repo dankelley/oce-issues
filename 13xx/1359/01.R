@@ -54,7 +54,7 @@ Spec <- spec[seq(1L, 1+floor(len+lenlen)/2)]
 if (!interactive())
     png("01.png", width=7, height=5, unit="in", res=150, pointsize=9)
 
-par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
+par(mfrow=c(2, 1), mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 plot(freq, 10*log10(Spec), type='l', xaxs='i')# , ylim=c(-12,8))
 grid()
 abline(v=1/4, col='red')
@@ -65,7 +65,7 @@ expect_equal(head(window, 8),
 m <- lm(Spec~pxx)
 percentage <- as.vector(100*(Spec-predict(m))/Spec)
 bad <- abs((pxx-median(pxx/Spec)*Spec)/Spec)>1e-7
-plot(freq, bad)
+plot(freq, 1-pxx/Spec, type='o', xaxs='i')
 which(bad)
 data.frame(pxx[bad], Spec[bad], freq[bad])
 # plot(freq, 100*(Spec-predict(m))/Spec, type='l')
