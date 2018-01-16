@@ -1,6 +1,6 @@
 # Files
 
-* `test.m`
+* `testN.m` matlab code that does various test cases, and creates output files to be tested in R
 * `xN.dat`, `pxxN.dat` and `wN.dat`: data produced by the commented-out code at
   start of `testN.m`
 * `old/01.R`: various steps towards reproducing results of `test.m`. Apart
