@@ -5,11 +5,11 @@
 
 load("x1.dat")
 
-[pxx,w] = pwelch(x1);
+[pxx1,w1] = pwelch(x1);
 
-plot(w/pi, 10*log10(pxx))
+plot(w1/pi, 10*log10(pxx1))
 xlabel('\omega / \pi')
 
-% sprintf('%.10f\n', x)
-% sprintf('%.10f\n', pxx)
-% sprintf('%.10f\n', w)
+% sprintf('%.10f\n', x1)
+% sprintf('%.10f\n', pxx1)
+% sprintf('%.10f\n', w1)
