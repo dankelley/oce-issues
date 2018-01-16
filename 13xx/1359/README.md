@@ -7,8 +7,13 @@
 * `01.R` etc, various steps towards reproducing results of `test.m`. Apart from
   the endpoints, the spec agrees with matlab to 7 digits, after a scale factor
 * `02.R` factor figured out. endpoint ok on *one* testcase. FIXME: even/odd length
-* `03.R` PLAN: another example of different length (preferably short for
-  inclusion in test suite)
-* '04.R' PLAN: other args, e.g. specify nwindow, specify window type, etc (a
-  LOT of work remains and I want it all to be exactly right)
+* `1359a.R` uses the above; tests for both even and odd data lengths
+
+
+# Next tasks:
+
+* allow to specify window as vector
+* allow to specify window as number indicating length
+* allow to specify all other things presently permitted
+* consider allowing to specify other things provided by matlab
 
