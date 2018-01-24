@@ -1,62 +1,84 @@
 library(oce)
-if (file.exists("~/git/oce/R/ctd.R"))
-    source("~/git/oce/R/ctd.R")
-options(oceDebug=10) # turns on debugging for all oce code
+## if (file.exists("~/git/oce/R/ctd.R"))
+##     source("~/git/oce/R/ctd.R")
+
+## Tests start with those provided by issue 1371 reporter, but shortened for
+## speed, and the 'oxygen' and 'fake' fields are set up as trends to reveal
+## more clearly whether x autoscales well, if y is narrowed.
+
 data(ctd)
-set.seed(1371) # for reproducibility
-ctd <- oceSetData(ctd, 'oxygen', rnorm(ctd[['pressure']]), unit ='none')
-ctd <- oceSetData(ctd, 'stupid', rnorm(ctd[['pressure']]), unit ='none')
 
-plim <- c(100,0)
-xlim <- c(0,3)
-if (!interactive()) png("1371a_%02d.png")
+ctd <- subset(ctd, pressure < 20)
+p <- ctd[["pressure"]]
+ctd <- oceSetData(ctd, 'oxygen', p, unit ='none')
+ctd <- oceSetData(ctd, 'fake', -p, unit ='none')
 
-plotProfile(ctd, xtype='stupid')
-mtext(side=1, text='1) EXPECT: 0<p<46; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.941369677, 3.435422823, 45.847440000, -0.226440000))
+plim <- c(100, 0)
+xlim <- c(-15, -10)
+#if (!interactive()) png("1371a_%02d.png")
 
-plotProfile(ctd, xtype='stupid', plim=plim)
-mtext(side=1, text='2) EXPECT: 0<p<100; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.941369677, 3.435422823, 104, -4))
+plotProfile(ctd, xtype='fake')
+mtext(side=1, text="Test 1", line=0, col='magenta')
+expect_equal(par("usr"), c(-20.51304, -0.74796, 20.51304, 0.74796))
 
-plotProfile(ctd, xtype='stupid', ylim=plim)
-mtext(side=1, text='3) EXPECT: 0<p<100; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.941369677, 3.435422823, 104, -4))
+plotProfile(ctd, xtype='fake', ylim=plim)
+mtext(side=1, text="Test 2", line=0, col='magenta')
+expect_equal(par("usr"), c(-20.51304, -0.74796, 104,-4))
 
-plotProfile(ctd, xtype='stupid', xlim=xlim)
-mtext(side=1, text='4) EXPECT: 0<p<46; 0<x<3 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-0.12, 3.12, 45.84744, -0.22644))
+plotProfile(ctd, xtype='fake', xlim=xlim)
+mtext(side=1, text="Test 3", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.20000, -9.80000, 20.51304, 0.74796))
 
-plotProfile(ctd, xtype='stupid', plim=plim, xlim=xlim)
-mtext(side=1, text='5) EXPECT: 0<p<100; 0<x<3 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-0.12, 3.12, 104, -4))
+plotProfile(ctd, xtype='fake', plim=plim, xlim=xlim)
+mtext(side=1, text="Test 4", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.2, -9.8, 104, -4.0))
 
-plotProfile(ctd, xtype='stupid', ylim=plim, xlim=xlim)
-mtext(side=1, text='6) EXPECT: 0<p<100; 0<x<3 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-0.12, 3.12, 104, -4))
+plotProfile(ctd, xtype='fake', ylim=plim, xlim=xlim)
+mtext(side=1, text="Test 5", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.2, -9.8, 104, -4))
 
-plotProfile(ctd, xtype = 'oxygen')
-mtext(side=1, text='7) EXPECT: 0<p<46; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.660770532, 2.221423523, 45.847440000, -0.226440000))
+plotProfile(ctd, xtype='oxygen')
+mtext(side=1, text="Test 6", line=0, col='magenta')
+expect_equal(par("usr"), c(0.74796, 20.51304, 20.51304, 0.74796))
+
+plotProfile(ctd, xtype='oxygen', plim=plim)
+mtext(side=1, text="Test 7", line=0, col='magenta')
+expect_equal(par("usr"), c(0.74796, 20.51304, 104, -4))
+
+plotProfile(ctd, xtype='oxygen', ylim=plim)
+mtext(side=1, text="Test 8", line=0, col='magenta')
+expect_equal(par("usr"), c(0.74796, 20.51304, 104, -4))
+
+plotProfile(ctd, xtype='oxygen', xlim=xlim)
+mtext(side=1, text="Test 9", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.2, -9.8, 20.51304, 0.74796))
+
+plotProfile(ctd, xtype='oxygen', plim=plim, xlim=xlim)
+mtext(side=1, text="Test 10", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.2, -9.8, 104, -4))
+
+plotProfile(ctd, xtype='oxygen', ylim=plim, xlim=xlim)
+mtext(side=1, text="Test 11", line=0, col='magenta')
+expect_equal(par("usr"), c(-15.2, -9.8, 104, -4))
+
+## Salinity has Slim. See how this interacts with xlim.
+plotProfile(ctd, xtype='salinity', ylim=plim)
+mtext(side=1, text="Test 12", line=0, col='magenta')
+expect_equal(par("usr"), c(29.99855641, 31.61705416, 104, -4))
+
+plotProfile(ctd, xtype='salinity', ylim=plim, Slim=c(30, 31.0))
+mtext(side=1, text="Test 13", line=0, col='magenta')
+expect_equal(par("usr"), c(29.96, 31.04, 104, -4))
+
+plotProfile(ctd, xtype='salinity', ylim=plim, xlim=c(30, 31.0))
+mtext(side=1, text="Test 14", line=0, col='magenta')
+expect_equal(par("usr"), c(29.99855641, 31.61705416, 104, -4))
+
+message("FIXME: check that narrowing the y limit (or plim etc) also narrows the
+        range on the x axis, as appropriate.")
 
 
-plotProfile(ctd, xtype = 'oxygen', plim = plim)
-mtext(side=1, text='8) EXPECT: 0<p<100; -2.9<x<3.4 {FAIL}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.660770532, 2.221423523, -4, 104))
 
-plotProfile(ctd, xtype = 'oxygen', ylim = plim)
-mtext(side=1, text='9) EXPECT: 0<p<100; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-2.660770532, 2.221423523, 104, -4))
 
-plotProfile(ctd, xtype = 'oxygen', xlim = xlim)
-mtext(side=1, text='10) EXPECT: 0<p<46; -2.9<x<3.4 {OK}', line=0, col='magenta')
-expect_equal(par("usr"), c(-0.12, 3.12, 45.847440000, -0.226440000))
-
-plotProfile(ctd, xtype = 'oxygen', plim = plim, xlim = xlim)
-mtext(side=1, text='11) EXPECT: 0<p<100; 0<x<3 {FAIL}', line=0, col='magenta')
-expect_equal(par("usr"), c(-0.12, 3.12, 104, -4))
-
-##plotProfile(ctd, xtype = 'oxygen', ylim = plim, xlim = xlim, debug=3) # dies
-
-if (!interactive()) dev.off()
+#if (!interactive()) dev.off()
 
