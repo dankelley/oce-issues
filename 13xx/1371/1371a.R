@@ -1,6 +1,6 @@
 library(oce)
-if (file.exists("~/git/oce/R/ctd.R"))
-    source("~/git/oce/R/ctd.R")
+## if (file.exists("~/git/oce/R/ctd.R"))
+##     source("~/git/oce/R/ctd.R")
 options(digits=10)
 
 ## Tests start with those provided by issue 1371 reporter, but shortened for
@@ -86,9 +86,6 @@ t <- "Test 16: does fake range narrow when p range is narrowed?"
 plotProfile(ctd, xtype='fake', plim=c(8,6))
 mtext(side=1, text=t, line=0, col='magenta')
 expect_equal(par("usr"), c(-8.86696, -5.00704, 8.08, 5.92), info=t)
-
-message("FIXME: check that narrowing the y limit (or plim etc) also narrows the
-        range on the x axis, as appropriate.")
 
 if (!interactive()) dev.off()
 
