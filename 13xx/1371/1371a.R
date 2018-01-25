@@ -1,6 +1,7 @@
 library(oce)
-## if (file.exists("~/git/oce/R/ctd.R"))
-##     source("~/git/oce/R/ctd.R")
+if (file.exists("~/git/oce/R/ctd.R"))
+    source("~/git/oce/R/ctd.R")
+options(digits=10)
 
 ## Tests start with those provided by issue 1371 reporter, but shortened for
 ## speed, and the 'oxygen' and 'fake' fields are set up as trends to reveal
@@ -66,13 +67,25 @@ plotProfile(ctd, xtype='salinity', ylim=plim)
 mtext(side=1, text="Test 12", line=0, col='magenta')
 expect_equal(par("usr"), c(29.99855641, 31.61705416, 104, -4))
 
+t <- "Test 13: does providing both Slim and ylim work?"
 plotProfile(ctd, xtype='salinity', ylim=plim, Slim=c(30, 31.0))
-mtext(side=1, text="Test 13", line=0, col='magenta')
-expect_equal(par("usr"), c(29.96, 31.04, 104, -4))
+mtext(side=1, text=t, line=0, col='magenta')
+expect_equal(par("usr"), c(29.96, 31.04, 104, -4), info=t)
 
+t <- "Test 14: does providing both xlim and ylim work?"
 plotProfile(ctd, xtype='salinity', ylim=plim, xlim=c(30, 31.0))
-mtext(side=1, text="Test 14", line=0, col='magenta')
-expect_equal(par("usr"), c(29.99855641, 31.61705416, 104, -4))
+mtext(side=1, text=t, line=0, col='magenta')
+expect_equal(par("usr"), c(29.99855641, 31.61705416, 104, -4), info=t)
+
+t <- "Test 15: does S range narrow when p range is narrowed?"
+plotProfile(ctd, xtype='salinity', plim=c(8,6))
+mtext(side=1, text=t, line=0, col='magenta')
+expect_equal(par("usr"), c(30.88451211, 31.15545961, 8.08000000, 5.92000000), info=t)
+
+t <- "Test 16: does fake range narrow when p range is narrowed?"
+plotProfile(ctd, xtype='fake', plim=c(8,6))
+mtext(side=1, text=t, line=0, col='magenta')
+expect_equal(par("usr"), c(-8.86696, -5.00704, 8.08, 5.92), info=t)
 
 message("FIXME: check that narrowing the y limit (or plim etc) also narrows the
         range on the x axis, as appropriate.")
