@@ -1,7 +1,5 @@
 library(oce)
-## if (file.exists("~/git/oce/R/ctd.R"))
-##     source("~/git/oce/R/ctd.R")
-options(digits=10)
+options(oceEOS="gsw")
 
 ## Tests start with those provided by issue 1371 reporter, but shortened for
 ## speed, and the 'oxygen' and 'fake' fields are set up as trends to reveal
