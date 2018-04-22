@@ -1,8 +1,9 @@
 library(oce)
 options(warn=1)
-f <- '~/Dropbox/oce-working-notes/tests/adp-rdi/winriver_vesselmounted_1200kHz/DATA_20080701123035_000r.000'
+f <- '/users/kelley/Dropbox/oce-working-notes/tests/adp-rdi/winriver_vesselmounted_1200kHz/DATA_20080701123035_000r.000'
 if (file.exists(f)) {
-    d <- read.adp.rdi(f, debug=100) # debug > 10 yields LDC for examination
+    d <- read.adp.rdi(f, debug=100)
+    ldc0 <- oce:::do_ldc_rdi_in_file(f, from=1, to=0, by=1, 0L)
 }
 
 ## I don't see a pattern to the timing, but the fact that
