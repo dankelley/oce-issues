@@ -2,13 +2,13 @@ library(oce)
 options(warn=1)
 f <- '/users/kelley/Dropbox/oce-working-notes/tests/adp-rdi/winriver_vesselmounted_1200kHz/DATA_20080701123035_000r.000'
 if (file.exists(f)) {
-    d <- read.adp.rdi(f, debug=0)
+    adp <- read.adp.rdi(f, debug=0)
     ldc <- oce:::do_ldc_rdi_in_file(f, from=1, to=0, by=1, 0L)
 }
 
 if (!interactive()) {
     png("1401a1.png", width=7, height=7, unit="in", res=150, pointsize=9)
-    plot(d)
+    plot(adp)
     dev.off()
 }
 
