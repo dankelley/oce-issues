@@ -59,4 +59,5 @@ for (i in 1:5) {
 if (!interactive()) dev.off()
 
 head(adp[["nmea"]], 10)
+tail(adp[["nmea"]], 10)
 
