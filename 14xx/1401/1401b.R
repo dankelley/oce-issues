@@ -11,7 +11,7 @@ if (!interactive()) dev.off()
 ## experiment on the 7f7f sequences
 for (i in 1:10) {
     cat("i=", i,
-        "len=", readBin(ldc$outbuf[ldc$ensembleStart[i]+2:3], "integer", n=1, size=2),
+        "len=", readBin(ldc$buf[ldc$ensembleStart[i]+2:3], "integer", n=1, size=2),
         "diff(ensembleStart)=", ldc$ensembleStart[i+1]-ldc$ensembleStart[i], "\n")
 }
 

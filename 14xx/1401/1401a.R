@@ -2,7 +2,7 @@ library(oce)
 options(warn=1)
 f <- '/users/kelley/Dropbox/oce-working-notes/tests/adp-rdi/winriver_vesselmounted_1200kHz/DATA_20080701123035_000r.000'
 if (file.exists(f)) {
-    adp <- read.adp.rdi(f, debug=0)
+    adp <- read.adp.rdi(f, debug=100)
     ldc <- oce:::do_ldc_rdi_in_file(f, from=1, to=0, by=1, 0L)
 }
 
@@ -34,7 +34,7 @@ points(401:600, d[401:600], pch=20, cex=0.7, col=2)
 plot(601:800, d[601:800], type='s', col='lightgray', ylab="diff(ensembleStart)")
 points(601:800, d[601:800], pch=20, cex=0.7, col=2)
 
-df <- data.frame(d=d, buf3=as.numeric(head(ldc$outbuf[ldc$ensembleStart+3], -1)))
+df <- data.frame(d=d, buf3=as.numeric(head(ldc$buf[ldc$ensembleStart+3], -1)))
 print(table(df))
 ##stem(df$d)
 ##stem(df$buf3)
@@ -45,9 +45,9 @@ print(table(df))
 ## experiment on the 7f7f sequences
 cat(f, "\n")
 for (i in 1:5) {
-    ensembleLength <- readBin(ldc$outbuf[ldc$ensembleStart[i]+2:3], "integer", n=1, size=2)
-    ntypes <- readBin(ldc$outbuf[ldc$ensembleStart[i]+5], "integer", n=1, size=1)
-    offsets <- readBin(ldc$outbuf[ldc$ensembleStart[i]+6+seq(0, 2*ntypes)], "integer", n=ntypes, size=2)
+    ensembleLength <- readBin(ldc$buf[ldc$ensembleStart[i]+2:3], "integer", n=1, size=2)
+    ntypes <- readBin(ldc$buf[ldc$ensembleStart[i]+5], "integer", n=1, size=1)
+    offsets <- readBin(ldc$buf[ldc$ensembleStart[i]+6+seq(0, 2*ntypes)], "integer", n=ntypes, size=2)
     cat(sprintf("i=%3d ensembleLength=%5d ntypes=%2d diff_start=%5d",
                 i,
                 ensembleLength,
