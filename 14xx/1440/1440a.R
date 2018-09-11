@@ -1,4 +1,4 @@
-## https://github.com/dankelley/oce/issues/1440
+## test code for issue 1440 (https://github.com/dankelley/oce/issues/1440)
 library(oce)
 library(testthat)
 for (n in c(1, 20)) {
