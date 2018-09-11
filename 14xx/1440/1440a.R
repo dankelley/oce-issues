@@ -18,13 +18,26 @@ for (n in c(1, 20)) {
                   latitude=lat,
                   station=stn,
                   startTime=min(time))
-    expect_true("longitude" %in% names(ctd[["metadata"]]))
-    expect_true("latitude" %in% names(ctd[["metadata"]]))
     if (n > 1) {
         expect_true("longitude" %in% names(ctd[["data"]]))
         expect_equal(length(ctd[["data"]][["longitude"]]), n)
+        expect_equal(length(ctd[["longitude"]]), n)
         expect_true("latitude" %in% names(ctd[["data"]]))
         expect_equal(length(ctd[["data"]][["latitude"]]), n)
+        expect_equal(length(ctd[["latitude"]]), n)
+        expect_true("longitudeMean" %in% names(ctd[["metadata"]]))
+        expect_equal(length(ctd[["longitude"]]), n)
+        expect_equal(length(ctd[["longitudeMean"]]), 1)
+        expect_true("latitudeMean" %in% names(ctd[["metadata"]]))
+        expect_equal(length(ctd[["latitude"]]), n)
+        expect_equal(length(ctd[["latitudeMean"]]), 1)
+    } else {
+        expect_equal(length(ctd[["longitude"]]), 1)
+        expect_equal(length(ctd[["latitude"]]), 1)
+        expect_false("longitude" %in% names(ctd[["data"]]))
+        expect_false("latitude" %in% names(ctd[["data"]]))
+        expect_true("longitude" %in% names(ctd[["metadata"]]))
+        expect_true("latitude" %in% names(ctd[["metadata"]]))
     }
 }
 
