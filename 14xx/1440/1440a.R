@@ -1,3 +1,4 @@
+## https://github.com/dankelley/oce/issues/1440
 library(oce)
 library(testthat)
 for (n in c(1, 20)) {
