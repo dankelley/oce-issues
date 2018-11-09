@@ -1,0 +1,331 @@
+* Sea-Bird SBE37SM-RS232  Data File:
+* FileName = C:\Logs\Microcat\2062A.hex
+* Software version SeatermV2 2.6.1.12
+* Temperature SN = 6435
+* Conductivity SN = 6435
+* System UpLoad Time = Oct 11 2018 16:27:31
+* sample interval = 600 seconds
+* <ApplicationData>
+* <Seaterm232>
+* <SoftwareVersion>2.6.1.12</SoftwareVersion>
+* <BuildDate>30-May-2016</BuildDate>
+* </Seaterm232>
+* </ApplicationData>
+* <InstrumentState>
+* <HardwareData DeviceType='SBE37SM-RS232' SerialNumber='03706435'>
+*
+*    <Manufacturer>Sea-Bird Electronics, Inc.</Manufacturer>
+*
+*    <FirmwareVersion>3.1</FirmwareVersion>
+*
+*    <FirmwareDate>Jan 20 2012 17:33:01</FirmwareDate>
+*
+*    <PCBAssembly>41647</PCBAssembly>
+*
+*    <PCBAssembly>41610A</PCBAssembly>
+*
+*    <PCBAssembly>41611B</PCBAssembly>
+*
+*    <MfgDate>not set</MfgDate>
+*
+*    <FirmwareLoader>SBE 37 FirmwareLoader V 1.0</FirmwareLoader>
+*
+*    <InternalSensors>
+*
+*       <Sensor id='Temperature'>
+*
+*          <type>temperature-1</type>
+*
+*          <SerialNumber>03706435</SerialNumber>
+*
+*       </Sensor>
+*
+*       <Sensor id='Conductivity'>
+*
+*          <type>conductivity-1</type>
+*
+*          <SerialNumber>03706435</SerialNumber>
+*
+*       </Sensor>
+*
+*       <Sensor id='Pressure'>
+*
+*          <type>strain-0</type>
+*
+*          <SerialNumber>3854490</SerialNumber>
+*
+*       </Sensor>
+*
+*    </InternalSensors>
+*
+* </HardwareData>
+* <StatusData DeviceType='SBE37SM-RS232' SerialNumber='03706435'>
+*
+*    <DateTime>2018-10-11T16:24:52</DateTime>
+*
+*    <EventSummary numEvents='3'/>
+*
+*    <Power>
+*
+*       <vMain> 6.93</vMain>
+*
+*       <vLith> 3.02</vLith>
+*
+*    </Power>
+*
+*    <MemorySummary>
+*
+*       <Bytes>367335</Bytes>
+*
+*       <Samples>24489</Samples>
+*
+*       <SamplesFree>534751</SamplesFree>
+*
+*       <SampleLength>15</SampleLength>
+*
+*    </MemorySummary>
+*
+*    <AutonomousSampling>no, stop command</AutonomousSampling>
+*
+* </StatusData>
+* <ConfigurationData DeviceType='SBE37SM-RS232' SerialNumber='03706435'>
+*
+*    <PressureInstalled>yes</PressureInstalled>
+*
+*    <PumpInstalled>no</PumpInstalled>
+*
+*    <SampleDataFormat>converted engineering</SampleDataFormat>
+*
+*    <OutputSalinity>no</OutputSalinity>
+*
+*    <OutputSV>no</OutputSV>
+*
+*    <TxRealTime>no</TxRealTime>
+*
+*    <SampleInterval>600</SampleInterval>
+*
+*    <SyncMode>no</SyncMode>
+*
+* </ConfigurationData>
+* <CalibrationCoefficients DeviceType='SBE37SM-RS232' SerialNumber='03706435'>
+*
+*    <Calibration format='TEMP1' id='Temperature'>
+*
+*       <SerialNum>03706435</SerialNum>
+*
+*       <CalDate>21-Feb-18</CalDate>
+*
+*       <A0>8.540084e-05</A0>
+*
+*       <A1>2.699706e-04</A1>
+*
+*       <A2>-2.103151e-06</A2>
+*
+*       <A3>1.424853e-07</A3>
+*
+*    </Calibration>
+*
+*    <Calibration format='WBCOND0' id='Conductivity'>
+*
+*       <SerialNum>03706435</SerialNum>
+*
+*       <CalDate>21-Feb-18</CalDate>
+*
+*       <G>-1.020062e+00</G>
+*
+*       <H>1.596106e-01</H>
+*
+*       <I>-2.486189e-04</I>
+*
+*       <J>4.276460e-05</J>
+*
+*       <PCOR>-9.570000e-08</PCOR>
+*
+*       <TCOR>3.250000e-06</TCOR>
+*
+*       <WBOTC>1.317053e-07</WBOTC>
+*
+*    </Calibration>
+*
+*    <Calibration format='STRAIN0' id='Pressure'>
+*
+*       <SerialNum>3854490</SerialNum>
+*
+*       <CalDate>16-Feb-18</CalDate>
+*
+*       <PA0>1.935501e+00</PA0>
+*
+*       <PA1>1.706731e-02</PA1>
+*
+*       <PA2>-7.667952e-10</PA2>
+*
+*       <PTCA0>5.259599e+05</PTCA0>
+*
+*       <PTCA1>6.787641e+00</PTCA1>
+*
+*       <PTCA2>-7.413026e-02</PTCA2>
+*
+*       <PTCB0>2.536288e+01</PTCB0>
+*
+*       <PTCB1>-2.250000e-04</PTCB1>
+*
+*       <PTCB2>0.000000e+00</PTCB2>
+*
+*       <PTEMPA0>-7.508129e+01</PTEMPA0>
+*
+*       <PTEMPA1>5.019473e-02</PTEMPA1>
+*
+*       <PTEMPA2>-4.414645e-07</PTEMPA2>
+*
+*       <POFFSET>0.000000e+00</POFFSET>
+*
+*       <PRANGE>5.076000e+03</PRANGE>
+*
+*    </Calibration>
+*
+* </CalibrationCoefficients>
+* <EventCounters DeviceType='SBE37SM-RS232' SerialNumber='03706435'>
+*
+*    <EventSummary numEvents='3'/>
+*
+*    <Event type='PON reset' count='3'/>
+*
+* </EventCounters></InstrumentState>
+* <UserHeaderInsert>
+* <![CDATA[
+** CRUISE DEPLOY:
+** CRUISE RECOVER: HUD2018030
+** SHIP MOOR: PERLEY
+** SHIP RECOVER: HUDSON
+** LATITUDE: 43 29.857
+** LONGITUDE: 62 52.199
+** APPROX SOUNDING: 118
+** MOORING NUMBER: 2062
+** DATE MOOR: 1 MAY 2018
+** DATE RECOVER: 23 SEP 2018
+** PROJECT: CETACEAN MONITORING
+** SCIENTIST: SCIENTIST
+* ]]>
+* </UserHeaderInsert>
+# nquan = 5
+# nvalues = 24489                                 
+# units = specified
+# name 0 = tv290C: Temperature [ITS-90, deg C]
+# name 1 = cond0S/m: Conductivity [S/m]
+# name 2 = prdM: Pressure, Strain Gauge [db]
+# name 3 = timeJV2: Time, Instrument [julian days]
+# name 4 = flag:  0.000e+00
+# span 0 =     5.6131,    26.2213                 
+# span 1 =   0.000011,   4.215052                 
+# span 2 =     -0.276,     99.854                 
+# span 3 = 114.625012, 284.680567                 
+# span 4 = 0.0000e+00, 0.0000e+00                 
+# interval = seconds: 600
+# start_time = Apr 24 2018 15:00:01 [Instrument's time stamp, first data scan]
+# bad_flag = -9.990e-29
+# <Sensors count="3" >
+#   <sensor Channel="1" >
+#     <!-- Count, Temperature -->
+#     <TemperatureSensor SensorID="58" >
+#       <SerialNumber>6435</SerialNumber>
+#       <CalibrationDate>21-Feb-18</CalibrationDate>
+#       <A0>8.54008400e-005</A0>
+#       <A1>2.69970600e-004</A1>
+#       <A2>-2.10315100e-006</A2>
+#       <A3>1.42485300e-007</A3>
+#       <Slope>1.00000000</Slope>
+#       <Offset>0.0000</Offset>
+#     </TemperatureSensor>
+#   </sensor>
+#   <sensor Channel="2" >
+#     <!-- Frequency 0, Conductivity -->
+#     <ConductivitySensor SensorID="3" >
+#       <SerialNumber>6435</SerialNumber>
+#       <CalibrationDate>21-Feb-18</CalibrationDate>
+#       <UseG_J>1</UseG_J>
+#       <!-- Cell const and series R are applicable only for wide range sensors. -->
+#       <SeriesR>0.0000</SeriesR>
+#       <CellConst>2000.0000</CellConst>
+#       <ConductivityType>1</ConductivityType>
+#       <Coefficients equation="0" >
+#         <A>0.00000000e+000</A>
+#         <B>0.00000000e+000</B>
+#         <C>0.00000000e+000</C>
+#         <D>0.00000000e+000</D>
+#         <M>0.0</M>
+#         <CPcor>-9.57000000e-008</CPcor>
+#       </Coefficients>
+#       <Coefficients equation="1" >
+#         <G>-1.02006200e+000</G>
+#         <H>1.59610600e-001</H>
+#         <I>-2.48618900e-004</I>
+#         <J>4.27646000e-005</J>
+#         <CPcor>-9.57000000e-008</CPcor>
+#         <CTcor>3.2500e-006</CTcor>
+#         <!-- WBOTC not applicable unless ConductivityType = 1. -->
+#         <WBOTC>1.31705300e-007</WBOTC>
+#       </Coefficients>
+#       <Slope>1.00000000</Slope>
+#       <Offset>0.00000</Offset>
+#     </ConductivitySensor>
+#   </sensor>
+#   <sensor Channel="3" >
+#     <!-- Count, Pressure, Strain Gauge -->
+#     <PressureSensor SensorID="46" >
+#       <SerialNumber>3854490</SerialNumber>
+#       <CalibrationDate>16-Feb-18</CalibrationDate>
+#       <PA0>1.93550100e+000</PA0>
+#       <PA1>1.70673100e-002</PA1>
+#       <PA2>-7.66795200e-010</PA2>
+#       <PTEMPA0>-7.50812900e+001</PTEMPA0>
+#       <PTEMPA1>5.01947300e-002</PTEMPA1>
+#       <PTEMPA2>-4.41464500e-007</PTEMPA2>
+#       <PTCA0>5.25959900e+005</PTCA0>
+#       <PTCA1>6.78764100e+000</PTCA1>
+#       <PTCA2>-7.41302600e-002</PTCA2>
+#       <PTCB0>2.53628800e+001</PTCB0>
+#       <PTCB1>-2.25000000e-004</PTCB1>
+#       <PTCB2>0.00000000e+000</PTCB2>
+#       <Offset>0.000000</Offset>
+#     </PressureSensor>
+#   </sensor>
+# </Sensors>
+# datcnv_date = Oct 11 2018 16:28:07, 7.26.1.8 [datcnv_vars = 4]
+# datcnv_in = C:\Logs\Microcat\2062a.hex C:\Logs\Microcat\2062A.xmlcon
+# datcnv_skipover = 0
+# file_type = ascii
+*END*
+    10.4696   3.825333     98.168 124.347234  0.000e+00
+    10.5429   3.832693     98.142 124.354178  0.000e+00
+    10.4789   3.821873     98.157 124.361123  0.000e+00
+    10.4632   3.825161     98.121 124.368067  0.000e+00
+    10.3883   3.816216     98.151 124.375012  0.000e+00
+    10.3104   3.808608     98.107 124.381956  0.000e+00
+    10.3600   3.811327     98.163 124.388900  0.000e+00
+    10.3682   3.813276     98.139 124.395845  0.000e+00
+    10.3323   3.804830     98.157 124.402789  0.000e+00
+    10.2405   3.797953     98.168 124.409734  0.000e+00
+    10.3314   3.807555     98.204 124.416678  0.000e+00
+    10.3821   3.816795     98.245 124.423623  0.000e+00
+    10.3452   3.809365     98.271 124.430567  0.000e+00
+    10.2503   3.806957     98.295 124.437512  0.000e+00
+    10.3196   3.804335     98.345 124.444456  0.000e+00
+    10.2666   3.800078     98.368 124.451400  0.000e+00
+    10.2418   3.802107     98.404 124.458345  0.000e+00
+    10.2949   3.803317     98.436 124.465289  0.000e+00
+     9.9931   3.764073     98.474 124.472234  0.000e+00
+    10.2190   3.785167     98.530 124.479178  0.000e+00
+    10.2615   3.800119     98.580 124.486123  0.000e+00
+    10.1942   3.787605     98.633 124.493067  0.000e+00
+    10.2040   3.789858     98.668 124.500012  0.000e+00
+    10.2826   3.801914     98.721 124.506956  0.000e+00
+    10.0528   3.769198     98.754 124.513900  0.000e+00
+    10.0820   3.772646     98.851 124.520845  0.000e+00
+     9.9237   3.748597     98.848 124.527789  0.000e+00
+     9.9696   3.755979     98.895 124.534734  0.000e+00
+     9.9703   3.756581     98.927 124.541678  0.000e+00
+    10.1323   3.775259     98.992 124.548623  0.000e+00
+    10.2823   3.801233     99.015 124.555567  0.000e+00
+    10.2552   3.794090     99.039 124.562512  0.000e+00
+    10.2607   3.792187     99.100 124.569456  0.000e+00
+    10.3100   3.805113     99.106 124.576400  0.000e+00
