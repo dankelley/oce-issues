@@ -19,6 +19,6 @@ microcat <- oceSetData(microcat, "time", t)
 ## entry from metadata
 microcat <- oceDeleteMetadata(microcat, "time")
 
-if (!interactive()) png("1456b.png")
+if (!interactive()) png("1457b.png")
 plot(microcat)
 if (!interactive()) dev.off()
