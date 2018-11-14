@@ -1,7 +1,6 @@
 library(oce)
 if (file.exists("2062a.cnv")) { # PRIVATE file
-    microcat <- read.oce("2062a.cnv")
-    microcat <- oceSetMetadata(microcat, "deploymentType", "moored")
+    microcat <- read.oce("2062a.cnv", deploymentType="moored")
     ## Get system upload time, which should give us the year of the recovery
     ## time. We'll need that because we are going to construct time from
     ## the timeJV2 column.

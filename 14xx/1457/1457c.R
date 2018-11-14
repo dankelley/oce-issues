@@ -1,6 +1,6 @@
 library(oce)
 if (file.exists("2062a.cnv")) { # PRIVATE file
-    microcat <- read.oce("2062a.cnv")
+    microcat <- read.oce("2062a.cnv", deploymentType="moored")
     ## Fix up the longitude, which has a sign error
     microcat <- oceSetMetadata(microcat, "longitude", -microcat[["longitude"]])
     ## Indicate that instrument was moored, not profiled
