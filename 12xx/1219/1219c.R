@@ -2,12 +2,13 @@ rm(list=ls())
 library(oce)
 library(testthat)
 ## f <- "/Users/kelley/Dropbox/oce_ad2cp/labtestsig3.ad2cp"
-
+## ~/git/oce/R/adp.nortek.R
 f <- "labtestsig3.ad2cp"
 N <- 500
 d <- read.ad2cp(f, 1, N, 1)
 res <- new("adp")
-res <- oceSetMetadata(res, "instrumentType", "ad2cp")
+if (0x10 == d$buf[d$index[1]+1]) # 0x10 = AD2CP (p38 integrators guide)
+    res <- oceSetMetadata(res, "instrumentType", "AD2CP")
 
 ## par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 ## plot(d$id, ylim=c(20.5,22.5), type='p', cex=2/3, ylab="chunk type", lwd=2)
@@ -329,7 +330,6 @@ warning("FIXME: devise storage layout")
 warning("FIXME: handle data checksum")
 warning("FIXME: read configuration (bytes 3:4)")
 warning("FIXME: test amplitude,correlation etc")
-warning("FIXME: test cell size")
 warning("FIXME: read more things from p49")
 warning("Q: how many types can exist? (RC)")
 warning("Q: are all 'versions' used? (RC)")
@@ -337,29 +337,25 @@ warning("Q: are all 'versions' used? (RC)")
 ## ABOVE as 1219b.R
 
 ## test velo traces
-if ("ad2cp" == res[["instrumentType"]]) {
+if ("AD2CP" == res[["instrumentType"]]) {
     if (!interactive()) png("1219c_1.png")
     look <- which(res[["id"]] == 22)
     par(mfrow=c(2,3), mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0)) # 2x3 enough for head()
     for (l in head(look)) {
         v <- res[["v"]][[l]]
-        d <- seq_along(v[,1])
-        d <- d / max(d)
-        plot(v[,1], d, xlim=c(min(v), max(v)), type='l', xlab="velo?", ylab="nondim distance?")
+        dist <- value$blanking[l] + value$cellSize[l][1] + 1:dim(v)[1]
+        plot(v[,1], dist, xlim=c(min(v), max(v)), type='l', xlab="velo?", ylab="Distance [m] ???")
         mtext(sprintf("res$v[[%d]]", l), side=3, cex=0.6)
         for (i in 2:4) {
-            lines(v[,i], d, type='l', col=i)
+            lines(v[,i], dist, type='l', col=i)
         }
     }
     if (!interactive()) dev.off()
-}
-
-## test ideas for a velo image plot
-if ("ad2cp" == res[["instrumentType"]]) {
+    ## test ideas for a velo image plot
     ## fill up an array for velocity
-    ndistance <- dim(res[["v"]][[look[1]]])[1]
+    ncell <- dim(res[["v"]][[look[1]]])[1]
     nbeam <- dim(res[["v"]][[look[1]]])[2]
-    V <- array(double(), dim=c(length(look), ndistance, nbeam))
+    V <- array(double(), dim=c(length(look), ncell, nbeam))
     for (i in seq_along(look)) {
         V[i, ,] <- res[["v"]][[look[i]]]
     }
@@ -367,8 +363,9 @@ if ("ad2cp" == res[["instrumentType"]]) {
     if (!interactive()) png("1219c_2.png")
     zlim <- max(abs(res[["v"]][[look[1]]])) * c(-1, 1)
     par(mfrow=c(nbeam, 2))
+    ntime <- dim(V[,,1])[1]
     for (i in seq_len(nbeam)) {
-        imagep(V[,,i], zlim=zlim, xlab="Time index", ylab="Distance index")
+        imagep(res[['time']][look], dist, V[,,i], zlim=zlim, ylab="Distance [m] ???")
         hist(V[,,i])
     }
     if (!interactive()) dev.off()
@@ -378,9 +375,9 @@ if ("ad2cp" == res[["instrumentType"]]) {
     u24 <- V[,,2] - V[,,4]
     zlim <- max(abs(c(u13,u24))) * c(-1, 1)
     par(mfrow=c(2, 2))
-    imagep(u13, zlim=zlim, xlab="Time index", ylab="Distance index")
+    imagep(res[['time']][look], dist, u13, zlim=zlim, ylab="Distance [m] ???")
     hist(u13)
-    imagep(u24, zlim=zlim, xlab="Time index", ylab="Distance index")
+    imagep(res[['time']][look], dist, u24, zlim=zlim, ylab="Distance [m] ???")
     hist(u24)
     if (!interactive()) dev.off()
 }
