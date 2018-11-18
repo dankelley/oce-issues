@@ -4,9 +4,11 @@ library(testthat)
 ## f <- "/Users/kelley/Dropbox/oce_ad2cp/labtestsig3.ad2cp"
 
 f <- "labtestsig3.ad2cp"
-N <- 50
-res <- new("adp")
+N <- 1000
 d <- read.ad2cp(f, 1, N, 1)
+res <- new("adp")
+res <- oceSetMetadata(res, "instrumentType", "ad2cp")
+
 ## par(mar=c(3, 3, 1, 1), mgp=c(2, 0.7, 0))
 ## plot(d$id, ylim=c(20.5,22.5), type='p', cex=2/3, ylab="chunk type", lwd=2)
 ## grid()
@@ -162,21 +164,21 @@ for (ch in 1:N) {
 options(width=200) # to get wide printing
 time <- as.POSIXct(time, origin="1970-01-01 00:00:00", tz="UTC")
 value <- list(header=header,
-            time=time, id=id, vsn=version,
-            soundSpeed=soundSpeed, temperature=temperature, pressure=pressure,
-            heading=heading, pitch=pitch, roll=roll,
-            BCC=BCC, coord=coordinateSystem, nbeams=nbeams, ncells=ncells,
-            cellSize=cellSize, blanking=blanking,
-            nomcor=nominalCorrelation,
-            accz=accelerometerz,
-            transmitEnergy=transmitEnergy,
-            velocityScaling=velocityScaling,
-            powerLevel=powerLevel,
-            temperatureMagnetometer=temperatureMagnetometer,
-            temperatureRTC=temperatureRTC,
-            status=status,
-            ensemble=ensemble,
-            v=v, amplitude=amplitude, correlation=correlation)
+              time=time, id=id, vsn=version,
+              soundSpeed=soundSpeed, temperature=temperature, pressure=pressure,
+              heading=heading, pitch=pitch, roll=roll,
+              BCC=BCC, coord=coordinateSystem, nbeams=nbeams, ncells=ncells,
+              cellSize=cellSize, blanking=blanking,
+              nomcor=nominalCorrelation,
+              accz=accelerometerz,
+              transmitEnergy=transmitEnergy,
+              velocityScaling=velocityScaling,
+              powerLevel=powerLevel,
+              temperatureMagnetometer=temperatureMagnetometer,
+              temperatureRTC=temperatureRTC,
+              status=status,
+              ensemble=ensemble,
+              v=v, amplitude=amplitude, correlation=correlation)
 
 expect_equal(serialNumber, 100159)
 ## >> load labtestsig3.ad2cp.00000_1.mat
@@ -334,17 +336,39 @@ warning("Q: are all 'versions' used? (RC)")
 
 ## ABOVE as 1219b.R
 
-## NEW TESTS, of what I think are matrix-type velocities
-look <- head(which(res[["id"]] == 22))
-par(mfrow=c(2,3), mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0))
-for (l in look) {
-    v <- res[["v"]][[l]]
-    d <- seq_along(v[,1])
-    d <- d / max(d)
-    plot(v[,1], d, xlim=c(min(v), max(v)), type='l', xlab="velo?", ylab="nondim distance?")
-    mtext(sprintf("res$v[[%d]]", l), side=3, cex=0.6)
-    for (i in 2:4) {
-        lines(v[,i], d, type='l', col=i)
+## test velo traces
+if ("ad2cp" == res[["instrumentType"]]) {
+    if (!interactive()) png("1219c_1.png")
+    look <- which(res[["id"]] == 22)
+    par(mfrow=c(2,3), mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0)) # 2x3 enough for head()
+    for (l in head(look)) {
+        v <- res[["v"]][[l]]
+        d <- seq_along(v[,1])
+        d <- d / max(d)
+        plot(v[,1], d, xlim=c(min(v), max(v)), type='l', xlab="velo?", ylab="nondim distance?")
+        mtext(sprintf("res$v[[%d]]", l), side=3, cex=0.6)
+        for (i in 2:4) {
+            lines(v[,i], d, type='l', col=i)
+        }
     }
+    if (!interactive()) dev.off()
 }
 
+## test ideas for a velo image plot
+if ("ad2cp" == res[["instrumentType"]]) {
+    if (!interactive()) png("1219c_2.png")
+    ## fill up an array for velocity
+    ndistance <- dim(res[["v"]][[look[1]]])[1]
+    nbeam <- dim(res[["v"]][[look[1]]])[2]
+    V <- array(double(), dim=c(length(look), ndistance, nbeam))
+    for (i in seq_along(look)) {
+        V[i, ,] <- res[["v"]][[look[i]]]
+    }
+    ## Plot as images
+    zlim <- max(abs(res[["v"]][[look[1]]])) * c(-1, 1)
+    par(mfrow=c(nbeam, 1))
+    for (i in seq_len(nbeam)) {
+        imagep(V[,,i], zlim=zlim, xlab="Time index", ylab="Distance index")
+    }
+    if (!interactive()) dev.off()
+}
