@@ -151,7 +151,7 @@ res <- list(header=header,
             soundSpeed=soundSpeed, temperature=temperature, pressure=pressure,
             heading=heading, pitch=pitch, roll=roll,
             BCC=BCC, coord=coordinateSystem, nbeams=nbeams, ncells=ncells,
-            cellSize=cellSize, blanking=blanking, 
+            cellSize=cellSize, blanking=blanking,
             nomcor=nominalCorrelation,
             accz=accelerometerz,
             transmitEnergy=transmitEnergy,
@@ -260,11 +260,11 @@ expect_equal(res$v[[3]][1:10,1], v)
 ## >> Data.Average_VelBeam2(1,1:10)
 v <- c(-0.16300,1.69300,1.84900,1.11200,1.57300,-1.50400,1.60000,-2.52800,1.72100,1.68400)
 expect_equal(res$v[[3]][1:10,2], v)
- 
+
 ## >> Data.Average_VelBeam3(1,1:10)
 v <- c(-1.56000,1.41400,1.56300,1.55100,-0.32300,-1.27200,-2.11300,-1.28600,-2.36900,-2.38800)
 expect_equal(res$v[[3]][1:10,3], v)
- 
+
 ## >> Data.Average_VelBeam4(1,1:10)
 v <- c(-0.079000,1.522000,1.587000,1.702000,1.674000,1.230000,2.855000,2.999000,2.913000,1.486000)
 expect_equal(res$v[[3]][1:10,4], v)
@@ -290,11 +290,11 @@ expect_equal(res$v[[3]][1:10,1], v, tolerance=1e-5)
 ## >> Data.Average_VelBeam2(1,1:10)
 v <- c(-0.16300,1.69300,1.84900,1.11200,1.57300,-1.50400,1.60000,-2.52800,1.72100,1.68400)
 expect_equal(res$v[[3]][1:10,2], v, tolerance=1e-5)
- 
+
 ## >> Data.Average_VelBeam3(1,1:10)
 v <- c(-1.56000,1.41400,1.56300,1.55100,-0.32300,-1.27200,-2.11300,-1.28600,-2.36900,-2.38800)
 expect_equal(res$v[[3]][1:10,3], v, tolerance=1e-5)
- 
+
 ## >> Data.Average_VelBeam4(1,1:10)
 v <- c(-0.079000,1.522000,1.587000,1.702000,1.674000,1.230000,2.855000,2.999000,2.913000,1.486000)
 expect_equal(res$v[[3]][1:10,4], v, tolerance=1e-5)
