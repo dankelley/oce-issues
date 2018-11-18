@@ -1,5 +1,6 @@
 * `1219a.R`
 - uses data in Kelley's possession.
+- creates a list
 - DISCUSSION:
     - ask RC: do you think the 'blanking' is 2.8m or 0.28m? (I had to modify the matlab test)
     - ask RC and CR: thoughts on best object structure? (maybe mimic matlab)
@@ -13,4 +14,8 @@
       will it always hold?
     - The trial dataset seems to have only one "version" for types 21 and 22.
       We could start with that, but should know whether others are popular.
+
+* `1219b.R` create an oce object
+
+* `1219c.R` based on `1219b.R`: extract what seem to be velocity profiles.
 
