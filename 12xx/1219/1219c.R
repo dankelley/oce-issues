@@ -4,7 +4,7 @@ library(testthat)
 ## f <- "/Users/kelley/Dropbox/oce_ad2cp/labtestsig3.ad2cp"
 
 f <- "labtestsig3.ad2cp"
-N <- 1000
+N <- 500
 d <- read.ad2cp(f, 1, N, 1)
 res <- new("adp")
 res <- oceSetMetadata(res, "instrumentType", "ad2cp")
@@ -356,7 +356,6 @@ if ("ad2cp" == res[["instrumentType"]]) {
 
 ## test ideas for a velo image plot
 if ("ad2cp" == res[["instrumentType"]]) {
-    if (!interactive()) png("1219c_2.png")
     ## fill up an array for velocity
     ndistance <- dim(res[["v"]][[look[1]]])[1]
     nbeam <- dim(res[["v"]][[look[1]]])[2]
@@ -364,11 +363,24 @@ if ("ad2cp" == res[["instrumentType"]]) {
     for (i in seq_along(look)) {
         V[i, ,] <- res[["v"]][[look[i]]]
     }
-    ## Plot as images
+    ## Plot as images, one panel per component
+    if (!interactive()) png("1219c_2.png")
     zlim <- max(abs(res[["v"]][[look[1]]])) * c(-1, 1)
-    par(mfrow=c(nbeam, 1))
+    par(mfrow=c(nbeam, 2))
     for (i in seq_len(nbeam)) {
         imagep(V[,,i], zlim=zlim, xlab="Time index", ylab="Distance index")
+        hist(V[,,i])
     }
+    if (!interactive()) dev.off()
+    ## Plot crude u and v-like quantities to check if hist() peaks near 0
+    if (!interactive()) png("1219c_3.png")
+    u13 <- V[,,1] - V[,,3]
+    u24 <- V[,,2] - V[,,4]
+    zlim <- max(abs(c(u13,u24))) * c(-1, 1)
+    par(mfrow=c(2, 2))
+    imagep(u13, zlim=zlim, xlab="Time index", ylab="Distance index")
+    hist(u13)
+    imagep(u24, zlim=zlim, xlab="Time index", ylab="Distance index")
+    hist(u24)
     if (!interactive()) dev.off()
 }
