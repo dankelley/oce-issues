@@ -10,6 +10,5 @@ server <- function(input, output) {
         mtext(sprintf("l=%.2g, 10^l=%.2g [sec]", input$l, 10^input$l), side=3, line=-1)
     })
 }
-
 shinyApp(ui, server)
 
