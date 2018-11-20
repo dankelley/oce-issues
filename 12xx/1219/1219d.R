@@ -8,45 +8,44 @@ library(testthat)
 f <- "~/Dropbox/oce_ad2cp/labtestsig3.ad2cp" # DK only tests
 if (file.exists(f)) {
     d <- read.ad2cp(f, 1, 100, 1)
-    if (inherits(d, "oce") && "AD2CP" == d[["instrumentType"]]) {
-        if (!interactive()) png("1219d_1.png")
-        par(mfrow=c(2,3), mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0)) # 2x3 enough for head()
-        firstVelo <- which(d[["id"]] == 22)[1]
-        v <- d[["v"]]
-        dist <- d[["blanking"]][firstVelo] + d[["cellSize"]][firstVelo]*seq(1, dim(v)[2])
-        for (l in 1:6) {
-            plot(v[l,,1], dist, xlim=c(min(v), max(v)), type='l',
-                 xlab="velo beams", ylab="Distance [m] ???")
-            mtext(sprintf("d$v[[%d]]", l), side=3, cex=0.6)
-            for (i in 2:4) {
-                lines(v[l,,i], dist, type='l', col=i)
-            }
+    if (!interactive()) png("1219d_1.png")
+    ## 2x3 plot matrix for sampling of first 6 velo sequences
+    par(mfrow=c(2,3), mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0))
+    firstVelo <- which(d[["id"]] == 22)[1]
+    v <- d[["v"]]
+    dist <- d[["blanking"]][firstVelo] + d[["cellSize"]][firstVelo]*seq(1, dim(v)[2])
+    for (l in 1:6) {
+        plot(v[l,,1], dist, xlim=c(min(v), max(v)), type='l',
+             xlab="velo beams", ylab="Distance [m] ???")
+        mtext(sprintf("d$v[[%d]]", l), side=3, cex=0.6)
+        for (i in 2:4) {
+            lines(v[l,,i], dist, type='l', col=i)
         }
-        if (!interactive()) dev.off()
-        v <- d[["v"]]
-        ## Plot as images, one panel per component
-        if (!interactive()) png("1219d_2.png")
-        zlim <- max(abs(v)) * c(-1, 1)
-        par(mfrow=c(dim(v)[3], 2))
-        ntime <- dim(v)[1]
-        nbeam <- dim(v)[3]
-        time <- d[["time"]][d[["id"]]==22]
-        for (i in seq_len(nbeam)) {
-            imagep(time, dist, v[,,i], zlim=zlim, ylab="Distance [m] ???")
-            hist(v[,,i])
-        }
-        if (!interactive()) dev.off()
-        ## Plot crude u and v-like quantities to check if hist() peaks near 0
-        if (!interactive()) png("1219d_3.png")
-        v13 <- v[,,1] - v[,,3]
-        v24 <- v[,,2] - v[,,4]
-        zlim <- max(abs(c(v13, v24))) * c(-1, 1)
-        par(mfrow=c(2, 2))
-        imagep(time, dist, v13, zlim=zlim, ylab="Distance [m] ???")
-        hist(v13)
-        imagep(time, dist, v24, zlim=zlim, ylab="Distance [m] ???")
-        hist(v24)
-        if (!interactive()) dev.off()
     }
+    if (!interactive()) dev.off()
+    v <- d[["v"]]
+    ## Plot as images, one panel per component
+    if (!interactive()) png("1219d_2.png")
+    zlim <- max(abs(v)) * c(-1, 1)
+    par(mfrow=c(dim(v)[3], 2))
+    ntime <- dim(v)[1]
+    nbeam <- dim(v)[3]
+    time <- d[["time"]][d[["id"]]==22]
+    for (i in seq_len(nbeam)) {
+        imagep(time, dist, v[,,i], zlim=zlim, ylab="Distance [m] ???")
+        hist(v[,,i])
+    }
+    if (!interactive()) dev.off()
+    ## Plot crude u and v-like quantities to check if hist() peaks near 0
+    if (!interactive()) png("1219d_3.png")
+    v13 <- v[,,1] - v[,,3]
+    v24 <- v[,,2] - v[,,4]
+    zlim <- max(abs(c(v13, v24))) * c(-1, 1)
+    par(mfrow=c(2, 2))
+    imagep(time, dist, v13, zlim=zlim, ylab="Distance [m] ???")
+    hist(v13)
+    imagep(time, dist, v24, zlim=zlim, ylab="Distance [m] ???")
+    hist(v24)
+    if (!interactive()) dev.off()
 }
 
