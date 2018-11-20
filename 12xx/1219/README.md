@@ -19,3 +19,7 @@
 
 * `1219c.R` based on `1219b.R`: extract what seem to be velocity profiles.
 
+* `1219d.R` based on `1219c.R`: rely on oce to create an oce object, i.e. this
+   is the first stage in transferring the code into oce.
+   NOTE: this requires the "ad2cp" branch of oce.
+
