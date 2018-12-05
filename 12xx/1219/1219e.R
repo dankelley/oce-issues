@@ -1,15 +1,10 @@
 library(oce)
-library(testthat)
-## Note the use of a hard-wired name for a file available only to
-## the developers. Also, we check that the returned object is of
-## the oce class, which means that the tests only get done for
-## either the "ad2cp" branch of oce, or branches into which
-## that has been merged.
-f <- "~/Dropbox/oce_ad2cp/labtestsig3.ad2cp" # DK only tests
+f <- "~/Dropbox/quipp1.ad2cp"
 if (file.exists(f)) {
-    d <- read.ad2cp(f, 1, 100, 1)
-    if (!interactive()) png("1219e_1.png")
+    d <- read.ad2cp(f, from=1, to=100, by=1, debug=10)
+    summary(d)
+    if (!interactive()) png("1219e.png")
     plot(d)
-   if (!interactive()) dev.off()
+    if (!interactive()) dev.off()
 }
 
