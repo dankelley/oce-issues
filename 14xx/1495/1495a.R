@@ -10,6 +10,7 @@ par(mfrow=c(2, 2))
 oce.plot.ts(x = t, y = y)
 grid() # lets us see if base grid() has same colour etc
 oce.plot.ts(x = t, y = y, log = 'y')
+grid() # lets us see if base grid() has same colour etc
 oce.plot.ts(x = t, y = y, grid = TRUE)
 oce.plot.ts(x = t, y = y, log = 'y', grid = TRUE)
 if (!interactive()) dev.off()
