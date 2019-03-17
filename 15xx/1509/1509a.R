@@ -18,6 +18,6 @@ focus <- as.POSIXct(c('2019-03-01 06:00:00', '2019-03-01 18:00:00'), tz='UTC')
 plot(t, y, col=cm$zcol, pch=19, cex=0.5, xlim=focus)
 title('xlim provided; colours look ok')
 oce.plot.ts(t, y, type='p', col=cm$zcol, pch=19, cex=0.5, xlim=focus)
-title('xlim provided; colours are mixed up')
+title('xlim provided; colours should look the same as above')
 
 if (!interactive()) dev.off()
