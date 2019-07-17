@@ -1,0 +1,11 @@
+library(oce)
+load("ctds_par.rda")
+s <- as.section(ctds)
+if (!interactive()) png("1539a.png")
+par(mfrow=c(2, 2))
+expect_silent(plot(s,which="salinity"))
+expect_silent(plot(s,which="par"))
+expect_silent(plot(s,which="par",contourLevels=seq(0,20,1)))
+expect_silent(plot(s,which="par",ztype="points",zlim=c(0,20)))
+if (!interactive()) dev.off()
+
