@@ -17,7 +17,7 @@ mtext("Expect ticks & labels on bottom & left", pch=0.4)
 mapPlot(coastlineWorld, col=col,
         longitudelim=lonlim, latitudelim=latlim, projection=proj,
         lonlabels=c(-5,5))
-mtext("FAIL Expect tick & label at 5W and 5E", pch=0.4)
+mtext("Expect tick & label at 5W and 5E", pch=0.4)
 
 mapPlot(coastlineWorld, ,col=col,
         longitudelim=lonlim, latitudelim=latlim, projection=proj,
