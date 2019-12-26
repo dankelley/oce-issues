@@ -1,8 +1,12 @@
 library(oce)
-## source("~/git/oce/R/misc.R")
-## source("~/git/oce/R/oce.R")
-## source("~/git/oce/R/imagep.R")
+
 if (!interactive()) pdf("1633.pdf")
+
+## 1632
+data(adp)
+plot(adp, which=c(5, 'pressure'))
+
+## 1633
 Sv <- c(0.66, 0.8, 1, 1.2, 1.5)
 t0 <- as.POSIXct("2020-01-01 00:00:00", tz="UTC")
 t <- seq(from=t0, length.out=24, by="hour")
@@ -22,5 +26,6 @@ for (Sa in Sv) {
             oce.plot.ts(t, p, cex.axis=Sa, cex.lab=Sl)
     }
 }
+
 if (!interactive()) dev.off()
 
