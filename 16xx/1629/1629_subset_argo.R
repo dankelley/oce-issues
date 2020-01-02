@@ -1,0 +1,13 @@
+library(oce)
+source("~/git/oce/R/argo.R")
+options(warn=3)
+## options("oce:test_sf"=1)
+data(argo)
+if (!interactive()) png("1629_subset_argo.png")
+par(mfrow=c(2, 1))
+plot(argo, debug=1)
+boundary <- list(x=c(-65, -40, -40, -65), y=c(65, 65, 45, 45))
+argoSubset <- subset(argo, within=boundary, debug=1)
+plot(argoSubset, debug=1)
+if (!interactive()) dev.off()
+

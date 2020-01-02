@@ -1,0 +1,48 @@
+
+R Under development (unstable) (2019-12-17 r77592) -- "Unsuffered Consequences"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Show that sf_project() fails at south pole, with Lambert Conic Conformal projection
+> library(sf)
+Linking to GEOS 3.7.3, GDAL 2.4.2, PROJ 6.2.0
+> from <- "+proj=longlat"
+> to <- "+proj=lcc +lat_0=30 +lat_1=60"
+> tol <- 1e-4
+> try(sf::sf_project(from, to, cbind(0, 90))) # OK
+     [,1]    [,2]
+[1,]    0 9082561
+> try(sf::sf_project(from, to, cbind(0, -90))) # fails
+Error in CPL_proj_direct(as.character(c(from[1], to[1])), as.matrix(pts)) : 
+  tolerance condition error
+> for (power in seq(-8, -11)) {
++     eps <- 10^power
++     cat(sprintf("eps=%15.12e\n", eps))
++     try(sf::sf_project(from, to, cbind(0, -90 + eps)))
++ }
+eps=1.000000000000e-08
+eps=1.000000000000e-09
+Error in CPL_proj_direct(as.character(c(from[1], to[1])), as.matrix(pts)) : 
+  tolerance condition error
+eps=1.000000000000e-10
+Error in CPL_proj_direct(as.character(c(from[1], to[1])), as.matrix(pts)) : 
+  tolerance condition error
+eps=1.000000000000e-11
+Error in CPL_proj_direct(as.character(c(from[1], to[1])), as.matrix(pts)) : 
+  tolerance condition error
+> 
+> 

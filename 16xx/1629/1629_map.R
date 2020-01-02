@@ -1,8 +1,7 @@
 library(oce)
-debug <- 4 # actually, I think 3 goes all the way to the core
+## options("oce:test_sf"=1)
 data(coastlineWorld)
-options("oce:test_sf"=1)
 if (!interactive()) png("1629_map.png")
 par(mar=rep(0.5, 4))
-mapPlot(coastlineWorld, projection="+proj=moll", debug=debug)
+mapPlot(coastlineWorld, projection="+proj=moll", debug=3)
 if (!interactive()) dev.off()
