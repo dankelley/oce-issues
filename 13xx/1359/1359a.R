@@ -22,7 +22,6 @@ pxxfile <- c("pxx1.dat", "pxx2.dat")
 
 for (ifile in seq_along(xfile)) {
     cat("***\nxfile=", xfile[ifile], "\n", sep="")
-
     x <- read.table(xfile[ifile])$V1
     pxx <- read.table(pxxfile[ifile])$V1
     n <- welchCalc(x)
@@ -106,7 +105,7 @@ for (ifile in seq_along(xfile)) {
     } else {
         cat("AGREEMENT to factor 1e-7\n")
     }
-
+    expect_equal(0, sum(bad)) # the above will have summarized the problem
     if (!interactive())
         dev.off()
 }
