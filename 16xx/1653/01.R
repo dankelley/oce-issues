@@ -1,0 +1,12 @@
+library(oce)
+d <- read.csv("CO-OPS_8720218_wl.csv", header=TRUE)
+str(d)
+time <- as.POSIXct(paste(d$Date, d$Time..GMT., tz="UTC"))
+eta <- d$Verified..m.
+sl <- as.sealevel(eta, time)
+if (!interactive()) png("01.png", width=7, height=3, unit="in", res=200, pointsize=10)
+plot(sl, which=1)
+m <- tidem(sl, debug=5)
+lines(time, predict(m), col=2)
+if (!interactive()) dev.off()
+summary(m)
