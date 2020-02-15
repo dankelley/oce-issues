@@ -115,11 +115,11 @@ if (apparent) {
 cat(sprintf("alpha=%.5f\n", alpha))
 cat(sprintf("alpha=%.5f EXPECTED (apparent)\n", -161.61919))
 expect_equal(alpha, -161.61919,
-             tol=      0.00001)
+             tol=      0.00003, scale=1)
 cat(sprintf("delta=%.5f\n", delta))
 cat(sprintf("delta=%.5f EXPECTED (apparent)\n", -7.78507))
 expect_equal(delta, -7.78507,
-             tol=    0.00008) # NOTE: not agreeing in last digit
+             tol=    0.00004, scale=1) # NOTE: not agreeing in last digit
 rightAscension <- alpha
 declination <- delta
 ## For apparent=TRUE, we get
