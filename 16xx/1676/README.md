@@ -1,0 +1,41 @@
+Data file snippets:
+
+# ad2cp_01.ad2cp
+This is the first 50,000 bytes of a source file, constructed with
+```
+head -c 50000 ~/Dropbox/S101135A001_Ronald.ad2cp                     > ad2cp_01.ad2cp
+```
+
+# ad2cp_01.ad2cp
+
+This is 50,000 bytes of a source file, after skipping enough that the window
+will contain a known checksum error.
+
+```
+## Notice that we skip to char before the 0xa5
+tail -c +166785283 ~/Dropbox/S101135A001_Ronald.ad2cp | head -c 50000 > ad2cp_02.ad2cp
+od -x ad2cp_02.ad2cp | head -1 # is a5 there?
+```
+
+
+## DK notes
+```R
+file <- "~/Dropbox/S101135A001_Ronald.ad2cp"
+fileLength <- 939294720
+buf <- readBin(file, "raw", n=fileLength)
+stopifnot(0xa5 == buf[166785282 + 1])
+```
+
+
+```R
+file1 <- "ad2cp_01.ad2cp"
+buf01 <- readBin(file1, "raw", n=100000)
+buf01[1:2]
+```
+
+```R
+file2 <- "ad2cp_02.ad2cp"
+buf02 <- readBin(file2, "raw", n=100000)
+buf02[1:2]
+```
+
