@@ -1,0 +1,11 @@
+library(oce)
+data(section)
+sectionWest <- subset(section, longitude < -60)
+spine <- list(longitude=c(-77, -69.2, -55), latitude=c(39.7, 36.25, 36.25))
+s <- addSpine(sectionWest, spine)
+if (!interactive()) png("1678b.png", width=7, height=7, unit="in", res=150, pointsize=9)
+par(mfrow=c(2, 1))
+plot(s, xtype="distance", which="temperature")
+plot(s, xtype="spine", which="temperature")
+if (!interactive()) dev.off()
+
