@@ -16,3 +16,4 @@ LC8*
 *.nc
 .Rapp.history
 .DS_Store
+*.txt
