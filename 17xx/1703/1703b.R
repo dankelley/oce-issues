@@ -1,3 +1,4 @@
+library(argoFloats)
 library(ncdf4)
 library(oce)
 #source("~/git/oce/R/argo.R")
@@ -14,3 +15,6 @@ for (file in files) {
     }
 }
 
+source("~/git/argoFloats/R/AllClass.R")
+A <- readProfiles(file)
+A[["HISTORY_QCTEST"]]
