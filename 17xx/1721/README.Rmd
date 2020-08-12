@@ -1,0 +1,14 @@
+---
+title: issue 1721
+---
+
+# Is this problem the same with the CRAN version?
+
+![CRAN version](1721a_cran.png)
+
+![github 'develop' version](1721a_develop.png)
+
+![github 'sf' version](1721a_sf.png)
+
+
+
