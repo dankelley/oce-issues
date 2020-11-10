@@ -2,6 +2,8 @@
 library(oce)
 data(coastlineWorld)
 
+## source("~/git/oce/R/map.R")
+
 if (!interactive()) png("1625a.png")
 par(mfrow=c(2, 2), mar=c(3,3,2,1))
 col <- "lightgray"
@@ -15,8 +17,8 @@ mtext("Expect ticks & labels on bottom & left", pch=0.4)
 
 mapPlot(coastlineWorld, col=col,
         longitudelim=lonlim, latitudelim=latlim, projection=proj,
-        latlabels=30)
-mtext("Expect tick & label at 30N", pch=0.4)
+        latlabels=c(25, 35))
+mtext("Expect tick & label at 25N and 30N", pch=0.4)
 
 mapPlot(coastlineWorld, ,col=col,
         longitudelim=lonlim, latitudelim=latlim, projection=proj,

@@ -2,6 +2,8 @@
 library(oce)
 data(coastlineWorld)
 
+## source("~/git/oce/R/map.R")
+
 if (!interactive()) png("1625b.png")
 par(mfrow=c(2, 2))
 par(mar=c(3,3,2,1))
