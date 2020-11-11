@@ -2,7 +2,7 @@
 library(oce)
 data(coastlineWorld)
 
-source("~/git/oce/R/map.R")
+## source("~/git/oce/R/map.R")
 
 col <- "lightgray"
 lonlim <- c(-20, 20)
@@ -12,7 +12,7 @@ for (geographical in 0:4) {
     if (!interactive()) png(paste0("1625a_", geographical, ".png"))
     par(mfrow=c(2, 2), mar=c(3,3,2,1))
     mapPlot(coastlineWorld, col=col, geographical=geographical,
-            longitudelim=lonlim, latitudelim=latlim, projection=proj, debug=3)
+            longitudelim=lonlim, latitudelim=latlim, projection=proj)
     mtext("Expect ticks & labels on bottom & left", pch=0.4)
     mtext(paste0("geographical=", geographical), side=3, line=1.2, col=2, font=2, cex=0.9)
 
