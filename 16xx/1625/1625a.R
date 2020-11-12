@@ -2,7 +2,7 @@
 library(oce)
 data(coastlineWorld)
 
-## source("~/git/oce/R/map.R")
+source("~/git/oce/R/map.R")
 
 col <- "lightgray"
 lonlim <- c(-20, 20)
