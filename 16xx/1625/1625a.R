@@ -13,23 +13,23 @@ for (geographical in 0:4) {
     par(mfrow=c(2, 2), mar=c(3,3,2,1))
     mapPlot(coastlineWorld, col=col, geographical=geographical,
             longitudelim=lonlim, latitudelim=latlim, projection=proj)
-    mtext("Expect ticks & labels on bottom & left", pch=0.4)
+    mtext("Expect ticks & labels on bottom & left", cex=par("cex"))
     mtext(paste0("geographical=", geographical), side=3, line=1.2, col=2, font=2, cex=0.9)
 
     mapPlot(coastlineWorld, col=col, geographical=geographical,
             longitudelim=lonlim, latitudelim=latlim, projection=proj,
             latlabels=c(25, 35))
-    mtext("Expect tick & label at 25N and 30N", pch=0.4)
+    mtext("Expect tick & label at 25N and 30N", cex=par("cex"))
 
     mapPlot(coastlineWorld, ,col=col, geographical=geographical,
             longitudelim=lonlim, latitudelim=latlim, projection=proj,
             latlabels=FALSE)
-    mtext("Expect ticks but no numbers at left", pch=0.4)
+    mtext("Expect ticks but no numbers at left", cex=par("cex"))
 
     mapPlot(coastlineWorld, col=col, geographical=geographical,
             longitudelim=lonlim, latitudelim=latlim, projection=proj,
             latlabels=NULL)
-    mtext("Expect no ticks or numbers at left", pch=0.4)
+    mtext("Expect no ticks or numbers at left", cex=par("cex"))
     if (!interactive()) dev.off()
 }
 
