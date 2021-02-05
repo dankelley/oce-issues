@@ -1,4 +1,4 @@
-all: $(patsubst %.R,%.out,$(wildcard *.R))
+all: $(patsubst %.R,%.out,$(wildcard 1*.R))
 %.out: %.R
 	R --no-save < $< &> $@
 clean:
