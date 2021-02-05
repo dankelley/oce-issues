@@ -1,23 +1,35 @@
 library(oce)
 f <- "2007-019-055.ctd"
+
+getBlock <- function(lines, blockName)
+{
+    pattern <- paste0("^\\*", blockName, "$")
+    blockStart <- grep(pattern, lines)
+    n <- length(blockStart)
+    if (n == 0)
+        stop("This file does not have a block matching \"", pattern, "\"")
+    if (n > 1)
+        stop("This file has more than one block matching \"", pattern, "\"")
+    blockEnd <- grep("^\\*", lines)
+    blockEnd <- blockEnd[blockEnd > blockStart][1]
+    lines[seq(blockStart, blockEnd-1L)]
+}
+
 lines <- readLines(f, encoding="latin1")
 endLine <- grep("^\\*END OF HEADER$", lines)
 if (0 == length(endLine))
     stop("file \"", f, "\" does not contain an \"*END OF HEADER\" line")
 headerLines <- lines[seq(1, endLine-1)]
-# Location -- FIXME should be looking in blocks, not using regexps
-lon0 <- strsplit(headerLines[grep("LONGITUDE", headerLines)], " +")[[1]]
-longitude <- as.numeric(lon0[4]) + as.numeric(lon0[5])/60
-if (lon0[6] == "W")
-    longitude <- -longitude
-lat0 <- strsplit(headerLines[grep("LATITUDE", headerLines)], " +")[[1]]
-latitude <- as.numeric(lat0[4]) + as.numeric(lat0[5])/60
-if (lon0[6] == "S")
-    latitude <- -latitude
-cat("location:", longitude, "E, ", latitude, "N\n")
-
+# Location
+locationBlock <- getBlock(headerLines, "LOCATION")
+tmp <- strsplit(locationBlock[grep("LONGITUDE", locationBlock)], " +")[[1]]
+longitude <- (as.numeric(tmp[4]) + as.numeric(tmp[5])/60) * ifelse(tmp[6] == "W", -1, 1)
+tmp <- strsplit(locationBlock[grep("LATITUDE", locationBlock)], " +")[[1]]
+latitude <- (as.numeric(tmp[4]) + as.numeric(tmp[5])/60) * ifelse(tmp[6] == "S", -1, 1)
 tmp <- strsplit(headerLines[grep("START TIME", headerLines)], " +")[[1]]
 startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
+tmp <- strsplit(locationBlock[grep("STATION", locationBlock)], " +")[[1]]
+station <- tmp[4]
 
 # Next is brittle, being framed on a number of spaces at the start.  It might
 # be better to look for the string "TABLE: CHANNELS" and then skip some lines,
@@ -47,6 +59,7 @@ ctd <- as.ctd(d)
 ctd <- oceSetData(ctd, "longitude", longitude)
 ctd <- oceSetData(ctd, "latitude", latitude)
 ctd <- oceSetMetadata(ctd, "startTime", startTime)
+ctd <- oceSetMetadata(ctd, "station", station)
 summary(ctd)
 if (!interactive())
     png("1778a.png")
@@ -55,3 +68,7 @@ message("\n\nFIXME: read other columns, set original names, etc (see github)")
 
 if (!interactive())
     dev.off()
+
+
+# dan <- getBlock(lines, "FILE")
+# print(dan)
