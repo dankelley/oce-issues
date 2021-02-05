@@ -26,17 +26,20 @@ tmp <- strsplit(locationBlock[grep("LONGITUDE", locationBlock)], " +")[[1]]
 longitude <- (as.numeric(tmp[4]) + as.numeric(tmp[5])/60) * ifelse(tmp[6] == "W", -1, 1)
 tmp <- strsplit(locationBlock[grep("LATITUDE", locationBlock)], " +")[[1]]
 latitude <- (as.numeric(tmp[4]) + as.numeric(tmp[5])/60) * ifelse(tmp[6] == "S", -1, 1)
-tmp <- strsplit(headerLines[grep("START TIME", headerLines)], " +")[[1]]
-startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
 tmp <- strsplit(locationBlock[grep("STATION", locationBlock)], " +")[[1]]
 station <- tmp[4]
 
-# Next is brittle, being framed on a number of spaces at the start.  It might
+# Time
+fileBlock <- getBlock(headerLines, "FILE")
+tmp <- strsplit(fileBlock[grep("START TIME", fileBlock)], " +")[[1]]
+startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
+
+# Next is brittle, being framed on a number of spaces at the start.  It would
 # be better to look for the string "TABLE: CHANNELS" and then skip some lines,
-# but isn't that risky, too?  Who knows which elements of the format are fixed,
-# and which might be variable?
-n <- grep("^[ ]{6,7}[0-9]{1,2} [A-Z]", headerLines)
-nameLines <- headerLines[n]
+# but that could be risky too, since we DO NOT KNOW the format, and so any
+# guess might be okay for one file and bad for another.
+n <- grep("^[ ]{6,7}[0-9]{1,2} [A-Z]", fileBlock)
+nameLines <- fileBlock[n]
 names <- gsub("^[ 1-9]*([^ ]*) .*$", "\\1", nameLines)
 # Rename data.  This is done in a brittle way for now, just as a test
 dataNamesOriginal <- names             # FIXME: oce would want this
@@ -44,8 +47,8 @@ names[names=="Pressure"] <- "pressure"
 names[names=="Depth"] <- "depth"
 names[names=="Temperature:Primary"] <- "temperature" # BUG: will not handle secondary data
 names[names=="Salinity:T0:C0"] <- "salinity" # BUG: will not handle secondary data
-# We could change some other names but this is enough for basic work, and we do
-# not have documentation on the names anyway, so this is a bit of a fools game.
+# We could change some other names but this is enough for a test file, and we do
+# not have documentation on the names anyway, so this is a bit of a fool's game.
 
 dataLines <- lines[seq(endLine+1, length(lines))]
 d <- read.table(f, skip=1 + endLine)
@@ -61,14 +64,8 @@ ctd <- oceSetData(ctd, "latitude", latitude)
 ctd <- oceSetMetadata(ctd, "startTime", startTime)
 ctd <- oceSetMetadata(ctd, "station", station)
 summary(ctd)
-if (!interactive())
-    png("1778a.png")
+
+if (!interactive()) png("1778a.png")
 plot(ctd)
-message("\n\nFIXME: read other columns, set original names, etc (see github)")
+if (!interactive()) dev.off()
 
-if (!interactive())
-    dev.off()
-
-
-# dan <- getBlock(lines, "FILE")
-# print(dan)
