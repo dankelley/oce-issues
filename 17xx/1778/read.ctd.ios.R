@@ -8,9 +8,10 @@
 #' and Oceans, Canada.  It requires that the `oce` package be installed.
 #'
 #' @param filename character value specifying the file name
-#' @param missingValue numeric value that is to be converted to `NA`. The default
-#' value is presently -99, but a future version may set the default to `NULL`, meaning
-#' to infer it from the file.
+#'
+#' @param missingValue numeric value that is to be converted to `NA`. If this is `NULL`,
+#' the default, then the value is determined from the file, in the `CHANNEL DETAIL`
+#' table within the `FILE` block.
 #'
 #' @examples
 #' ctd <- read.ctd.ios("2007-019-055.ctd")
@@ -20,14 +21,12 @@
 #' @section Development note:
 #' 1. Add lines to nameMaker() and unitMaker() as required, to handle
 #'    column names that are not yet handled.
-#' 2. Should read `missingValue` from the file. (A complication is that it seems
-#'    that every variable might have its own missing value convention.)
 #'
 #' @references
 #' \url{https://catalogue.cioos.ca/dataset/ios_ctd_profiles}
 #'
 #' @author Dan Kelley
-read.ctd.ios <- function(filename, missingValue=-99, debug=0)
+read.ctd.ios <- function(filename, missingValue=NULL, debug=0)
 {
     nameMaker <- function(name) {
         res <- switch(name,
@@ -92,6 +91,14 @@ read.ctd.ios <- function(filename, missingValue=-99, debug=0)
     fileBlock <- getBlock(headerLines, "FILE")
     tmp <- strsplit(fileBlock[grep("START TIME", fileBlock)], " +")[[1]]
     startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
+
+    if (is.null(missingValue)) {
+        channelDetailBlockStart <- grep("\\$TABLE: CHANNEL DETAIL", fileBlock)
+        missingValue <- as.numeric(strsplit(fileBlock[channelDetailBlockStart + 4L], "[ ]+")[[1]][3])
+        if (debug > 0)
+            cat("Inferred missingValue as", missingValue, "\n")
+    }
+
     # CHANNELS table, withing FILE block
     channelBlockStart <- grep("\\$TABLE: CHANNELS", fileBlock)
     unitList <- list()
