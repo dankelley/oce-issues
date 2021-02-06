@@ -29,6 +29,8 @@
 #' @references
 #' \url{https://catalogue.cioos.ca/dataset/ios_ctd_profiles}
 #'
+#' @return [read.ctd.ios()] returns an `oce` object of class `ctd`.
+#'
 #' @author Dan Kelley
 read.ctd.ios <- function(filename, missingValue=NULL, debug=0)
 {
