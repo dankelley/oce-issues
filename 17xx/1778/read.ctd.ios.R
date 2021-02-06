@@ -13,6 +13,10 @@
 #' the default, then the value is determined from the file, in the `CHANNEL DETAIL`
 #' table within the `FILE` block.
 #'
+#' @param debug integer value controlling the printing of information
+#' that may help in debugging problems. The default, 0, means to work
+#' silently; positive values mean that some information should be printed.
+#'
 #' @examples
 #' ctd <- read.ctd.ios("2007-019-055.ctd")
 #' summary(ctd)
