@@ -97,6 +97,16 @@ read.ctd.ios <- function(filename, missingValue=NULL, debug=0)
     fileBlock <- getBlock(headerLines, "FILE")
     tmp <- strsplit(fileBlock[grep("START TIME", fileBlock)], " +")[[1]]
     startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
+    # ADMINISTRATION block (cruise, PI and ship)
+    administrationBlock <- getBlock(headerLines, "ADMINISTRATION")
+    if (debug > 0)
+        print(administrationBlock)
+    res@metadata$mission <- strsplit(administrationBlock[grep("MISSION", administrationBlock)], "[ ]:[ ]*")[[1]][2]
+    res@metadata$agency <- strsplit(administrationBlock[grep("AGENCY", administrationBlock)], "[ ]*:[ ]*")[[1]][2]
+    res@metadata$country <- strsplit(administrationBlock[grep("COUNTRY", administrationBlock)], "[ ]*:[ ]*")[[1]][2]
+    res@metadata$project <- strsplit(administrationBlock[grep("PROJECT", administrationBlock)], "[ ]*:[ ]*")[[1]][2]
+    res@metadata$scientist <- strsplit(administrationBlock[grep("SCIENTIST", administrationBlock)], "[ ]*:[ ]*")[[1]][2]
+    res@metadata$platform <- strsplit(administrationBlock[grep("PLATFORM", administrationBlock)], "[ ]*:[ ]*")[[1]][2]
 
     if (is.null(missingValue)) {
         channelDetailBlockStart <- grep("\\$TABLE: CHANNEL DETAIL", fileBlock)
