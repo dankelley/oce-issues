@@ -50,7 +50,7 @@ read.ctd.ios <- function(filename, missingValue=NULL, debug=0)
             "'deg C (ITS90)'"=list(unit=expression(degree*C), scale="ITS-90"),
             "%/metre"=list(unit=expression("%"/m), scale=""),
             "mg/m^3"=list(unit=expression(mg/m^3), scale=""),
-            "uE/m^2/sec"=list(unit=expression(mu*g/m^2/s), scale=""),
+            "uE/m^2/sec"=list(unit=expression(mu*E/m^2/s), scale=""),
             "PSS-78"=list(unit=expression(), scale="PSS-78"),
             "mL/L"=list(unit=expression(ml/l), scale=""),
             "umol/kg"=list(unit=expression(mu*mol/kg), scale=""),
