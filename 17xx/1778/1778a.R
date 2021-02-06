@@ -1,4 +1,5 @@
-source("read.ctd.ios.R")
+# remotes::install_github("dankelley/dfo", ref="main")
+library(dfo)
 
 if (!interactive())
     png("1778a.png")
