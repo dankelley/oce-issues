@@ -1,3 +1,38 @@
+# INSTRUCTIONS: add lines to nameMaker() and unitMaker() as required, to handle
+# column names not yet handled.
+nameMaker <- function(name)
+{
+    res <- switch(name,
+        "Pressure"="pressure",
+        "Depth"="depth",
+        "Temperature:Primary"="temperature",
+        "Salinity:T0:C0"="salinity",
+        "PAR"="par",
+        "PAR:Reference"="parReference",
+        "Transmissivity"="transmissivity",
+        "Fluorescence:URU:Seapoint"="fluorescence",
+        "Oxygen:Dissolved:SBE"="oxygen",
+        "Number_of_bin_records"="ndata",
+        "Nitrate_plus_nitrite:ISUS"="nitrate_plus_nitrite")
+    if (is.null(res)) name else res
+}
+
+unitMaker <- function(unit)
+{
+    switch(unit,
+        "decibar"=list(unit=expression(dbar), scale=""),
+        "metres"=list(unit=expression(m), scale=""),
+        "'deg C (ITS90)'"=list(unit=expression(degree*C), scale="ITS-90"),
+        "%/metre"=list(unit=expression("%"/m), scale=""),
+        "mg/m^3"=list(unit=expression(mg/m^3), scale=""),
+        "uE/m^2/sec"=list(unit=expression(mu*g/m^2/s), scale=""),
+        "PSS-78"=list(unit=expression(), scale="PSS-78"),
+        "mL/L"=list(unit=expression(ml/l), scale=""),
+        "umol/kg"=list(unit=expression(mu*mol/kg), scale=""),
+        "volts"=list(unit=expression(V), scale=""),
+        "n/a"=list(unit=expression(), scale=""))
+}
+
 #' Read an IOS-formatted CTD file
 #'
 #' This is a preliminary version of a function intended to read a data-file format
@@ -18,10 +53,11 @@
 #' \url{https://catalogue.cioos.ca/dataset/ios_ctd_profiles}
 #'
 #' @author Dan Kelley
-read.ctd.ios <- function(filename, missingValue=-99)
+read.ctd.ios <- function(filename, missingValue=-99, debug=0)
 {
     if (!requireNamespace("oce"))
         stop("The 'oce' package must be installed for read.ctd.ios() to work")
+    res <- new("ctd")
     getBlock <- function(lines, blockName)
     {
         pattern <- paste0("^\\*", blockName, "$")
@@ -53,38 +89,41 @@ read.ctd.ios <- function(filename, missingValue=-99)
     fileBlock <- getBlock(headerLines, "FILE")
     tmp <- strsplit(fileBlock[grep("START TIME", fileBlock)], " +")[[1]]
     startTime <- as.POSIXct(paste(tmp[6], tmp[7]), tz="UTC")
-
-    # Determine column names.  This is rudimentary, and brittle.
-    # We need docs on the file format before finalizing this.
-    n <- grep("^[ ]{6,7}[0-9]{1,2} [A-Z]", fileBlock)
-    nameLines <- fileBlock[n]
-    names <- gsub("^[ 1-9]*([^ ]*) .*$", "\\1", nameLines)
-    # Rename data.  This is done in a brittle way for now, just as a test
-    dataNamesOriginal <- list()
-    names[names=="Pressure"] <- "pressure"
-    dataNamesOriginal$pressure <- "Pressure"
-    names[names=="Depth"] <- "depth"
-    dataNamesOriginal$depth <- "Depth"
-    names[names=="Temperature:Primary"] <- "temperature" # BUG: will not handle secondary data
-    dataNamesOriginal$temperature <- "Temperature:Primary"
-    names[names=="Salinity:T0:C0"] <- "salinity" # BUG: will not handle secondary data
-    dataNamesOriginal$salinity <- "Salinity:T0:C0"
-    # We could change some other names but this is enough for a test file, and we do
-    # not have documentation on the names anyway, so this is a bit of a fool's game.
-
+    # CHANNELS table, withing FILE block
+    channelBlockStart <- grep("\\$TABLE: CHANNELS", fileBlock)
+    unitList <- list()
+    names <- NULL
+    namesOriginal <- list()
+    j <- 1 # index to variable names
+    for (i in seq(channelBlockStart + 3L, length(fileBlock))) {
+        if (length(grep("\\$END", fileBlock[i])))
+            break
+        thisName <- gsub("^[ ]*[0-9]{1,2}[ ]*([^ ]*) .*$", "\\1", fileBlock[i])
+        namesOriginal[[j]] <- thisName
+        names[j] <- nameMaker(thisName)
+        thisUnit <- gsub("^[ ]*[0-9]{1,2}[ ]*[^ ]*[ ]*([^ ]+|'.*').*$", "\\1", fileBlock[i])
+        unitList[[j]] <- unitMaker(thisUnit)
+        j <- j + 1
+        if (debug > 0) {
+            cat(oce::vectorShow(i), msg="  ")
+            cat(oce::vectorShow(fileBlock[i], msg="   "))
+            cat(oce::vectorShow(thisName, msg="   "))
+            cat(oce::vectorShow(thisUnit, msg="   "))
+        }
+    }
+    names <- oce::unduplicateNames(names)
+    names(unitList) <- names
+    names(namesOriginal) <- names
     dataLines <- lines[seq(endLine+1, length(lines))]
-    data <- read.table(filename, skip=1 + endLine)
-    if (dim(data)[2] != length(names))
-        stop("cannot determine column names. dim(d)[2] is ", dim(d)[2], " but # of names is ", length(names))
-    colnames(data) <- names
-    if (3 != sum(c("salinity", "temperature", "pressure") %in% names(data)))
-        warning("dataset does not contain all of: salinity, temperature, and data")
-    res <- oce::as.ctd(data)
-    res <- oce::oceSetMetadata(res, "longitude", longitude)
-    res <- oce::oceSetMetadata(res, "latitude", latitude)
-    res <- oce::oceSetMetadata(res, "startTime", startTime)
-    res <- oce::oceSetMetadata(res, "station", station)
-    res <- oce::oceSetMetadata(res, "dataNamesOriginal", dataNamesOriginal)
+    data <- read.table(filename, skip=1 + endLine, col.names=names)
+    res@data <- data
+    res@metadata$units <- unitList
+    res@metadata$dataNamesOriginal <- namesOriginal
+    res@metadata$longitude <- longitude
+    res@metadata$latitude <- latitude
+    res@metadata$startTime <- startTime
+    res@metadata$station <- station
+    res@processingLog <- processingLogAppend(res@processingLog, paste(deparse(match.call()), sep="", collapse=""))
     res
 }
 
