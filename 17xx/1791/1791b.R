@@ -1,4 +1,5 @@
 library(ncdf4)
+# if (file.exists("~/git/oce/R/argo.R")) source("~/git/oce/R/argo.R")
 file <- "BD6901494_352.nc"
 if (!file.exists(file))
     download.file("https://data-argo.ifremer.fr/dac/coriolis/6901494/profiles/BD6901494_352.nc", file)
