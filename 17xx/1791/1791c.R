@@ -5,7 +5,7 @@ file <- "BD6901494_352.nc"
 if (!file.exists(file))
     download.file("https://data-argo.ifremer.fr/dac/coriolis/6901494/profiles/BD6901494_352.nc", file)
 
-d <- read.argo(file, debug=3)
+d <- read.argo(file)
 namesMetadata <- names(d@metadata)
 namesMetadata[grep("pres", namesMetadata)]
 namesMetadata[grep("psal", namesMetadata)]
