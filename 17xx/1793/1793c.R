@@ -1,0 +1,7 @@
+library(sf)
+packageVersion("sf")
+lons <- c(-50, -51, 50, 51)
+lats <- rep(0, length(lons))
+ll <- cbind(lons, lats)
+sf_project("+proj=longlat", "+proj=ortho +lon_0=-40", ll, keep=TRUE, warn=FALSE)
+sf_project("+proj=longlat", "+proj=ortho +lon_0=40", ll, keep=TRUE, warn=FALSE)
