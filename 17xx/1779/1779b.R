@@ -1,0 +1,8 @@
+library(oce)
+if (!interactive()) png("1779b.png")
+par(mfrow=c(1,2))
+imagep(volcano, colormap=colormap(volcano, col=oceColorsJet))
+mtext("OLD scheme")
+imagep(volcano, colormap=colormap(volcano))
+mtext("NEW scheme")
+if (!interactive()) dev.off()
