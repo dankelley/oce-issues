@@ -1,7 +1,0 @@
-library(oce)
-if (!interactive()) png("1779c.png")
-#source("~/git/oce/R/imagep.R");source("~/git/oce/R/colors.R")
-cm <- colormap(zlim=c(-6000, 0), name="gmt_relief", debug=3)
-par(mar=c(2,2,2,2))
-drawPalette(colormap=cm, pos=3, debug=3)
-if (!interactive()) dev.off()
