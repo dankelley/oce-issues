@@ -1,5 +1,4 @@
-rm(list=ls())
-if (!interactive()) png("435B.png", width=7, height=7, unit="in", res=150, pointsize=12)
+if (!interactive()) png("435b.png", width=7, height=7, unit="in", res=150, pointsize=11)
 library(oce)
 library(RColorBrewer)
 
@@ -13,10 +12,9 @@ x1 <- tail(x, -1) ## -1.0 -0.5  0.0  0.5  1.0  1.5
 col0 <- head(pal, -1)
 col1 <- tail(pal, -1)
 data(adp)
-for (blend in 40) {
-    cm <- colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
-    plot(adp, which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
-}
+blend <- 0.5
+cm <- colormap(x0=x0, x1=x1, col0=col0, col1=col1, blend=blend, debug=0)
+plot(adp, which=1, col=cm$col, breaks=cm$breaks, drawTimeRange=FALSE)
 if (!interactive()) dev.off()
 ## check for uniformity
 stopifnot(1e-10 > max(abs(diff(diff(cm$x0)))))

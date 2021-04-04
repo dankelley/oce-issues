@@ -1,5 +1,4 @@
-rm(list=ls())
-if (!interactive()) png("435C.png", width=7, height=7, unit="in", res=150, pointsize=12)
+if (!interactive()) png("435c.png", width=7, height=7, unit="in", res=150, pointsize=11)
 
 library(oce)
 data(topoWorld)
