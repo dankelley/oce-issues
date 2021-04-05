@@ -1,6 +1,6 @@
 library(oce)
-if (!interactive()) png("1796c.png")
-cm <- colormap(zlim=c(-6000, 0), name="gmt_relief", debug=3)
+if (!interactive()) png("1796a.png")
+cm <- colormap(name="gmt_relief", debug=3)
 par(mar=c(2,2,2,2))
 drawPalette(colormap=cm, pos=3, debug=3)
 if (!interactive()) dev.off()
