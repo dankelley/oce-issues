@@ -1,5 +1,4 @@
 library(oce)
-source("~/git/oce/R/colors.R")
 z <- seq(-3,3,length.out=11)
 cmz <- colormap(z=z)
 expect_equal(cmz$zlim, rangeExtended(z))

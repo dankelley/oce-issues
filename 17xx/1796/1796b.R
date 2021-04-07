@@ -1,8 +1,4 @@
 library(oce)
-source("~/git/oce/R/adp.R")
-source("~/git/oce/R/imagep.R")
-source("~/git/oce/R/colors.R")
-source("~/git/oce/R/misc.R")
 library(RColorBrewer)
 xmin <- -1
 xmax <- 1
