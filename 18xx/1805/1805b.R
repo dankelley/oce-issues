@@ -1,0 +1,5 @@
+library(oce)
+data(sealevel)
+if (!interactive()) png("1805b.png")
+oce.plot.ts(sealevel[["time"]], sealevel[["elevation"]])
+if (!interactive()) dev.off()
