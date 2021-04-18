@@ -1,4 +1,4 @@
-# is findInterval() faster than cut()?
+# is split(...,indInterval()) faster than split(...,cut())?
 t0 <- as.POSIXct("2021-01-01", tz="UTC")
 Ns <- 10^seq(3, 8, 0.25)
 As <- rep(NA, length(Ns))

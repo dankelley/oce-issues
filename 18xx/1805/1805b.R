@@ -1,4 +1,7 @@
 library(oce)
+source("~/git/oce/R/imagep.R")
+source("~/git/oce/R/oce.R")
+source("~/git/oce/R/misc.R")
 data(sealevel)
 if (!interactive()) png("1805b.png")
 oce.plot.ts(sealevel[["time"]], sealevel[["elevation"]])

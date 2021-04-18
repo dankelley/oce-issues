@@ -1,6 +1,6 @@
 # Timing test for oce.plot.ts() with simplify=2560.
-# Results stored to and displayed by 1805c.R
-N <- 1e4
+
+N <- 3e7
 set.seed(1805)
 library(oce)
 t0 <- as.POSIXct("2021-01-01", tz="UTC")
