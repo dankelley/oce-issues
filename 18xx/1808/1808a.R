@@ -1,13 +1,10 @@
-library(oce)
-#source("~/git/oce/R/odf.R")
-#source("~/git/oce/R/oce.R")
-#source("~/git/oce/R/ctd.R")
-#source("~/git/oce/R/ctd.odf.R")
-#source("~/git/oce/R/misc.R")
+# vim: tw=140
 
-debug <- 0 # set to 3 to get debugging
-diml <- read.oce("CTD_1994038_147_1_DN.ODF", debug=debug)
+library(oce)
+options(width=200)
+
+diml <- read.oce("CTD_1994038_147_1_DN.ODF")
 summary(diml)
 
-dbio <- read.oce("CTD_BCD2014666_008_1_DN.ODF", debug=debug)
+dbio <- read.oce("CTD_BCD2014666_008_1_DN.ODF")
 summary(dbio)
