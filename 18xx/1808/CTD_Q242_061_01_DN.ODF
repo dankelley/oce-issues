@@ -1,0 +1,347 @@
+ODF_HEADER,
+  FILE_SPECIFICATION='CTD_Q242_061_01_DN'
+CRUISE_HEADER,
+  COUNTRY_INSTITUTE_CODE=1814,
+  CRUISE_NUMBER='Q242',
+  ORGANIZATION='DALHOUSIE UNIVERSITY',
+  CHIEF_SCIENTIST='CHRISTIAN REISS',
+  START_DATE='15-SEP-1997 00:00:00.00',
+  END_DATE='24-SEP-1997 00:00:00.00',
+  PLATFORM='QUEST',
+  CRUISE_NAME='WESTERN BANK',
+  CRUISE_DESCRIPTION='GLOBEC HYDROGRAPHIC SURVEY'
+EVENT_HEADER,
+  DATA_TYPE='CTD',
+  EVENT_NUMBER='061',
+  EVENT_QUALIFIER1='01',
+  EVENT_QUALIFIER2='DN',
+  CREATION_DATE='05-OCT-2017 11:25:19.91',
+  ORIG_CREATION_DATE='31-JUL-2000 09:59:33.23',
+  START_DATE_TIME='23-SEP-1997 23:52:04.00',
+  END_DATE_TIME='17-NOV-1858 00:00:00.00',
+  INITIAL_LATITUDE=43.656200,
+  INITIAL_LONGITUDE=-61.914700,
+  END_LATITUDE=-99.000000,
+  END_LONGITUDE=-99.000000,
+  MIN_DEPTH=5.040000,
+  MAX_DEPTH=81.000000,
+  SAMPLING_INTERVAL=-99.000000,
+  SOUNDING=-99.000000,
+  DEPTH_OFF_BOTTOM=-99.000000,
+  EVENT_COMMENTS=''
+INSTRUMENT_HEADER,
+  INST_TYPE='',
+  MODEL='',
+  SERIAL_NUMBER='',
+  DESCRIPTION=''
+HISTORY_HEADER,
+  CREATION_DATE='31-JUL-2000 09:59:33.23',
+  PROCESS='Conversion',
+  PROCESS='Edit Event: Data_Type=CTD Event_Number=61 Event_Qualifier1=1 Event_Qualifier2=DN Start_Date_Time=23-SEP-1997 23:52:04.00 Initial_Latitude=43.6562 Initial_Longitude=-61.9147 Sounding=-99',
+  PROCESS='Edit Cruise: Country_Institute_Code=1814 Cruise_Number=Q242 Organization=Dalhousie University Chief_Scientist=Christian Reiss Platform=QUEST Cruise_Description=GLOBEC - Western Bank',
+  PROCESS='The code of Parameter `Oxygen Sensor Current´ will be changed to: `OCUR_01´.',
+  PROCESS='Add_Parameter: A.Data.OCUR_01 = evalin('caller','A.Data.UNKN_01');',
+  PROCESS='The code of Parameter `Oxygen Sensor Temperature´ will be changed to: `OTMP_01´.',
+  PROCESS='Add_Parameter: A.Data.OTMP_01 = evalin('caller','A.Data.TEMP_02');',
+  PROCESS='The code of Parameter `Flourescence´ will be changed to: `FLOR_01´.',
+  PROCESS='Add_Parameter: A.Data.FLOR_01 = evalin('caller','A.Data.UNKN_02');',
+  PROCESS='The code of Parameter `Sensor Depth below Sea Surface´ will be changed to: `DEPH_01´.',
+  PROCESS='Add_Parameter: A.Data.DEPH_01 = evalin('caller','A.Data.UNKN_03');',
+  PROCESS='The code of Parameter `Dissolved Oxygen´ will be changed to: `DOXY_01´.',
+  PROCESS='Add_Parameter: A.Data.DOXY_01 = evalin('caller','A.Data.UNKN_04');',
+  PROCESS='The code of Parameter `Sea Density´ will be changed to: `DENS_01´.',
+  PROCESS='Add_Parameter: A.Data.DENS_01 = evalin('caller','A.Data.UNKN_05');',
+  PROCESS='The code of Parameter `Sigma-T´ will be changed to: `SIGT_01´.',
+  PROCESS='Add_Parameter: A.Data.SIGT_01 = evalin('caller','A.Data.UNKN_06');',
+  PROCESS='The code of Parameter `Sound Velocity´ will be changed to: `SVEL_01´.',
+  PROCESS='Add_Parameter: A.Data.SVEL_01 = evalin('caller','A.Data.UNKN_07');'
+HISTORY_HEADER,
+  CREATION_DATE='05-OCT-2017 11:25:19.89',
+  PROCESS='The following edits were completed by Jeff Jackson.',
+  PROCESS='Edit Cruise: Field "Organization" has been changed from "Dalhousie University" to "DALHOUSIE UNIVERSITY".',
+  PROCESS='Edit Cruise: Field "Chief_Scientist" has been changed from "Christian Reiss" to "CHRISTIAN REISS".',
+  PROCESS='Edit Cruise: Field "Start_Date" has been changed from " " to "15-SEP-1997 00:00:00.00".',
+  PROCESS='Edit Cruise: Field "End_Date" has been changed from " " to "24-SEP-1997 00:00:00.00".',
+  PROCESS='Edit Cruise: Field "Platform" has been changed from "QUEST" to "QUEST".',
+  PROCESS='Edit Cruise: Field "Cruise_Name" has been changed from " " to "WESTERN BANK".',
+  PROCESS='Edit Cruise: Field "Cruise_Description" has been changed from "GLOBEC - Western Bank" to "GLOBEC HYDROGRAPHIC SURVEY".',
+  PROCESS='The Cruise Start_Date and End_Date were obtained from the Start_Date_Time fields of the CTD casts.',
+  PROCESS='Edit Event: Field "Event_Number" has been changed from "61" to "061".',
+  PROCESS='Edit Event: Field "Event_Qualifier1" has been changed from "1" to "01".',
+  PROCESS='Edit Event: Field "End_Date_Time" has been changed from " " to "17-NOV-1858 00:00:00.00".',
+  PROCESS='Edit Event: Field "Min_Depth" has been changed from "5" to "5.04".',
+  PROCESS='Edit Record: Field "Num_History" has been changed from 1 to 2.',
+  PROCESS='Edit Parameter (PRES_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (DEPH_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (TEMP_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (CNDC_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (PSAL_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (SIGT_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (DENS_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (DOXY_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (OCUR_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (OTMP_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (FLOR_01): Field "Print_Field_Width" has been changed from "10" to "11".',
+  PROCESS='Edit Parameter (SVEL_01): Field "Print_Field_Width" has been changed from "10" to "11".'
+PARAMETER_HEADER,
+  TYPE='DOUB',
+  NAME='Sea Pressure (sea surface - 0)',
+  UNITS='decibars',
+  CODE='PRES_01',
+  NULL_VALUE='-99.0',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=     5.0400,
+  MAXIMUM_VALUE=    81.6640,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sensor Depth below Sea Surface',
+  UNITS='metres',
+  CODE='DEPH_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=      5.000,
+  MAXIMUM_VALUE=     81.000,
+  NUMBER_VALID=77,
+  NUMBER_NULL=0
+PARAMETER_HEADER,
+  TYPE='DOUB',
+  NAME='Sea Temperature',
+  UNITS='degrees C',
+  CODE='TEMP_01',
+  NULL_VALUE='-99.0',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=     4.9871,
+  MAXIMUM_VALUE=    16.6921,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='DOUB',
+  NAME='Electrical Conductivity',
+  UNITS='mhos/m',
+  CODE='CNDC_01',
+  NULL_VALUE='-99.0',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=5,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=    3.19890,
+  MAXIMUM_VALUE=    4.04620,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='DOUB',
+  NAME='Practical Salinity',
+  UNITS='psu',
+  CODE='PSAL_01',
+  NULL_VALUE='-99.0',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=    31.3260,
+  MAXIMUM_VALUE=    33.3268,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sigma-T',
+  UNITS='kg/m**3',
+  CODE='SIGT_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=    22.7700,
+  MAXIMUM_VALUE=    26.3270,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sea Density',
+  UNITS='kg/m**3',
+  CODE='DENS_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=4,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=  1022.7920,
+  MAXIMUM_VALUE=  1026.7040,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Dissolved Oxygen',
+  UNITS='ml/l',
+  CODE='DOXY_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=      8.515,
+  MAXIMUM_VALUE=     10.482,
+  NUMBER_VALID=65,
+  NUMBER_NULL=12
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Oxygen Sensor Current',
+  UNITS='ma',
+  CODE='OCUR_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=      0.558,
+  MAXIMUM_VALUE=      0.624,
+  NUMBER_VALID=65,
+  NUMBER_NULL=12
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Oxygen Sensor Temperature',
+  UNITS='degrees C',
+  CODE='OTMP_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=     -4.935,
+  MAXIMUM_VALUE=     -4.185,
+  NUMBER_VALID=65,
+  NUMBER_NULL=12
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Flourescence',
+  UNITS='(none)',
+  CODE='FLOR_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=     -2.751,
+  MAXIMUM_VALUE=     15.600,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+PARAMETER_HEADER,
+  TYPE='SING',
+  NAME='Sound Velocity',
+  UNITS='m/s',
+  CODE='SVEL_01',
+  NULL_VALUE='-99.00',
+  PRINT_FIELD_WIDTH=11,
+  PRINT_DECIMAL_PLACES=3,
+  ANGLE_OF_SECTION=0.000000,
+  MAGNETIC_VARIATION=0.000000,
+  DEPTH=81.000000,
+  MINIMUM_VALUE=   1469.460,
+  MAXIMUM_VALUE=   1507.980,
+  NUMBER_VALID=66,
+  NUMBER_NULL=11
+RECORD_HEADER,
+  NUM_HISTORY=2,
+  NUM_CYCLE=77,
+  NUM_PARAM=12
+-- DATA --
+     5.0400       5.000     16.6853     4.03700     31.3261     22.7700   1022.7920       8.515       0.622      -4.804       3.906    1507.730 
+     6.0480       6.000     16.6854     4.03710     31.3260     22.7700   1022.7970       8.519       0.622      -4.798       3.223    1507.750 
+     7.0560       7.000     16.6857     4.03720     31.3266     22.7700   1022.8020       8.519       0.622      -4.795       3.941    1507.760 
+     8.0640       8.000     16.6873     4.03770     31.3296     22.7720   1022.8080       8.522       0.622      -4.805       3.541    1507.790 
+     9.0720       9.000     16.6897     4.03810     31.3307     22.7720   1022.8130       8.527       0.622      -4.797       5.052    1507.810 
+   -99.0000      10.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    11.0870      11.000     16.6891     4.03810     31.3305     22.7720   1022.8220       8.530       0.622      -4.784       5.392    1507.850 
+   -99.0000      12.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    12.7450      13.000     16.6912     4.03850     31.3318     22.7730   1022.8300       8.532       0.622      -4.784       6.017    1507.880 
+    14.1130      14.000     16.6915     4.03870     31.3323     22.7730   1022.8360       8.533       0.622      -4.792       7.481    1507.910 
+   -99.0000      15.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    16.3940      16.000     16.6921     4.04040     31.3461     22.7840   1022.8570       8.536       0.622      -4.795       4.142    1507.960 
+    17.1370      17.000     16.6921     4.04080     31.3488     22.7860   1022.8620       8.540       0.623      -4.769       1.767    1507.980 
+    18.1450      18.000     16.6445     4.04620     31.4326     22.8610   1022.9410       8.546       0.623      -4.763       1.641    1507.940 
+    19.1530      19.000     16.3319     4.04030     31.6275     23.0810   1023.1670       8.590       0.623      -4.735       1.641    1507.220 
+    20.1600      20.000     16.0275     4.02180     31.7070     23.2110   1023.3000       8.639       0.623      -4.726      -0.034    1506.390 
+    21.1690      21.000     15.3039     3.98900     31.9998     23.5950   1023.6900       8.755       0.623      -4.694       6.517    1504.470 
+    22.1770      22.000     14.5913     3.92770     32.0311     23.7720   1023.8710       8.882       0.623      -4.663       4.057    1502.250 
+   -99.0000      23.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    23.9300      24.000     12.8743     3.79280     32.2197     24.2650   1024.3720       9.195       0.623      -4.546       4.767    1496.840 
+    25.2010      25.000     12.0828     3.73830     32.3787     24.5390   1024.6520       9.347       0.623      -4.520       6.246    1494.350 
+   -99.0000      26.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+   -99.0000      27.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    28.2440      28.000     10.2110     3.58980     32.5651     25.0160   1025.1440       9.729       0.624      -4.340       4.142    1488.030 
+    29.2340      29.000     10.3355     3.60790     32.6353     25.0500   1025.1820       9.700       0.624      -4.257       5.207    1488.580 
+    30.2420      30.000     10.5707     3.63620     32.7074     25.0660   1025.2030       9.649       0.624      -4.194       4.923    1489.530 
+    31.2500      31.000     10.9778     3.68640     32.8415     25.0990   1025.2410       9.554       0.624      -4.185       4.329    1491.150 
+    32.2590      32.000     11.2285     3.72630     33.0112     25.1870   1025.3320       9.492       0.623      -4.220       0.470    1492.260 
+    33.2670      33.000     10.5346     3.66200     32.9963     25.2970   1025.4480       9.636       0.623      -4.295       3.048    1489.800 
+    34.2750      34.000     10.2861     3.64150     33.0158     25.3550   1025.5100       9.684       0.623      -4.326       2.533    1488.950 
+    35.2830      35.000      9.9757     3.61610     33.0414     25.4270   1025.5870       9.748       0.623      -4.346       5.522    1487.880 
+   -99.0000      36.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    36.8270      37.000      9.2422     3.55250     33.0638     25.5640   1025.7320       9.904       0.622      -4.492       7.893    1485.250 
+    38.3070      38.000      9.3049     3.56930     33.1785     25.6440   1025.8180       9.879       0.622      -4.532       4.768    1485.640 
+    39.3150      39.000      9.2421     3.56360     33.1779     25.6530   1025.8320       9.896       0.622      -4.546       9.208    1485.430 
+    40.3240      40.000      9.1591     3.55680     33.1835     25.6710   1025.8550       9.901       0.621      -4.597       7.445    1485.150 
+   -99.0000      41.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    42.0440      42.000      9.0805     3.55140     33.1999     25.6960   1025.8880       9.904       0.620      -4.632       6.642    1484.900 
+    43.3490      43.000      8.9906     3.54400     33.2069     25.7160   1025.9130       9.915       0.620      -4.648       2.419    1484.600 
+    44.3560      44.000      8.9451     3.54090     33.2164     25.7310   1025.9330       9.907       0.618      -4.680       4.074    1484.460 
+    45.3650      45.000      8.9505     3.54330     33.2353     25.7440   1025.9510       9.876       0.617      -4.736       4.100    1484.520 
+    46.3730      46.000      8.4061     3.49680     33.2591     25.8470   1026.0590       9.983       0.616      -4.763       5.405    1482.530 
+    47.3810      47.000      7.8025     3.44420     33.2714     25.9450   1026.1620      10.105       0.615      -4.779       5.872    1480.270 
+    48.3900      48.000      7.2928     3.39740     33.2532     26.0030   1026.2250      10.202       0.613      -4.817       7.939    1478.310 
+   -99.0000      49.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    50.2040      50.000      6.8360     3.35680     33.2498     26.0620   1026.2930      10.291       0.612      -4.849       4.142    1476.560 
+    51.4140      51.000      6.5960     3.33860     33.2810     26.1190   1026.3550      10.338       0.611      -4.860       6.691    1475.670 
+    52.4230      52.000      6.3677     3.31770     33.2709     26.1400   1026.3820      10.355       0.609      -4.870       6.642    1474.780 
+    53.4310      53.000      6.2491     3.30720     33.2701     26.1550   1026.4010      10.362       0.607      -4.880       3.653    1474.320 
+    54.4390      54.000      6.2005     3.30150     33.2532     26.1480   1026.3990      10.345       0.606      -4.894      -0.001    1474.120 
+    55.4480      55.000      5.9232     3.27940     33.2767     26.2010   1026.4570      10.390       0.604      -4.906       8.117    1473.070 
+    56.4560      56.000      5.6052     3.25520     33.3169     26.2710   1026.5320      10.446       0.603      -4.914       8.498    1471.860 
+    57.4640      57.000      5.3573     3.23410     33.3223     26.3050   1026.5710      10.477       0.601      -4.926       4.147    1470.880 
+    58.4720      58.000      5.2866     3.22840     33.3268     26.3160   1026.5870      10.482       0.600      -4.925      10.270    1470.610 
+    59.4800      59.000      5.2273     3.22330     33.3268     26.3230   1026.5990      10.477       0.599      -4.925       8.197    1470.390 
+    60.4890      60.000      5.1195     3.21250     33.3105     26.3230   1026.6030      10.451       0.596      -4.934       8.414    1469.950 
+    61.4970      61.000      5.0618     3.20690     33.3029     26.3230   1026.6080      10.437       0.594      -4.935       7.117    1469.720 
+    62.5050      62.000      5.0309     3.20390     33.2986     26.3230   1026.6130      10.424       0.593      -4.935       4.969    1469.600 
+    63.5140      63.000      5.0012     3.20070     33.2916     26.3210   1026.6160      10.411       0.592      -4.935       3.755    1469.490 
+    64.5220      64.000      4.9930     3.19990     33.2893     26.3200   1026.6200      10.394       0.591      -4.935       3.012    1469.470 
+    65.5300      65.000      4.9879     3.19930     33.2869     26.3190   1026.6230      10.355       0.588      -4.935       1.943    1469.460 
+    66.5390      66.000      4.9873     3.19890     33.2829     26.3160   1026.6250      10.301       0.585      -4.935       1.615    1469.470 
+    67.5470      67.000      4.9871     3.19900     33.2831     26.3160   1026.6290      10.274       0.583      -4.935       2.276    1469.490 
+    68.5550      68.000      4.9878     3.19920     33.2843     26.3170   1026.6350      10.263       0.583      -4.935       1.335    1469.510 
+    69.5640      69.000      4.9903     3.19960     33.2858     26.3180   1026.6410      10.251       0.582      -4.935       8.138    1469.530 
+    70.5720      70.000      4.9923     3.19980     33.2862     26.3180   1026.6450      10.164       0.577      -4.935       1.446    1469.560 
+    71.5800      71.000      5.0059     3.20170     33.2940     26.3220   1026.6550      10.127       0.575      -4.935       1.016    1469.640 
+   -99.0000      72.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    73.3710      73.000      5.0615     3.20770     33.3065     26.3260   1026.6660      10.079       0.573      -4.935       9.768    1469.910 
+   -99.0000      74.000    -99.0000   -99.00000    -99.0000    -99.0000    -99.0000     -99.000     -99.000     -99.000     -99.000     -99.000 
+    75.2230      75.000      5.0781     3.20950     33.3092     26.3260   1026.6750       9.999       0.569      -4.935       0.391    1470.010 
+    76.6220      76.000      5.0823     3.21000     33.3102     26.3270   1026.6820       9.976       0.567      -4.935      10.250    1470.050 
+    77.6300      77.000      5.0869     3.21050     33.3112     26.3270   1026.6870       9.858       0.561      -4.935      -2.751    1470.090 
+    78.6390      78.000      5.0905     3.21090     33.3117     26.3270   1026.6920       9.868       0.561      -4.935      11.100    1470.120 
+    79.6470      79.000      5.1005     3.21200     33.3135     26.3270   1026.6970       9.841       0.560      -4.935       9.824    1470.180 
+    80.6550      80.000      5.1046     3.21240     33.3140     26.3270   1026.7010       9.816       0.558      -4.935       2.183    1470.220 
+    81.6640      81.000      5.1032     3.21220     33.3121     26.3260   1026.7040     -99.000     -99.000     -99.000      15.600    1470.220 
