@@ -1,2 +1,2 @@
-see https:://github.com/dankelley/oce/issues/1845
+see https://github.com/dankelley/oce/issues/1845
 
