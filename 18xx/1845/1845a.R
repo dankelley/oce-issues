@@ -1,22 +1,10 @@
 library(oce)
 library(testthat)
 
-#source("~/git/oce/R/adp.rdi.R")
-#source("~/git/oce/R/oce.R")
+d1 <- read.adp.rdi("adp_2.000", debug=0) # second 100K (does not start with 7F7F)
+d2 <- read.adp.rdi("adp_12.000", debug=0) # first and second 100K (starts with 7F7F)
 
-f1 <- "adp_2.000"                      # does not start with 7F7F
-f2 <- "adp_12.000"                     # starts with 7F7F
-
-d1 <- read.adp.rdi(f1, debug=0)        # second 100K
-d2 <- read.adp.rdi(f2, debug=0)        # first and second 100K
-
-plot(d1,which="angles")
-mtext("d1", font=2, col=2, cex=3, adj=0.2)
-
-plot(d2,which="angles", xlim=range(d1[["time"]]))
-mtext("d2", font=2, col=2, cex=3, adj=0.2)
-
-# Numerical test
+# Ensure that things match up
 N <- 157                               # num. profiles in d2 but not d1
 skip <- 1:N
 expect_equal(d1[["time"]], d2[["time"]][-skip])
