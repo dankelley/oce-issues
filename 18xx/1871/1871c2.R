@@ -2,10 +2,10 @@
 library(oce)
 library(sf)
 data(coastlineWorld)
-p <- "+proj=ortho +lon_0=-63 +lat_0=44"
-p0 <- "+proj=longlat +datum=WGS84 +no_defs"
+p <- "+proj=ortho +lon_0=-63 +lat_0=44 +f=0 +a=3700"
+p0 <- "+proj=longlat +datum=WGS84 +no_defs +f=0 +a=3700"
 
-if (!interactive()) png("1871c.png")
+if (!interactive()) png("1871c2.png")
 par(mar=c(0.5, 0.5, 1, 0.5))
 mapPlot(coastlineWorld, projection="+proj=ortho +lon_0=-63 +lat_0=44", type="p", pch=20, cex=0.2, col="forestgreen")
 

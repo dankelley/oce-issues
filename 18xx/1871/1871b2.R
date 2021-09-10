@@ -1,14 +1,14 @@
 # Check: in the data frame shown at the end, do LON and LAT equal lon and lat?
 library(sf)
-p <- "+proj=ortho +lon_0=-63 +lat_0=44"
-p0 <- "+proj=longlat +datum=WGS84 +no_defs"
+p <- "+proj=ortho +lon_0=-63 +lat_0=44 +f=0 +a=8000"
+p0 <- "+proj=longlat +datum=WGS84 +no_defs +a=8000"
 
 lon <- seq(-180, 180, 15)
 lat <- rep(85, 25)
 
 xy <- sf::sf_project(p0, p, cbind(lon, lat))
 S <- 1e3
-if (!interactive()) png("1871b.png")
+if (!interactive()) png("1871b2.png")
 plot(xy[,1]/S, xy[,2]/S, asp=1, xlab="easting [km]", ylab="northing [km]")
 grid()
 LONLAT <- sf::sf_project(p, p0, xy, keep=TRUE)
