@@ -1,11 +1,10 @@
 # Check: in the data frame shown at the end, do LON and LAT equal lon and lat?
 library(sf)
-p <- "+proj=ortho +lon_0=-63 +lat_0=44"
-p0 <- "+proj=longlat +datum=WGS84 +no_defs"
+p <- "+proj=ortho +lon_0=-63 +lat_0=44 +f=0 +a=8000"
+p0 <- "+proj=longlat +datum=WGS84 +no_defs +a=8000"
 
 lon <- seq(-180, 180, 15)
 lat <- rep(85, 25)
-plot(lon, lat)
 
 xy <- sf::sf_project(p0, p, cbind(lon, lat))
 S <- 1e3
