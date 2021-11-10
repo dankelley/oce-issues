@@ -1,0 +1,5 @@
+l <- gsub("[A-Zs ]*", "", readLines("run.out"))
+s <- scan(text=l, quiet=TRUE)
+cat(s, "\n")
+t <- t.test(s)
+cat(sprintf("%.3f ± %.3f\n", t$estimate, 0.5*diff(t$conf.int)))

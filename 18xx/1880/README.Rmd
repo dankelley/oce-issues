@@ -26,76 +26,86 @@ for (int i = 0; i < nxg; i++)
    for (int j = 0; j < nyg; j++)
      zg(i, j) = zz(i, j);
 ```
-we can use
+we can use C++ style
 ```
 zg = clone(zz);
 ```
-which should be clearer to readers.  I ran multiple timing tests as
-I experimented, monitoring the t.test output until the 95%CI was under 0.1s.  
+which may be clearer to readers.  A similar thing can be done for updating
+`z_last`.  The following are tests with 10 trials on a unloaded machine (no
+browsers, no zoom, no music, no Rstudio, no skim, no GH desktop, no preview, no
+skim, no zotero) using
+`sh
+./run.sh ; cat run.out ; Rscript ttest.R` with exp().
 
-* using C   style assignments: 5.358 ± 0.097 s
-* using C++ style assignments: 3.993 ± 0.051 s
+* index-style: 3.782 ± 0.042
+* clone-style: 3.805 ± 0.053
 
-So, the C++ style seems to be 25% faster (perhaps because it avoids the
-overhead of overloading the `[` and `)` operators) and also more elegant.
-I will switch the code.
+The results are indistinguishable, within uncertainties.
 
-## Use RCpp zz(i,j) or C-style pointer based access?
-
-Use RCpp style.
-
-Test 3 (C pointer style)
-```R
-        *(zzp+i+j*nxg) = interpolate_barnes(xg[i], yg[j], *(zzp+i+j*nxg),
-```
-took 5.550 ± 0.033 s.
-
-
-Test 4 (RCpp style)
-```R
-        zz(i, j) = interpolate_barnes(xg[i], yg[j], zz(i, j),
-```
-took 5.559 ± 0.034 s.
-
-These results are identical, so there is no speed advantage to using
-C pointers, and the code is much clearer in the RCpp style.
-
-## Use index method on z_last() and z_g(i,j), or clone method?
-
-Test 5 is like test 4, but using loops to assign.  It gave 5.538±0.034 s, which
-is the same as Test 4 (just) within error bars, so the choice comes down to
-code clarity, e.g. is
-```
-  zg = clone(zz);
-```
-clearer than
-```
-  for (int i = 0; i < nxg; i++)
-    for (int j = 0; j < nyg; j++)
-      zg(i, j) = zz(i, j);
-```
-
-I think the index method is clearer (and it sidesteps the confusing need to
-clone), so I will stick with that, which is how this has been done for years.
-
-*Conclusion.* Use index method.
+**Decision.** I will leave the code with index-style (which it has had for
+several years) but I have added a macro called `USE-CLONE` with which the clone
+style can be used, instead.
 
 ## Use an alternate exp() calculator?
 
-The code in `src/interp_barnes.cpp` has an old approximate-exp method, so
-I turned that on, in Test 6, which took 2.453 ± 0.008 s, a bit more than 2X the
-speed of Test 5, which took 5.538 ± 0.034 s.
+For years, `src/interp_barnes.cpp` has had remnant code to do a polynomial
+approximation to exponential.  I had used this in previous works, gaining speed
+increases by 3X, but had judged that this was an insufficient reason to change
+the method, because then any author would have to say they were using a Barnes
+method modified in such-and-such a way, inviting problems with reviewers.
 
-This method 'costs' 5 multiplies and has under 0.1% error.  However, I think I
-can achieve 0.01% error at similar speed, using another method (next
-section). I suppose we should let users retain their old results, but I can add
-a new arg to `interpBarnes()` called `fast` to optionally use the fast method.
+That old code caused an error of under 0.1%, on some decades-old machine using
+decades-old software, so I decided to revisit the idea, but testing the
+accuracy more rigorously.
 
-**Conclusion.** We may be able to improve speeds noticeably by using an
-alternative exp().
+The idea is to write $exp(x) = exp(xi)*exp(xf)$, where $xi$ is the integer part
+of $a$ and $xf=x-xi$. Then, use a lookup table for $exp(xi)$, and a Taylor
+series for $exp(xf)$, which could perhaps be short because $xf$ is bounded
+between 0 and 1.
 
-# Idea
+Here is my test for 5-th order (and, just graphs, for order 6 and 7).
+
 ```{r}
+# For the Barnes algorithm, we have exp(-distance^2), which is always exp(x)
+# where x <= 0.
+#
+# Idea: write e.g.  exp(-5.1) as exp(-6) * exp(0.9),
+# and use lookup table for the first part, for maybe -50 to 0 or
+# whatever, and then make a lookup table or Taylor series (as below)
+# for the fraction part.
+
+# Integer part
+xi <- seq(0, 50, 1)
+ei <- exp(-xi)
+
+# Taylor series
+taylor <- function(x)
+{
+    1 + x * (1 + x * (1/2 + x * (1/6 + x * (1/24 + x/120))))
+}
+
+# Combine
+EXP <- function(x)
+{
+    i <- as.integer(floor(x))
+    f <- x - i
+    I <- ei[1-i]
+    F <- taylor(f)
+    I * F
+}
+
+# Test
+x <- seq(-20, 0, length.out=1000)
+E <- unlist(lapply(x, EXP))
+plot(x, 100*(1-E/exp(x)), type="o", pch=20, cex=0.5, ylab="Percent error")
+mpe <- max(abs(100*(1-E/exp(x))))
+mtext(sprintf("5th order Taylor series: max abs percent error=%.6f", mpe))
+```
+
+
+## A 6th order test
+
+```{r echo=FALSE}
 # For the Barnes algorithm, we have exp(-distance^2), which is always exp(x)
 # where x <= 0.
 #
@@ -129,6 +139,96 @@ EXP <- function(x)
 x <- seq(-20, 0, length.out=1000)
 E <- unlist(lapply(x, EXP))
 plot(x, 100*(1-E/exp(x)), type="o", pch=20, cex=0.5, ylab="Percent error")
+mpe <- max(abs(100*(1-E/exp(x))))
+mtext(sprintf("6th order Taylor series: max abs percent error=%.6f", mpe))
+```
 
+### 7-th order
+```{r echo=FALSE}
+# For the Barnes algorithm, we have exp(-distance^2), which is always exp(x)
+# where x <= 0.
+#
+# Idea: write e.g.  exp(-5.1) as exp(-6) * exp(0.9),
+# and use lookup table for the first part, for maybe -50 to 0 or
+# whatever, and then make a lookup table or Taylor series (as below)
+# for the fraction part.
+
+# Integer part
+xi <- seq(0, 50, 1)
+ei <- exp(-xi)
+
+# Taylor series
+taylor <- function(x)
+{
+    1 + x * (1 + x * (1/2 + x * (1/6 + x * (1/24 + x*(1/120 + x*(1/720+x/5040))))))
+}
+
+# Combine
+EXP <- function(x)
+{
+    i <- as.integer(floor(x))
+    f <- x - i
+    I <- ei[1-i]
+    F <- taylor(f)
+    #message("i=", i, " I=",I, " f=", f, " F=", F)
+    I * F
+}
+
+# Test
+x <- seq(-20, 0, length.out=1000)
+E <- unlist(lapply(x, EXP))
+plot(x, 100*(1-E/exp(x)), type="o", pch=20, cex=0.5, ylab="Percent error")
+mpe <- max(abs(100*(1-E/exp(x))))
+mtext(sprintf("7th order Taylor series: max abs percent error=%.6f", mpe))
+```
+
+
+
+
+## Q can we speed up fastexp() by using a zero cutoff at low end?
+
+I wonder whether branch-prediction might cause the exp() to be called and
+completed, providing a bottleneck.  (This seems unlikely, but makes for a time
+test that is worth doing.)
+
+**Conclusion.** We should retain the exp() call, because switching the low end
+to zero does not speed things up, within uncertainties.
+
+**Data.**
+
+*  with zero cutoff:
+```
+PENDING
+```
+I  without zero cutoff:
+```
+```
+
+# Q: how do speed and accuracy of fastexp() vary with order?
+
+Test with 1e-20 < x < 0 (in README.Rmd). Below, MPE=max percent error, and time
+is as reported by `sh ./run.sh ; cat run.out ; Rscript ttest.R`
+
+The results are very confusing. Sometimes the fastexp() method is faster, and
+other times it is slower. Below (set 2) represents what I think are the most
+reliable tests, with no launching of apps between rebuilds.  I conclude that
+fastexp() method is not advisable.  Sometimes, it is faster (but only 25% in my
+tests) and sometimes it is slower.  Always, it is less accurate.  I suspect the
+inconsistent speed results are because of different machine load in sets 1 and
+2, owing to my closing multiple apps for set 2, but a loaded machine is not
+unusual and, besides, I would want to have a lot more than 25% increase in
+speed, to use a method that differs from published algorithms.
+
+```
+ Set Order MPE       time (10 trials, with 95% CI)
+
+ 1    5     0.059112 4.275 ± 0.082
+ 1    6     0.008273 4.250 ± 0.080
+ 1    7     0.001018 4.494 ± 0.170
+ 1    -     0        5.515 ± 0.023
+ 2    5     0.059112 4.128 ± 0.086
+ 2    5     0.059112 4.141 ± 0.114
+ 2    -     0        3.823 ± 0.063
+ 2    -     0        3.849 ± 0.050
 ```
 
