@@ -8,7 +8,6 @@ p <- stn[["pressure"]]
 T <- stn[["temperature"]]
 S <- stn[["salinity"]]
 
-png("1906a_%02d.png", width=700, height=300)
 par(mfrow=c(1, 2))
 # 1. Check temperature
 plotProfile(stn, xtype="temperature",type="p") # docs say in-situ
@@ -34,6 +33,4 @@ for (item in sort(c(q$data, q$dataDerived))) {
     plot(stn, which=item)
     mtext(paste0(" which=",item),side=1,line=-1.0,col=2,font=2,cex=par("cex"))
 }
-
-dev.off()
 
