@@ -1,9 +1,13 @@
 library(oce)
-source("~/git/oce/R/ctd.R")
-source("~/git/oce/R/misc.R")
+data(section)
+
+#source("~/git/oce/R/section.R")
+#source("~/git/oce/R/misc.R")
+#source("~/git/oce/R/ctd.R")
+
+stn <- section[["station", 100]]
 data(section)
 stn <- section[["station", 100]]
-q <- stn[["?"]]
 p <- stn[["pressure"]]
 T <- stn[["temperature"]]
 S <- stn[["salinity"]]
@@ -27,6 +31,8 @@ lines(S,p,col=2)
 text(35.2,2500,"Line should go\nthrough circles;\npanels should be\nidentical.",pos=4)
 
 # 3. Examine all possibilities
+q <- stn[["?"]]
+print(q)
 for (item in sort(c(q$data, q$dataDerived))) {
     message(item)
     plot(stn, which=item)
