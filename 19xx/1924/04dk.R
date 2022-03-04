@@ -26,6 +26,10 @@ library(oce)
 #' is read by this function, and items could be added quite easily, if
 #' users express a need for them.
 #'
+#' Note that `header` in the `metadata` slot of the returned value
+#' holds the full contents of the header, in case users wish to parse
+#' it by themselves.
+#'
 #' @param file a connection or a character string giving the name of the file to
 #' load.  This must be in the "txt" format, not the "csv" format.
 #'
