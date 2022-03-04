@@ -16,7 +16,7 @@ data <- read.csv(f, skip=CommentsLine+1, header=FALSE, col.names=col.names)
 head(data,2)
 T <- data[["Temperature..C."]]
 C <- data[["Conductivity..mS.cm."]]
-p <- swDepth(data[["Depth..m."]])
+p <- swPressure(data[["Depth..m."]])
 # check
 head(data.frame(T,C,p), 2)
 S <- swSCTp(conductivity=C, temperature=T, pressure=p, conductivityUnit="mS/cm", eos="unesco")
