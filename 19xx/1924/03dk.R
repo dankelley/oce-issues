@@ -1,4 +1,4 @@
-# 02dk.R: read.ctd.aml() initiial trial.  NEXT: PI test; document; insert into oce.
+# 03dk.R: read.ctd.aml() initiial trial.  NEXT: PI test; document; insert into oce.
 library(oce)
 
 #' Read an AML CTD file
