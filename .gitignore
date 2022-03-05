@@ -7,6 +7,7 @@ README.html
 *swp
 .Rhistory
 *rda
+*.swo
 LC8*
 *.rsk
 *.cnv
