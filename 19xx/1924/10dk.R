@@ -33,7 +33,7 @@ for (file in files) {
         if ("Density..kg.m.3." %in% names(d@data)) {
             try({
                 plot(d[["pressure"]], d[["density"]] - d[["Density..kg.m.3."]])
-                abline(h=0, col=2)
+                abline(h=0.001*c(-1,1), col=2)
                 mtext(file, cex=0.9)
             })
         }
