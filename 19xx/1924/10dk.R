@@ -10,18 +10,21 @@ for (file in files) {
     if (grepl("Date", firstLine)) {
         cat("# ", file, "\n")
         d <- read.ctd.aml(file)
-        d@data$conductivity <- d@data$conductivity - 0.001 # TESTING
+        # sensitivity tests to shed light on mismatch
+        #d@data$salinity <- d@data$salinity + 0.001 # not significant
         #print(summary(d))
         if ("Salinity..PSU." %in% names(d@data)) {
             print(names(d@data))
             try({
                 plot(d[["pressure"]], d[["salinity"]] - d[["Salinity..PSU."]])
+                abline(h=0, col=2)
                 mtext(file, cex=0.9)
             })
         }
         if ("Density..kg.m.3." %in% names(d@data)) {
             try({
                 plot(d[["pressure"]], d[["density"]] - d[["Density..kg.m.3."]])
+                abline(h=0, col=2)
                 mtext(file, cex=0.9)
             })
         }
