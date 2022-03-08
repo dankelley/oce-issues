@@ -20,7 +20,16 @@ for (file in files) {
                 abline(h=0, col=2)
                 mtext(file, cex=0.9)
             })
-        }
+            try({
+                plot(d[["time"]], d[["salinity"]] - d[["Salinity..PSU."]])
+                abline(h=0.001*c(-1,1), col=2)
+                mtext(file, cex=0.9)
+            })
+            try({
+                plot(d[["time"]], d[["pressure"]])
+                mtext(file, cex=0.9)
+            })
+         }
         if ("Density..kg.m.3." %in% names(d@data)) {
             try({
                 plot(d[["pressure"]], d[["density"]] - d[["Density..kg.m.3."]])
