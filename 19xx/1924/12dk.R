@@ -1,4 +1,4 @@
-debug <- 3
+debug <- 0
 library(oce)
 if (file.exists("~/git/oce/R/ctd.aml.R"))
     source("~/git/oce/R/ctd.aml.R")
