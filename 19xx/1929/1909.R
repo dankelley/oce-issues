@@ -1,26 +1,64 @@
 library(oce)
+
+#' Read CTD format in SSDA format
+#'
+#' [read.ctd.ssda()] reads CTD files in Sea & Sun Technology´s Standard Data
+#' Acquisition (SSDA) format. Based on examination of a particular data
+#' file, as opposed to documentation on the data format, the function is
+#' somewhat preliminary, in the sense that header information is not scanned
+#' fully, and some guesses have been made about the meanings of variables
+#' and units.
+#'
+#' @return a [ctd-class] object.
+#'
+#' @param file a connection or a character string giving the name of the file to
+#' load.
+#'
+#' @param debug an integer specifying whether debugging information is
+#' to be printed during the processing. If nonzero, some information
+#' is printed.
+#'
+#' @family functions that read ctd data
+#'
+#' @author Dan Kelley
 read.ctd.ssda <- function(file, debug=getOption("oceDebug"))
 {
-    l <- readLines(file)
-    dataStart <- grep("^Lines[ ]*:[ ]*[0-9]*$", l)
+    debug <- max(0L, as.integer(debug))
+    if (missing(file))
+        stop("missing file")
+    if (is.character(file) && 0 == file.info(file)$size)
+        stop("empty file")
+    oceDebug(debug, "read.ctd.ssda(file=\"", file, "\") {\n", unindent=1)
+    filename <- ""
+    if (is.character(file)) {
+        filename <- fullFilename(file)
+        file <- file(file, "r")
+        on.exit(close(file))
+    }
+    lines <- readLines(file)
+    seek(file, 0L) # rewind so we can read from the source (faster than reading from text)
+    dataStart <- grep("^Lines[ ]*:[ ]*[0-9]*$", lines)
+    header <- lines[1L:dataStart]
     if (1 != length(dataStart))
         stop("cannot find 'Lines :' in the data file.")
     # how many lines might there be in between?
-    dataNames <- strsplit(gsub("^;[ ]*", "", l[dataStart+2L]), "[ ]+")[[1]]
+    dataNames <- strsplit(gsub("^;[ ]*", "", lines[dataStart+2L]), "[ ]+")[[1]]
     dataNamesOriginal <- dataNames
     # Use standard oce names for some things. (Thanks to Liam MacNeil for pointing these out.)
+    # Order these by name in the file, for convenience.
     nameMapping <- list(
-        bottom="Boden",
-        conductivity="Lietf",
-        fluorescence="Licor",
-        latitude="Lat",
-        longitude="Long",
         oxygenSaturation="AO2_%",
         oxygenMg="AO2mg",
         oxygenMl="AO2ml",
+        bottom="Boden",
+        scan="Datasets",
         pressure="Druck",
-        salinity="SALIN",
+        latitude="Lat",
+        conductivity="Leitf",
+        fluorescence="Licor",
+        longitude="Long",
         oxygenVoltage="RawO2",
+        salinity="SALIN",
         sigma="SIGMA",
         temperature="Temp.")
     for (name in names(nameMapping)) {
@@ -42,6 +80,7 @@ read.ctd.ssda <- function(file, debug=getOption("oceDebug"))
     oceDebug(debug, "lat=", lat, " deg=", latdeg, " min=", latmin, " -> latitude=", latitude, "\n")
     ctd <- as.ctd(salinity=d$salinity, temperature=d$temperature, pressure=d$pressure,
         longitude=longitude, latitude=latitude)
+    ctd@metadata$header <- header
     ctd@metadata$dataNamesOriginal <- nameMapping
     # Add non-standard data
     for (n in names(d)) {
@@ -49,30 +88,40 @@ read.ctd.ssda <- function(file, debug=getOption("oceDebug"))
             ctd <- oceSetData(ctd, n, d[[n]], note=NULL)
         }
     }
-    # We add time, whilst still retaining the raw data used for it (as a check).
-    time <- as.POSIXct(paste(d$IntDT, d$IntDT.1), "%d.%m.%Y %H:%M:%S", tz="UTC")
-    ctd <- oceSetData(ctd, "time", time, note=NULL)
+    # We add time, removing the components (which serve no purpose)
+    if (all(c("IntDT", "IntDT.1") %in% names(d))) {
+        time <- as.POSIXct(paste(d$IntDT, d$IntDT.1), "%d.%m.%Y %H:%M:%S", tz="UTC")
+        ctd <- oceSetData(ctd, "time", time, note=NULL)
+        ctd@data$IntDT <- NULL
+        ctd@data$IntDT.1 <- NULL
+    }
     # Handle some conversions and units
     if ("oxygenVoltage" %in% names(ctd@data)) {
         # file has in mV but oce uses V
         ctd@data$oxygenVoltage <- 0.001 * ctd@data$oxygenVoltage
         ctd@metadata$units$oxygenVoltage <- list(unit=expression(V), scale="")
     }
-    if ("oxygenSaturation" %in% names(ctd@data)) {
+    if ("oxygenSaturation" %in% names(ctd@data))
         ctd@metadata$units$oxygenSaturation<- list(unit=expression(percent), scale="")
-    }
+    if ("conductivity" %in% names(ctd@data))
+        ctd@metadata$units$conductivity <- list(unit=expression(mS/cm), scale="")
+    if ("sigma" %in% names(ctd@data))
+        ctd@metadata$units$sigma <- list(unit=expression(kg/m^3), scale="")
+    oceDebug(debug, "} # read.ctd.ssda()\n")
     ctd
 }
-d <- read.ctd.ssda("14190549.csv")
+d <- read.ctd.ssda("14190549.csv", debug=3)
 
 head(d[["salinity"]]) # a check agaist the file
 summary(d)
 if (!interactive())
     png("1909a.png")
 plot(d, span=3000)
-# test time decoding
-df <- data.frame(d[["time"]], d[["IntDT"]], d[["IntDT.1"]])
-head(df)
+
+## test time decoding
+#df <- data.frame(time=d[["time"]], IntDT=d[["IntDT"]], IntDT.1=d[["IntDT.1"]])
+#print(head(df), 3)
+
 if (!interactive())
     dev.off()
 
