@@ -20,6 +20,7 @@ read.ctd.ssda <- function(file, debug=getOption("oceDebug"))
         oxygenMl="AO2ml",
         pressure="Druck",
         salinity="SALIN",
+        oxygenVoltage="RawO2",
         sigma="SIGMA",
         temperature="Temp.")
     for (name in names(nameMapping)) {
@@ -51,6 +52,15 @@ read.ctd.ssda <- function(file, debug=getOption("oceDebug"))
     # We add time, whilst still retaining the raw data used for it (as a check).
     time <- as.POSIXct(paste(d$IntDT, d$IntDT.1), "%d.%m.%Y %H:%M:%S", tz="UTC")
     ctd <- oceSetData(ctd, "time", time, note=NULL)
+    # Handle some conversions and units
+    if ("oxygenVoltage" %in% names(ctd@data)) {
+        # file has in mV but oce uses V
+        ctd@data$oxygenVoltage <- 0.001 * ctd@data$oxygenVoltage
+        ctd@metadata$units$oxygenVoltage <- list(unit=expression(V), scale="")
+    }
+    if ("oxygenSaturation" %in% names(ctd@data)) {
+        ctd@metadata$units$oxygenSaturation<- list(unit=expression(percent), scale="")
+    }
     ctd
 }
 d <- read.ctd.ssda("14190549.csv")
