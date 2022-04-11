@@ -1,9 +1,7 @@
 library(oce)
-#source("~/git/oce/R/AllClass.R") # to get new plots
-#source("~/git/oce/R/argo.R") # to get new plots
 file <- "GL_PR_PF_4902489.nc"
 source("copernicus.R")
-a <- read.argo.copernicus(file)
+a <- read.argo.copernicus(file, debug=2)
 col <- 4
 pch <- 20
 cex <- 0.3
