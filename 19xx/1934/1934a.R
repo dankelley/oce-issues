@@ -1,7 +1,9 @@
 library(oce)
 file <- "GL_PR_PF_4902489.nc"
+source("~/git/oce/R/argo.copernicus.R")
 #source("copernicus.R")
-a <- read.argo.copernicus(file, debug=2)
+a <- read.argo.copernicus(file, debug=0)
+summary(a)
 col <- 4
 pch <- 20
 cex <- 0.3
