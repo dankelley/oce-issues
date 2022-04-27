@@ -1,3 +1,4 @@
+library(profvis)
 library(ncdf4)
 library(oce)
 
@@ -26,5 +27,6 @@ eta <- 0.001 * ncvar_get(d, "sea_level")
 #Timing test> 
 
 t <- as.POSIXlt(time)
-oce.plot.ts(t, eta)
+system.time(oce.plot.ts(t, eta))
+profvis(oce.plot.ts(t, eta))
 
