@@ -1,5 +1,7 @@
-library(profvis)
+# This test takes a minute to run, and produces a PNG that summarizes the
+# results.
 
+# This creates 5 plots -- you may ignore them.
 quartz()
 ns <-  c(1e3, 3e3, 1e4, 3e4, 1e5)
 t1s <- rep(NA, length(ns))
@@ -21,6 +23,9 @@ for (i in seq_along(ns)) {
 }
 dev.off()
 
+# This creates a single plot -- please post it at
+# https://github.com/dankelley/oce/issues/1939
+# along with a brief description of your machine.
 png("1939b.png")
 par(mar=c(3,3,1,1), mgp=c(2,0.7,0), mfrow=c(2,1))
 plot(ns, t1s,
