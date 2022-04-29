@@ -30,7 +30,7 @@ png("1939b.png")
 par(mar=c(3,3,1,1), mgp=c(2,0.7,0), mfrow=c(2,1))
 plot(ns, t1s,
     xlim=range(ns),
-    ylim=range(c(t1s, t2s)),
+    ylim=range(c(t1s, t2s), na.rm=TRUE),
     pch=1, log="xy",
     xlab="# points",
     ylab="Time [s]",
@@ -48,7 +48,7 @@ y <- t1s[N-1]
 lines(rep(x,2), y*c(1, 3), col=4, lwd=3)
 text(ns[N], y*sqrt(3), "3X", pos=2, col=4, font=2)
 
-plot(ns, t2s/t1s, type="o", ylim=c(1, 4),
+plot(ns, t2s/t1s, type="o", ylim=c(0.5, 5),
     log="xy",
     xlab="# points",
     ylab="Speedup Factor")
