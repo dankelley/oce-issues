@@ -1,0 +1,138 @@
+#$DeployFileVersion,4,0a1f1cd378e04ff422ddd0199f40ea20
+#$DeploySummary,{"ConsequenceColumnTitles":["Name","Average","Ice draft (keel)","","","",""],"SummaryItems":[{"Group":"Performa$C
+#$nce","Name":"Configured length (days)","App0":"800","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group"$C
+#$:"Performance","Name":"Estimated max length (days)","App0":"943.4","App1":null,"App2":null,"App3":null,"App4":null,"Error":"E$C
+#$rror"},{"Group":"Performance","Name":"Battery capacity (Wh)","App0":"5400","App1":null,"App2":null,"App3":null,"App4":null,"E$C
+#$rror":"Error"},{"Group":"Performance","Name":"Power usage (Wh)","App0":"4579.1","App1":null,"App2":null,"App3":null,"App4":nu$C
+#$ll,"Error":"Error"},{"Group":"Performance","Name":"Recorder free space (MB)","App0":"15155.8","App1":null,"App2":null,"App3":$C
+#$null,"App4":null,"Error":"Error"},{"Group":"Performance","Name":"Memory usage (MB)","App0":"14448.7","App1":null,"App2":null,$C
+#$"App3":null,"App4":null,"Error":"Error"},{"Group":"Performance","Name":"Min configured baud rate","App0":"4800","App1":null,"$C
+#$App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Performance","Name":"Max RS422 cable distance (m)","App0":"976"$C
+#$,"App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"System information","Name":"Instrument name","App$C
+#$0":"Signature250","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"System information","Name":"Nick$C
+#$name","App0":"102791","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"System information","Name":"$C
+#$Serial number","App0":"102791","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"System information"$C
+#$,"Name":"Head frequency (kHz)","App0":"250","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"System$C
+#$ information","Name":"Opt. sensors","App0":"None","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"$C
+#$System information","Name":"Firmware version","App0":"1.4.6056.7024_6","App1":null,"App2":null,"App3":null,"App4":null,"Error$C
+#$":"Error"},{"Group":"System information","Name":"Recorder size (GB)","App0":"16 GB","App1":null,"App2":null,"App3":null,"App4$C
+#$":null,"Error":"Error"},{"Group":"System information","Name":"Connection","App0":"169.254.211.198","App1":null,"App2":null,"A$C
+#$pp3":null,"App4":null,"Error":"Error"},{"Group":"System information","Name":"Orientation","App0":"Auto Z up/down","App1":null$C
+#$,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Application","Name":"Type","App0":"Concurrent","App1":null,"A$C
+#$pp2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Application","Name":"Plan","App0":"Average with ice drift with I$C
+#$ce draft (keel)","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Application","Name":"Deployment l$C
+#$ength (days)","App0":"800","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Environment","Name":"Ge$C
+#$ography","App0":"Arctic region","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Environment","Name$C
+#$":"Sound velocity","App0":"Measured","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Environment",$C
+#$"Name":"Mounting","App0":"Subsurface buoy","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Environ$C
+#$ment","Name":"Orientation","App0":"Up-looking","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Env$C
+#$ironment","Name":"Instrument depth (m)","App0":"70","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group"$C
+#$:"Environment","Name":"Salinity (ppt)","App0":"35","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":$C
+#$"Environment","Name":"Wave climate","App0":"Normal (Hs < 3m)","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"$C
+#$},{"Group":"Environment","Name":"Tidal range (m)","App0":"1","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"}$C
+#$,{"Group":"Average","Name":"Start of profile (m)","App0":"0.5","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error$C
+#$"},{"Group":"Average","Name":"End of profile (m)","App0":"80","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"$C
+#$},{"Group":"Average","Name":"Cell size (m)","App0":"1","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Gro$C
+#$up":"Average","Name":"Power level (dB)","App0":"-6","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group"$C
+#$:"Average","Name":"Measurement load (%)","App0":"100","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Grou$C
+#$p":"Average","Name":"Average interval","App0":"00:02:00","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"G$C
+#$roup":"Average","Name":"Measurement interval","App0":"00:20:00","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Erro$C
+#$r"},{"Group":"Average","Name":"Coordinate system","App0":"BEAM","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Erro$C
+#$r"},{"Group":"Average","Name":"Serial telemetry","App0":"ON","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"}$C
+#$,{"Group":"Average","Name":"Telemetry format","App0":"DF100_NMEA","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Er$C
+#$ror"},{"Group":"Average","Name":"Telemetry coord system","App0":"BEAM","App1":null,"App2":null,"App3":null,"App4":null,"Error$C
+#$":"Error"},{"Group":"Ice draft (keel)","Name":"Start of profile (m)","App0":"1","App1":null,"App2":null,"App3":null,"App4":nu$C
+#$ll,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"End of profile (m)","App0":"70","App1":null,"App2":null,"App3":null,"$C
+#$App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Cell size (m)","App0":"1","App1":null,"App2":null,"App3":null$C
+#$,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Power level (dB)","App0":"-6","App1":null,"App2":null,"App3$C
+#$":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Measurement load (%)","App0":"100","App1":null,"App2"$C
+#$:null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Measurement interval","App0":"00:00:10","A$C
+#$pp1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Sampling rate (Hz)","App0"$C
+#$:"1","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"#Samples","App0":"1$C
+#$","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Burst duration (s)","A$C
+#$pp0":"00:00:01","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Ice draft (keel)","Name":"Coordina$C
+#$te system","App0":"BEAM","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"Deplo$C
+#$yment name","App0":"Barrow_v2","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":$C
+#$"File name","App0":"Barrow_v2.ad2cp","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","$C
+#$Name":"Comments","App0":"20 min currents (120s) with 10s ice draft (1min echo)","App1":null,"App2":null,"App3":null,"App4":nu$C
+#$ll,"Error":"Error"},{"Group":"Deployment","Name":"Start time","App0":"05/25/2022 11:53:17","App1":null,"App2":null,"App3":nul$C
+#$l,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"LED","App0":"On for 24 hours","App1":null,"App2":null,"App3":nul$C
+#$l,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"Instrument clock","App0":"05/25/2022 14:53:41","App1":null,"App2$C
+#$":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"Recorder free space (MB)","App0":"15189.5","App$C
+#$1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"Internal battery voltage","App0":"$C
+#$19.06","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Deployment","Name":"System Input Voltage","$C
+#$App0":"23.67","App1":null,"App2":null,"App3":null,"App4":null,"Error":"Error"}],"ConsequenceItems":[{"Group":"Performance","N$C
+#$ame":"Configured length (days)","App0":"800","App1":"⇐ total","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"$C
+#$Performance","Name":"Estimated max length (days)","App0":"943.4","App1":"⇐ total","App2":null,"App3":null,"App4":null,"Error"$C
+#$:"Error"},{"Group":"Performance","Name":"Battery capacity (Wh)","App0":"5400","App1":"⇐ ","App2":null,"App3":null,"App4":null$C
+#$,"Error":"Error"},{"Group":"Performance","Name":"Power usage (Wh)","App0":"3161.1","App1":"1393.1","App2":null,"App3":null,"A$C
+#$pp4":null,"Error":"Error"},{"Group":"Performance","Name":"Recorder free space (MB)","App0":"15155.8","App1":"15155.8","App2":$C
+#$null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Performance","Name":"Memory usage (MB)","App0":"5381.3","App1":"9067.$C
+#$4","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Data sampling","Name":"Power level (dB)","App0":"-6","App1"$C
+#$:"-6","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Data sampling","Name":"Long range mode","App0":"ON","App$C
+#$1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Data sampling","Name":"Multiplexing","App0":"OFF","Ap$C
+#$p1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Data sampling","Name":"Number of pings","App0":"60",$C
+#$"App1":"1","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Slanted beams","Name":"Horizontal prec. (cm/s)","Ap$C
+#$p0":"7.59","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Slanted beams","Name":"Vertical prec. $C
+#$(cm/s)","App0":"1.95","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Slanted beams","Name":"Velo$C
+#$city range (m/s)","App0":"2.5","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Vertical beams","N$C
+#$ame":"Vertical prec. (cm/s)","App0":"n/a","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Vertica$C
+#$l beams","Name":"Velocity range (m/s)","App0":"n/a","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group$C
+#$":"Measurement range","Name":"Desired range (m)","App0":"80","App1":"70","App2":null,"App3":null,"App4":null,"Error":"Error"}$C
+#$,{"Group":"Measurement range","Name":"Configured range (m)","App0":"87.5","App1":"78","App2":null,"App3":null,"App4":null,"Er$C
+#$ror":"Error"},{"Group":"Measurement range","Name":"Estimated range (m)","App0":"88.5","App1":"n/a","App2":null,"App3":null,"A$C
+#$pp4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Blanking distance (m)","App0":"0.5","App1":"n/a","App2":null,$C
+#$"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Cell size (m)","App0":"1","App1":"n/a","App2":n$C
+#$ull,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Number of cells","App0":"87","App1":"n/a","$C
+#$App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Number of beams","App0":"4","App1":"$C
+#$1","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Altimeter","App0":"OFF","App1":"$C
+#$ON","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Ice drift","App0":"ON","App1":"$C
+#$OFF","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Pulse distance","App0":"n/a","$C
+#$App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Altimeter start (m)","A$C
+#$pp0":"n/a","App1":"40","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Measurement range","Name":"Altimeter en$C
+#$d (m)","App0":"n/a","App1":"84","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Sampling rate","Name":"Measure$C
+#$ment interval","App0":"00:20:00","App1":"00:00:10","App2":null,"App3":null,"App4":null,"Error":"Error"},{"Group":"Sampling ra$C
+#$te","Name":"Configured average interval","App0":"00:02:00","App1":"n/a","App2":null,"App3":null,"App4":null,"Error":"Error"},$C
+#${"Group":"Sampling rate","Name":"Actual average interval","App0":"00:02:00","App1":"n/a","App2":null,"App3":null,"App4":null,$C
+#$"Error":"Error"},{"Group":"Sampling rate","Name":"Sampling rate (Hz)","App0":"n/a","App1":"1","App2":null,"App3":null,"App4":$C
+#$null,"Error":"Error"},{"Group":"Sampling rate","Name":"#Samples","App0":"n/a","App1":"1","App2":null,"App3":null,"App4":null,$C
+#$"Error":"Error"},{"Group":"Sampling rate","Name":"Burst duration (s)","App0":"n/a","App1":"00:00:01","App2":null,"App3":null,$C
+#$"App4":null,"Error":"Error"}]}
+#$SWSource,"Deployment-v4.6.4.1"
+#$InstrumentId,{"InstrumentType":"Signature250","HeadFrequency":250,"IsDeepWater":false,"IsLADCP":false,"FWVersion":"7024.6"}
+#$DeploymentName,"Barrow_v2"
+#$Comment,"20 min currents (120s) with 10s ice draft (1min echo)"
+#$ApplicationConfig,[{"Enabled":true,"Application":"AvgIce, BurstIceThickness","Mounting":"SubsurfaceBuoy","Orientation":"UpLoo$C
+#$king","Geography":"ArcticRegion","SoundVelocity":"Measured","SoundVelocityValue":0.0,"Salinity":35.0,"StrongWaves":false,"Pro$C
+#$fileRange":70.0,"InstrumentDepth":100.0,"TidalRange":1.0,"BurstHR":false,"BurstHR5":false},{"Enabled":false,"Application":"No$C
+#$ne","Mounting":"SubsurfaceBuoy","Orientation":"UpLooking","Geography":"ArcticRegion","SoundVelocity":"Measured","SoundVelocit$C
+#$yValue":0.0,"Salinity":35.0,"StrongWaves":false,"ProfileRange":70.0,"InstrumentDepth":100.0,"TidalRange":1.0,"BurstHR":false,$C
+#$"BurstHR5":false}]
+#$AlternatingRatio,[3,1]
+#$DeploymentConfigExtensions,[{"AvgDesiredRange":80.0,"BurstDesiredRange":70.0,"BurstHrDesiredRange":70.0,"EchoSounderDesiredRa$C
+#$nge":70.0,"AvgEndProfile":88.0,"BurstEndProfile":77.0,"BurstHrEndProfile":77.0,"EchoSounderEndProfile":77.0,"AIStep":2,"Range$C
+#$Step":0.1,"BurstMeasurementContinuous":false,"AvgMeasurementLoad":100.0,"MinAvgMeasurementLoad":3.33333325,"MaxAvgMeasurement$C
+#$Load":100.0,"AvgAutoMeasurementLoad":true,"AvgMeasurementLoadTick":1.66666663,"BurstMeasurementLoad":100.0,"BurstAutoMeasurem$C
+#$entLoad":true,"BurstMeasurementLoadTick":100.0,"PulseDistanceAutoOption":3,"PulseDistance":3,"DistanceToBottom":2.0,"Distance$C
+#$ToSurface":2.0,"DesiredVelocityRange":0.25,"ValidBurstIntervals":[],"MeasurementIntervalAlternate":0},{"AvgDesiredRange":70.0$C
+#$,"BurstDesiredRange":70.0,"BurstHrDesiredRange":70.0,"EchoSounderDesiredRange":70.0,"AvgEndProfile":77.0,"BurstEndProfile":77$C
+#$.0,"BurstHrEndProfile":77.0,"EchoSounderEndProfile":77.0,"AIStep":1,"RangeStep":0.1,"BurstMeasurementContinuous":false,"AvgMe$C
+#$asurementLoad":100.0,"MinAvgMeasurementLoad":0.0,"MaxAvgMeasurementLoad":100.0,"AvgAutoMeasurementLoad":true,"AvgMeasurementL$C
+#$oadTick":1.0,"BurstMeasurementLoad":100.0,"BurstAutoMeasurementLoad":true,"BurstMeasurementLoadTick":1.0,"PulseDistanceAutoOp$C
+#$tion":3,"PulseDistance":3,"DistanceToBottom":2.0,"DistanceToSurface":2.0,"DesiredVelocityRange":0.25,"ValidBurstIntervals":[]$C
+#$,"MeasurementIntervalAlternate":0}]
+#$BatteryItem,null
+#$BatteryCombo,{"InternalBattery":{"Name":"Lithium 1800 Wh","Volume":1800.0,"Voltage":18.0},"ExternalBattery":{"Name":"Lithium $C
+#$3600 Wh","Volume":3600.0,"Voltage":18.0},"Volume":5400.0,"Voltage":18.0}
+#$RecorderItem,null
+#$AhrsInstalled,false
+#$DeploymentDays,800
+SETDEFAULT,ALL
+SETPLAN,MIAVG=1200,AVG=1,DIAVG=0,VD=0,MV=10,SA=35,BURST=1,MIBURST=10,DIBURST=0,SV=0,FN="S102791A002_Barrow_v2.ad2cp",SO=0,FREQ=250,NSTT=0
+SETAVG,NC=87,CS=1,BD=0.5,CY="BEAM",PL=-6,AI=120,VR=2.5,DF=3,NPING=60,NB=4,CH=0,MUX=0,BW="NARROW",ALTI=0,BT=0,ICE=1
+SETAVG,ALTISTART=0.5,ALTIEND=150,RAWALTI=1
+SETBURST,NC=77,NB=1,CS=1,BD=1,CY="BEAM",PL=-6,SR=1,NS=1,VR=2.5,DF=3,NPING=1,CH=5,VR5=2.5,ALTI=1,BT=0,DISV=1,ECHO=0
+SETBURST,RAWALTI=6,ALTISTART=40,ALTIEND=84,HR=0,HR5=0
+SETBT,RANGE=77,VR=1,NB=4,CH=0,DF=20,PL=-20
+SETTMAVG,EN=1,CD=1,PD=1,AVG=120,TV=1,TA=1,TC=1,CY="BEAM",FO=0,SO=1,DF=100,DISTILT=0,TPG=0,MAPBINS=0
+SAVE,ALL

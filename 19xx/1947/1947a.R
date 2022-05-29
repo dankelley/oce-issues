@@ -15,7 +15,6 @@ cat("# without wrapper\n")
 for (file in list.files(pattern=".cnv")) {
     cat("FILE ..._", gsub(".*_", "", file), "\n")
     d <- read.ctd.sbe(file)
-    stop()
     cat("   d[[\"date\"]]=", format(d[["date"]]), "\n", sep="")
     cat("   first entry in time column: ", format(d[["time"]][1]), "\n\n\n", sep="")
 }
