@@ -5,7 +5,6 @@ f1 <- "S102791A002_Barrow_v2.ad2cp"
 #d1 <- read.adp.ad2cp(f1, debug=3)
 #d1 <- read.adp.ad2cp(f1)
 d1 <- read.adp.ad2cp(f1, debug=2)
-str(d1@data$average,1)
 if (!interactive())
     png("1954a_%d.png")
 par(mfrow=c(3,1))
@@ -18,11 +17,16 @@ with(d1@data$average,
 
 A <- d1@data$burstAltimeterRaw
 str(A)
-z <- seq(0, by=A$altimeterRawSampleDistance, length=A$altimeterRawNumberOfSamples)
+z <- seq(0, by=A$altimeterRawSampleDistance[1], length=A$altimeterRawNumberOfSamples)
 
 par(mfrow=c(1,1))
 imagep(A$time, z, d1@data$burstAltimeterRaw$altimeterRawSamples,
     ylab="Distance [m]")
+
+par(mfrow=c(3,1))
+oce.plot.ts(A$time, A$pressure)
+oce.plot.ts(A$time, A$temperature)
+oce.plot.ts(A$time, A$ASTDistance)
 
 if (!interactive())
     dev.off()

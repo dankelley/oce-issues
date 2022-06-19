@@ -60,3 +60,20 @@ And now, for the actual test:
 ```
 
 **NEXT:** I need to read the docs to find out how version 1 differs from version 3.
+
+## create smaller test file for inclusion in oce
+
+1954b.R: chunks start at cindex= 0 4677 6274 7871 9468 11065 12662 
+TO get first 3, use
+```
+#split -b 7871 -n 1 S102791A002_Barrow_v2.ad2cp
+split -b 7870 tmp.ad2cp
+od -x tmp.ad2cp | head -2
+od -x xaa | head -2
+```
+
+
+
+
+
+
