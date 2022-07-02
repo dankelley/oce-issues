@@ -76,4 +76,10 @@ od -x xaa | head -2
 
 
 
+# 2022-06-26
+
+I changed `1954a.R` to save `d` in `1954a.rda`, and then copied this manually
+to `1954a_unvectorized.rda`, while also copying `1954a.out` to
+`1954a_unvectorized.txt`. This is to give a base state for checking
+vectorization.
 

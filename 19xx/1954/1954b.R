@@ -1,5 +1,7 @@
 library(oce)
 
+message("S102791A002_Barrow_v2_avgd.ad2cp fails checksums")
+
 f2 <- "S102791A002_Barrow_v2_avgd.ad2cp"
 
 # Detect headers by 3 byte match (to see if read.adp.ad2cp() is just haywire)
