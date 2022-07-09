@@ -15,7 +15,7 @@ if (FALSE) { # OS reports request to set locale to "iso885915" cannot be honored
 }
 
 cat("Method 1: as oce 1.7-8 -- file(...,encoding=...), readLines(...,encoding=...)\n")
-for (e in c("latin1", "UTF-8", "en_US.iso885915")) {
+for (e in c("latin1", "UTF-8", "iso885915")) {
     cat(e, "\n", sep="")
     file <- file(filename, "r", encoding=e)
     lines <- try(readLines(file, encoding=e))
@@ -28,7 +28,7 @@ for (e in c("latin1", "UTF-8", "en_US.iso885915")) {
 
 
 cat("Method 2: no file(); readLines(...,encoding=...)\n")
-for (e in c("latin1", "UTF-8", "en_US.iso885915")) {
+for (e in c("latin1", "UTF-8", "iso885915")) {
     cat(e, "\n", sep="")
     lines <- try(readLines(filename, encoding=e))
     if (inherits(lines, "try-error")) cat("    -> readLines() FAILED\n")
