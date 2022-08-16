@@ -1,3 +1,14 @@
+---
+title: ad2cp notes
+author: Dan Kelley
+---
+
+```{r}
+library(oce)
+e <- read.oce("~/Dropbox/S101135A001_Ronald.ad2cp", which="echosounder")
+imagep(e[["echosounder"]]$echosounder)
+```
+
 Data file snippets:
 
 # ad2cp_01.ad2cp
