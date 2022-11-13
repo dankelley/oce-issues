@@ -1,0 +1,20 @@
+---
+author: Dan Kelley
+title: Demo code for oce issue 2015 (download.bathy update)
+---
+
+The following code uses the "develop" github branch as of 2022-11-13.
+Note that we now have resolutions under 1 arc-minute.  Oce, as marmap, selects
+0.25 arc minutes if resolution is under 0.5, or 0.5 arc minutes if resolution
+is under 1.
+
+```{r fig.width=8}
+library(oce)
+for (res in c(0.25, 0.5, 1.0, 1.5, 2)) {
+    f <- download.topo(-65, -63, 44, 45, res=res)
+    t <- read.topo(f)
+    plot(t, location="topleft")
+    mtext(paste("dim=", paste(dim(t[["z"]]), collapse="x"), "with res=", res), line=0.25)
+}
+```
+
