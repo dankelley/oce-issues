@@ -1,0 +1,97 @@
+---
+title: Leap Seconds for GPS time
+date: "`r Sys.Date()`"
+author: Dan Kelley
+output: pdf_document
+---
+
+While working on https://github.com/dankelley/oce/issues/2078, I started to
+wonder whether I was handling leap seconds correctly, given my (new)
+realization that R sort of doesn't consider them.
+
+# What R does
+
+Here is a summary of what I have at
+https://github.com/dankelley/oce/issues/2078#issue-1670080055.  First,
+
+```{r}
+tail(.leap.seconds, 2)
+```
+
+shows that 2015 had a leap second in mid-year.  So, I took the start of that
+year and the start of the next, and tried to see whether the difference was an
+integral number of days, using
+
+```{r}
+spd <- 86400 # seconds/day
+remainder <- function(x) x - trunc(x)
+A <- as.POSIXct("2015-01-01", tz="UTC")
+B <- as.POSIXct("2016-01-01", tz="UTC")
+remainder((as.numeric(B) - as.numeric(A))/spd)
+```
+
+This indicates that R "skips over" leap seconds.  I subsequently found some
+hints of that at the help for `?POSIXt`, which has as follows (italics mine).
+
+Unfortunately, the conversion is complicated by the operation of time zones and
+leap seconds (according to this version of R's data, 27 days have been 86401
+    seconds long so far, the last being on (actually, immediately before)
+    2017-01-01: the times of the extra seconds are in the object
+    .leap.seconds). The details of this are entrusted to the OS services where
+possible. It seems that some rare systems used to use leap seconds, but all
+known current platforms ignore them (as required by POSIX). This is detected
+and corrected for at build time, *so "POSIXct" times used by R do not include
+leap seconds on any platform.*
+
+
+# An online converter from GPS time to UTC
+
+Here are some screenshots from
+https://www.labsat.co.uk/index.php/en/gps-time-calculator
+
+NOTE: this website is confusing, because it lets you specify the number of leap
+seconds to use.  So, for test 2, I set that to 0, because it had been 18, a
+value that seemed to have been leftover from test 1 (where it was correct). I
+happen to know that there were no leap seconds in year 1981.  I have not
+explored the website sufficiently to see why this odd leap-second pattern
+exists (if it does -- if it's not just me being confused) because the following
+tests are all I need for oce.
+
+## Test 1
+
+Expect (week=2243, second=18, rollover=0) to be 2023-01-01T00:00:00.  Or,
+equivalently, expect (week=195, second=18, rollover=2) to be
+2023-01-01T00:00:00.
+
+First, verify that there were 18 leap seconds from 1980 (just prior to start of
+the GPS program) to January 2023.
+
+```{r}
+.leap.seconds[.leap.seconds >= as.POSIXct("1980-01-01")]
+```
+
+Now, do the calculation and see if it matches the website.
+
+```{r}
+t <- as.POSIXct("2023-01-01 00:00:00", tz="UTC")
+stopifnot(t == oce::numberAsPOSIXct(cbind(2243, 18, 0), "gps"))
+stopifnot(t == oce::numberAsPOSIXct(cbind(195, 18, 2), "gps"))
+```
+
+![](2023-01-01.png)
+
+## Test 2
+
+Expect (week=51, second=345600, rollover=0) to be 1981-01-01T00:00:00.  Note
+that 'Leapseconds' is set to zero on the webpage, which is 0 because there was
+no leap second between 1980-01-06 (the start date for GPS tiems) and 1981-01-01.
+
+
+```{r}
+t <- as.POSIXct("1981-01-01 00:00:00", tz="UTC")
+stopifnot(t == oce::numberAsPOSIXct(cbind(51, 345600, 0), "gps"))
+```
+
+![](1981-01-01.png)
+
+
