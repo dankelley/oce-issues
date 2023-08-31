@@ -1,0 +1,43 @@
+---
+author: Dan Kelley
+title: What is the frequency of the SA tidal constituent?
+---
+
+The table gives values of the frequency of the SA tidal constituent. Some
+sources list speed, and others list frequency. To distinguish the two cases, a
+$\dagger$ symbol indicates a source value.  Note that source values are reported
+to the number of digits in the source Reference. By contrast, computed values
+are always reported to 10 digits.
+
+```{r echo=FALSE}
+fc <- function(a,b) (a-b)/0.5/(a+b)
+foce <- 0.0001140741
+fnoaa <- 0.0001140794
+fukmo1 <- 0.0001140750
+fukmo2 <- 0.0001140794
+A <- fc(foce, fnoaa)
+B <- fc(fukmo1, fukmo2)
+```
+
+Notes:
+
+1. Oce follows TIDPACK and T-TIDE, so the frequency values are not independent.
+2. The wikipedia entry cites a NOAA sequence number, so the frequency values are not
+   likely to be independent.
+3. The fractional frequency difference between oce and NOAA is `r A`.
+4. The fractional frequency difference between the old UKHO value and the newer one is `r B`.
+
+**Noting the similarity in numbers appearing in notes 3 and 4, we might ask
+whether the oce vs NOAA difference results from an update in the best estimate
+of the SA frequency since the 1970s, when TIDPACK was developed.**
+
+| Speed (deg/hour)| Frequency (cycle/hour) | Source | Reference |
+| ------- | --------- | ------- | ------------------------- |
+|`r sprintf("%.10f", 0.0001140741*360)`|0.0001140741$\dagger$ | oce | http://www.github/com/dankelley/oce|
+|`r sprintf("%.10f", 0.0001140741*360)`|0.0001140741$\dagger$ | TIDPACK | https://www.dfo-mpo.gc.ca/science/documents/data-donnees/tidal-marees/tidpack.zip|
+|`r sprintf("%.10f", 0.0001140741*360)`|0.0001140741$\dagger$ | T-TIDE| https://www.eoas.ubc.ca/~rich/t_tide/t_tide_v1.2beta.zip |
+|0.0410686$\dagger$|`r sprintf("%.10f", 0.0410686/360)`|NOAA|https://tidesandcurrents.noaa.gov/harcon.html?id=1612340|
+|0.0410686$\dagger$|`r sprintf("%.10f", 0.0410686/360)` |Wikipedia| https://en.wikipedia.org/wiki/Theory_of_tides |
+| 0.041067$\dagger$|`r sprintf("%.10f", 0.041067/360)`|UKHO|https://flaterco.com/files/xtide/Constituents-20170508.pdf|
+| 0.0410686$\dagger$|`r sprintf("%.10f", 0.0410686/360)`|UKHO|second entry, an update to the above https://flaterco.com/files/xtide/Constituents-20170508.pdf|
+
