@@ -34,7 +34,7 @@ rms <- function(x) sqrt(mean(x^2))
 error <- rms(pred$Predicted..m. - (eta + zoffset))
 legend("topright", lwd=c(4, 1), col=c("gray", 2), bg="white",
     legend=c("NOAA prediction", paste("oce, with", round(zoffset,4), "m added")))
-mtext(sprintf("RMS mismatch after offset: %.4f m", error), adj=0)
+mtext(sprintf("RMS mismatch after offset: %.6f m", error), adj=0)
 
 plot(pred$time, pred$Predicted..m. - (eta + zoffset),
     type="l", xlab="Time [UTC] in Year 2023", xaxs="i", ylab="Mismatch [m]")

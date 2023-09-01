@@ -18,3 +18,10 @@ character, but the RMS deviation is much larger.  This tells me that the choice
 of tRef matters for detailed work.  Unfortunately, I don't know how to find out
 what tRef NOAA had used, for any given set of harmonics.  If I had to guess,
 perhaps I'm guess that it was the previous full year, or something like that.
+
+## 2142c.R
+
+Following up on 2142a.R and 2142b.R, try adjusting tRef from the 2142a.R value
+by multiples of 1 day.  This shows that subtracting 18 days improves the fit
+somewhat, but definitely not to the point where the low-frequency
+trend is not highly visible.
