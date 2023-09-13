@@ -1,7 +1,6 @@
 # Honolulu
 # https://tidesandcurrents.noaa.gov/stationhome.html?id=1612340
 library(oce)
-source("~/git/oce/R/tides.R")
 h <- read.delim("harmonics.tsv", sep="\t")
 o <- read.csv("predictions.csv")
 o$time <- as.POSIXct(o$Date.Time, tz="UTC")
