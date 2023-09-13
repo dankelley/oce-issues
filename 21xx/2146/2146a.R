@@ -16,6 +16,7 @@ m <- as.tidem(tRef=mean(o$time), latitude=latitude,
 pp <- predict(m, o$time)
 zoffset <- mean(pp - o$Prediction)
 oce.plot.ts(o$time, o$Prediction, ylab="Level [m]", drawTimeRange=FALSE)
+lines(o$time, pp-zoffset, col=2, lty="dashed", lwd=4)
 mtext("NOAA station 1612340, Honolulu HI", cex=par("cex"))
 
 oce.plot.ts(o$time, (o$Prediction+zoffset) - pp,
