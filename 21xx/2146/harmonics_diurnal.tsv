@@ -1,0 +1,12 @@
+Constituent #	Name	Amplitude	Phase	Speed	Description
+15	OO1	0.005	251.7	16.139101	Lunar diurnal
+19	J1	0.01	238.3	15.5854435	Smaller lunar elliptic diurnal constituent
+4	K1	0.149	226.8	15.041069	Lunar diurnal constituent
+17	S1	0.002	210.0	15.0	Solar diurnal constituent
+30	P1	0.045	224.9	14.958931	Solar diurnal constituent
+18	M1	0.005	232.5	14.496694	Smaller lunar elliptic diurnal constituent
+6	O1	0.081	215.9	13.943035	Lunar diurnal constituent
+25	RHO	0.002	195.4	13.471515	Larger lunar evectional diurnal constituent
+26	Q1	0.014	209.6	13.398661	Larger lunar elliptic diurnal constituent
+29	2Q1	0.001	231.0	12.854286	Larger elliptic diurnal
+
