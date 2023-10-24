@@ -8,6 +8,7 @@ cat("file \"", f, "\" has magic \"", oceMagic(f), "\"\n", sep="")
 
 d <- read.adp.nortek(f, debug = debug)
 # check that cellSize is 1m
+cat("cellSize=", d[["cellSize"]], "\n", sep="")
 stopifnot(all.equal(1.0, d[["cellSize"]], tol=1e-3))
 
 # d <- read.oce(f, debug=3)
