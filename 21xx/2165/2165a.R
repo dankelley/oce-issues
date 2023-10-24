@@ -1,11 +1,12 @@
 library(oce)
+debug <- 1
 f <- "~/Downloads/arcticbay_aquadopp/AB1904.PRF"
 if (!file.exists(f)) {
     stop("cannot locate data file \"", f, "\"")
 }
-cat("file \"", f, "\" has magic=\"", oceMagic(f), "\n")
+cat("file \"", f, "\" has magic \"", oceMagic(f), "\"\n", sep="")
 
-d <- read.adp.nortek(f, debug = 3)
+d <- read.adp.nortek(f, debug = debug)
 # check that cellSize is 1m
 stopifnot(all.equal(1.0, d[["cellSize"]], tol=1e-3))
 
