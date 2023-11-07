@@ -36,34 +36,43 @@ abline(v = label, col = "magenta")
 par(mfrow = c(3, 1))
 
 imagep(d[["time"]], d[["distance"]], d[["v"]][, , 1],
-    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity)
+    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity
+)
 abline(v = label, col = "magenta")
 mtext("v[, , 1]", adj = 0.5, cex = par("cex"))
 
 imagep(d[["time"]], d[["distance"]], d[["v"]][, , 2],
-    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity)
+    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity
+)
 
 abline(v = label, col = "magenta")
 mtext("v[, , 2]", adj = 0.5, cex = par("cex"))
 
 imagep(d[["time"]], d[["distance"]], d[["v"]][, , 3],
-    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity)
+    ylab = "Distance [m]", zlim = c(-1, 1), col = oceColorsVelocity
+)
 abline(v = label, col = "magenta")
 mtext("v[, , 3]", adj = 0.5, cex = par("cex"))
 
 par(mfrow = c(3, 1))
-imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 1], col = oceColorsTurbo,
-    ylab="Distance [m]")
+imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 1],
+    col = oceColorsTurbo,
+    ylab = "Distance [m]"
+)
 mtext("a[, , 1]", adj = 0.5, cex = par("cex"))
 abline(v = label, col = "magenta")
 
-imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 2], col = oceColorsTurbo,
-    ylab="Distance [m]")
+imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 2],
+    col = oceColorsTurbo,
+    ylab = "Distance [m]"
+)
 mtext("a[, , 2]", adj = 0.5, cex = par("cex"))
 abline(v = label, col = "magenta")
 
-imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 3], col = oceColorsTurbo,
-    ylab="Distance [m]")
+imagep(d[["time"]], d[["distance"]], d[["a", "numeric"]][, , 3],
+    col = oceColorsTurbo,
+    ylab = "Distance [m]"
+)
 mtext("a[, , 3]", adj = 0.5, cex = par("cex"))
 abline(v = label, col = "magenta")
 

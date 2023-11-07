@@ -1,15 +1,21 @@
 library(oce)
-debug <- 1
+debug <- 0
 f <- "~/Downloads/arcticbay_aquadopp/AB1904.PRF"
 if (!file.exists(f)) {
     stop("cannot locate data file \"", f, "\"")
 }
-cat("file \"", f, "\" has magic \"", oceMagic(f), "\"\n", sep="")
+cat("file \"", f, "\" has magic \"", oceMagic(f), "\"\n", sep = "")
 
 d <- read.adp.nortek(f, debug = debug)
+summary(d)
+paste(d@metadata$beamAngle, sep="", collapse=",")
+
+
 # check that cellSize is 1m
-cat("cellSize=", d[["cellSize"]], "\n", sep="")
-stopifnot(all.equal(1.0, d[["cellSize"]], tol=1e-3))
+cat("cellSize=", d[["cellSize"]], "\n", sep = "")
+stopifnot(all.equal(1.0, d[["cellSize"]], tol = 1e-3))
+cat("blankingDistance=", d[["blankingDistance"]], "\n", sep = "")
+stopifnot(all.equal(0.4105335, d[["blankingDistance"]], tol = 1e-3))
 
 # d <- read.oce(f, debug=3)
 ## tcut <- numberAsPOSIXct(1560805594) # by eye on larger time-span plot
@@ -17,7 +23,7 @@ stopifnot(all.equal(1.0, d[["cellSize"]], tol=1e-3))
 focus <- structure(c(1559231882, 1561138020), tzone = "UTC", class = c("POSIXct", "POSIXt"))
 dd <- subset(d, focus[1] <= time & time <= focus[2])
 dd[["orientation"]] <- "downward"
-png("2165a_%d.png", unit="in", width=7, height=7, res=200, pointsize=16)
+png("2165a_%d.png", unit = "in", width = 7, height = 7, res = 200, pointsize = 16)
 par(mfrow = c(3, 1))
 oce.plot.ts(d[["time"]], d[["pressure"]])
 mtext(sprintf("cellSize=%.4fm", d[["cellSize"]]), adj = 1, col = 2)
