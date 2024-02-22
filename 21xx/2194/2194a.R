@@ -2,7 +2,7 @@ library(oce)
 data(section)
 section <- subset(section, longitude < (-72)) # speeds up tests
 if (!interactive()) {
-    png("2191a_%02d.png")
+    png("2194a_%02d.png")
 }
 plotNumber <- 1
 if (requireNamespace("ncdf4")) {
