@@ -14,45 +14,52 @@ GNP <- function() {
         dev.off()
     }
 }
-library(oce)
+require(oce)
 data("coastlineWorldMedium", package = "ocedata")
-int <- 0.1
-lon <- seq(-130, -90, int)
-lat <- seq(50, 89.95, int)
-m <- matrix(lat, byrow = TRUE, nrow = length(lon), ncol = length(lat))
-
-PNG("2199a_default.png")
-
-par(mar = c(3, 3, 1, 1))
+int <- .1
+lon <- seq(-179.95, 179.95, int)
+lat <- seq(-39.95, 89.95, int)
+m <- matrix(0, nrow = length(lon), ncol = length(lat))
+PNG("2199b_default.png")
 mapPlot(coastlineWorldMedium,
+    type = "polygon",
+    col = "grey95",
+    # projection="+proj=laea +lat0=40 +lat1=60 +lon_0=-110",
     projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
-    longitudelim = c(-140, -80), latitudelim = c(65, 75)
+    # longitudelim = c(minlon, maxlon), latitudelim = c(minlat, maxlat),
+    longitudelim = c(-140, -80), latitudelim = c(45, 70),
+    polarCircle = 0,
+    clip = TRUE, drawBox = TRUE,
+    cex.axis = .7
 )
-g <- function(...) binMean2D(..., fill = TRUE)
+
 mapImage(
     longitude = lon, latitude = lat, z = m,
     filledContour = TRUE,
-    breaks = 256,
-    # col = function(n) paste0(oceColorsJet(n), "aa")
-    col = oceColorsJet
+    breaks = 10,
+    col = colorRampPalette(c("blue", "red"))(10)
 )
-
 GNP()
-PNG("2199a_custom_gridder.png")
 
-par(mar = c(3, 3, 1, 1))
+PNG("2199b_custom_gridder.png")
 mapPlot(coastlineWorldMedium,
+    type = "polygon",
+    col = "grey95",
+    # projection="+proj=laea +lat0=40 +lat1=60 +lon_0=-110",
     projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
-    longitudelim = c(-140, -80), latitudelim = c(65, 75)
+    # longitudelim = c(minlon, maxlon), latitudelim = c(minlat, maxlat),
+    longitudelim = c(-140, -80), latitudelim = c(45, 70),
+    polarCircle = 0,
+    clip = TRUE, drawBox = TRUE,
+    cex.axis = .7
 )
 g <- function(...) binMean2D(..., fill = TRUE)
+
 mapImage(
     longitude = lon, latitude = lat, z = m,
     filledContour = TRUE,
-    breaks = 256,
+    breaks = 10,
     gridder = g,
-    # col = function(n) paste0(oceColorsJet(n), "aa")
-    col = oceColorsJet
+    col = colorRampPalette(c("blue", "red"))(10)
 )
-
 GNP()
