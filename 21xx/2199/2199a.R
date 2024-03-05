@@ -23,7 +23,6 @@ m <- matrix(lat, byrow = TRUE, nrow = length(lon), ncol = length(lat))
 
 PNG("2199a_default.png")
 
-par(mar = c(3, 3, 1, 1))
 mapPlot(coastlineWorldMedium,
     projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
     longitudelim = c(-140, -80), latitudelim = c(65, 75)
@@ -40,7 +39,6 @@ mapImage(
 GNP()
 PNG("2199a_custom_gridder.png")
 
-par(mar = c(3, 3, 1, 1))
 mapPlot(coastlineWorldMedium,
     projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
     longitudelim = c(-140, -80), latitudelim = c(65, 75)
