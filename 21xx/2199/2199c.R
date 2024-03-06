@@ -4,7 +4,7 @@ PNG <- function(name) {
         # https://codedocean.wordpress.com/2014/02/03/anti-aliasing-and-image-plots/
         png(name,
             type = "cairo", antialias = "none", family = "Arial",
-            unit = "in", width = 7, height = 3.5, res = 200, pointsize = 8
+            unit = "in", width = 3.5, height = 3.5, res = 200, pointsize = 8
         )
         par(mar = c(2, 2, 1, 1), mgp = c(2, 0.7, 0))
     }
@@ -26,7 +26,7 @@ PNG("2199c_%d.png")
 for (gridCoarseness in seq(5, 25, 5)) {
     mapPlot(coastlineWorldMedium,
         projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
-        longitudelim = c(-130, -100), latitudelim = c(60, 75)
+        longitudelim = c(-130, -80), latitudelim = c(60, 80)
     )
     g <- function(...) binMean2D(..., fill = TRUE)
     mapImage(
