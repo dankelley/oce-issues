@@ -24,7 +24,7 @@ m <- matrix(lat, byrow = TRUE, nrow = length(lon), ncol = length(lat))
 PNG("2199c.png")
 par(mfrow = c(1, 3), mar = c(2, 2, 1, 1))
 
-for (gridCoarseness in c(0.5, 1, 1.5)) {
+for (filledContour in list(0.5, TRUE, 1.5)) {
     mapPlot(coastlineWorldMedium,
         projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
         longitudelim = c(-130, -90), latitudelim = c(70, 80)
@@ -32,11 +32,10 @@ for (gridCoarseness in c(0.5, 1, 1.5)) {
     g <- function(...) binMean2D(..., fill = TRUE)
     mapImage(
         longitude = lon, latitude = lat, z = m,
-        filledContour = TRUE,
+        filledContour = filledContour,
         breaks = 256,
-        gridCoarseness = gridCoarseness,
-        col = oceColorsJet
+        col = oceColorsTurbo
     )
-    mtext(sprintf("gridCoarseness = %.2f", gridCoarseness), cex = par("cex"))
+    mtext(paste("filledContour =", filledContour), cex = par("cex"))
 }
 GNP()
