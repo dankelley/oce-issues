@@ -4,9 +4,9 @@ PNG <- function(name) {
         # https://codedocean.wordpress.com/2014/02/03/anti-aliasing-and-image-plots/
         png(name,
             type = "cairo", antialias = "none", family = "Arial",
-            unit = "in", width = 3.5, height = 3.5, res = 200, pointsize = 8
+            unit = "in", width = 7, height = 4, res = 200, pointsize = 9
         )
-        par(mar = c(2, 2, 1, 1), mgp = c(2, 0.7, 0))
+        par(mar = c(2, 2, 2, 1), mgp = c(2, 0.7, 0))
     }
 }
 GNP <- function() {
@@ -21,12 +21,13 @@ lon <- seq(-130, -90, int)
 lat <- seq(50, 89.95, int)
 m <- matrix(lat, byrow = TRUE, nrow = length(lon), ncol = length(lat))
 
-PNG("2199c_%d.png")
+PNG("2199c.png")
+par(mfrow = c(1, 3), mar = c(2, 2, 1, 1))
 
-for (gridCoarseness in seq(5, 25, 5)) {
+for (gridCoarseness in c(0.5, 1, 1.5)) {
     mapPlot(coastlineWorldMedium,
         projection = "+proj=lcc +lat_1=30 +lat_2=45 +lon_0=-110",
-        longitudelim = c(-130, -80), latitudelim = c(60, 80)
+        longitudelim = c(-130, -90), latitudelim = c(70, 80)
     )
     g <- function(...) binMean2D(..., fill = TRUE)
     mapImage(
@@ -36,6 +37,6 @@ for (gridCoarseness in seq(5, 25, 5)) {
         gridCoarseness = gridCoarseness,
         col = oceColorsJet
     )
-    mtext(sprintf("gridCoarseness = %f", gridCoarseness))
+    mtext(sprintf("gridCoarseness = %.2f", gridCoarseness), cex = par("cex"))
 }
 GNP()
