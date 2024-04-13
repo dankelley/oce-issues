@@ -2,44 +2,50 @@ library(oce)
 data(sealevel)
 t0 <- sealevel[["time"]][1]
 sl <- subset(sealevel, time < t0 + 86400)
-p <- function(...) {
+p <- function(title = "", ...) {
     plot(sl, which = 1, drawTimeRange = FALSE, ...)
+    mtext(title, adj = 0, col = 4, font = 2)
 }
 
-#if (!interactive()) png("2205b_%d.png")
 
 # test xaxs and yaxs
-p()
-p(xaxs = "i")
-p(yaxs = "i")
-p(xaxs = "i", yaxs = "i")
+par(mfrow = c(2, 2))
+p(title = "(a)")
+p(xaxs = "i", title = "(b)")
+p(yaxs = "i", title = "(c)")
+p(xaxs = "i", yaxs = "i", title = "(d)")
 
 # test xlim and ylim
-p()
-p(xlim = c(t0, t0 + 48 * 3600))
-p(ylim = c(0, 2))
-p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2))
+par(mfrow = c(2, 2))
+p(title = "(a)")
+p(xlim = c(t0, t0 + 48 * 3600), title = "(b)")
+p(ylim = c(0, 2), title = "(c)")
+p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), title = "(d)")
 
 # test xlim and ylim with xaxs="i"
-p(xaxs = "i")
-p(xlim = c(t0, t0 + 48 * 3600), xaxs = "i")
-p(ylim = c(0, 2), xaxs = "i")
-p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), xaxs = "i")
+par(mfrow = c(2, 2))
+p(xaxs = "i", title = "(a)")
+p(xlim = c(t0, t0 + 48 * 3600), xaxs = "i", title = "(b)")
+p(ylim = c(0, 2), xaxs = "i", title = "(c)")
+p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), xaxs = "i", title = "(d)")
 
 # test xlim and ylim with xaxs="r"
-p(xaxs = "r")
-p(xlim = c(t0, t0 + 48 * 3600), xaxs = "r")
-p(ylim = c(0, 2), xaxs = "r")
-p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), xaxs = "r")
+par(mfrow = c(2, 2))
+p(xaxs = "r", title = "(a)")
+p(xlim = c(t0, t0 + 48 * 3600), xaxs = "r", title = "(b)")
+p(ylim = c(0, 2), xaxs = "r", title = "(c)")
+p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), xaxs = "r", title = "(d)")
 
 # test xlim and ylim with yaxs="i"
-p(yaxs = "i")
-p(xlim = c(t0, t0 + 48 * 3600), yaxs = "i")
-p(ylim = c(0, 2), yaxs = "i")
-p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), yaxs = "i")
+par(mfrow = c(2, 2))
+p(yaxs = "i", title = "(a)")
+p(xlim = c(t0, t0 + 48 * 3600), yaxs = "i", title = "(b)")
+p(ylim = c(0, 2), yaxs = "i", title = "(c)")
+p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), yaxs = "i", title = "(d)")
 
 # test xlim and ylim with yaxs="r"
-p(yaxs = "r")
-p(xlim = c(t0, t0 + 48 * 3600), yaxs = "r")
-p(ylim = c(0, 2), yaxs = "r")
-p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), yaxs = "r")
+par(mfrow = c(2, 2))
+p(yaxs = "r", title = "(a)")
+p(xlim = c(t0, t0 + 48 * 3600), yaxs = "r", title = "(b)")
+p(ylim = c(0, 2), yaxs = "r", title = "(c)")
+p(xlim = c(t0, t0 + 48 * 3600), ylim = c(0, 2), yaxs = "r", title = "d()")

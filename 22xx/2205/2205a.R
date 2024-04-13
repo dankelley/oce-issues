@@ -4,8 +4,6 @@ t <- seq(t0, by = "1 hour", length.out = 24)
 y <- sin(pi * seq_along(t) / 24)
 p <- function(...) oce.plot.ts(t, y, drawTimeRange = FALSE, ...)
 
-if (!interactive()) png("2205a_%d.png")
-
 # test xaxs and yaxs
 p()
 p(xaxs = "i")
