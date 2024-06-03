@@ -3,7 +3,7 @@ f <- "~/Downloads/oce2216.000"
 buf <- readBin(f, "raw", n = 1e4)
 i <- 1
 if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
-    cat("Got 0x7f 0x79 (for waves type) see wavemon manual section 4.5 table 16\n")
+    cat("Header (0x7f 0x79) at i=", i, " (for waves type) see wavemon manual sec 4.5 table 16\n")
     i <- i + 2
     checksumOffset <- readBin(buf[i + 0:1], "integer", n = 1, size = 2)
     cat(" ", vectorShow(checksumOffset))
@@ -20,7 +20,7 @@ if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
     i <- offset + 1
     if (buf[i] == 0x03 && buf[i + 1] == 0x01) {
         i <- i + 2
-        cat("  First Leader Type at index ", i, "\n")
+        cat("First Leader (0x03 0x01) at index ", i, "\n")
         firmwareVersion <- readBin(buf[i + 0:1], "integer", size = 2)
         cat(" ", vectorShow(firmwareVersion, postscript = "(how to decode?)"))
         i <- i + 2
@@ -30,18 +30,79 @@ if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
         nbins <- as.integer(buf[i])
         cat(" ", vectorShow(nbins))
         i <- i + 1
-        samplesPerBurst <- readBin(buf[i + 0:1], "integer", size = 2)
-        cat(" ", vectorShow(samplesPerBurst))
+        waveRecPings <- readBin(buf[i + 0:1], "integer", size = 2)
+        cat(" ", vectorShow(waveRecPings))
         i <- i + 2
         binLength <- 0.01 * readBin(buf[i + 0:1], "integer", size = 2)
-        cat(" ", vectorShow(binLength, postscript="cm"))
+        cat(" ", vectorShow(binLength, postscript = "cm"))
         i <- i + 2
         TBP <- 0.01 * readBin(buf[i + 0:1], "integer", size = 2)
-        cat(" ", vectorShow(TBP, postscript="s"))
+        cat(" ", vectorShow(TBP, postscript = "s"))
         i <- i + 2
         TBB <- 0.01 * readBin(buf[i + 0:1], "integer", size = 2)
-        cat(" ", vectorShow(TBB, postscript="s"))
+        cat(" ", vectorShow(TBB, postscript = "s"))
         i <- i + 2
+        distMidBin1 <- 0.01 * readBin(buf[i + 0:1], "integer", size = 2)
+        cat(" ", vectorShow(distMidBin1, postscript = "cm"))
+        i <- i + 2
+        binsOut <- as.integer(buf[i])
+        i <- i + 1
+        cat(" ", vectorShow(binsOut))
+        i <- i + 2 # SelectedData (reserved)
+        i <- i + 16 # DWSBins
+        i <- i + 16 # VelBins
+        century <- as.integer(buf[i])
+        cat(" ", vectorShow(century))
+        i <- i + 1
+        year <- 2000 + as.integer(buf[i]) # guess on the 2000
+        cat(" ", vectorShow(year))
+        i <- i + 1
+        month <- as.integer(buf[i])
+        cat(" ", vectorShow(month))
+        i <- i + 1
+        day <- as.integer(buf[i])
+        cat(" ", vectorShow(day))
+        i <- i + 1
+        hour <- as.integer(buf[i])
+        cat(" ", vectorShow(hour))
+        i <- i + 1
+        minute <- as.integer(buf[i])
+        cat(" ", vectorShow(minute))
+        i <- i + 1
+        second <- as.integer(buf[i])
+        cat(" ", vectorShow(second))
+        i <- i + 1
+        second100 <- as.integer(buf[i])
+        cat(" ", vectorShow(second100))
+        time <- ISOdatetime(year, month, day, hour, minute, second + second100, tz = "UTC")
+        cat(" ", vectorShow(time))
+        i <- i + 1
+        burstNumber <- readBin(buf[i + 0:3], "integer", size = 4)
+        cat(" ", vectorShow(burstNumber))
+        i <- i + 4
+        serialNumber <- buf[i + 0:7]
+        cat(" ", vectorShow(serialNumber, postscript = paste("at i=", i)))
+        i <- i + 8
+        temperature <- readBin(buf[i + 0:1], "integer", size = 2)
+        cat(" ", vectorShow(temperature, postscript = "unit? factor?"))
+        i <- i + 2
+        i <- i + 2 # reserved
+        cat("  at i=", i, ", next 2 bytes: 0x", buf[i], " 0x", buf[i + 1],
+            " (is this a checksum?)\n",
+            sep = ""
+        )
+        i <- i + 2
+        cat("  at i=", i, ", next 2 bytes: 0x", buf[i], " 0x", buf[i + 1],
+            " (what is this?)\n",
+            sep = ""
+        )
+        i <- i + 2
+        cat("  at i=", i, ", next 2 bytes: 0x", buf[i], " 0x", buf[i + 1],
+            " (huh? expect 0x03 0x02)\n",
+            sep = ""
+        )
+        # print(data.frame(ioff=seq(-15,15), buf=buf[i+seq(-15,15)]))
+        cat("The docs don't say how long the checksum is.\nMaybe it is 4 bytes. But then the next\nitem is 7F 79, which disagrees with the docs.\n")
     } else {
         cat("  ERROR: want 0x01 0x03 (first leader) but got 0x",
             buf[i], " 0x", buf[i + 1], "\n",
