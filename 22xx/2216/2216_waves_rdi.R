@@ -1,23 +1,34 @@
 library(oce)
 f <- "~/Downloads/oce2216.000"
 buf <- readBin(f, "raw", n = 1e4)
+readHeader <- function(buf, i) {
+    cat("readHeader(buf, i=", i, ") -- wavemon manual sec 4.5 table 16\n", sep = "")
+    rval <- list()
+    i <- i + 2
+    rval$checksumOffset <- readBin(buf[i + 0:1], "integer", n = 1, size = 2)
+    # cat(" ", vectorShow(checksumOffset))
+    i <- i + 2
+    rval$spare <- buf[i]
+    # cat(" ", vectorShow(spare))
+    i <- i + 1
+    rval$numberOfDataTypes <- readBin(buf[i], "integer", n = 1, size = 1)
+    # cat(" ", vectorShow(numberOfDataTypes))
+    i <- i + 1
+    rval$offset <- readBin(buf[i + 0:1], "integer", n = 1, size = 2)
+    # cat(" ", vectorShow(offset))
+    # buf[offset + 2]
+    rval$iNext <- i + 2
+    rval
+}
+
+
 i <- 1
+
 if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
-    cat("Header (0x7f 0x79) at i=", i, " (for waves type) see wavemon manual sec 4.5 table 16\n")
-    i <- i + 2
-    checksumOffset <- readBin(buf[i + 0:1], "integer", n = 1, size = 2)
-    cat(" ", vectorShow(checksumOffset))
-    i <- i + 2
-    spare <- buf[i]
-    cat(" ", vectorShow(spare))
-    i <- i + 1
-    numberOfDataTypes <- readBin(buf[i], "integer", n = 1, size = 1)
-    cat(" ", vectorShow(numberOfDataTypes))
-    i <- i + 1
-    offset <- readBin(buf[i + 0:1], "integer", n = 1, size = 2)
-    cat(" ", vectorShow(offset))
-    buf[offset + 2]
-    i <- offset + 1
+    header <- readHeader(buf, i)
+    cat(str(header))
+    message("line 30")
+    i <- header$iNext
     if (buf[i] == 0x03 && buf[i + 1] == 0x01) {
         i <- i + 2
         cat("First Leader (0x03 0x01) at index ", i, "\n")
@@ -97,6 +108,11 @@ if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
             sep = ""
         )
         i <- i + 2
+        if (buf[i] == 0x7f && buf[i + 1] == 0x79) {
+            header2 <- readHeader(buf, i)
+            cat(str(header2))
+        }
+        message("DAN")
         cat("  at i=", i, ", next 2 bytes: 0x", buf[i], " 0x", buf[i + 1],
             " (huh? expect 0x03 0x02)\n",
             sep = ""
