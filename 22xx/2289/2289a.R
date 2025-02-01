@@ -22,7 +22,7 @@ longitudeDDMMX
 longitudeHemisphere <- substr(l, 17, 17)
 longitudeHemisphere
 if (!longitudeHemisphere %in% c("E", "W")) {
-    stop("longitudeHemisphere=", longitudeHemisphere, " must be 'S' or 'N'")
+    stop("longitudeHemisphere=", longitudeHemisphere, " must be 'E' or 'W'")
 }
 longitudePrecision <- substr(l, 18, 18)
 longitudePrecision
