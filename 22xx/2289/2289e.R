@@ -119,7 +119,7 @@ read.xbt.ubt <- function(filename) {
 file <- "44687"
 xbts <- read.xbt.ubt(file)
 if (!interactive()) {
-    png("2289d_%02d.png")
+    png("2289e_%02d.png")
 }
 for (xbt in xbts) {
     plot(xbt)
