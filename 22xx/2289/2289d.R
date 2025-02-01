@@ -96,7 +96,7 @@ for (i in seq_len(count)) {
 }
 print(data.frame(depth = depth, temperature = temperature))
 if (!interactive()) {
-    png("2289b.png")
+    png("2289d.png")
 }
 plot(temperature, depth, ylim = rev(range(depth)), type = "o", pch = 20)
 mtext(sprintf("%.5fN %.5fE at %s", latitude, longitude, format(time)))
