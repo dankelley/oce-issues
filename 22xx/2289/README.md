@@ -10,3 +10,5 @@ Also, please see https://github.com/dankelley/oce/issues/2289 for discussion.
   date right. THIS NEEDS TO BE CHECKED!
 * `2289d.R` makes an assumption that a blank for lon and lat 'X' fields means
   zero for decimal minutes. THIS NEEDS TO BE CHECKED!
+* `2289e.R` start working towards oce code (makes multiple PNG files, sent to
+  original requester privately for comment).
