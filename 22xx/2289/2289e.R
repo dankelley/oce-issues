@@ -128,6 +128,10 @@ for (xbt in xbts) {
         xbt[["time"]]
     ), line = -1)
 }
+lon <- sapply(xbts, \(x) x[["longitude"]])
+lat <- sapply(xbts, \(x) x[["latitude"]])
+par(mar = c(3, 3, 1, 1))
+plot(-lon, lat, asp = 1 / cos(mean(range(lat)) * pi / 180))
 if (!interactive()) {
     dev.off()
 }
