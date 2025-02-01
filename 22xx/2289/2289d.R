@@ -1,0 +1,105 @@
+# https://www.ncei.noaa.gov/archive/archive-management-system/OAS/bin/prd/jquery/accession/download/7301162
+f <- "44687"
+# next is a helper for checking what we are reading
+S <- function(x) cat(deparse(substitute(expr = x, env = environment())), ": '", x, "'\n", sep = "")
+lines <- readLines(f)
+# testing with just first line in file
+l <- lines[1]
+S(l)
+WMOquadrant <- substr(l, 3, 3)
+S(WMOquadrant)
+if (!WMOquadrant %in% c(1, 3, 5, 7)) {
+    stop("area=", WMOquadrant, " is not in permitted list 1, 3, 5 or 7")
+}
+latitudeDDMMX <- substr(l, 4, 8)
+S(latitudeDDMMX)
+latDeg <- as.integer(substr(latitudeDDMMX, 1, 2))
+latMin <- as.integer(substr(latitudeDDMMX, 3, 4))
+latX <- substr(latitudeDDMMX, 5, 5)
+S(latX)
+latX <- if (identical(latX, " ")) 0 else as.integer(latX)
+S(latX)
+S(as.integer(latX))
+latitude <- latDeg + (latMin + latX / 10) / 60
+S(latitude)
+
+latitudeHemisphere <- substr(l, 9, 9)
+S(latitudeHemisphere)
+if (!latitudeHemisphere %in% c("S", "N")) {
+    stop("latitudeHemisphere=", latitudeHemisphere, " must be 'S' or 'N'")
+}
+if (latitudeHemisphere == "S")
+    latitude <- -latitude
+latitudePrecision <- substr(l, 10, 10)
+S(latitudePrecision)
+
+longitudeDDDMMX <- substr(l, 11, 16)
+S(longitudeDDDMMX)
+lonDeg <- as.integer(substr(longitudeDDDMMX, 1, 3))
+S(lonDeg)
+lonMin <- as.integer(substr(longitudeDDDMMX, 4, 5))
+S(lonMin)
+lonX <- substr(longitudeDDDMMX, 6, 6)
+S(lonX)
+lonX <- if (identical(lonX, " ")) 0 else as.integer(lonX)
+S(lonX)
+longitude <- lonDeg + (lonMin + lonX / 10) / 60
+S(longitude)
+
+
+longitudeHemisphere <- substr(l, 17, 17)
+S(longitudeHemisphere)
+if (!longitudeHemisphere %in% c("E", "W")) {
+    stop("longitudeHemisphere=", longitudeHemisphere, " must be 'E' or 'W'")
+}
+longitudePrecision <- substr(l, 18, 18)
+S(longitudePrecision)
+YYYYMMDD <- substr(l, 19, 26)
+S(YYYYMMDD)
+HHMM <- substr(l, 27, 30)
+S(HHMM)
+time <- ISOdatetime(as.integer(substr(YYYYMMDD, 1, 4)),
+    as.integer(substr(YYYYMMDD, 5, 6)),
+    as.integer(substr(YYYYMMDD, 7, 8)),
+    as.integer(substr(HHMM, 1, 2)),
+    as.integer(substr(HHMM, 3, 4)),
+    sec = 0,
+    tz = "UTC"
+)
+
+if (!FALSE) { # why bother even updating these checks, since clearly the docs are wrong
+    blank1 <- substr(l, 32, 32)
+    S(blank1)
+    country <- substr(l, 33, 34)
+    S(country)
+    blank2 <- substr(l, 35, 35)
+    S(blank2)
+    S(l)
+}
+# Skip a lot of things, since the above seem (maybe) OK and I want to get to
+# the "good stuff"
+bottomDepth <- substr(l, 82, 85)
+S(bottomDepth) # why blank? maybe I don't worry, though
+# OK, let's skip to see if we can find T=T(z) data, AKA the "good stuff".
+count <- as.integer(substr(l, 96, 99))
+S(count)
+if (count <= 0) {
+    stop("count=", count, " is not possible")
+}
+depth <- rep(NA, count)
+temperature <- rep(NA, count)
+offset <- 101 # character offset
+for (i in seq_len(count)) {
+    depth[i] <- as.numeric(substr(l, offset, offset + 3)) # metres
+    temperature[i] <- 0.01 * as.numeric(substr(l, offset + 4, offset + 7)) # factor yields degC
+    offset <- offset + 8
+}
+print(data.frame(depth = depth, temperature = temperature))
+if (!interactive()) {
+    png("2289b.png")
+}
+plot(temperature, depth, ylim = rev(range(depth)), type = "o", pch = 20)
+mtext(sprintf("%.5fN %.5fE at %s", latitude, longitude, format(time)))
+if (!interactive()) {
+    dev.off()
+}
