@@ -1,11 +1,12 @@
 library(oce)
+f <- "~/Downloads/S104098A002_2297d.ad2cp"
+dataType <- "average"
 if (!file.exists("ad2cp.rds")) {
-    f <- "~/Downloads/S104098A002_2297d.ad2cp"
     if (file.exists(f)) {
         from <- 3300000
         to <- from + 100
         # timing [s]: user=1.7, system=3.1, elapsed=4.8
-        ad2cp <- read.adp.ad2cp(f, dataType = "average", from = from, to = to)
+        ad2cp <- read.adp.ad2cp(f, dataType = dataType, from = from, to = to)
         saveRDS(ad2cp, file = "ad2cp.rds")
         message("created 'ad2cp.rds' file")
     } else {
@@ -33,3 +34,4 @@ if (!interactive()) png("2315a_enu.png", width = 7, height = 7, unit = "in", res
 plot(enu, zlim = zlim)
 if (!interactive()) dev.off()
 
+cat(sprintf("File '%s' (dataType \"%s\") has declination %g\n", f, dataType, beam[["declination"]]))
