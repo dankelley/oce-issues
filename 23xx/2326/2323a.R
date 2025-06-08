@@ -1,6 +1,7 @@
 library(oce)
 file <- "~/Dropbox/oce_secret_data/ad2cp/S101088A009_Nain_2022_0001_sub.ad2cp"
 if (file.exists(file)) {
+    if (!interactive()) png("2323a_%02d.png", unit = "in", width = 7, height = 7, res = 300)
     TOC <- read.adp.ad2cp(file, TOC = TRUE) # indicates 34 'averageAltimeter' entries
     print(TOC)
     d <- read.adp.ad2cp(file, dataType = "averageAltimeter")
@@ -13,13 +14,29 @@ if (file.exists(file)) {
     x <- d[["altimeterRawSamples"]]
     dim <- dim(x)
     xv <- as.vector(x)
+    # file 1
+    par(mfrow = c(2, 2))
+    # imagep(x, mar = c(2, 2, 1, 1))
     X <- matrix(xv, byrow = FALSE, nrow = dim[1])
-    # X <- matrix(xv, byrow=FALSE, nrow=dim[2])
-    # X <- matrix(xv, byrow=!FALSE, nrow=dim[1])
-    # X <- matrix(xv, byrow=!FALSE, nrow=dim[2])
-    par(mfrow = c(2, 1))
-    imagep(x, mar = c(2, 2, 1, 1))
-    title("Original")
     imagep(X, mar = c(2, 2, 1, 1))
-    title("Modified")
+    mtext("byrow=FALSE,nrow=dim[1], i.e. default", cex = par("cex"))
+    X <- matrix(xv, byrow = FALSE, nrow = dim[2])
+    imagep(X, mar = c(2, 2, 1, 1))
+    mtext("byrow=FALSE,nrow=dim[2]", cex = par("cex"))
+    X <- matrix(xv, byrow = TRUE, nrow = dim[1])
+    imagep(X, mar = c(2, 2, 1, 1))
+    mtext("byrow=TRUE,nrow=dim[1]", cex = par("cex"))
+    X <- matrix(xv, byrow = TRUE, nrow = dim[2])
+    imagep(X, mar = c(2, 2, 1, 1))
+    mtext("byrow=TRUE,nrow=dim[2]", cex = par("cex"))
+    par(mfrow = c(5, 1))
+    # file 2
+    with(d@data, {
+        oce.plot.ts(time, temperature)
+        oce.plot.ts(time, pressure)
+        oce.plot.ts(time, heading)
+        oce.plot.ts(time, pitch)
+        oce.plot.ts(time, roll)
+    })
+    if (!interactive()) dev.off()
 }
