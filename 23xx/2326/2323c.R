@@ -13,13 +13,13 @@ is <- c(
 
 i0v <- 105 # pointer to where the altimeterRaw data start
 cat(file, "\n")
-cat("index: bytes, with | to left of expected 2- or 4-byte sequence holding number of altimeterRaw samples)\n")
+cat("The following gives a pointer then bytes before/after the pointer (with '*' at the pointer)\n")
 for (i in is) {
-    cat(sprintf("%9d: ", i), sep = "")
+    cat(sprintf("%9d: ", i + i0v), sep = "")
     for (offset in seq(-14, 14)) {
         I <- i + i0v + offset
         if (offset == 0) {
-            cat(" | ", buf[I], sep = "")
+            cat(" * ", buf[I], sep = "")
         } else {
             cat(" ", buf[I], sep = "")
         }
