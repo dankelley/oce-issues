@@ -1,7 +1,7 @@
 library(oce)
 file <- "~/Dropbox/oce_secret_data/ad2cp/S101088A009_Nain_2022_0001_sub.ad2cp"
 if (file.exists(file)) {
-    if (!interactive()) png("2323a_%02d.png", unit = "in", width = 7, height = 7, res = 300)
+    if (!interactive()) png("2326a_%02d.png", unit = "in", width = 7, height = 7, res = 300)
     TOC <- read.adp.ad2cp(file, TOC = TRUE)
     text <- read.adp.ad2cp(file, dataType = "text")
     print(text)
