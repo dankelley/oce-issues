@@ -6,13 +6,7 @@ if (file.exists(file)) {
     text <- read.adp.ad2cp(file, dataType = "text")
     print(text)
     d <- read.adp.ad2cp(file, dataType = "averageAltimeter", debug = 3)
-    # print(str(d))
-    # imagep(d[["altimeterRawSamples"]])
-    
-
-    # DK messing around to try to find a combination that will yield
-    # an image that seems to make sense.  I tried changing 'byrow' and 'nrow'
-    # below but I don't think any combination looked like clean data.
+    summary(d)
     x <- d[["altimeterRawSamples"]]
     # Create 2323a_01.png
     imagep(x, mar = c(2, 2, 1, 1))
@@ -36,6 +30,6 @@ if (file.exists(file)) {
     plot(x[21, ], pch = ".")
     mtext("time 11", cex = par("cex"))
     if (!interactive()) dev.off()
-    message("range(altimeterRawSamples): ", paste(range(x), collapse = ","))
-    print(dim(x))
+    #message("range(altimeterRawSamples): ", paste(range(x), collapse = ","))
+    #print(dim(x))
 }
