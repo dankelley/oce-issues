@@ -8,6 +8,8 @@ if (length(endOfHeader) != 1) stop("cannot find *END* line")
 nameLines <- lines[grep("name [0-9]* =", lines)]
 names <- gsub(".*= ([a-zA-Z]*) .*$", "\\1", nameLines)
 data <- read.table(file, skip = endOfHeader, col.names = names)
+range(data$pressure)
+range(data[,1])
 data[data == -9.999] <- NA # noticed in file
 data[data == -9.99e-29] <- NA # notice in file (huh? TWO missing values????)
 str(data, 1)
