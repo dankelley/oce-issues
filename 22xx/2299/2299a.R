@@ -1,8 +1,8 @@
 library(oce)
 set.seed(20250702) # for reproducibility
-if (file.exists("~/git/oce/R/spectral.R")) {
-    source("~/git/oce/R/spectral.R")
-}
+# if (file.exists("~/git/oce/R/spectral.R")) {
+#    source("~/git/oce/R/spectral.R")
+# }
 if (!interactive()) {
     png("2299a.png", units = "in", width = 7, height = 3.5, res = 300)
 }
@@ -17,7 +17,7 @@ w <- pwelch(X, plot = FALSE, debug = 1)
 # Issue says next breaks ... and, yes, it does. A traceback()
 # on Wed  2 Jul 2025 08:59:39 ADT) indicates the problem is in
 # spectral.R#223.
-test <- function(...) spec.pgram(..., plot = FALSE)
+test <- function(x, ...) spec.pgram(x, ..., plot = FALSE)
 w2 <- pwelch(X, nfft = 75, plot = FALSE, spec = test, debug = 1)
 
 ylim <- range(c(s$spec, w$spec, w2$spec)) * c(-0.01, 1.04)
