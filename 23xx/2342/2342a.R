@@ -1,0 +1,5 @@
+library(oce)
+ctd <- readRDS("ctd.rds")
+if (!interactive()) png("2342a.png")
+plot(ctd)
+if (!interactive()) dev.off()
