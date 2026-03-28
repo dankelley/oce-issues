@@ -1,7 +1,12 @@
-# References
-# 1. Nortek AS. “Signature Integration 55|250|500|1000kHz (2017).” Nortek AS, February 10, 2017.
-#    https://www.nortekgroup.com/assets/software/N3015-007-Integrators-Guide-AD2CP_1018.pdf.
+---
+title: "Examining a bottom-track record, step by step"
+author: "Dan Kelley"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
 
+
+```{r}
 # export a single bottom-track record so I can examine it carefully.
 library(oce)
 debug <- 1
@@ -18,7 +23,7 @@ nav <- oce:::do_ldc_ad2cp_in_file(file, from = 1L, to = 1e9, by = 1L, debug = de
 sum(nav$id == 0x17) # [1] 3540
 w <- which(nav$id == 0x17)
 focus <- 2000
-nav$index[w[focus]]
+nav$index[w[focus]] # 5907083
 extractStart <- nav$index[w[focus]] - 9
 headerSize <- as.integer(buf[extractStart + 1])
 stopifnot(10 == headerSize)
@@ -50,11 +55,11 @@ data <- extract[seq(headerSize + offsetOfData, length(extract))] # FIXMEare we s
 dataAvailableBottomTrack <- function(twoBytes) {
     configuration <- ifelse(rawToBits(twoBytes) == 0x01, TRUE, FALSE)
     valid <- list()
-    valid$pressure <- configuration[1] # Ref 1 calls this bit 0, etc for rest
+    valid$pressure <- configuration[1] # NOTE: Nortek code calls this bit 0, etc for rest
     valid$temperature <- configuration[2]
     valid$compass <- configuration[3]
     valid$tilt <- configuration[4]
-    # bit 5 (called bit 4 in Ref 1) is empty
+    # bit 5 (called bit 4 in Nortek code) is empty
     valid$velocity <- configuration[6]
     valid$amplitude <- configuration[7]
     valid$correlation <- configuration[8]
@@ -86,21 +91,21 @@ oceDebug(debug, vectorShow(hour))
 minute <- readBin(extract[headerSize + 13], "integer", size = 1L, endian = "little")
 oceDebug(debug, vectorShow(minute))
 
-sec <- readBin(extract[headerSize + 14], "integer", size = 1L, endian = "little")
-oceDebug(debug, vectorShow(sec))
+second <- readBin(extract[headerSize + 14], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(second))
 
-# msec100 stores a time interval in 100s of microseconds, i.e. 1e-4 seconds
 msec100 <- readBin(extract[headerSize + 15], "integer", size = 1L, endian = "little")
 oceDebug(debug, vectorShow(msec100))
-
-time <- ISOdatetime(year, month, day, hour, minute, sec + 1.0e-4 * msec100, tz = "UTC")
-oceDebug(debug, vectorShow(time)) # Ask CR if this is reasonable (seems ok to me)
 
 soundSpeed <- 0.1 * readBin(extract[headerSize + 17:18], "integer", size = 2L, endian = "little")
 oceDebug(debug, vectorShow(soundSpeed))
 
-temperature <- 0.01 * readBin(extract[headerSize + 19:20], "integer", size = 2L, endian = "little", signed = TRUE)
+temperature <- 0.01 * readBin(extract[headerSize + 19:20], "integer",
+    size = 2L, endian = "little",
+    signed = TRUE
+)
 oceDebug(debug, vectorShow(temperature))
+message("temperature seems wrong")
 
 pressure <- 0.001 * readBin(extract[headerSize + 21:24], "integer", size = 4L, endian = "little")
 oceDebug(debug, vectorShow(pressure))
@@ -123,9 +128,8 @@ oceDebug(debug, vectorShow(cellSize))
 # Note out of order, as we need velocityScaling to determine ambiguityVelocity
 velocityScaling <- readBin(extract[headerSize + 61], "integer", size = 1L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(velocityScaling))
-velocityFactor <- 10^velocityScaling
+velocityFactor <- 10^velocityScaling # Not what Nortek tells us over email
 oceDebug(debug, vectorShow(velocityFactor))
-message("IMPORTANT: velocityFactor is from Ref 1, *NOT* what Nortek said on email in March 2026.")
 
 ambiguityVelocity <- velocityFactor * readBin(extract[headerSize + 53:56], "integer", size = 4L, endian = "little")
 oceDebug(debug, vectorShow(extract[headerSize + 53:56]))
@@ -135,31 +139,23 @@ ensembleCounter <- readBin(extract[headerSize + 75:78], "integer", size = 4L, en
 oceDebug(debug, vectorShow(extract[headerSize + 75:78]))
 oceDebug(debug, vectorShow(ensembleCounter))
 
-# REMINDER offsetOfData = 78. This jives with the below, BUT NOTE that I got the below
-# by counting bytes in Ref 1.
-message("The v2 value is strange")
 v1 <- velocityFactor * readBin(extract[headerSize + 79:82], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 79:82]))
 oceDebug(debug, vectorShow(v1))
 
-message("The v2 value is strange")
 v2 <- velocityFactor * readBin(extract[headerSize + 83:86], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 83:86]))
 oceDebug(debug, vectorShow(v2))
 
-message("The v3 value is strange")
 v3 <- velocityFactor * readBin(extract[headerSize + 87:90], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 87:90]))
 oceDebug(debug, vectorShow(v3))
 
-message("The v4 value is strange")
 v4 <- velocityFactor * readBin(extract[headerSize + 91:94], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 91:94]))
 oceDebug(debug, vectorShow(v4))
 
-# For the sample file, R makes this signed (it lacks an unsigned 4-byte integer
-# type), so I convert it manually. Not that the result makes any sense to me.
-message("The distance value seems wrong")
+message("Nortek says distance is 4-byte unsigned, but R does not have that type.")
 tmp <- 0.001 * readBin(extract[headerSize + 95:98], "integer", size = 4L, endian = "little")
 if (tmp < 0.0) {
     warning("converting a negative integer. This almost certainly reveals a problem")
@@ -169,7 +165,6 @@ distance <- 0.001 * tmp
 oceDebug(debug, vectorShow(extract[headerSize + 95:98]))
 oceDebug(debug, vectorShow(distance))
 
-message("The figureOfMerit value seems wrong")
 figureOfMerit <- readBin(extract[headerSize + 99:100], "integer", size = 2L, endian = "little", signed = FALSE)
 oceDebug(debug, vectorShow(extract[headerSize + 99:100]))
 oceDebug(debug, vectorShow(figureOfMerit))
@@ -182,3 +177,4 @@ cat("As a reminder, record is:\n")
 record
 cat("As a reminder, data is:\n")
 data
+```
