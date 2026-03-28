@@ -6,7 +6,7 @@
 library(oce)
 debug <- 1
 
-sf <- "snippet.ad2cp" # snippet holding just a bottom-track record
+sf <- "snippet.ad2cp" # snippet holding just a bottom-track record (stored for other tests)
 
 file <- "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp" # Clark's file
 cat("file=", file, "\n", sep = "")
@@ -44,7 +44,7 @@ offsetOfData <- as.integer(extract[headerSize + 2])
 stopifnot(78 == offsetOfData)
 message("FIXME: do we offset from the A5 or from after the header?")
 oceDebug(debug, vectorShow(offsetOfData))
-data <- extract[seq(headerSize + offsetOfData, length(extract))] # FIXMEare we starting 1 byte early or late?
+data <- extract[seq(headerSize + offsetOfData + 1, length(extract))] # FIXMEare we starting 1 byte early or late?
 
 # Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
 dataAvailableBottomTrack <- function(twoBytes) {
