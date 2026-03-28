@@ -36,6 +36,8 @@ header <- extract[1:10]
 offsetOfData <- as.integer(extract[headerSize + 2])
 stopifnot(78 == offsetOfData)
 oceDebug(debug, vectorShow(offsetOfData))
+extract[offsetOfData:length(extract)]
+extract
 
 # Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
 dataAvailableBottomTrack <- function(twoBytes) {
@@ -59,31 +61,107 @@ dataAvailable <- dataAvailableBottomTrack(extract[headerSize + 3:4])
 oceDebug(debug, vectorShow(dataAvailable))
 stopifnot(dataAvailable$velocity & dataAvailable$distance & dataAvailable$figureOfMerit)
 
+year <- 1900 +  readBin(extract[headerSize + 9], "integer", size = 1L, endian = "little",
+signed=TRUE)
+oceDebug(debug, vectorShow(year))
+
+month <- 1 + readBin(extract[headerSize + 10], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(month))
+
+day <- readBin(extract[headerSize + 11], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(day))
+
+hour <- readBin(extract[headerSize + 12], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(hour))
+
+minute <- readBin(extract[headerSize + 13], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(minute))
+
+second <- readBin(extract[headerSize + 14], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(second))
+
+msec100 <- readBin(extract[headerSize + 15], "integer", size = 1L, endian = "little")
+oceDebug(debug, vectorShow(msec100))
+
+soundSpeed <- 0.1 * readBin(extract[headerSize + 17:18], "integer", size = 2L, endian = "little")
+oceDebug(debug, vectorShow(soundSpeed))
+
+temperature <- 0.01 * readBin(extract[headerSize + 19:20], "integer", size = 2L, endian = "little",
+signed=TRUE)
+oceDebug(debug, vectorShow(temperature))
+message("temperature seems wrong")
+
 pressure <- 0.001 * readBin(extract[headerSize + 21:24], "integer", size = 4L, endian = "little")
 oceDebug(debug, vectorShow(pressure))
 
+heading <- 0.01 * readBin(extract[headerSize + 25:26], "integer", size = 2L, endian = "little")
+oceDebug(debug, vectorShow(heading))
 
-cat("extract:\n")
-extract
+pitch <- 0.01 * readBin(extract[headerSize + 27:28], "integer", size = 2L, endian = "little")
+oceDebug(debug, vectorShow(pitch))
 
-cat("header:\n")
-header
+roll <- 0.01 * readBin(extract[headerSize + 29:30], "integer", size = 2L, endian = "little")
+oceDebug(debug, vectorShow(roll))
 
-record <- extract[headerSize + 1:length(extract)]
-cat("record:\n")
-record
+# skip 2 bytes (read in main code though)
 
-data <- extract[offsetOfData:length(extract)] # FIXME is start right, or +1 or -1?
-cat("data:\n")
-data
-data[1:4]
+cellSize <- 0.001 * readBin(extract[headerSize + 23:34], "integer", size = 2L, endian = "little")
+oceDebug(debug, vectorShow(cellSize))
 
-fac <- 1e-3 # mm/s
-data[1:4]
-fac * readBin(data[1:4], "integer", size = 4, n = 1, endian = "little")
-data[4 + 1:4]
-fac * readBin(data[4 + 1:4], "integer", size = 4, n = 1, endian = "little")
-data[8 + 1:4]
-fac * readBin(data[8 + 1:4], "integer", size = 4, n = 1, endian = "little")
-data[12 + 1:4]
-fac * readBin(data[12 + 1:4], "integer", size = 4, n = 1, endian = "little")
+# Note out of order, as we need velocityScaling to determine ambiguityVelocity
+velocityScaling <- readBin(extract[headerSize + 61], "integer", size = 1L, endian = "little", signed=TRUE)
+oceDebug(debug, vectorShow(velocityScaling))
+velocityFactor <- 10^velocityScaling # Not what Nortek tells us over email
+oceDebug(debug, vectorShow(velocityFactor))
+
+ambiguityVelocity <- velocityFactor*readBin(extract[headerSize + 53:56], "integer", size = 4L, endian = "little", signed=FALSE)
+oceDebug(debug, vectorShow(ambiguityVelocity))
+
+
+ensembleCounter <- readBin(extract[headerSize + 75:78], "integer", size = 4L, endian = "little")
+oceDebug(debug, vectorShow(ensembleCounter))
+
+v1 <- velocityFactor * readBin(extract[headerSize + 79:82], "integer", size = 4L, endian = "little", signed=TRUE)
+oceDebug(debug, vectorShow(extract[headerSize+79:82]))
+oceDebug(debug, vectorShow(v1))
+
+v2 <- velocityFactor * readBin(extract[headerSize + 83:86], "integer", size = 4L, endian = "little")
+oceDebug(debug, vectorShow(extract[headerSize+83:86]))
+oceDebug(debug, vectorShow(v2))
+
+v3 <- velocityFactor * readBin(extract[headerSize + 87:90], "integer", size = 4L, endian = "little")
+oceDebug(debug, vectorShow(extract[headerSize+87:90]))
+oceDebug(debug, vectorShow(v3))
+
+v4 <- velocityFactor * readBin(extract[headerSize + 91:94], "integer", size = 4L, endian = "little")
+oceDebug(debug, vectorShow(extract[headerSize+91:94]))
+oceDebug(debug, vectorShow(v4))
+
+#extract[headerSize+79:94]
+#extract
+#data
+#
+#cat("extract:\n")
+#extract
+#
+#cat("header:\n")
+#header
+#
+#record <- extract[headerSize + 1:length(extract)]
+#cat("record:\n")
+#record
+#
+#data <- extract[offsetOfData:length(extract)] # FIXME is start right, or +1 or -1?
+#cat("data:\n")
+#data
+#data[1:4]
+#
+#fac <- 1e-3 # mm/s
+#data[1:4]
+#fac * readBin(data[1:4], "integer", size = 4, n = 1, endian = "little")
+#data[4 + 1:4]
+#fac * readBin(data[4 + 1:4], "integer", size = 4, n = 1, endian = "little")
+#data[8 + 1:4]
+#fac * readBin(data[8 + 1:4], "integer", size = 4, n = 1, endian = "little")
+#data[12 + 1:4]
+#fac * readBin(data[12 + 1:4], "integer", size = 4, n = 1, endian = "little")
