@@ -1,67 +1,189 @@
+# References
+# 1. Nortek AS. “Signature Integration 55|250|500|1000kHz (2017).” Nortek AS, February 10, 2017.
+#    https://www.nortekgroup.com/assets/software/N3015-007-Integrators-Guide-AD2CP_1018.pdf.
+
 # export a single bottom-track record so I can examine it carefully.
 library(oce)
-source("adp.nortek.ad2cp.bottom.track.R")
 debug <- 1
+times <- NULL
+pressures <- NULL
+v1s <- NULL
+for (focus in 1500:2500) {
+    sf <- "snippet.ad2cp" # snippet holding just a bottom-track record (stored for other tests)
+    file <- "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp" # Clark's file
+    cat("file=", file, "\n", sep = "")
+    buf <- readBin(file, "raw", endian = "little", n = file.size(file))
+    # nav is a list with vectors start, index, headerLength, dataLength, id, along
+    # with scalars checksumFailures and earlyEOF.
+    nav <- oce:::do_ldc_ad2cp_in_file(file, from = 1L, to = 1e9, by = 1L, debug = debug)
+    sum(nav$id == 0x17) # [1] 3540
+    w <- which(nav$id == 0x17)
+    nav$index[w[focus]]
+    extractStart <- nav$index[w[focus]] - 9
+    headerSize <- as.integer(buf[extractStart + 1])
+    stopifnot(10 == headerSize)
+    id <- buf[extractStart + 2]
+    stopifnot(0x17 == id)
+    stopifnot(0x10 == buf[extractStart + 3]) # always 0x10 for AD2CP
+    dataSize <- readBin(buf[extractStart + 4:5], "integer", size = 2, n = 1, endian = "little")
+    stopifnot(118 == dataSize)
+    extractEnd <- extractStart + dataSize + (headerSize - 1)
+    stopifnot(0xa5 == buf[extractEnd + 1])
+    extract <- buf[extractStart:extractEnd]
+    header <- extract[seq(1, headerSize)]
+    record <- extract[seq(headerSize + 1, length(extract))]
 
-sf <- "snippet.ad2cp" # snippet holding just a bottom-track record
-buf <- readBin(sf, "raw", endian = "little", n = file.size(sf))
-offset <- 0
-stopifnot(buf[1 + offset] == 0xa5)
-headerLength <- buf[2 + offset]
-stopifnot(10 == headerLength)
-id <- buf[3 + offset]
-stopifnot(0x17 == id)
+    writeBin(extract, sf, endian = "little")
 
-configuration <- ifelse(strsplit(byteToBinary(buf[3:4 + offset]), "")[[1]] == "0", 0, 1)
-oceDebug(debug, "Configuration: ", paste(configuration, collapse=" "), "\n")
+    # Phase 2 decode it, byte by byte.  (I know, I wrote this already,
+    # in a different form, but the idea here is to start from scratch
+    # and see why the inferred velocities are wrong.)
 
-# {{{ configuration
-pressureIncluded <- configuration[1] # NOTE: Nortek code calls this bit 0, etc for rest
-temperatureIncluded <- configuration[2]
-compassIncluded <- configuration[3]
-tiltIncluded <- configuration[4]
-# bit 5 (called bit 4 in Nortek code) is empty
-velocityIncluded <- configuration[6]
-amplitudeIncluded <- configuration[7]
-correlationIncluded <- configuration[8]
-distanceIncluded <- configuration[9]
-figureOfMeritIncluded <- configuration[10]
-AHRSIncluded <- configuration[11]
-auxIncluded <- configuration[12]
-# Last 4 bits of this 16-bit cluster are ignored
-oceDebug(debug, "Analysis of 'configuration' bits, proceeding left-to-right:\n")
-oceDebug(debug, "  ", vectorShow(pressureIncluded, postscript = "based on configuration[1]"))
-oceDebug(debug, "  ", vectorShow(temperatureIncluded, postscript = "based on configuration[2]"))
-oceDebug(debug, "  ", vectorShow(compassIncluded, postscript = "based on configuration[3]"))
-oceDebug(debug, "  ", vectorShow(tiltIncluded, postscript = "based on configuration[4]"))
-oceDebug(debug, "  ", vectorShow(velocityIncluded, postscript = "based on configuration[6]"))
-oceDebug(debug, "  ", vectorShow(amplitudeIncluded, postscript = "based on configuration[7]"))
-oceDebug(debug, "  ", vectorShow(correlationIncluded, postscript = "based on configuration[8]"))
-oceDebug(debug, "  ", vectorShow(distanceIncluded, postscript = "based on configuration[9]"))
-oceDebug(debug, "  ", vectorShow(figureOfMeritIncluded, postscript = "based on configuration[10]"))
-oceDebug(debug, "  ", vectorShow(AHRSIncluded, postscript = "based on configuration[11]"))
-oceDebug(debug, "  ", vectorShow(auxIncluded, postscript = "based on configuration[12]"))
+    #<OLD> offsetOfData <- as.integer(buf[extractStart + headerSize + 1]) # 78
+    offsetOfData <- as.integer(extract[headerSize + 2])
+    stopifnot(78 == offsetOfData)
+    message("FIXME: do we offset from the A5 or from after the header?")
+    oceDebug(debug, vectorShow(offsetOfData))
+    data <- extract[seq(headerSize + offsetOfData + 1, length(extract))] # FIXMEare we starting 1 byte early or late?
 
-# }}}
-offsetOfData <- as.integer(buf[12 + offset]) # 78
+    # Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
+    dataAvailableBottomTrack <- function(twoBytes) {
+        configuration <- ifelse(rawToBits(twoBytes) == 0x01, TRUE, FALSE)
+        valid <- list()
+        valid$pressure <- configuration[1] # Ref 1 calls this bit 0, etc for rest
+        valid$temperature <- configuration[2]
+        valid$compass <- configuration[3]
+        valid$tilt <- configuration[4]
+        # bit 5 (called bit 4 in Ref 1) is empty
+        valid$velocity <- configuration[6]
+        valid$amplitude <- configuration[7]
+        valid$correlation <- configuration[8]
+        valid$distance <- configuration[9]
+        valid$figureOfMerit <- configuration[10]
+        valid$AHRS <- configuration[11]
+        valid$aux <- configuration[12]
+        valid
+    }
+    dataAvailable <- dataAvailableBottomTrack(extract[headerSize + 3:4])
+    oceDebug(debug, vectorShow(dataAvailable))
+    stopifnot(dataAvailable$velocity & dataAvailable$distance & dataAvailable$figureOfMerit)
 
-dbuf <- buf[78:length(buf)] # 51 bytes
-readBin(dbuf[1:4], "integer", size = 4, n = 1, endian = "little")
-readBin(dbuf[4 + 1:4], "integer", size = 4, n = 1, endian = "little")
-readBin(dbuf[8 + 1:4], "integer", size = 4, n = 1, endian = "little")
-readBin(dbuf[12 + 1:4], "integer", size = 4, n = 1, endian = "little")
+    year <- 1900 + readBin(extract[headerSize + 9], "integer",
+        size = 1L, endian = "little",
+        signed = TRUE
+    )
+    oceDebug(debug, vectorShow(year))
 
+    month <- 1 + readBin(extract[headerSize + 10], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(month))
 
-d <- list(buf = buf, index = 1, headerLength = headerLength, dataLength = NA, id = id)
+    day <- readBin(extract[headerSize + 11], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(day))
 
-# commonData$configuration <- local({
-#    tmp <- rawToBits(d$buf[pointer2 + 3L]) == 0x01
-#    dim(tmp) <- c(16, N)
-#    t(tmp)
-# })
+    hour <- readBin(extract[headerSize + 12], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(hour))
 
+    minute <- readBin(extract[headerSize + 13], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(minute))
 
+    sec <- readBin(extract[headerSize + 14], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(sec))
 
-readBottomTrackNEW(d, 1)
+    # msec100 stores a time interval in 100s of microseconds, i.e. 1e-4 seconds
+    msec100 <- readBin(extract[headerSize + 15], "integer", size = 1L, endian = "little")
+    oceDebug(debug, vectorShow(msec100))
 
-# d <- list(buf = buf, index = nav$index, headerLength = nav$headerLength, dataLength = nav$dataLength, id = nav$id)
+    time <- ISOdatetime(year, month, day, hour, minute, sec + 1.0e-4 * msec100, tz = "UTC")
+    oceDebug(debug, vectorShow(time)) # Ask CR if this is reasonable (seems ok to me)
+
+    soundSpeed <- 0.1 * readBin(extract[headerSize + 17:18], "integer", size = 2L, endian = "little")
+    oceDebug(debug, vectorShow(soundSpeed))
+
+    temperature <- 0.01 * readBin(extract[headerSize + 19:20], "integer", size = 2L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(temperature))
+
+    pressure <- 0.001 * readBin(extract[headerSize + 21:24], "integer", size = 4L, endian = "little")
+    oceDebug(debug, vectorShow(pressure))
+
+    heading <- 0.01 * readBin(extract[headerSize + 25:26], "integer", size = 2L, endian = "little")
+    oceDebug(debug, vectorShow(heading))
+
+    pitch <- 0.01 * readBin(extract[headerSize + 27:28], "integer", size = 2L, endian = "little")
+    oceDebug(debug, vectorShow(pitch))
+
+    roll <- 0.01 * readBin(extract[headerSize + 29:30], "integer", size = 2L, endian = "little")
+    oceDebug(debug, vectorShow(roll))
+
+    # skip 2 bytes (read in main code though)
+
+    cellSize <- 0.001 * readBin(extract[headerSize + 35:36], "integer", size = 2L, endian = "little")
+    oceDebug(debug, vectorShow(extract[headerSize + 35:36]))
+    oceDebug(debug, vectorShow(cellSize))
+
+    # Note out of order, as we need velocityScaling to determine ambiguityVelocity
+    velocityScaling <- readBin(extract[headerSize + 61], "integer", size = 1L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(velocityScaling))
+    velocityFactor <- 10^velocityScaling
+    oceDebug(debug, vectorShow(velocityFactor))
+    message("IMPORTANT: velocityFactor is from Ref 1, *NOT* what Nortek said on email in March 2026.")
+
+    ambiguityVelocity <- velocityFactor * readBin(extract[headerSize + 53:56], "integer", size = 4L, endian = "little")
+    oceDebug(debug, vectorShow(extract[headerSize + 53:56]))
+    oceDebug(debug, vectorShow(ambiguityVelocity))
+
+    ensembleCounter <- readBin(extract[headerSize + 75:78], "integer", size = 4L, endian = "little")
+    oceDebug(debug, vectorShow(extract[headerSize + 75:78]))
+    oceDebug(debug, vectorShow(ensembleCounter))
+
+    # REMINDER offsetOfData = 78. This jives with the below, BUT NOTE that I got the below
+    # by counting bytes in Ref 1.
+    message("The v2 value is strange")
+    v1 <- velocityFactor * readBin(extract[headerSize + 79:82], "integer", size = 4L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(extract[headerSize + 79:82]))
+    oceDebug(debug, vectorShow(v1))
+
+    message("The v2 value is strange")
+    v2 <- velocityFactor * readBin(extract[headerSize + 83:86], "integer", size = 4L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(extract[headerSize + 83:86]))
+    oceDebug(debug, vectorShow(v2))
+
+    message("The v3 value is strange")
+    v3 <- velocityFactor * readBin(extract[headerSize + 87:90], "integer", size = 4L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(extract[headerSize + 87:90]))
+    oceDebug(debug, vectorShow(v3))
+
+    message("The v4 value is strange")
+    v4 <- velocityFactor * readBin(extract[headerSize + 91:94], "integer", size = 4L, endian = "little", signed = TRUE)
+    oceDebug(debug, vectorShow(extract[headerSize + 91:94]))
+    oceDebug(debug, vectorShow(v4))
+
+    # For the sample file, R makes this signed (it lacks an unsigned 4-byte integer
+    # type), so I convert it manually. Not that the result makes any sense to me.
+    message("The distance value seems wrong")
+    tmp <- 0.001 * readBin(extract[headerSize + 95:98], "integer", size = 4L, endian = "little")
+    if (tmp < 0.0) {
+        warning("converting a negative integer. This almost certainly reveals a problem")
+        tmp <- 2^32 + abs(tmp)
+    }
+    distance <- 0.001 * tmp
+    oceDebug(debug, vectorShow(extract[headerSize + 95:98]))
+    oceDebug(debug, vectorShow(distance))
+
+    message("The figureOfMerit value seems wrong")
+    figureOfMerit <- readBin(extract[headerSize + 99:100], "integer", size = 2L, endian = "little", signed = FALSE)
+    oceDebug(debug, vectorShow(extract[headerSize + 99:100]))
+    oceDebug(debug, vectorShow(figureOfMerit))
+
+    cat("As a reminder, extract is:\n")
+    extract
+    cat("As a reminder, header is:\n")
+    header
+    cat("As a reminder, record is:\n")
+    record
+    cat("As a reminder, data is:\n")
+    data
+    times <- c(times, time)
+    pressures <- c(pressures, pressure)
+    v1s <- c(v1s, v1)
+}
+write.csv(data.frame(time=times, pressure=pressures, v1=v1s), file="ad2cp_snippet_2.csv")

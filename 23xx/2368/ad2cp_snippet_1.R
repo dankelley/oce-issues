@@ -4,6 +4,7 @@
 
 # export a single bottom-track record so I can examine it carefully.
 library(oce)
+focus <- 2000 # within the deployed subsection
 debug <- 1
 
 sf <- "snippet.ad2cp" # snippet holding just a bottom-track record (stored for other tests)
@@ -17,7 +18,6 @@ buf <- readBin(file, "raw", endian = "little", n = file.size(file))
 nav <- oce:::do_ldc_ad2cp_in_file(file, from = 1L, to = 1e9, by = 1L, debug = debug)
 sum(nav$id == 0x17) # [1] 3540
 w <- which(nav$id == 0x17)
-focus <- 2000
 nav$index[w[focus]]
 extractStart <- nav$index[w[focus]] - 9
 headerSize <- as.integer(buf[extractStart + 1])
@@ -42,9 +42,8 @@ writeBin(extract, sf, endian = "little")
 #<OLD> offsetOfData <- as.integer(buf[extractStart + headerSize + 1]) # 78
 offsetOfData <- as.integer(extract[headerSize + 2])
 stopifnot(78 == offsetOfData)
-message("FIXME: do we offset from the A5 or from after the header?")
 oceDebug(debug, vectorShow(offsetOfData))
-data <- extract[seq(headerSize + offsetOfData + 1, length(extract))] # FIXMEare we starting 1 byte early or late?
+#data <- extract[seq(headerSize + offsetOfData + 1, length(extract))] # FIXMEare we starting 1 byte early or late?
 
 # Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
 dataAvailableBottomTrack <- function(twoBytes) {
@@ -137,10 +136,12 @@ oceDebug(debug, vectorShow(ensembleCounter))
 
 # REMINDER offsetOfData = 78. This jives with the below, BUT NOTE that I got the below
 # by counting bytes in Ref 1.
-message("The v2 value is strange")
+message("The v1 value is strange")
 v1 <- velocityFactor * readBin(extract[headerSize + 79:82], "integer", size = 4L, endian = "little", signed = TRUE)
+v1f <- velocityFactor * readBin(extract[headerSize + 79:82], "numeric", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 79:82]))
 oceDebug(debug, vectorShow(v1))
+oceDebug(debug, vectorShow(v1f))
 
 message("The v2 value is strange")
 v2 <- velocityFactor * readBin(extract[headerSize + 83:86], "integer", size = 4L, endian = "little", signed = TRUE)

@@ -1,0 +1,5 @@
+library(oce)
+d <- read.csv("ad2cp_snippet_2.csv")
+par(mfrow = c(2, 1))
+oce.plot.ts(d$time, d$pressure, type="p", cex=0.2)
+oce.plot.ts(d$time, d$v1, type="p", cex=0.2)
