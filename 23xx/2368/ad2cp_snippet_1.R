@@ -45,25 +45,25 @@ stopifnot(78 == offsetOfData)
 oceDebug(debug, vectorShow(offsetOfData))
 #data <- extract[seq(headerSize + offsetOfData + 1, length(extract))] # FIXMEare we starting 1 byte early or late?
 
-# Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
-dataAvailableBottomTrack <- function(twoBytes) {
-    configuration <- ifelse(rawToBits(twoBytes) == 0x01, TRUE, FALSE)
-    valid <- list()
-    valid$pressure <- configuration[1] # Ref 1 calls this bit 0, etc for rest
-    valid$temperature <- configuration[2]
-    valid$compass <- configuration[3]
-    valid$tilt <- configuration[4]
-    # bit 5 (called bit 4 in Ref 1) is empty
-    valid$velocity <- configuration[6]
-    valid$amplitude <- configuration[7]
-    valid$correlation <- configuration[8]
-    valid$distance <- configuration[9]
-    valid$figureOfMerit <- configuration[10]
-    valid$AHRS <- configuration[11]
-    valid$aux <- configuration[12]
-    valid
-}
-dataAvailable <- dataAvailableBottomTrack(extract[headerSize + 3:4])
+#.. # Analyse 2-byte Configuration block for Bottom-Track data (I think it differs for othes)
+#.. dataAvailableBottomTrack <- function(twoBytes) {
+#..     configuration <- ifelse(rawToBits(twoBytes) == 0x01, TRUE, FALSE)
+#..     valid <- list()
+#..     valid$pressure <- configuration[1] # Ref 1 calls this bit 0, etc for rest
+#..     valid$temperature <- configuration[2]
+#..     valid$compass <- configuration[3]
+#..     valid$tilt <- configuration[4]
+#..     # bit 5 (called bit 4 in Ref 1) is empty
+#..     valid$velocity <- configuration[6]
+#..     valid$amplitude <- configuration[7]
+#..     valid$correlation <- configuration[8]
+#..     valid$distance <- configuration[9]
+#..     valid$figureOfMerit <- configuration[10]
+#..     valid$AHRS <- configuration[11]
+#..     valid$aux <- configuration[12]
+#..     valid
+#.. }
+dataAvailable <- oce:::dataAvailableBottomTrack(extract[headerSize + 3:4])
 oceDebug(debug, vectorShow(dataAvailable))
 stopifnot(dataAvailable$velocity & dataAvailable$distance & dataAvailable$figureOfMerit)
 
