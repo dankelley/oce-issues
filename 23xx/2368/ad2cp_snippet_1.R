@@ -139,24 +139,18 @@ oceDebug(debug, vectorShow(ensembleCounter))
 
 # REMINDER offsetOfData = 78. This jives with the below, BUT NOTE that I got the below
 # by counting bytes in Ref 1.
-message("The v1 value is strange")
 v1 <- velocityFactor * readBin(extract[headerSize + 79:82], "integer", size = 4L, endian = "little", signed = TRUE)
-v1f <- velocityFactor * readBin(extract[headerSize + 79:82], "numeric", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 79:82]))
 oceDebug(debug, vectorShow(v1))
-oceDebug(debug, vectorShow(v1f))
 
-message("The v2 value is strange")
 v2 <- velocityFactor * readBin(extract[headerSize + 83:86], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 83:86]))
 oceDebug(debug, vectorShow(v2))
 
-message("The v3 value is strange")
 v3 <- velocityFactor * readBin(extract[headerSize + 87:90], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 87:90]))
 oceDebug(debug, vectorShow(v3))
 
-message("The v4 value is strange")
 v4 <- velocityFactor * readBin(extract[headerSize + 91:94], "integer", size = 4L, endian = "little", signed = TRUE)
 oceDebug(debug, vectorShow(extract[headerSize + 91:94]))
 oceDebug(debug, vectorShow(v4))
@@ -164,7 +158,15 @@ oceDebug(debug, vectorShow(v4))
 # For the sample file, R makes this signed (it lacks an unsigned 4-byte integer
 # type), so I convert it manually. Not that the result makes any sense to me.
 message("The distance value seems wrong")
-tmp <- 0.001 * readBin(extract[headerSize + 95:98], "integer", size = 4L, endian = "little")
+distance1 <- 0.001 * readBin(extract[headerSize + 95:98], "integer", size = 4L, endian = "little")
+distance2 <- 0.001 * readBin(extract[headerSize + 99:102], "integer", size = 4L, endian = "little")
+distance3 <- 0.001 * readBin(extract[headerSize + 103:106], "integer", size = 4L, endian = "little")
+distance4 <- 0.001 * readBin(extract[headerSize + 107:113], "integer", size = 4L, endian = "little")
+distance1
+distance2
+distance3
+distance4
+
 if (tmp < 0.0) {
     warning("converting a negative integer. This almost certainly reveals a problem")
     tmp <- 2^32 + abs(tmp)
