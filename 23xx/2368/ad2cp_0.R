@@ -2,9 +2,11 @@ library(oce)
 # source("~/git/oce/R/adp.nortek.ad2cp.bottom.track.R")
 files <- c(
     "~/Downloads/104561_20250219T093916UTC.AD2CP", # issue's file
-    "~/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp" # Clark's file
+    "~/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp", # Clark's file
+    "/Users/kelley/Downloads/S102791A003_Barrow_2022_0005_sub.ad2cp"
 )
-for (file in files[2]) {
+
+for (file in files[3]) {
     cat("file=", file, "\n", sep = "")
     d <- try(read.adp.ad2cp(file, dataType = "bottomTrack", debug = 2))
     if (inherits(d, "try-error")) {

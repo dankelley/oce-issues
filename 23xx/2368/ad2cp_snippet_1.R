@@ -9,7 +9,10 @@ debug <- 1
 
 sf <- "snippet.ad2cp" # snippet holding just a bottom-track record (stored for other tests)
 
-file <- "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp" # Clark's file
+# Two files from Clark. The first yields wonky v and distance matrices
+file <- "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp"
+file <- "/Users/kelley/Downloads/S102791A003_Barrow_2022_0005_sub.ad2cp"
+
 cat("file=", file, "\n", sep = "")
 buf <- readBin(file, "raw", endian = "little", n = file.size(file))
 
