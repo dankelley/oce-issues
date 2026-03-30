@@ -1,9 +1,9 @@
 library(oce)
 # source("~/git/oce/R/adp.nortek.ad2cp.bottom.track.R")
 files <- c(
-    "~/Downloads/104561_20250219T093916UTC.AD2CP", # issue's file
-    "~/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp", # Clark's file
-    "/Users/kelley/Downloads/S102791A003_Barrow_2022_0005_sub.ad2cp"
+    "/Users/kelley/Downloads/104561_20250219T093916UTC.AD2CP", # issue's file
+    "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp", # Clark's first file
+    "/Users/kelley/Downloads/S102791A003_Barrow_2022_0005_sub.ad2cp" # Clark's second file
 )
 
 for (file in files[3]) {
