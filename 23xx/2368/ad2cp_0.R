@@ -8,12 +8,14 @@ files <- c(
 )
 createPlots <- TRUE
 
-for (file in files[3]) {
+for (file in files) {
     cat("file=", file, "\n", sep = "")
     d <- try(read.adp.ad2cp(file, dataType = "bottomTrack", debug = debug))
     if (inherits(d, "try-error")) {
-        message("FAILURE TO READ")
+        message("FAILURE TO READ file ", file)
     } else {
+        message("SUCCESSFULLY READ file ", file)
+        summary(d)
         res <- 150
         pointsize <- 14 # make big because with lots of panels, it defaults to too small
         if (createPlots) {
