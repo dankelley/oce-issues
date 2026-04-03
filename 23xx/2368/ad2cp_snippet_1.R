@@ -167,13 +167,11 @@ distance2
 distance3
 distance4
 
-if (tmp < 0.0) {
-    warning("converting a negative integer. This almost certainly reveals a problem")
-    tmp <- 2^32 + abs(tmp)
-}
-distance <- 0.001 * tmp
 oceDebug(debug, vectorShow(extract[headerSize + 95:98]))
-oceDebug(debug, vectorShow(distance))
+oceDebug(debug, vectorShow(distance1))
+oceDebug(debug, vectorShow(distance2))
+oceDebug(debug, vectorShow(distance3))
+oceDebug(debug, vectorShow(distance4))
 
 message("The figureOfMerit value seems wrong")
 figureOfMerit <- readBin(extract[headerSize + 99:100], "integer", size = 2L, endian = "little", signed = FALSE)
@@ -186,5 +184,3 @@ cat("As a reminder, header is:\n")
 header
 cat("As a reminder, record is:\n")
 record
-cat("As a reminder, data is:\n")
-data

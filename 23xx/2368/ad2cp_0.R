@@ -2,7 +2,7 @@
 library(oce)
 debug <- 0
 files <- c(
-    #"/Users/kelley/Downloads/104561_20250219T093916UTC.AD2CP", # see ad2cp_1.R instead
+    "/Users/kelley/Downloads/104561_20250219T093916UTC.AD2CP", # ad2cp_1.R zooms plots
     "/Users/kelley/Downloads/S102791A003_Barrow_2022_0001_sub.ad2cp", # Clark's first file
     "/Users/kelley/Downloads/S102791A003_Barrow_2022_0005_sub.ad2cp" # Clark's second file
 )
